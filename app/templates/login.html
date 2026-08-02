@@ -6,23 +6,25 @@
 
     <div class="auth-card">
 
-        <h1>Welcome Back 🐍</h1>
+        <h1>Welcome Back 👋</h1>
 
-        <p>Dimpu missed you.</p>
+        <p>Dimpu missed judging your study habits.</p>
 
-        <form>
+        <form method="POST">
 
-            <input type="email" placeholder="College Email">
+            {{ form.hidden_tag() }}
 
-            <input type="password" placeholder="Password">
+            {{ form.email(class="form-input") }}
 
-            <button type="submit">Login</button>
+            {{ form.password(class="form-input") }}
+
+            {{ form.submit(class="btn") }}
 
         </form>
 
         <p class="auth-link">
             Don't have an account?
-            <a href="/register">Register</a>
+            <a href="/register">Create one</a>
         </p>
 
     </div>

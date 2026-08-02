@@ -4,6 +4,8 @@ from app.database import db
 from app.models.user import User
 from app.routes.auth import auth
 from app.extensions import bcrypt
+from app.login_manager import login_manager
+from flask_login import login_required, current_user
 
 app = Flask(
     __name__,
@@ -16,6 +18,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///studysync.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+login_manager.init_app(app)
 app.register_blueprint(auth)
 
 @app.route("/")
@@ -26,9 +29,12 @@ def home():
     )
 
 @app.route("/dashboard")
+@login_required
 def dashboard():
-    return render_template("dashboard.html")
-
+    return render_template(
+        "dashboard.html",
+        user=current_user
+    )
 
 @app.route("/planner")
 def planner():

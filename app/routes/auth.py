@@ -3,14 +3,40 @@ from app.forms.user_forms import RegisterForm
 from app.models.user import User
 from app.database import db
 from app.extensions import bcrypt
+from app.forms.login_form import LoginForm
+from flask_login import login_user
+from flask_login import logout_user
 
 auth = Blueprint("auth", __name__)
 
-
-@auth.route("/login")
+@auth.route("/login", methods=["GET", "POST"])
 def login():
-    return render_template("login.html")
 
+    form = LoginForm()
+
+    if form.validate_on_submit():
+
+        user = User.query.filter_by(
+            email=form.email.data
+        ).first()
+
+        if user and bcrypt.check_password_hash(
+            user.password,
+            form.password.data
+        ):
+
+            login_user(user)
+
+            flash("Welcome back!", "success")
+
+            return redirect(url_for("dashboard"))
+
+        flash("Invalid email or password.", "danger")
+
+    return render_template(
+        "login.html",
+        form=form
+    )
 
 @auth.route("/register", methods=["GET", "POST"])
 def register():
@@ -40,3 +66,12 @@ def register():
         "register.html",
         form=form
     )
+
+@auth.route("/logout")
+def logout():
+
+    logout_user()
+
+    flash("Logged out successfully.", "success")
+
+    return redirect(url_for("auth.login"))
