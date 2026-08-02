@@ -10,15 +10,17 @@
 
         <p>Join Dimpu's study squad.</p>
 
-        <form>
+        <form method="POST">
 
-            <input type="text" placeholder="Full Name">
+            {{ form.hidden_tag() }}
 
-            <input type="email" placeholder="College Email">
+            {{ form.name(class="form-input") }}
 
-            <input type="password" placeholder="Password">
+            {{ form.email(class="form-input") }}
 
-            <button type="submit">Register</button>
+            {{ form.password(class="form-input") }}
+
+            {{ form.submit(class="btn") }}
 
         </form>
 

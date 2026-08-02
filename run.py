@@ -2,16 +2,21 @@ from flask import Flask, render_template
 from app.utils.quotes import get_quote
 from app.database import db
 from app.models.user import User
+from app.routes.auth import auth
+from app.extensions import bcrypt
 
 app = Flask(
     __name__,
     template_folder="app/templates",
     static_folder="app/static"
 )
+bcrypt.init_app(app)
+app.config["SECRET_KEY"] = "change-this-later"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///studysync.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
+app.register_blueprint(auth)
 
 @app.route("/")
 def home():
@@ -54,17 +59,8 @@ def recommendation():
 def profile():
     return render_template("profile.html")
 
-@app.route("/login")
-def login():
-    return render_template("login.html")
-
-@app.route("/register")
-def register():
-    return render_template("register.html")
-
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 
     app.run(debug=True)
-    
