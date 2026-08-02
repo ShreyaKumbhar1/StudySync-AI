@@ -9,14 +9,34 @@
     <title>StudySync AI</title>
 
     <link rel="stylesheet"
-        href="{{ url_for('static', filename='css/style.css') }}">
+          href="{{ url_for('static', filename='css/style.css') }}">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+          rel="stylesheet">
 
 </head>
 
 <body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            🐍 StudySync AI
+        </div>
+
+        <ul class="nav-links">
+
+            <li><a href="/">Home</a></li>
+
+            <li><a href="/dashboard">Dashboard</a></li>
+
+            <li><a href="/planner">Planner</a></li>
+
+            <li><a href="/profile">Profile</a></li>
+
+        </ul>
+
+    </nav>
 
     {% block content %}
     {% endblock %}
