@@ -510,3 +510,51 @@ button:hover{
     width:100%;
 
 }
+/* ---------- PLANNER ---------- */
+
+.planner-container{
+    display:grid;
+    grid-template-columns:350px 1fr;
+    gap:40px;
+    margin-top:40px;
+}
+
+.planner-form,
+.planner-tasks{
+    background:white;
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 15px 35px rgba(0,0,0,.08);
+}
+
+.form-input{
+    width:100%;
+    padding:15px;
+    margin-bottom:18px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    font-size:16px;
+}
+
+.task-card{
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:18px;
+    background:#F8F7FF;
+    border-left:6px solid #6C63FF;
+}
+
+.task-card h3{
+    color:#6C63FF;
+    margin-bottom:10px;
+}
+
+@media(max-width:900px){
+
+    .planner-container{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

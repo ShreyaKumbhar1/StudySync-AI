@@ -6,6 +6,11 @@ from app.routes.auth import auth
 from app.extensions import bcrypt
 from app.login_manager import login_manager
 from flask_login import login_required, current_user
+from app.models.task import Task
+from app.forms.task_form import TaskForm
+from app.models.task import Task
+from flask import redirect, url_for
+from flask_login import login_required, current_user
 
 app = Flask(
     __name__,
@@ -36,9 +41,36 @@ def dashboard():
         user=current_user
     )
 
-@app.route("/planner")
+@app.route("/planner", methods=["GET", "POST"])
+@login_required
 def planner():
-    return render_template("planner.html")
+
+    form = TaskForm()
+
+    if form.validate_on_submit():
+
+        task = Task(
+            title=form.title.data,
+            subject=form.subject.data,
+            due_date=form.due_date.data,
+            priority=form.priority.data,
+            user_id=current_user.id
+        )
+
+        db.session.add(task)
+        db.session.commit()
+
+        return redirect(url_for("planner"))
+
+    tasks = Task.query.filter_by(
+        user_id=current_user.id
+    ).all()
+
+    return render_template(
+        "planner.html",
+        form=form,
+        tasks=tasks
+    )
 
 
 @app.route("/assignments")
