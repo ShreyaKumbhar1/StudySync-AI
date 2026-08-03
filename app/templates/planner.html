@@ -9,7 +9,7 @@
 
     <div class="planner-container">
 
-        <!-- Add Task Form -->
+        <!-- ================= Add Task Form ================= -->
 
         <div class="planner-form">
 
@@ -19,12 +19,24 @@
 
                 {{ form.hidden_tag() }}
 
+                <label class="form-label">
+                    Task Title
+                </label>
                 {{ form.title(class="form-input") }}
 
+                <label class="form-label">
+                    Subject
+                </label>
                 {{ form.subject(class="form-input") }}
 
+                <label class="form-label">
+                    Due Date
+                </label>
                 {{ form.due_date(class="form-input") }}
 
+                <label class="form-label">
+                    Task Priority
+                </label>
                 {{ form.priority(class="form-input") }}
 
                 {{ form.submit(class="btn") }}
@@ -33,7 +45,7 @@
 
         </div>
 
-        <!-- Task List -->
+        <!-- ================= Task List ================= -->
 
         <div class="planner-tasks">
 
@@ -47,11 +59,38 @@
 
                         <h3>{{ task.title }}</h3>
 
-                        <p><strong>Subject:</strong> {{ task.subject }}</p>
+                        <p>
+                            <strong>📚 Subject:</strong>
+                            {{ task.subject }}
+                        </p>
 
-                        <p><strong>Due:</strong> {{ task.due_date }}</p>
+                        <p>
+                            <strong>📅 Due Date:</strong>
+                            {{ task.due_date }}
+                        </p>
 
-                        <p><strong>Priority:</strong> {{ task.priority }}</p>
+                        <p>
+                            <strong>🚩 Priority:</strong>
+                            {{ task.priority }}
+                        </p>
+
+                        <div class="task-buttons">
+
+                            <a
+                                href="{{ url_for('edit_task', task_id=task.id) }}"
+                                class="edit-btn"
+                            >
+                                ✏ Edit
+                            </a>
+
+                            <a
+                                href="{{ url_for('delete_task', task_id=task.id) }}"
+                                class="delete-btn"
+                            >
+                                🗑 Delete
+                            </a>
+
+                        </div>
 
                     </div>
 
@@ -59,7 +98,16 @@
 
             {% else %}
 
-                <p>No tasks yet. Add your first task! 🚀</p>
+                <div class="empty-state">
+
+                    <h3>No tasks yet 🎉</h3>
+
+                    <p>
+                        Add your first task and let Dimpu keep
+                        your studies under control.
+                    </p>
+
+                </div>
 
             {% endif %}
 
@@ -69,4 +117,4 @@
 
 </section>
 
-{% endblock %}
+{% endblock %}  
