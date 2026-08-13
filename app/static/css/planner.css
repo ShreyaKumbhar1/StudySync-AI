@@ -1,0 +1,616 @@
+/* =========================================================
+   ORION PLANNER
+   Clean Planner Page Styles
+   ========================================================= */
+
+
+/* =========================================================
+   PLANNER PAGE
+   ========================================================= */
+
+.planner-container {
+    width: 88%;
+    max-width: 1200px;
+
+    margin: 35px auto 60px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(300px, 0.85fr)
+        minmax(420px, 1.25fr);
+
+    gap: 28px;
+
+    align-items: start;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+   ========================================================= */
+
+.planner-container + * {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Main planner heading */
+
+body > h1,
+main > h1 {
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* =========================================================
+   FORM PANEL
+   ========================================================= */
+
+.planner-form {
+
+    background: #FFFFFF;
+
+    border: 1px solid #E9E2F5;
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 12px 35px rgba(91, 67, 130, 0.08);
+}
+
+
+/* =========================================================
+   FORM HEADING
+   ========================================================= */
+
+.planner-form h2 {
+
+    margin: 0 0 25px;
+
+    color: #3F3650;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 22px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   FORM LABELS
+   ========================================================= */
+
+.planner-form .form-label {
+
+    display: block;
+
+    margin-top: 15px;
+
+    margin-bottom: 7px;
+
+    color: #514861;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   FORM INPUTS
+   ========================================================= */
+
+.planner-form .form-input {
+
+    width: 100%;
+
+    padding: 13px 15px;
+
+    margin-bottom: 3px;
+
+    border: 1px solid #E2DBEC;
+
+    border-radius: 12px;
+
+    background: #FCFBFF;
+
+    color: #3F3948;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+
+    box-sizing: border-box;
+}
+
+
+/* INPUT HOVER */
+
+.planner-form .form-input:hover {
+
+    border-color: #CDBBEA;
+}
+
+
+/* INPUT FOCUS */
+
+.planner-form .form-input:focus {
+
+    border-color: #8064C7;
+
+    background: #FFFFFF;
+
+    box-shadow:
+        0 0 0 4px rgba(128, 100, 199, 0.10);
+}
+
+
+/* =========================================================
+   ADD TASK BUTTON
+   ========================================================= */
+
+.planner-form .btn {
+
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 13px 20px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6C63FF,
+            #8068D8
+        );
+
+    color: #FFFFFF;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 9px 22px rgba(108, 99, 255, 0.20);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* BUTTON HOVER */
+
+.planner-form .btn:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 13px 28px rgba(108, 99, 255, 0.28);
+}
+
+
+/* =========================================================
+   TASK PANEL
+   ========================================================= */
+
+.planner-tasks {
+
+    background: #FFFFFF;
+
+    border: 1px solid #E9E2F5;
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 12px 35px rgba(91, 67, 130, 0.08);
+}
+
+
+/* =========================================================
+   TASK PANEL HEADING
+   ========================================================= */
+
+.planner-tasks h2 {
+
+    margin: 0 0 22px;
+
+    color: #3F3650;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 22px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   TASK CARD
+   ========================================================= */
+
+.task-card {
+
+    position: relative;
+
+    margin-bottom: 15px;
+
+    padding: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #FFFFFF,
+            #FCFAFF
+        );
+
+    border: 1px solid #EAE3F3;
+
+    border-radius: 17px;
+
+    box-shadow:
+        0 5px 16px rgba(80, 55, 120, 0.05);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+
+/* TASK CARD HOVER */
+
+.task-card:hover {
+
+    transform: translateY(-3px);
+
+    border-color: #D4C4EC;
+
+    box-shadow:
+        0 12px 28px rgba(80, 55, 120, 0.10);
+}
+
+
+/* =========================================================
+   TASK TITLE
+   ========================================================= */
+
+.task-card h3 {
+
+    margin: 0 0 13px;
+
+    color: #3F3749;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   TASK INFORMATION
+   ========================================================= */
+
+.task-card p {
+
+    margin: 8px 0;
+
+    color: #777080;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+.task-card p strong {
+
+    color: #514861;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PRIORITY
+   ========================================================= */
+
+.task-card p:last-of-type {
+
+    display: inline-block;
+
+    margin-top: 10px;
+
+    padding: 6px 10px;
+
+    background: #F3EEFF;
+
+    border-radius: 9px;
+
+    color: #6952A3;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   TASK BUTTONS
+   ========================================================= */
+
+.task-buttons {
+
+    display: flex;
+
+    gap: 9px;
+
+    margin-top: 17px;
+
+    padding-top: 14px;
+
+    border-top: 1px solid #F0EBF5;
+
+    flex-wrap: wrap;
+}
+
+
+/* =========================================================
+   EDIT BUTTON
+   ========================================================= */
+
+.edit-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 8px 13px;
+
+    border-radius: 9px;
+
+    background: #F0ECFF;
+
+    color: #6650A5;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.edit-btn:hover {
+
+    transform: translateY(-2px);
+
+    background: #E6DEFF;
+}
+
+
+/* =========================================================
+   DELETE BUTTON
+   ========================================================= */
+
+.delete-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 8px 13px;
+
+    border-radius: 9px;
+
+    background: #FFF0F2;
+
+    color: #C65A70;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.delete-btn:hover {
+
+    transform: translateY(-2px);
+
+    background: #FFE2E7;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.empty-state {
+
+    padding: 50px 25px;
+
+    text-align: center;
+
+    border: 1px dashed #D9CDEE;
+
+    border-radius: 18px;
+
+    background: #FCFAFF;
+}
+
+
+.empty-state h3 {
+
+    margin: 0 0 10px;
+
+    color: #514464;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+
+.empty-state p {
+
+    max-width: 330px;
+
+    margin: 0 auto;
+
+    color: #898190;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   SUBTLE TOP-LEVEL PLANNER TEXT
+   ========================================================= */
+
+.planner-container > p {
+
+    color: #777080;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .planner-container {
+
+        width: 92%;
+
+        grid-template-columns: 1fr;
+
+        gap: 22px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .planner-container {
+
+        width: 92%;
+
+        margin-top: 25px;
+    }
+
+
+    .planner-form,
+    .planner-tasks {
+
+        padding: 22px;
+
+        border-radius: 20px;
+    }
+
+
+    .planner-form h2,
+    .planner-tasks h2 {
+
+        font-size: 20px;
+    }
+
+
+    .task-card {
+
+        padding: 17px;
+    }
+
+
+    .task-buttons {
+
+        gap: 7px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .planner-container {
+
+        width: 94%;
+    }
+
+
+    .planner-form,
+    .planner-tasks {
+
+        padding: 18px;
+    }
+
+
+    .task-buttons {
+
+        flex-direction: column;
+    }
+
+
+    .edit-btn,
+    .delete-btn {
+
+        width: 100%;
+    }
+
+}

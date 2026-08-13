@@ -1,4 +1,4 @@
-# 🎓 StudySync AI
+# 🎓 ORION
 
 > A Smart Campus Assistant with an Intelligent Personalized Study Planning and Recommendation System.
 
@@ -6,7 +6,7 @@
 
 ## 📌 Project Overview
 
-StudySync AI is a web-based academic assistant designed to help students efficiently manage their academic activities in one place.
+ORION is a web-based academic assistant designed to help students efficiently manage their academic activities in one place.
 
 The application combines campus management features with a personalized study planning and recommendation system to improve productivity and learning efficiency.
 
@@ -52,7 +52,7 @@ The application combines campus management features with a personalized study pl
 ## 📂 Project Structure
 
 ```
-StudySync-AI
+ORION
 │
 ├── app/
 │   ├── database/

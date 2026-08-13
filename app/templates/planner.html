@@ -4,12 +4,31 @@
 
 <section class="dashboard">
 
-    <h1>📅 Study Planner</h1>
-    <p>Stay organized. Stay ahead.</p>
+    <!-- ================= PLANNER HEADER ================= -->
+
+    <div
+        class="planner-header"
+        style="
+            width: min(1250px, calc(100% - 48px));
+            margin: 0 auto 25px;
+            padding-left: 40px;
+            box-sizing: border-box;
+        "
+    >
+
+        <h1>📅 Study Planner</h1>
+
+        <p>Stay organized. Stay ahead.</p>
+
+    </div>
+
+
+    <!-- ================= PLANNER CONTENT ================= -->
 
     <div class="planner-container">
 
-        <!-- ================= Add Task Form ================= -->
+
+        <!-- ================= ADD TASK FORM ================= -->
 
         <div class="planner-form">
 
@@ -19,88 +38,156 @@
 
                 {{ form.hidden_tag() }}
 
+
+                <!-- TASK TITLE -->
+
                 <label class="form-label">
                     Task Title
                 </label>
-                {{ form.title(class="form-input") }}
+
+                {{ form.title(
+                    class="form-input"
+                ) }}
+
+
+                <!-- SUBJECT -->
 
                 <label class="form-label">
                     Subject
                 </label>
-                {{ form.subject(class="form-input") }}
+
+                {{ form.subject(
+                    class="form-input"
+                ) }}
+
+
+                <!-- DUE DATE -->
 
                 <label class="form-label">
                     Due Date
                 </label>
-                {{ form.due_date(class="form-input") }}
+
+                {{ form.due_date(
+                    class="form-input"
+                ) }}
+
+
+                <!-- TASK PRIORITY -->
 
                 <label class="form-label">
                     Task Priority
                 </label>
-                {{ form.priority(class="form-input") }}
 
-                {{ form.submit(class="btn") }}
+                {{ form.priority(
+                    class="form-input"
+                ) }}
+
+
+                <!-- ADD TASK -->
+
+                {{ form.submit(
+                    class="btn"
+                ) }}
 
             </form>
 
         </div>
 
-        <!-- ================= Task List ================= -->
+
+        <!-- ================= TASK LIST ================= -->
 
         <div class="planner-tasks">
 
             <h2>Your Tasks</h2>
 
+
             {% if tasks %}
+
 
                 {% for task in tasks %}
 
+
                     <div class="task-card">
 
-                        <h3>{{ task.title }}</h3>
+
+                        <h3>
+                            {{ task.title }}
+                        </h3>
+
 
                         <p>
-                            <strong>📚 Subject:</strong>
+                            <strong>
+                                📚 Subject:
+                            </strong>
+
                             {{ task.subject }}
                         </p>
 
+
                         <p>
-                            <strong>📅 Due Date:</strong>
+                            <strong>
+                                📅 Due Date:
+                            </strong>
+
                             {{ task.due_date }}
                         </p>
 
+
                         <p>
-                            <strong>🚩 Priority:</strong>
+                            <strong>
+                                🚩 Priority:
+                            </strong>
+
                             {{ task.priority }}
                         </p>
 
+
+                        <!-- TASK BUTTONS -->
+
                         <div class="task-buttons">
 
+
                             <a
-                                href="{{ url_for('edit_task', task_id=task.id) }}"
+                                href="{{ url_for(
+                                    'edit_task',
+                                    task_id=task.id
+                                ) }}"
                                 class="edit-btn"
                             >
                                 ✏ Edit
                             </a>
 
+
                             <a
-                                href="{{ url_for('delete_task', task_id=task.id) }}"
+                                href="{{ url_for(
+                                    'delete_task',
+                                    task_id=task.id
+                                ) }}"
                                 class="delete-btn"
                             >
                                 🗑 Delete
                             </a>
 
+
                         </div>
+
 
                     </div>
 
+
                 {% endfor %}
+
 
             {% else %}
 
+
+                <!-- ================= EMPTY STATE ================= -->
+
                 <div class="empty-state">
 
-                    <h3>No tasks yet 🎉</h3>
+                    <h3>
+                        No tasks yet 🎉
+                    </h3>
 
                     <p>
                         Add your first task and let Dimpu keep
@@ -109,12 +196,16 @@
 
                 </div>
 
+
             {% endif %}
+
 
         </div>
 
+
     </div>
+
 
 </section>
 
-{% endblock %}  
+{% endblock %}

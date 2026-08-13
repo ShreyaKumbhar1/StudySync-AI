@@ -1,0 +1,1044 @@
+/* =========================================================
+   ORION PROFILE PAGE
+   Clean lavender / white theme
+   ========================================================= */
+
+
+/* =========================================================
+   PAGE
+   ========================================================= */
+
+.profile-page {
+    width: min(1200px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 45px 0 70px;
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   PROFILE HEADER
+   ========================================================= */
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    width: 70px;
+    height: 70px;
+
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6c63ff,
+            #9b7cff
+        );
+
+    color: white;
+
+    font-size: 27px;
+    font-weight: 700;
+
+    box-shadow:
+        0 12px 28px
+        rgba(108, 99, 255, 0.20);
+}
+
+.profile-header-info {
+    min-width: 0;
+}
+
+.profile-eyebrow {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #7b6bdc;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.profile-header h1 {
+    margin: 0;
+
+    color: #292442;
+
+    font-size: 34px;
+    line-height: 1.15;
+
+    font-weight: 700;
+}
+
+.profile-header p {
+    margin: 5px 0 8px;
+
+    color: #817b91;
+
+    font-size: 13px;
+}
+
+.profile-title {
+    display: inline-block;
+
+    padding: 6px 11px;
+
+    border-radius: 9px;
+
+    background: #f0ebff;
+
+    color: #6658c8;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MAIN PROFILE GRID
+   ========================================================= */
+
+.profile-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 2fr)
+        minmax(280px, 0.9fr);
+
+    gap: 24px;
+
+    align-items: start;
+
+    margin-bottom: 26px;
+}
+
+
+/* =========================================================
+   COMMON CARD
+   ========================================================= */
+
+.profile-card {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            0.95
+        );
+
+    border: 1px solid
+        rgba(
+            108,
+            99,
+            255,
+            0.10
+        );
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(
+            68,
+            57,
+            125,
+            0.08
+        );
+
+    backdrop-filter: blur(12px);
+}
+
+
+/* =========================================================
+   CARD HEADING
+   ========================================================= */
+
+.card-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 25px;
+}
+
+.card-icon {
+    width: 45px;
+    height: 45px;
+
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
+    border-radius: 13px;
+
+    background: #f0ebff;
+
+    font-size: 18px;
+}
+
+.card-heading span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #817aa0;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+}
+
+.card-heading h2 {
+    margin: 0;
+
+    color: #302a49;
+
+    font-size: 21px;
+    line-height: 1.2;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PERSONAL CARD
+   ========================================================= */
+
+.personal-card {
+    padding: 30px;
+}
+
+
+/* =========================================================
+   PROFILE FORM
+   ========================================================= */
+
+.profile-form {
+    width: 100%;
+}
+
+
+/* =========================================================
+   TWO-COLUMN FORM
+   ========================================================= */
+
+.profile-form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 18px 20px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   PROFILE FIELD
+   ========================================================= */
+
+.profile-field {
+    min-width: 0;
+}
+
+.profile-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #55506a;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.profile-input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 13px;
+
+    border: 1px solid #e5e0f0;
+
+    border-radius: 12px;
+
+    background: #fcfbff;
+
+    color: #38334e;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: 12px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.profile-input::placeholder {
+    color: #aaa5b7;
+}
+
+.profile-input:focus {
+    border-color: #9a89ff;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            108,
+            99,
+            255,
+            0.08
+        );
+}
+
+
+/* =========================================================
+   BIO
+   ========================================================= */
+
+.bio-field {
+    margin-top: 2px;
+    margin-bottom: 25px;
+}
+
+.profile-textarea {
+    min-height: 105px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   SUBSECTION HEADING
+   ========================================================= */
+
+.subsection-heading {
+    margin-top: 28px;
+    margin-bottom: 18px;
+
+    padding-top: 23px;
+
+    border-top: 1px solid #eeeaf7;
+}
+
+.subsection-heading span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #7b6bdc;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.7px;
+
+    text-transform: uppercase;
+}
+
+.subsection-heading h3 {
+    margin: 0;
+
+    color: #38324d;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   SAVE BUTTON
+   ========================================================= */
+
+.profile-save-area {
+    display: flex;
+    justify-content: flex-end;
+
+    margin-top: 24px;
+}
+
+.profile-save-button {
+    min-width: 180px;
+
+    padding: 12px 22px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6c63ff,
+            #897cff
+        );
+
+    color: #ffffff;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 9px 20px
+        rgba(
+            108,
+            99,
+            255,
+            0.18
+        );
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.profile-save-button:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(
+            108,
+            99,
+            255,
+            0.25
+        );
+}
+
+
+/* =========================================================
+   ORION PROGRESS CARD
+   ========================================================= */
+
+.progress-card {
+    padding: 30px;
+
+    position: sticky;
+    top: 25px;
+}
+
+
+/* =========================================================
+   PROGRESS STATS
+   ========================================================= */
+
+.progress-stat {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 15px 16px;
+
+    margin-bottom: 12px;
+
+    border-radius: 13px;
+
+    background: #faf9ff;
+
+    border: 1px solid #eeeafb;
+}
+
+.progress-stat span {
+    color: #827c91;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.progress-stat strong {
+    color: #35304b;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   CURRENT TITLE
+   ========================================================= */
+
+.profile-level-box {
+    margin-top: 20px;
+
+    padding: 18px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5f1ff,
+            #faf8ff
+        );
+
+    border: 1px solid #ebe5fa;
+
+    text-align: center;
+}
+
+.profile-level-box span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #8c859b;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.profile-level-box strong {
+    color: #5f52c4;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DOCUMENTS SECTION
+   ========================================================= */
+
+.documents-section {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 24px;
+
+    margin-top: 26px;
+    margin-bottom: 25px;
+}
+
+.documents-card {
+    padding: 28px;
+}
+
+
+/* =========================================================
+   UPLOAD FORM
+   ========================================================= */
+
+.upload-form {
+    margin-bottom: 20px;
+}
+
+.upload-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.file-input {
+    flex: 1;
+
+    min-width: 180px;
+
+    box-sizing: border-box;
+
+    padding: 9px;
+
+    border: 1px solid #e6e1f1;
+
+    border-radius: 11px;
+
+    background: #fcfbff;
+
+    color: #777185;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: 10px;
+}
+
+.upload-button {
+    padding: 10px 15px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6c63ff,
+            #897cff
+        );
+
+    color: white;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.upload-button:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px
+        rgba(
+            108,
+            99,
+            255,
+            0.18
+        );
+}
+
+
+/* =========================================================
+   DOCUMENT LIST
+   ========================================================= */
+
+.document-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+.document-item {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 13px;
+
+    border: 1px solid #eeeaf8;
+
+    border-radius: 13px;
+
+    background: #fcfbff;
+}
+
+.document-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.document-icon {
+    width: 36px;
+    height: 36px;
+
+    display: grid;
+    place-items: center;
+
+    flex-shrink: 0;
+
+    border-radius: 10px;
+
+    background: #f0ebff;
+
+    font-size: 15px;
+}
+
+.document-info strong {
+    display: block;
+
+    max-width: 230px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: #39334d;
+
+    font-size: 10px;
+}
+
+.document-info small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #9993a4;
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   DOCUMENT ACTIONS
+   ========================================================= */
+
+.document-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    flex-shrink: 0;
+}
+
+.document-view,
+.document-delete {
+    padding: 7px 10px;
+
+    border-radius: 8px;
+
+    font-family:
+        'Poppins',
+        sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.document-view {
+    background: #f0ebff;
+
+    color: #6c63ff;
+}
+
+.document-delete {
+    border: none;
+
+    background: #fff0f0;
+
+    color: #d15c5c;
+}
+
+.document-view:hover,
+.document-delete:hover {
+    opacity: 0.8;
+}
+
+
+/* =========================================================
+   EMPTY DOCUMENT STATE
+   ========================================================= */
+
+.documents-empty {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px 15px;
+
+    border-radius: 13px;
+
+    background: #faf9ff;
+
+    border: 1px dashed #e3def3;
+
+    text-align: center;
+}
+
+.documents-empty span {
+    margin-bottom: 7px;
+
+    font-size: 24px;
+}
+
+.documents-empty p {
+    margin: 0;
+
+    color: #9992a5;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   PROFILE MOTIVATION
+   ========================================================= */
+
+.profile-motivation {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 15px;
+
+    margin-top: 5px;
+
+    border-radius: 14px;
+
+    background: #f7f3ff;
+
+    text-align: center;
+}
+
+.profile-motivation span {
+    color: #6c63ff;
+
+    font-size: 16px;
+}
+
+.profile-motivation p {
+    margin: 0;
+
+    color: #777086;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .profile-page {
+        width: min(
+            calc(100% - 32px),
+            760px
+        );
+
+        padding-top: 35px;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .progress-card {
+        position: static;
+    }
+
+    .documents-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL TABLET
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .profile-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .documents-section {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-header h1 {
+        font-size: 30px;
+    }
+
+    .documents-card,
+    .personal-card,
+    .progress-card {
+        padding: 22px;
+    }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+   ========================================================= */
+
+@media (max-width: 620px) {
+
+    .profile-page {
+        width: calc(100% - 24px);
+
+        padding: 25px 0 45px;
+    }
+
+    .profile-header {
+        align-items: flex-start;
+
+        gap: 13px;
+    }
+
+    .profile-avatar {
+        width: 58px;
+        height: 58px;
+
+        border-radius: 18px;
+
+        font-size: 22px;
+    }
+
+    .profile-header h1 {
+        font-size: 27px;
+    }
+
+    .profile-header p {
+        font-size: 12px;
+    }
+
+    .personal-card,
+    .progress-card,
+    .documents-card {
+        padding: 20px;
+
+        border-radius: 18px;
+    }
+
+    .card-heading {
+        gap: 10px;
+
+        margin-bottom: 20px;
+    }
+
+    .card-icon {
+        width: 40px;
+        height: 40px;
+
+        border-radius: 11px;
+    }
+
+    .card-heading h2 {
+        font-size: 19px;
+    }
+
+    .profile-form-grid {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .profile-save-area {
+        justify-content: stretch;
+    }
+
+    .profile-save-button {
+        width: 100%;
+    }
+
+    .upload-row {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .file-input,
+    .upload-button {
+        width: 100%;
+    }
+
+    .document-item {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .document-actions {
+        width: 100%;
+    }
+
+    .document-view,
+    .document-delete {
+        flex: 1;
+
+        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .profile-input,
+    .profile-save-button,
+    .upload-button {
+        transition: none;
+    }
+}

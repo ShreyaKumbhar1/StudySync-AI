@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="300"
+     height="300"
+     viewBox="0 0 300 300">
+
+    <!-- Shadow -->
+    <ellipse
+        cx="150"
+        cy="245"
+        rx="55"
+        ry="12"
+        fill="#E6DFFF"
+        opacity="0.5"/>
+
+    <!-- Tail -->
+    <path
+        d="M145 200
+           C110 225 120 255 160 248
+           C185 244 190 225 175 210"
+        fill="none"
+        stroke="#FFFFFF"
+        stroke-width="28"
+        stroke-linecap="round"/>
+
+    <!-- Body -->
+    <ellipse
+        cx="150"
+        cy="170"
+        rx="55"
+        ry="65"
+        fill="#FFFFFF"/>
+
+    <!-- Belly -->
+    <ellipse
+        cx="150"
+        cy="182"
+        rx="28"
+        ry="40"
+        fill="#F7EFFF"/>
+
+</svg>

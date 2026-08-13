@@ -1,0 +1,192 @@
+/* =====================================================
+   ORION HOME / LANDING PAGE
+   ===================================================== */
+
+
+/* ---------- HERO ---------- */
+
+.hero {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    min-height: 85vh;
+
+    padding: 0 80px;
+}
+
+
+.hero-left {
+
+    max-width: 600px;
+}
+
+
+.hero-left h1 {
+
+    font-size: 65px;
+
+    color: #6C63FF;
+
+    font-family: 'Cinzel', serif;
+}
+
+
+.tagline {
+
+    margin: 20px 0;
+
+    font-size: 24px;
+
+    color: #555;
+}
+
+
+/* ---------- QUOTE BOX ---------- */
+
+.quote-box {
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 30px
+        rgba(0, 0, 0, 0.08);
+
+    margin: 35px 0;
+}
+
+
+.quote-box h3 {
+
+    color: #6C63FF;
+
+    margin-bottom: 15px;
+}
+
+
+/* ---------- HERO RIGHT ---------- */
+
+.hero-right {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+/* ---------- OLD PLACEHOLDER ----------
+   Kept so the existing Home page is not
+   unexpectedly affected if the class exists.
+   --------------------------------------- */
+
+.dimpu-placeholder {
+
+    width: 320px;
+
+    height: 320px;
+
+    background: white;
+
+    border-radius: 40px;
+
+    box-shadow:
+        0 20px 45px
+        rgba(0, 0, 0, 0.08);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 150px;
+}
+
+
+/* ---------- FEATURES ---------- */
+
+.features {
+
+    padding: 100px 80px;
+
+    text-align: center;
+}
+
+
+.features h2 {
+
+    font-size: 40px;
+
+    margin-bottom: 60px;
+
+    color: #2D2D2D;
+}
+
+
+.feature-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(250px, 1fr)
+        );
+
+    gap: 30px;
+}
+
+
+.card {
+
+    background: white;
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 15px 35px
+        rgba(0, 0, 0, 0.08);
+
+    transition: 0.3s;
+}
+
+
+.card:hover {
+
+    transform: translateY(-8px);
+}
+
+
+.icon {
+
+    font-size: 50px;
+
+    margin-bottom: 20px;
+}
+
+
+.card h3 {
+
+    margin-bottom: 15px;
+
+    color: #6C63FF;
+}
+
+
+.card p {
+
+    color: #666;
+
+    line-height: 1.6;
+}

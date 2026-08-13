@@ -4,43 +4,674 @@
 <head>
 
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>StudySync AI</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='css/style.css') }}">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+    <!-- =====================================================
+         BROWSER TAB
+         ===================================================== -->
+
+    <title>
+        ORION • Intelligent Student OS
+    </title>
+
+
+    <!-- =====================================================
+         ORION FAVICON
+         ===================================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="{{ url_for(
+            'static',
+            filename='images/orion_logo.png'
+        ) }}">
+
+
+    <!-- =====================================================
+         GLOBAL CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for(
+            'static',
+            filename='css/style.css'
+        ) }}">
+
+
+    <!-- =====================================================
+         DIMPU CSS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for(
+            'static',
+            filename='css/dimpu.css'
+        ) }}">
+
+
+    <!-- =====================================================
+         PLANNER CSS
+         ===================================================== -->
+    {% if request.path == '/planner' %}
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/planner.css') }}">
+
+    {% endif %}
+
+
+    {% if request.path == '/profile' %}
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/profile.css') }}">
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+         ===================================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    {% block head %}{% endblock %}
 
 </head>
 
+
 <body>
 
-    <nav class="navbar">
 
-        <div class="logo">
-            🐍 StudySync AI
+    <!-- =====================================================
+         3D BACKGROUND
+         ===================================================== -->
+
+    <div id="orion-background">
+
+        <canvas
+            id="orion-3d-canvas">
+        </canvas>
+
+        <div class="orion-glow glow-one"></div>
+
+        <div class="orion-glow glow-two"></div>
+
+        <div class="orion-glow glow-three"></div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN APPLICATION LAYER
+         ===================================================== -->
+
+    <div id="orion-app">
+
+
+        <!-- =================================================
+             NAVIGATION
+             ================================================= -->
+
+        <nav class="navbar">
+
+
+            <div class="logo-spacer"></div>
+
+
+            <ul class="nav-links">
+
+                <li>
+                    <a href="/">
+                        Home
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="/dashboard">
+                        Dashboard
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="/planner">
+                        Planner
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="/profile">
+                        Profile
+                    </a>
+                </li>
+
+                <!-- =================================================
+                    MORE MENU
+                    ================================================= -->
+
+                <li class="more-menu">
+
+                    <a href="#" class="more-toggle">
+                        More
+                        <span class="more-arrow">▼</span>
+                    </a>
+
+                    <div class="more-dropdown">
+
+                        <a
+                            href="{{ url_for('calendar.calendar_page') }}"
+                            class="calendar-link"
+                        >
+
+                            <span class="menu-icon">
+                                📅
+                            </span>
+
+                            <span>
+                                Calendar
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </li>
+
+                <li>
+                    <a
+                        href="/logout"
+                        class="logout-btn">
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+
+        </nav>
+
+
+        <!-- =================================================
+             FLASH MESSAGES
+             ================================================= -->
+
+        {% with messages =
+            get_flashed_messages(
+                with_categories=true
+            )
+        %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div
+                        class="flash-message {{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <!-- =================================================
+             DIMPU
+             ================================================= -->
+
+        <div class="dimpu-fixed">
+
+
+            <div
+                class="speech-bubble"
+                id="dimpu-bubble">
+
+                ORION Online 🚀
+
+            </div>
+
+
+            <img
+                src="{{ url_for(
+                    'static',
+                    filename='images/dimpu/expressions/idle/dimpu_idle.png'
+                ) }}"
+                class="dimpu-image"
+                id="dimpu-character"
+                alt="Dimpu">
+
+
         </div>
 
-        <ul class="nav-links">
 
-            <li><a href="/">Home</a></li>
+        <!-- =================================================
+             PAGE CONTENT
+             ================================================= -->
 
-            <li><a href="/dashboard">Dashboard</a></li>
+        <main class="orion-page-content">
 
-            <li><a href="/planner">Planner</a></li>
+            {% block content %}
 
-            <li><a href="/profile">Profile</a></li>
+            {% endblock %}
 
-            <a href="/logout" class="logout-btn">Logout</a>
-        </ul>
+        </main>
 
-    </nav>
 
-    {% block content %}
-    {% endblock %}
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer>
+
+            <p>
+                ORION OS v1.0 • Powered by Dimpu 🐍
+            </p>
+
+        </footer>
+
+
+    </div>
+
+
+    <!-- =====================================================
+         3D BACKGROUND SCRIPT
+         ===================================================== -->
+
+    <script>
+
+        (function () {
+
+            const canvas =
+                document.getElementById(
+                    "orion-3d-canvas"
+                );
+
+            if (!canvas) return;
+
+
+            const ctx =
+                canvas.getContext("2d");
+
+
+            let width;
+            let height;
+
+            let particles = [];
+
+
+            const PARTICLE_COUNT = 65;
+
+            const CONNECTION_DISTANCE = 145;
+
+
+            /* =================================================
+               RESIZE
+               ================================================= */
+
+            function resizeCanvas() {
+
+                width =
+                    canvas.width =
+                    window.innerWidth;
+
+                height =
+                    canvas.height =
+                    window.innerHeight;
+
+            }
+
+
+            /* =================================================
+               CREATE PARTICLE
+               ================================================= */
+
+            function createParticle() {
+
+                return {
+
+                    x:
+                        Math.random() * width,
+
+                    y:
+                        Math.random() * height,
+
+                    z:
+                        Math.random(),
+
+                    size:
+                        1.5 +
+                        Math.random() * 3,
+
+                    speed:
+                        0.08 +
+                        Math.random() * 0.18,
+
+                    drift:
+                        (Math.random() - 0.5)
+                        * 0.15,
+
+                    phase:
+                        Math.random()
+                        * Math.PI
+                        * 2
+
+                };
+
+            }
+
+
+            /* =================================================
+               INITIALIZE
+               ================================================= */
+
+            function initializeParticles() {
+
+                particles = [];
+
+                for (
+                    let i = 0;
+                    i < PARTICLE_COUNT;
+                    i++
+                ) {
+
+                    particles.push(
+                        createParticle()
+                    );
+
+                }
+
+            }
+
+
+            /* =================================================
+               UPDATE PARTICLES
+               ================================================= */
+
+            function updateParticles() {
+
+                particles.forEach(
+                    particle => {
+
+                        particle.y -=
+                            particle.speed;
+
+                        particle.x +=
+                            particle.drift;
+
+
+                        particle.phase +=
+                            0.008;
+
+
+                        particle.x +=
+                            Math.sin(
+                                particle.phase
+                            ) * 0.08;
+
+
+                        /*
+                         * Re-enter screen from bottom.
+                         */
+
+                        if (
+                            particle.y <
+                            -30
+                        ) {
+
+                            particle.y =
+                                height + 30;
+
+                            particle.x =
+                                Math.random()
+                                * width;
+
+                        }
+
+
+                        /*
+                         * Horizontal wrapping.
+                         */
+
+                        if (
+                            particle.x >
+                            width + 30
+                        ) {
+
+                            particle.x = -30;
+
+                        }
+
+
+                        if (
+                            particle.x <
+                            -30
+                        ) {
+
+                            particle.x =
+                                width + 30;
+
+                        }
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               DRAW PARTICLES
+               ================================================= */
+
+            function drawParticles() {
+
+                particles.forEach(
+                    particle => {
+
+                        const depth =
+                            0.35 +
+                            particle.z *
+                            0.65;
+
+
+                        const radius =
+                            particle.size *
+                            depth;
+
+
+                        const alpha =
+                            0.22 +
+                            particle.z *
+                            0.42;
+
+
+                        ctx.beginPath();
+
+
+                        ctx.arc(
+                            particle.x,
+                            particle.y,
+                            radius,
+                            0,
+                            Math.PI * 2
+                        );
+
+
+                        ctx.fillStyle =
+                            `rgba(
+                                145,
+                                112,
+                                220,
+                                ${alpha}
+                            )`;
+
+
+                        ctx.fill();
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               DRAW CONNECTIONS
+               ================================================= */
+
+            function drawConnections() {
+
+                for (
+                    let i = 0;
+                    i < particles.length;
+                    i++
+                ) {
+
+                    for (
+                        let j = i + 1;
+                        j < particles.length;
+                        j++
+                    ) {
+
+                        const p1 =
+                            particles[i];
+
+                        const p2 =
+                            particles[j];
+
+
+                        const dx =
+                            p1.x - p2.x;
+
+                        const dy =
+                            p1.y - p2.y;
+
+
+                        const distance =
+                            Math.sqrt(
+                                dx * dx +
+                                dy * dy
+                            );
+
+
+                        if (
+                            distance <
+                            CONNECTION_DISTANCE
+                        ) {
+
+                            const opacity =
+                                (
+                                    1 -
+                                    distance /
+                                    CONNECTION_DISTANCE
+                                ) * 0.12;
+
+
+                            ctx.beginPath();
+
+
+                            ctx.moveTo(
+                                p1.x,
+                                p1.y
+                            );
+
+
+                            ctx.lineTo(
+                                p2.x,
+                                p2.y
+                            );
+
+
+                            ctx.strokeStyle =
+                                `rgba(
+                                    150,
+                                    120,
+                                    220,
+                                    ${opacity}
+                                )`;
+
+
+                            ctx.lineWidth = 0.7;
+
+
+                            ctx.stroke();
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+
+            /* =================================================
+               ANIMATION
+               ================================================= */
+
+            function animate() {
+
+                ctx.clearRect(
+                    0,
+                    0,
+                    width,
+                    height
+                );
+
+
+                updateParticles();
+
+                drawConnections();
+
+                drawParticles();
+
+
+                requestAnimationFrame(
+                    animate
+                );
+
+            }
+
+
+            /* =================================================
+               START
+               ================================================= */
+
+            resizeCanvas();
+
+            initializeParticles();
+
+            animate();
+
+
+            window.addEventListener(
+                "resize",
+                function () {
+
+                    resizeCanvas();
+
+                }
+            );
+
+
+        })();
+
+    </script>
+
 
 </body>
 

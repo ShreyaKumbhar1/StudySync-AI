@@ -1,0 +1,98 @@
+/* =====================================================
+   ORION AUTHENTICATION
+   LOGIN / REGISTER
+   ===================================================== */
+
+
+/* ---------- AUTH CONTAINER ---------- */
+
+.auth-container {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    min-height: 85vh;
+}
+
+
+/* ---------- AUTH CARD ---------- */
+
+.auth-card {
+
+    width: 420px;
+
+    background: white;
+
+    padding: 40px;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 15px 35px
+        rgba(0, 0, 0, 0.08);
+}
+
+
+.auth-card h1 {
+
+    color: #6C63FF;
+
+    margin-bottom: 10px;
+
+    font-family: 'Cinzel', serif;
+}
+
+
+.auth-card p {
+
+    color: #666;
+
+    margin-bottom: 25px;
+}
+
+
+.auth-card form {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 20px;
+}
+
+
+.auth-card input {
+
+    padding: 15px;
+
+    border: 1px solid #ddd;
+
+    border-radius: 12px;
+
+    font-size: 16px;
+
+    outline: none;
+
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.auth-link {
+
+    margin-top: 20px;
+
+    text-align: center;
+}
+
+
+.auth-link a {
+
+    color: #6C63FF;
+
+    text-decoration: none;
+
+    font-weight: 600;
+}

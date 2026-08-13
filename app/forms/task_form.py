@@ -23,12 +23,12 @@ class TaskForm(FlaskForm):
     )
 
     priority = SelectField(
-        "",
-        choices=[
-            ("High", "High 🔴"),
-            ("Medium", "Medium 🟡"),
-            ("Low", "Low 🟢")
-        ]
-    )
+    "",
+    choices=[
+        ("High", "🔴 High Priority"),
+        ("Medium", "🟡 Medium Priority"),
+        ("Low", "🟢 Low Priority")
+    ]
+)
 
     submit = SubmitField("Add Task")

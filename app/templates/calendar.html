@@ -1,0 +1,873 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/calendar.css') }}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="calendar-page">
+
+    <!-- ==================================================
+         HEADER
+         ================================================== -->
+
+    <header class="calendar-header">
+
+        <div class="calendar-header-copy">
+
+            <span class="calendar-eyebrow">
+                ORION TIME CONTROL
+            </span>
+
+            <h1>
+                📅 Your Calendar
+            </h1>
+
+            <p>
+                Your planner, deadlines and life events —
+                finally in one place.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- ==================================================
+         QUICK STATS
+         ================================================== -->
+
+    <section class="calendar-stat-grid">
+
+        <div class="calendar-stat-card">
+
+            <span class="stat-icon">
+                📌
+            </span>
+
+            <div>
+
+                <small>
+                    Today
+                </small>
+
+                <strong>
+                    {{ today_total }}
+                </strong>
+
+                <span>
+                    planned item{{ '' if today_total == 1 else 's' }}
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="calendar-stat-card">
+
+            <span class="stat-icon">
+                📚
+            </span>
+
+            <div>
+
+                <small>
+                    Planner
+                </small>
+
+                <strong>
+                    {{ today_pending }}
+                </strong>
+
+                <span>
+                    pending today
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="calendar-stat-card">
+
+            <span class="stat-icon">
+                🔥
+            </span>
+
+            <div>
+
+                <small>
+                    High Priority
+                </small>
+
+                <strong>
+                    {{ priority_counts["High"] }}
+                </strong>
+
+                <span>
+                    items need attention
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="calendar-stat-card">
+
+            <span class="stat-icon">
+                🌙
+            </span>
+
+            <div>
+
+                <small>
+                    7-Day Load
+                </small>
+
+                <strong>
+                    {{ week_total }}
+                </strong>
+
+                <span>
+                    planned items
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         ADD EVENT
+         ================================================== -->
+
+    <section
+        class="calendar-card calendar-form-card"
+        id="calendar-add-form"
+    >
+
+        <div class="calendar-section-heading">
+
+            <div>
+
+                <span class="calendar-section-label">
+                    QUICK ADD
+                </span>
+
+                <h2>
+                    ➕ Add to Your Calendar
+                </h2>
+
+            </div>
+
+
+            <span
+                class="selected-date-label"
+                id="selected-date-label"
+            >
+                📅 {{ today.strftime("%d %B %Y") }}
+            </span>
+
+        </div>
+
+
+        <p class="form-helper">
+            Pick a date from the calendar and Orion will
+            automatically use it here.
+        </p>
+
+
+        <form
+            method="POST"
+            class="calendar-form"
+        >
+
+            {{ form.hidden_tag() }}
+
+
+            <!-- TITLE -->
+
+            <div class="calendar-field">
+
+                {{ form.title.label }}
+
+                {{ form.title(
+                    class="calendar-input"
+                ) }}
+
+            </div>
+
+
+            <!-- CATEGORY -->
+
+            <div class="calendar-field">
+
+                {{ form.category.label }}
+
+                {{ form.category(
+                    class="calendar-input"
+                ) }}
+
+            </div>
+
+
+            <!-- DATE -->
+
+            <div class="calendar-field">
+
+                {{ form.event_date.label }}
+
+                {{ form.event_date(
+                    class="calendar-input",
+                    id="calendar-event-date"
+                ) }}
+
+            </div>
+
+
+            <!-- PRIORITY -->
+
+            <div class="calendar-field">
+
+                {{ form.priority.label }}
+
+                {{ form.priority(
+                    class="calendar-input"
+                ) }}
+
+            </div>
+
+
+            <!-- START TIME -->
+
+            <div class="calendar-field">
+
+                {{ form.start_time.label }}
+
+                {{ form.start_time(
+                    class="calendar-input"
+                ) }}
+
+            </div>
+
+
+            <!-- END TIME -->
+
+            <div class="calendar-field">
+
+                {{ form.end_time.label }}
+
+                {{ form.end_time(
+                    class="calendar-input"
+                ) }}
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="calendar-field full-width">
+
+                {{ form.description.label }}
+
+                {{ form.description(
+                    class="calendar-input"
+                ) }}
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            {{ form.submit(
+                class="calendar-submit"
+            ) }}
+
+        </form>
+
+    </section>
+
+
+    <!-- ==================================================
+         MAIN CALENDAR + SIDE PANEL
+         ================================================== -->
+
+    <div class="calendar-top-grid">
+
+
+        <!-- ==================================================
+             CALENDAR
+             ================================================== -->
+
+        <section class="calendar-card calendar-main-card">
+
+            <div class="calendar-controls">
+
+                <div class="calendar-control-left">
+
+                    <button
+                        type="button"
+                        id="calendar-prev"
+                        class="calendar-nav-button"
+                        aria-label="Previous month"
+                    >
+                        ‹
+                    </button>
+
+
+                    <div>
+
+                        <span class="calendar-section-label">
+                            MONTH VIEW
+                        </span>
+
+                        <div
+                            id="calendar-month-title"
+                            class="calendar-month-title"
+                        >
+                            Calendar
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="calendar-next"
+                        class="calendar-nav-button"
+                        aria-label="Next month"
+                    >
+                        ›
+                    </button>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="jump-today"
+                    class="today-button"
+                >
+                    Today
+                </button>
+
+            </div>
+
+
+            <div
+                class="calendar-grid"
+                id="calendar-grid"
+            ></div>
+
+        </section>
+
+
+        <!-- ==================================================
+             SIDE PANEL
+             ================================================== -->
+
+        <aside class="calendar-side-panel">
+
+
+            <!-- ==================================================
+                 SELECTED DAY
+                 ================================================== -->
+
+            <section class="calendar-card selected-day-card">
+
+                <div class="selected-day-header">
+
+                    <div>
+
+                        <span class="calendar-section-label">
+                            DAY INSPECTOR
+                        </span>
+
+                        <h2 id="selected-day-title">
+                            {{ today.strftime("%A, %d %B %Y") }}
+                        </h2>
+
+                    </div>
+
+
+                    <div class="selected-day-icon">
+                        ✦
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="selected-day-content"
+                    class="selected-day-content"
+                ></div>
+
+
+                <button
+                    type="button"
+                    id="add-event-for-date"
+                    class="selected-day-add-button"
+                >
+                    + Add something for this day
+                </button>
+
+            </section>
+
+
+            <!-- ==================================================
+                 NEXT DEADLINE
+                 ================================================== -->
+
+            <section class="calendar-card deadline-card">
+
+                <span class="calendar-section-label">
+                    COUNTDOWN
+                </span>
+
+                <h3>
+                    ⏳ Next Deadline
+                </h3>
+
+
+                {% if next_deadline %}
+
+                <div class="deadline-main">
+
+                    <strong>
+                        {{ next_deadline.title }}
+                    </strong>
+
+                    <small>
+                        {{ next_deadline.subject }}
+                        •
+                        {{ next_deadline.pretty_date }}
+                    </small>
+
+                </div>
+
+
+                <div
+                    id="deadline-countdown"
+                    class="deadline-countdown"
+                >
+
+                    {% if next_deadline.days_until == 0 %}
+
+                        TODAY
+
+                    {% elif next_deadline.days_until == 1 %}
+
+                        1 DAY
+
+                    {% else %}
+
+                        {{ next_deadline.days_until }} DAYS
+
+                    {% endif %}
+
+                </div>
+
+
+                {% else %}
+
+                <div class="deadline-empty">
+
+                    <span>
+                        🌙
+                    </span>
+
+                    <strong>
+                        No pending deadlines
+                    </strong>
+
+                    <small>
+                        You're all clear for now.
+                    </small>
+
+                </div>
+
+                {% endif %}
+
+            </section>
+
+
+            <!-- ==================================================
+                 PRIORITY RADAR
+                 ================================================== -->
+
+            <section class="calendar-card priority-card">
+
+                <span class="calendar-section-label">
+                    PRIORITY RADAR
+                </span>
+
+                <h3>
+                    🎯 Where your attention goes
+                </h3>
+
+
+                <div class="priority-radar">
+
+
+                    <div class="priority-row">
+
+                        <span>
+
+                            <i class="priority-dot high"></i>
+
+                            High
+
+                        </span>
+
+                        <strong>
+                            {{ priority_counts["High"] }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="priority-row">
+
+                        <span>
+
+                            <i class="priority-dot medium"></i>
+
+                            Medium
+
+                        </span>
+
+                        <strong>
+                            {{ priority_counts["Medium"] }}
+                        </strong>
+
+                    </div>
+
+
+                    <div class="priority-row">
+
+                        <span>
+
+                            <i class="priority-dot low"></i>
+
+                            Low
+
+                        </span>
+
+                        <strong>
+                            {{ priority_counts["Low"] }}
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================================
+                 MONTHLY MISSION
+                 ================================================== -->
+
+            <section class="calendar-card">
+
+                <span class="calendar-section-label">
+                    MONTHLY MISSION
+                </span>
+
+                <h3>
+                    📊 Progress
+                </h3>
+
+
+                <div class="progress-bar">
+
+                    <div
+                        class="progress-fill"
+                        style="width: {{ monthly_progress }}%;"
+                    ></div>
+
+                </div>
+
+
+                <div class="progress-text">
+
+                    <span>
+                        Planner completion
+                    </span>
+
+                    <strong>
+                        {{ monthly_progress }}%
+                    </strong>
+
+                </div>
+
+            </section>
+
+
+        </aside>
+
+    </div>
+
+
+    <!-- ==================================================
+         WEEK PULSE
+         ================================================== -->
+
+    <section class="calendar-card week-pulse-card">
+
+        <div class="calendar-section-heading">
+
+            <div>
+
+                <span class="calendar-section-label">
+                    NEXT 7 DAYS
+                </span>
+
+                <h2>
+                    🌌 Your Week at a Glance
+                </h2>
+
+            </div>
+
+
+            <span class="week-pulse-summary">
+                {{ week_total }} planned
+            </span>
+
+        </div>
+
+
+        <div
+            id="week-pulse"
+            class="week-pulse"
+        ></div>
+
+    </section>
+
+
+    <!-- ==================================================
+         COMING UP
+         ================================================== -->
+
+    <section class="calendar-card upcoming-section">
+
+        <div class="calendar-section-heading">
+
+            <div>
+
+                <span class="calendar-section-label">
+                    ON THE HORIZON
+                </span>
+
+                <h2>
+                    🔭 Coming Up
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="upcoming-grid">
+
+
+            <!-- UPCOMING EVENTS -->
+
+            {% for event in upcoming_events %}
+
+            <div class="upcoming-item">
+
+
+                <div class="upcoming-icon">
+
+                    {% if event.category == "exam" %}
+
+                        🧪
+
+                    {% elif event.category == "assignment" %}
+
+                        📝
+
+                    {% elif event.category == "study" %}
+
+                        📚
+
+                    {% elif event.category == "event" %}
+
+                        🎓
+
+                    {% else %}
+
+                        ✨
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="upcoming-info">
+
+                    <strong>
+                        {{ event.title }}
+                    </strong>
+
+                    <small>
+
+                        {{ event.event_date.strftime("%d %b %Y") }}
+
+                        {% if event.start_time %}
+
+                            • {{ event.start_time }}
+
+                        {% endif %}
+
+                    </small>
+
+                </div>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'calendar.delete_event',
+                        event_id=event.id
+                    ) }}"
+                >
+
+                    <button
+                        type="submit"
+                        class="delete-event-button"
+                        onclick="return confirm('Delete this event?');"
+                    >
+                        🗑
+                    </button>
+
+                </form>
+
+
+            </div>
+
+            {% endfor %}
+
+
+            <!-- UPCOMING TASKS -->
+
+            {% for task in upcoming_tasks %}
+
+            <div
+                class="upcoming-item planner-upcoming"
+            >
+
+                <div class="upcoming-icon">
+                    📚
+                </div>
+
+
+                <div class="upcoming-info">
+
+                    <strong>
+                        {{ task.title }}
+                    </strong>
+
+                    <small>
+
+                        Planner •
+                        {{ task.subject or "General" }}
+                        •
+                        {{ task.due_date.strftime("%d %b %Y") }}
+
+                    </small>
+
+                </div>
+
+
+                <span
+                    class="task-status
+                    {% if task.completed %}
+                    completed
+                    {% endif %}"
+                >
+
+                    {% if task.completed %}
+
+                        ✓
+
+                    {% else %}
+
+                        →
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+            {% endfor %}
+
+
+            {% if not upcoming_events and not upcoming_tasks %}
+
+            <div class="upcoming-empty">
+
+                <span>
+                    🌙
+                </span>
+
+                <strong>
+                    Nothing coming up yet.
+                </strong>
+
+                <small>
+                    Enjoy the calm. 🌌
+                </small>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </section>
+
+
+</section>
+
+
+<!-- ======================================================
+     CALENDAR DATA
+     ====================================================== -->
+
+<script>
+
+    window.ORION_CALENDAR_DATA =
+        {{ calendar_data | tojson }};
+
+</script>
+
+
+<!-- ======================================================
+     CALENDAR JAVASCRIPT
+     ====================================================== -->
+
+<script
+    src="{{ url_for(
+        'static',
+        filename='js/calendar.js'
+    ) }}"
+></script>
+
+
+{% endblock %}
