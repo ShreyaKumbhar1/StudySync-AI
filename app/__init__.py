@@ -1,9 +1,8 @@
 from flask import Flask
-
+from app.models.assignment import Assignment
 from app.database import db
 from app.extensions import bcrypt
 from app.login_manager import login_manager
-
 
 def create_app():
 
@@ -19,13 +18,17 @@ def create_app():
 
     app.config["SECRET_KEY"] = "orion-secret-key"
 
-    app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024
+    app.config["MAX_CONTENT_LENGTH"] = (
+        10 * 1024 * 1024
+    )
 
     # ======================================================
     # DATABASE
     # ======================================================
 
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///studysync.db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = (
+        "sqlite:///studysync.db"
+    )
 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -51,7 +54,10 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))
+
+        return User.query.get(
+            int(user_id)
+        )
 
     # ======================================================
     # IMPORT MODELS
@@ -61,21 +67,32 @@ def create_app():
     from app.models.profile_document import ProfileDocument
     from app.models.calendar_event import CalendarEvent
 
+    # LOCK-IN GROVE MODELS
+    from app.models.focus_session import FocusSession
+    from app.models.focus_profile import FocusProfile
+
     # ======================================================
     # REGISTER BLUEPRINTS
     # ======================================================
 
     from app.routes.auth import auth
     from app.routes.calendar import calendar
+    from app.routes.assignments import assignments
+
+    # LOCK-IN GROVE BLUEPRINT
+    from app.routes.focus import focus
 
     app.register_blueprint(auth)
     app.register_blueprint(calendar)
+    app.register_blueprint(focus)
+    app.register_blueprint(assignments)
 
     # ======================================================
     # CREATE DATABASE TABLES
     # ======================================================
 
     with app.app_context():
+
         db.create_all()
 
     return app

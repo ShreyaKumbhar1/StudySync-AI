@@ -5,8 +5,10 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
 
     <!-- =====================================================
@@ -28,7 +30,8 @@
         href="{{ url_for(
             'static',
             filename='images/orion_logo.png'
-        ) }}">
+        ) }}"
+    >
 
 
     <!-- =====================================================
@@ -40,7 +43,8 @@
         href="{{ url_for(
             'static',
             filename='css/style.css'
-        ) }}">
+        ) }}"
+    >
 
 
     <!-- =====================================================
@@ -52,26 +56,40 @@
         href="{{ url_for(
             'static',
             filename='css/dimpu.css'
-        ) }}">
+        ) }}"
+    >
 
 
     <!-- =====================================================
          PLANNER CSS
          ===================================================== -->
+
     {% if request.path == '/planner' %}
 
     <link
         rel="stylesheet"
-        href="{{ url_for('static', filename='css/planner.css') }}">
+        href="{{ url_for(
+            'static',
+            filename='css/planner.css'
+        ) }}"
+    >
 
     {% endif %}
 
+
+    <!-- =====================================================
+         PROFILE CSS
+         ===================================================== -->
 
     {% if request.path == '/profile' %}
 
     <link
         rel="stylesheet"
-        href="{{ url_for('static', filename='css/profile.css') }}">
+        href="{{ url_for(
+            'static',
+            filename='css/profile.css'
+        ) }}"
+    >
 
     {% endif %}
 
@@ -82,10 +100,33 @@
 
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
 
-    {% block head %}{% endblock %}
+    <!-- =====================================================
+         ASSIGNMENTS CSS
+         ===================================================== -->
+
+    {% if request.path.startswith('/assignments') %}
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for(
+            'static',
+            filename='css/assignments.css'
+        ) }}"
+    >
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         PAGE-SPECIFIC HEAD
+         ===================================================== -->
+
+    {% block head %}
+    {% endblock %}
 
 </head>
 
@@ -100,8 +141,8 @@
     <div id="orion-background">
 
         <canvas
-            id="orion-3d-canvas">
-        </canvas>
+            id="orion-3d-canvas"
+        ></canvas>
 
         <div class="orion-glow glow-one"></div>
 
@@ -131,48 +172,80 @@
 
             <ul class="nav-links">
 
+
+                <!-- HOME -->
+
                 <li>
+
                     <a href="/">
                         Home
                     </a>
+
                 </li>
 
 
+                <!-- DASHBOARD -->
+
                 <li>
+
                     <a href="/dashboard">
                         Dashboard
                     </a>
+
                 </li>
 
 
+                <!-- PLANNER -->
+
                 <li>
+
                     <a href="/planner">
                         Planner
                     </a>
+
                 </li>
 
 
+                <!-- PROFILE -->
+
                 <li>
+
                     <a href="/profile">
                         Profile
                     </a>
+
                 </li>
 
+
                 <!-- =================================================
-                    MORE MENU
-                    ================================================= -->
+                     MORE MENU
+                     ================================================= -->
 
                 <li class="more-menu">
 
-                    <a href="#" class="more-toggle">
+                    <a
+                        href="#"
+                        class="more-toggle"
+                    >
+
                         More
-                        <span class="more-arrow">▼</span>
+
+                        <span class="more-arrow">
+                            ▼
+                        </span>
+
                     </a>
+
 
                     <div class="more-dropdown">
 
+
+                        <!-- CALENDAR -->
+
                         <a
-                            href="{{ url_for('calendar.calendar_page') }}"
+                            href="{{ url_for(
+                                'calendar.calendar_page'
+                            ) }}"
                             class="calendar-link"
                         >
 
@@ -186,19 +259,68 @@
 
                         </a>
 
+
+                        <!-- ASSIGNMENTS -->
+
+                        <a
+                            href="{{ url_for(
+                                'assignments.assignments_page'
+                            ) }}"
+                            class="assignment-link"
+                        >
+
+                            <span class="menu-icon">
+                                📝
+                            </span>
+
+                            <span>
+                                Assignments
+                            </span>
+
+                        </a>
+
+
+                        <!-- LOCK-IN GROVE -->
+
+                        <a
+                            href="{{ url_for(
+                                'focus.lockin_grove'
+                            ) }}"
+                            class="focus-link"
+                        >
+
+                            <span class="menu-icon">
+                                🌲
+                            </span>
+
+                            <span>
+                                Lock-in Grove
+                            </span>
+
+                        </a>
+
+
                     </div>
 
                 </li>
 
+
+                <!-- LOGOUT -->
+
                 <li>
+
                     <a
                         href="/logout"
-                        class="logout-btn">
+                        class="logout-btn"
+                    >
                         Logout
                     </a>
+
                 </li>
 
+
             </ul>
+
 
         </nav>
 
@@ -218,7 +340,8 @@
                 {% for category, message in messages %}
 
                     <div
-                        class="flash-message {{ category }}">
+                        class="flash-message {{ category }}"
+                    >
 
                         {{ message }}
 
@@ -240,7 +363,8 @@
 
             <div
                 class="speech-bubble"
-                id="dimpu-bubble">
+                id="dimpu-bubble"
+            >
 
                 ORION Online 🚀
 
@@ -254,8 +378,8 @@
                 ) }}"
                 class="dimpu-image"
                 id="dimpu-character"
-                alt="Dimpu">
-
+                alt="Dimpu"
+            >
 
         </div>
 
@@ -267,7 +391,6 @@
         <main class="orion-page-content">
 
             {% block content %}
-
             {% endblock %}
 
         </main>
@@ -301,6 +424,7 @@
                 document.getElementById(
                     "orion-3d-canvas"
                 );
+
 
             if (!canvas) return;
 
@@ -363,8 +487,9 @@
                         Math.random() * 0.18,
 
                     drift:
-                        (Math.random() - 0.5)
-                        * 0.15,
+                        (
+                            Math.random() - 0.5
+                        ) * 0.15,
 
                     phase:
                         Math.random()
@@ -425,13 +550,8 @@
                             ) * 0.08;
 
 
-                        /*
-                         * Re-enter screen from bottom.
-                         */
-
                         if (
-                            particle.y <
-                            -30
+                            particle.y < -30
                         ) {
 
                             particle.y =
@@ -444,10 +564,6 @@
                         }
 
 
-                        /*
-                         * Horizontal wrapping.
-                         */
-
                         if (
                             particle.x >
                             width + 30
@@ -459,8 +575,7 @@
 
 
                         if (
-                            particle.x <
-                            -30
+                            particle.x < -30
                         ) {
 
                             particle.x =
@@ -605,7 +720,8 @@
                                 )`;
 
 
-                            ctx.lineWidth = 0.7;
+                            ctx.lineWidth =
+                                0.7;
 
 
                             ctx.stroke();

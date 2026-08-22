@@ -914,3 +914,66 @@ footer {
     }
 
 }
+/* ==========================================================
+   MORE MENU
+   ========================================================== */
+
+.more-menu {
+    position: relative;
+}
+
+.more-button {
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #333;
+    font-family: "Poppins", sans-serif;
+    font-size: inherit;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.more-button:hover {
+    color: #6C63FF;
+    transform: none;
+    box-shadow: none;
+}
+
+.more-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    min-width: 210px;
+    padding: 8px;
+    border-radius: 14px;
+    background: rgba(248, 247, 255, 0.97);
+    border: 1px solid rgba(108, 99, 255, 0.12);
+    box-shadow: 0 15px 35px rgba(70, 65, 100, 0.14);
+    backdrop-filter: blur(14px);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: 0.2s ease;
+    z-index: 2000;
+}
+
+.more-menu:hover .more-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.more-dropdown a {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 9px;
+    text-decoration: none;
+    color: #45414f;
+    font-size: 12px;
+}
+
+.more-dropdown a:hover {
+    background: #ece8f5;
+    color: #6C63FF;
+}

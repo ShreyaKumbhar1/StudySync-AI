@@ -288,14 +288,6 @@ def edit_task(task_id):
 # OTHER PAGES
 # ==========================================================
 
-@app.route("/assignments")
-def assignments():
-
-    return render_template(
-        "assignments.html"
-    )
-
-
 @app.route("/attendance")
 def attendance():
 
