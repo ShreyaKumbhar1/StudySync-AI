@@ -1,9 +1,12 @@
+
 /* =====================================================
    ORION DASHBOARD
    ===================================================== */
 
 
-/* ---------- DASHBOARD ---------- */
+/* =====================================================
+   DASHBOARD
+   ===================================================== */
 
 .dashboard {
 
@@ -15,7 +18,9 @@
 }
 
 
-/* ---------- WELCOME ---------- */
+/* =====================================================
+   WELCOME
+   ===================================================== */
 
 .welcome-card {
 
@@ -33,13 +38,15 @@
 
 .welcome-card p {
 
-    color: #666;
+    color: #777080;
 
     margin-top: 10px;
 }
 
 
-/* ---------- DASHBOARD STATS ---------- */
+/* =====================================================
+   DASHBOARD STATS
+   ===================================================== */
 
 .stats-container {
 
@@ -59,7 +66,15 @@
 
 .stat-card {
 
-    background: white;
+    /*
+       SAME MUTED GREY / LAVENDER
+       SURFACE USED THROUGHOUT
+       PLANNER AND CALENDAR
+    */
+
+    background: #E7E5EA;
+
+    border: 1px solid #D5D1DC;
 
     padding: 30px;
 
@@ -68,26 +83,36 @@
     text-align: center;
 
     box-shadow:
-        0 10px 25px
-        rgba(0, 0, 0, 0.08);
+        0 8px 25px
+        rgba(70, 65, 85, 0.08);
 
-    transition: 0.3s;
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
 
+
+/* STAT CARD HOVER */
 
 .stat-card:hover {
 
     transform: translateY(-8px);
 
+    background: #E4E3E8;
+
+    border-color: #C5C0CD;
+
     box-shadow:
         0 18px 35px
-        rgba(108, 99, 255, 0.18);
+        rgba(70, 65, 85, 0.12);
 }
 
 
 .stat-card h3 {
 
-    color: #666;
+    color: #65616D;
 
     margin-bottom: 15px;
 
@@ -97,7 +122,7 @@
 
 .stat-card h1 {
 
-    color: #6C63FF;
+    color: #7254A2;
 
     font-size: 42px;
 
@@ -105,51 +130,111 @@
 }
 
 
-/* ---------- QUOTE ---------- */
+/* =====================================================
+   QUOTE
+   ===================================================== */
 
 .quote-card {
 
-    background: white;
+    /*
+       SAME MAIN PANEL SURFACE
+       AS PLANNER
+    */
+
+    background: rgba(228, 227, 232, 0.94);
+
+    border: 1px solid #D0CED6;
 
     padding: 30px;
 
-    border-radius: 25px;
+    border-radius: 20px;
 
     box-shadow:
-        0 15px 35px
-        rgba(0, 0, 0, 0.08);
+        0 12px 35px
+        rgba(70, 65, 85, 0.12);
 
     margin-top: 35px;
 
     margin-bottom: 40px;
+
+    transition:
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
+}
+
+
+/* QUOTE HOVER */
+
+.quote-card:hover {
+
+    background: rgba(228, 227, 232, 0.98);
+
+    border-color: #C5C0CD;
+
+    box-shadow:
+        0 16px 38px
+        rgba(70, 65, 85, 0.14);
 }
 
 
 .quote-card h2 {
 
-    color: #6C63FF;
+    color: #7254A2;
 
     margin-bottom: 15px;
 }
 
 
-/* ---------- XP PROGRESS ---------- */
+/* =====================================================
+   XP PROGRESS
+   ===================================================== */
 
 .progress-card {
 
-    background: white;
+    /*
+       SAME MAIN PANEL SURFACE
+       AS CALENDAR / PLANNER
+    */
+
+    background: rgba(228, 227, 232, 0.94);
+
+    border: 1px solid #D0CED6;
 
     padding: 30px;
 
-    border-radius: 25px;
+    border-radius: 20px;
 
     box-shadow:
-        0 15px 35px
-        rgba(0, 0, 0, 0.08);
+        0 12px 35px
+        rgba(70, 65, 85, 0.12);
 
     margin-bottom: 40px;
+
+    transition:
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
 
+
+/* PROGRESS CARD HOVER */
+
+.progress-card:hover {
+
+    background: rgba(228, 227, 232, 0.98);
+
+    border-color: #C5C0CD;
+
+    box-shadow:
+        0 16px 38px
+        rgba(70, 65, 85, 0.14);
+}
+
+
+/* =====================================================
+   PROGRESS BAR
+   ===================================================== */
 
 .progress-bar {
 
@@ -157,7 +242,15 @@
 
     height: 15px;
 
-    background: #E8E8E8;
+    /*
+       MUTED INNER SURFACE
+       MATCHING PLANNER INPUTS
+       AND CALENDAR ELEMENTS
+    */
+
+    background: #D1D0D5;
+
+    border: 1px solid #CCC9D2;
 
     border-radius: 50px;
 
@@ -167,23 +260,31 @@
 }
 
 
+/* =====================================================
+   PROGRESS FILL
+   ===================================================== */
+
 .progress-fill {
 
     height: 100%;
 
-    background: #6C63FF;
+    background: #8F72D8;
 
     border-radius: 50px;
+
+    transition: width 0.4s ease;
 }
 
 
-/* ---------- QUICK ACTIONS ---------- */
+/* =====================================================
+   QUICK ACTIONS
+   ===================================================== */
 
 .section-title {
 
     margin-bottom: 30px;
 
-    color: #2D2D2D;
+    color: #302E3A;
 }
 
 
@@ -201,35 +302,127 @@
 }
 
 
+/* =====================================================
+   DASHBOARD CARDS
+   ===================================================== */
+
 .dashboard-card {
 
-    background: white;
+    /*
+       SAME MAIN CARD SURFACE
+       AS PLANNER TASK PANELS
+       AND CALENDAR CARDS
+    */
+
+    background: rgba(228, 227, 232, 0.94);
+
+    border: 1px solid #D0CED6;
 
     padding: 30px;
 
-    border-radius: 25px;
+    border-radius: 20px;
 
     box-shadow:
-        0 15px 35px
-        rgba(0, 0, 0, 0.08);
+        0 12px 35px
+        rgba(70, 65, 85, 0.12);
 
-    transition: 0.3s;
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease,
+        border-color 0.3s ease;
 }
 
+
+/* DASHBOARD CARD HOVER */
 
 .dashboard-card:hover {
 
     transform: translateY(-8px);
 
+    background: rgba(228, 227, 232, 0.98);
+
+    border-color: #C5C0CD;
+
     box-shadow:
         0 20px 40px
-        rgba(108, 99, 255, 0.18);
+        rgba(70, 65, 85, 0.14);
 }
 
 
 .dashboard-card h3 {
 
-    color: #6C63FF;
+    color: #7254A2;
 
     margin-bottom: 15px;
+}
+
+
+/* =====================================================
+   CONSISTENT DASHBOARD TEXT
+   ===================================================== */
+
+.dashboard-card p {
+
+    color: #777080;
+
+}
+
+
+.dashboard-card strong {
+
+    color: #514861;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+    .dashboard {
+
+        padding: 40px 25px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .dashboard {
+
+        padding: 30px 20px;
+    }
+
+
+    .welcome-card h1 {
+
+        font-size: 34px;
+    }
+
+
+    .stat-card {
+
+        padding: 25px;
+    }
+
+
+    .stat-card h1 {
+
+        font-size: 36px;
+    }
+
+
+    .quote-card,
+    .progress-card,
+    .dashboard-card {
+
+        padding: 22px;
+
+        border-radius: 20px;
+    }
+
 }

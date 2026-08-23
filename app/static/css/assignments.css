@@ -1451,3 +1451,6 @@
         font-size: 1.5rem;
     }
 }
+.focus-mode-button {
+    text-decoration: none;
+}

@@ -335,16 +335,13 @@
                     alt="{{ tree.name }}"
                     data-x="{{ tree.x }}"
                     data-y="{{ tree.y }}"
+                    data-tree-key="{{ tree.tree_key }}"
                     title="{{ tree.name }}"
                 >
 
                 {% endfor %}
 
-                <!-- TEMPORARY DEBUG: WEEK 20 COMPARTMENTS -->
-                <!-- TEMPORARY DEBUG COMPARTMENTS -->
-                <!-- TEMPORARY DEBUG COMPARTMENTS -->
-                <div class="forest-compartment-debug-layer" aria-hidden="true"></div>
-
+        
             </div>
 
             {% endfor %}
@@ -379,13 +376,13 @@
                     alt="{{ tree.name }}"
                     data-x="{{ tree.x }}"
                     data-y="{{ tree.y }}"
+                    data-tree-key="{{ tree.tree_key }}"
                     title="{{ tree.name }}"
                 >
 
                 {% endfor %}
 
-                <div class="forest-compartment-debug-layer" aria-hidden="true"></div>
-
+        
             </div>
 
             {% endfor %}
@@ -420,13 +417,13 @@
                     alt="{{ tree.name }}"
                     data-x="{{ tree.x }}"
                     data-y="{{ tree.y }}"
+                    data-tree-key="{{ tree.tree_key }}"
                     title="{{ tree.name }}"
                 >
 
                 {% endfor %}
 
-                <div class="forest-compartment-debug-layer" aria-hidden="true"></div>
-
+        
             </div>
 
             {% endfor %}
@@ -871,7 +868,6 @@
 
         </div>
 
-
         <div class="lockin-card challenge-period-card">
 
             <div class="analytics-heading">
@@ -914,7 +910,6 @@
         </div>
 
     </section>
-
 
     {# ======================================================
        MUSIC

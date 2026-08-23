@@ -1,3 +1,4 @@
+
 /* =========================================================
    ORION PLANNER
    Clean Planner Page Styles
@@ -9,7 +10,9 @@
    ========================================================= */
 
 .planner-container {
+
     width: 88%;
+
     max-width: 1200px;
 
     margin: 35px auto 60px;
@@ -31,6 +34,7 @@
    ========================================================= */
 
 .planner-container + * {
+
     font-family: 'Poppins', sans-serif;
 }
 
@@ -39,6 +43,7 @@
 
 body > h1,
 main > h1 {
+
     font-family: 'Poppins', sans-serif;
 }
 
@@ -49,16 +54,19 @@ main > h1 {
 
 .planner-form {
 
-    background: #FFFFFF;
+    /* Calendar / Dashboard matched surface */
 
-    border: 1px solid #E9E2F5;
+    background: rgba(228, 227, 232, 0.94);
+
+    border: 1px solid #D0CED6;
 
     border-radius: 24px;
 
     padding: 30px;
 
     box-shadow:
-        0 12px 35px rgba(91, 67, 130, 0.08);
+        0 12px 35px
+        rgba(70, 65, 85, 0.12);
 }
 
 
@@ -114,11 +122,11 @@ main > h1 {
 
     margin-bottom: 3px;
 
-    border: 1px solid #E2DBEC;
+    border: 1px solid #CCC9D2;
 
     border-radius: 12px;
 
-    background: #FCFBFF;
+    background: #F1F0F3;
 
     color: #3F3948;
 
@@ -141,7 +149,9 @@ main > h1 {
 
 .planner-form .form-input:hover {
 
-    border-color: #CDBBEA;
+    border-color: #BDB8C7;
+
+    background: #ECEBEF;
 }
 
 
@@ -151,10 +161,11 @@ main > h1 {
 
     border-color: #8064C7;
 
-    background: #FFFFFF;
+    background: #F8F7F9;
 
     box-shadow:
-        0 0 0 4px rgba(128, 100, 199, 0.10);
+        0 0 0 4px
+        rgba(128, 100, 199, 0.10);
 }
 
 
@@ -192,7 +203,8 @@ main > h1 {
     cursor: pointer;
 
     box-shadow:
-        0 9px 22px rgba(108, 99, 255, 0.20);
+        0 9px 22px
+        rgba(108, 99, 255, 0.20);
 
     transition:
         transform 0.25s ease,
@@ -207,7 +219,8 @@ main > h1 {
     transform: translateY(-3px);
 
     box-shadow:
-        0 13px 28px rgba(108, 99, 255, 0.28);
+        0 13px 28px
+        rgba(108, 99, 255, 0.28);
 }
 
 
@@ -217,16 +230,19 @@ main > h1 {
 
 .planner-tasks {
 
-    background: #FFFFFF;
+    /* Same surface as dashboard/calendar cards */
 
-    border: 1px solid #E9E2F5;
+    background: rgba(228, 227, 232, 0.94);
+
+    border: 1px solid #D0CED6;
 
     border-radius: 24px;
 
     padding: 30px;
 
     box-shadow:
-        0 12px 35px rgba(91, 67, 130, 0.08);
+        0 12px 35px
+        rgba(70, 65, 85, 0.12);
 }
 
 
@@ -260,24 +276,26 @@ main > h1 {
 
     padding: 20px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #FFFFFF,
-            #FCFAFF
-        );
+    /*
+       Soft inner card matching the
+       calendar/dashboard visual system.
+    */
 
-    border: 1px solid #EAE3F3;
+    background: #E7E5EA;
+
+    border: 1px solid #D5D1DC;
 
     border-radius: 17px;
 
     box-shadow:
-        0 5px 16px rgba(80, 55, 120, 0.05);
+        0 5px 16px
+        rgba(70, 65, 85, 0.07);
 
     transition:
         transform 0.25s ease,
         box-shadow 0.25s ease,
-        border-color 0.25s ease;
+        border-color 0.25s ease,
+        background 0.25s ease;
 }
 
 
@@ -287,10 +305,13 @@ main > h1 {
 
     transform: translateY(-3px);
 
-    border-color: #D4C4EC;
+    border-color: #C5C0CD;
+
+    background: #E4E3E8;
 
     box-shadow:
-        0 12px 28px rgba(80, 55, 120, 0.10);
+        0 12px 28px
+        rgba(70, 65, 85, 0.12);
 }
 
 
@@ -352,7 +373,7 @@ main > h1 {
 
     padding: 6px 10px;
 
-    background: #F3EEFF;
+    background: #DDD9E3;
 
     border-radius: 9px;
 
@@ -378,7 +399,7 @@ main > h1 {
 
     padding-top: 14px;
 
-    border-top: 1px solid #F0EBF5;
+    border-top: 1px solid #D5D2DA;
 
     flex-wrap: wrap;
 }
@@ -400,7 +421,7 @@ main > h1 {
 
     border-radius: 9px;
 
-    background: #F0ECFF;
+    background: #DDD9E8;
 
     color: #6650A5;
 
@@ -422,7 +443,7 @@ main > h1 {
 
     transform: translateY(-2px);
 
-    background: #E6DEFF;
+    background: #D2CCDF;
 }
 
 
@@ -442,7 +463,7 @@ main > h1 {
 
     border-radius: 9px;
 
-    background: #FFF0F2;
+    background: #F1E3E6;
 
     color: #C65A70;
 
@@ -464,7 +485,7 @@ main > h1 {
 
     transform: translateY(-2px);
 
-    background: #FFE2E7;
+    background: #EBD7DC;
 }
 
 
@@ -478,11 +499,11 @@ main > h1 {
 
     text-align: center;
 
-    border: 1px dashed #D9CDEE;
+    border: 1px dashed #C8C4CE;
 
     border-radius: 18px;
 
-    background: #FCFAFF;
+    background: #E7E5EA;
 }
 
 
@@ -542,7 +563,6 @@ main > h1 {
 
         gap: 22px;
     }
-
 }
 
 
@@ -582,7 +602,6 @@ main > h1 {
 
         gap: 7px;
     }
-
 }
 
 
@@ -612,5 +631,5 @@ main > h1 {
 
         width: 100%;
     }
-
 }
+

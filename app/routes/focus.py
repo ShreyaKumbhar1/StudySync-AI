@@ -261,11 +261,9 @@ BASE_TREES = {
 
 UGLY_TREE_ID = "__ugly_tree__"
 
-
 def _is_ugly_tree_asset(filename):
     stem = _slug(os.path.splitext(filename)[0])
     return stem in {"ugly_tree", "uglytree", "ugly"}
-
 
 def _build_tree_catalog():
     discovered = [
@@ -1427,11 +1425,14 @@ def build_forest_pages(
             focus_session.trees_earned or 1,
         )
 
-        for _ in range(count):
+        for tree_index in range(count):
             forest_trees.append({
                 "name": tree["name"],
                 "image": tree["image"],
                 "tree_id": tree["id"],
+                "tree_key": (
+                    f"{focus_session.id}-{tree_index}"
+                ),
                 "destroyed": bool(
                     focus_session.destroyed_tree
                 ),
@@ -1733,7 +1734,51 @@ def lockin_grove():
         daily_goal=daily_goal,
         selected_music=None,
     )
+# ==========================================================
+# ASSIGNMENT FOCUS ENTRY
+# ==========================================================
 
+@focus.route(
+    "/lock-in-grove/from-assignment"
+)
+@login_required
+def assignment_focus():
+
+    active_session = (
+        FocusSession.query
+        .filter_by(
+            user_id=current_user.id,
+            status="active"
+        )
+        .order_by(
+            FocusSession.started_at.desc()
+        )
+        .first()
+    )
+
+    # ------------------------------------------------------
+    # ACTIVE SESSION EXISTS
+    # Open that exact session immediately.
+    # ------------------------------------------------------
+
+    if active_session:
+        return redirect(
+            url_for(
+                "focus.focus_session",
+                session_id=active_session.id
+            )
+        )
+
+    # ------------------------------------------------------
+    # NO ACTIVE SESSION
+    # Open Lock-In Grove at the Focus Session section.
+    # ------------------------------------------------------
+
+    return redirect(
+        url_for(
+            "focus.lockin_grove"
+        ) + "#focus-session"
+    )
 # ==========================================================
 # ACTIVE FOCUS PAGE
 # ==========================================================

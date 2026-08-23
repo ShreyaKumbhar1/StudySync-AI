@@ -1,111 +1,4 @@
 /* ==========================================================
-   ORION • LOCK-IN GROVE
-   ========================================================== */
-
-/* ==========================================================
-   TEMPORARY FOREST COMPARTMENTS
-   ========================================================== */
-
-const FOREST_DEBUG_SLOTS = {
-    week: [
-        [35, 28], [47, 28], [59, 28], [71, 28], [82, 28],
-        [31, 39], [43, 39], [55, 39], [67, 39], [79, 39],
-        [35, 50], [47, 50], [59, 50], [71, 50], [82, 50],
-        [40, 61], [50, 61], [60, 61], [70, 61], [79, 61]
-    ],
-
-    month: [
-        [37, 25], [46, 25], [55, 25], [64, 25], [73, 25], [82, 25], [88, 25],
-        [33, 31], [42, 31], [51, 31], [60, 31], [69, 31], [78, 31], [86, 31],
-        [31, 37], [40, 37], [49, 37], [58, 37], [67, 37], [76, 37], [84, 37],
-        [29, 43], [38, 43], [47, 43], [56, 43], [65, 43], [74, 43], [82, 43],
-        [30, 49], [39, 49], [48, 49], [57, 49], [66, 49], [75, 49], [83, 49],
-        [32, 55], [41, 55], [50, 55], [59, 55], [68, 55], [77, 55], [85, 55],
-        [35, 61], [44, 61], [53, 61], [62, 61], [71, 61], [80, 61], [86, 61],
-        [39, 67], [48, 67], [57, 67], [66, 67], [75, 67], [83, 67], [88, 67],
-        [43, 73], [52, 73], [61, 73], [70, 73], [79, 73], [86, 73], [90, 73],
-        [47, 79], [56, 79], [65, 79], [74, 79], [82, 79], [88, 79], [92, 79]
-    ],
-
-    year: []
-};
-
-
-/* 150 year slots */
-
-[
-    [24, [34, 40, 46, 52, 58, 64, 70, 76, 82, 87]],
-    [29, [31, 37, 43, 49, 55, 61, 67, 73, 79, 85]],
-    [34, [29, 35, 41, 47, 53, 59, 65, 71, 77, 83]],
-    [39, [28, 34, 40, 46, 52, 58, 64, 70, 76, 82]],
-    [44, [27, 33, 39, 45, 51, 57, 63, 69, 75, 81]],
-    [49, [28, 34, 40, 46, 52, 58, 64, 70, 76, 82]],
-    [54, [29, 35, 41, 47, 53, 59, 65, 71, 77, 83]],
-    [59, [31, 37, 43, 49, 55, 61, 67, 73, 79, 85]],
-    [64, [33, 39, 45, 51, 57, 63, 69, 75, 81, 87]],
-    [69, [35, 41, 47, 53, 59, 65, 71, 77, 83, 89]],
-    [74, [38, 44, 50, 56, 62, 68, 74, 80, 86, 91]],
-    [79, [41, 47, 53, 59, 65, 71, 77, 83, 88, 93]],
-    [84, [44, 50, 56, 62, 68, 74, 80, 86, 91, 94]],
-    [88, [47, 53, 59, 65, 71, 77, 83, 89, 93, 95]],
-    [92, [50, 56, 62, 68, 74, 80, 86, 91, 94, 96]]
-].forEach(function (row) {
-    const y = row[0];
-
-    row[1].forEach(function (x) {
-        FOREST_DEBUG_SLOTS.year.push([x, y]);
-    });
-});
-
-
-function createDebugSlots(view) {
-    if (!view) {
-        return;
-    }
-
-    const layer =
-        view.querySelector(
-            ".forest-compartment-debug-layer"
-        );
-
-    if (!layer) {
-        return;
-    }
-
-    if (layer.dataset.created === "true") {
-        return;
-    }
-
-    const period =
-        view.dataset.period;
-
-    const slots =
-        FOREST_DEBUG_SLOTS[period] || [];
-
-    slots.forEach(function (slot, index) {
-        const element =
-            document.createElement("div");
-
-        element.className =
-            "forest-compartment-debug-slot";
-
-        element.dataset.x =
-            String(slot[0]);
-
-        element.dataset.y =
-            String(slot[1]);
-
-        element.textContent =
-            String(index + 1);
-
-        layer.appendChild(element);
-    });
-
-    layer.dataset.created = "true";
-}
-
-
-/* ==========================================================
    INITIALIZE
    ========================================================== */
 
@@ -131,7 +24,6 @@ document.addEventListener(
     }
 );
 
-
 /* ==========================================================
    MODALS
    ========================================================== */
@@ -145,7 +37,6 @@ function openModal(id) {
     }
 }
 
-
 function closeModal(id) {
     const modal =
         document.getElementById(id);
@@ -154,7 +45,6 @@ function closeModal(id) {
         modal.classList.add("hidden");
     }
 }
-
 
 function setupModals() {
 
@@ -179,7 +69,6 @@ function setupModals() {
                 return;
             }
 
-
             if (
                 event.target.classList.contains(
                     "site-modal"
@@ -199,7 +88,6 @@ function setupModals() {
         }
     );
 }
-
 
 /* ==========================================================
    FOREST SWITCHER
@@ -242,24 +130,20 @@ function setupForestSwitcher() {
             "forest-page-label"
         );
 
-
     if (!buttons.length) {
         return;
     }
-
 
     const state = {
         period: "week",
         page: 1
     };
 
-
     const descriptions = {
         week: "Up to 20 trees per island.",
         month: "Up to 70 trees per island.",
         year: "Up to 150 trees per island."
     };
-
 
     function getPages(period) {
 
@@ -270,6 +154,174 @@ function setupForestSwitcher() {
         ];
     }
 
+    function getStoredTreePosition(tree) {
+
+        const key = tree.dataset.treeKey;
+
+        if (!key) {
+            return null;
+        }
+
+        try {
+            const stored =
+                localStorage.getItem(
+                    `studysync-grove-tree-${key}`
+                );
+
+            if (!stored) {
+                return null;
+            }
+
+            const position = JSON.parse(stored);
+
+            if (
+                typeof position.x !== "number" ||
+                typeof position.y !== "number"
+            ) {
+                return null;
+            }
+
+            return position;
+        } catch (error) {
+            console.warn(
+                "Unable to read saved tree position:",
+                error
+            );
+            return null;
+        }
+    }
+
+    function saveTreePosition(tree, x, y) {
+
+        const key = tree.dataset.treeKey;
+
+        if (!key) {
+            return;
+        }
+
+        try {
+            localStorage.setItem(
+                `studysync-grove-tree-${key}`,
+                JSON.stringify({
+                    x: x,
+                    y: y
+                })
+            );
+        } catch (error) {
+            console.warn(
+                "Unable to save tree position:",
+                error
+            );
+        }
+    }
+
+    function enableTreeDragging(tree, view, land) {
+
+        if (tree.dataset.dragReady === "true") {
+            return;
+        }
+
+        tree.dataset.dragReady = "true";
+
+        tree.addEventListener(
+            "pointerdown",
+            function (event) {
+
+                if (event.button !== 0) {
+                    return;
+                }
+
+                const landRect = land.getBoundingClientRect();
+                const viewRect = view.getBoundingClientRect();
+
+                if (!landRect.width || !landRect.height) {
+                    return;
+                }
+
+                const treeRect = tree.getBoundingClientRect();
+
+                const pointerX = event.clientX - viewRect.left;
+                const pointerY = event.clientY - viewRect.top;
+                const treeLeft = treeRect.left - viewRect.left;
+                const treeTop = treeRect.top - viewRect.top;
+                const offsetX = pointerX - treeLeft;
+                const offsetY = pointerY - treeTop;
+
+                const minX = landRect.left - viewRect.left + (treeRect.width / 2);
+                const maxX = landRect.right - viewRect.left - (treeRect.width / 2);
+                const minY = landRect.top - viewRect.top + treeRect.height;
+                const maxY = landRect.bottom - viewRect.top;
+
+                tree.classList.add("dragging");
+                tree.setPointerCapture(event.pointerId);
+                event.preventDefault();
+
+                function moveTree(moveEvent) {
+
+                    const nextLeft =
+                        moveEvent.clientX - viewRect.left - offsetX;
+
+                    const nextTop =
+                        moveEvent.clientY - viewRect.top - offsetY;
+
+                    const nextX = Math.max(
+                        minX,
+                        Math.min(
+                            maxX,
+                            nextLeft + (treeRect.width / 2)
+                        )
+                    );
+
+                    const nextY = Math.max(
+                        minY,
+                        Math.min(
+                            maxY,
+                            nextTop + treeRect.height
+                        )
+                    );
+
+                    tree.style.left = `${nextX}px`;
+                    tree.style.top = `${nextY}px`;
+
+                    const x =
+                        (
+                            nextX -
+                            (landRect.left - viewRect.left)
+                        ) / landRect.width * 100;
+
+                    const y =
+                        (
+                            nextY -
+                            (landRect.top - viewRect.top)
+                        ) / landRect.height * 100;
+
+                    tree.dataset.x = String(x);
+                    tree.dataset.y = String(y);
+                    tree.style.zIndex = String(1000 + Math.round(y * 10));
+                }
+
+                function finishDrag() {
+
+                    tree.classList.remove("dragging");
+
+                    const x = Number(tree.dataset.x);
+                    const y = Number(tree.dataset.y);
+
+                    if (Number.isFinite(x) && Number.isFinite(y)) {
+                        saveTreePosition(tree, x, y);
+                    }
+
+                    tree.removeEventListener("pointermove", moveTree);
+                    tree.removeEventListener("pointerup", finishDrag);
+                    tree.removeEventListener("pointercancel", finishDrag);
+                }
+
+                tree.addEventListener("pointermove", moveTree);
+                tree.addEventListener("pointerup", finishDrag);
+                tree.addEventListener("pointercancel", finishDrag);
+            }
+        );
+    }
 
     function positionTrees(view) {
 
@@ -277,178 +329,60 @@ function setupForestSwitcher() {
             return;
         }
 
-
-        const land =
-            view.querySelector(
-                ".forest-land"
-            );
-
+        const land = view.querySelector(".forest-land");
 
         if (!land) {
             return;
         }
 
-
-        createDebugSlots(view);
-
-
         function applyPositions() {
 
-            const landRect =
-                land.getBoundingClientRect();
+            const landRect = land.getBoundingClientRect();
+            const viewRect = view.getBoundingClientRect();
 
-            const viewRect =
-                view.getBoundingClientRect();
-
-
-            if (
-                !landRect.width ||
-                !landRect.height
-            ) {
+            if (!landRect.width || !landRect.height) {
                 return;
             }
 
+            view.querySelectorAll(".planted-tree").forEach(
+                function (tree) {
 
-            /* --------------------------------------------------
-               REAL TREES
-               -------------------------------------------------- */
+                    const stored = getStoredTreePosition(tree);
 
-            view
-                .querySelectorAll(
-                    ".planted-tree"
-                )
-                .forEach(
-                    function (tree) {
+                    const x = stored
+                        ? stored.x
+                        : Number(tree.dataset.x || 50);
 
-                        const x =
-                            Number(
-                                tree.dataset.x || 50
-                            );
+                    const y = stored
+                        ? stored.y
+                        : Number(tree.dataset.y || 50);
 
-                        const y =
-                            Number(
-                                tree.dataset.y || 50
-                            );
+                    tree.dataset.x = String(x);
+                    tree.dataset.y = String(y);
 
+                    tree.style.left = `${
+                        (landRect.left - viewRect.left) +
+                        (landRect.width * x / 100)
+                    }px`;
 
-                        tree.style.left =
-                            `${
-                                (
-                                    landRect.left -
-                                    viewRect.left
-                                )
-                                +
-                                (
-                                    landRect.width *
-                                    x /
-                                    100
-                                )
-                            }px`;
+                    tree.style.top = `${
+                        (landRect.top - viewRect.top) +
+                        (landRect.height * y / 100)
+                    }px`;
 
+                    tree.style.zIndex = String(1000 + Math.round(y * 10));
 
-                        tree.style.top =
-                            `${
-                                (
-                                    landRect.top -
-                                    viewRect.top
-                                )
-                                +
-                                (
-                                    landRect.height *
-                                    y /
-                                    100
-                                )
-                            }px`;
-
-
-                        tree.style.zIndex =
-                            String(
-                                1000 +
-                                Math.round(
-                                    y * 10
-                                )
-                            );
-                    }
-                );
-
-
-            /* --------------------------------------------------
-               DEBUG COMPARTMENTS
-               -------------------------------------------------- */
-
-            view
-                .querySelectorAll(
-                    ".forest-compartment-debug-slot"
-                )
-                .forEach(
-                    function (slot) {
-
-                        const x =
-                            Number(
-                                slot.dataset.x || 50
-                            );
-
-                        const y =
-                            Number(
-                                slot.dataset.y || 50
-                            );
-
-
-                        slot.style.left =
-                            `${
-                                (
-                                    landRect.left -
-                                    viewRect.left
-                                )
-                                +
-                                (
-                                    landRect.width *
-                                    x /
-                                    100
-                                )
-                            }px`;
-
-
-                        slot.style.top =
-                            `${
-                                (
-                                    landRect.top -
-                                    viewRect.top
-                                )
-                                +
-                                (
-                                    landRect.height *
-                                    y /
-                                    100
-                                )
-                            }px`;
-
-
-                        slot.style.zIndex =
-                            "9000";
-                    }
-                );
-        }
-
-
-        if (land.complete) {
-
-            requestAnimationFrame(
-                applyPositions
-            );
-
-        } else {
-
-            land.addEventListener(
-                "load",
-                applyPositions,
-                {
-                    once: true
+                    enableTreeDragging(tree, view, land);
                 }
             );
         }
-    }
 
+        if (land.complete) {
+            requestAnimationFrame(applyPositions);
+        } else {
+            land.addEventListener("load", applyPositions, { once: true });
+        }
+    }
 
     function renderForest() {
 
@@ -457,11 +391,9 @@ function setupForestSwitcher() {
                 state.period
             );
 
-
         if (!pages.length) {
             return;
         }
-
 
         state.page =
             Math.max(
@@ -472,7 +404,6 @@ function setupForestSwitcher() {
                 )
             );
 
-
         views.forEach(
             function (view) {
 
@@ -482,22 +413,18 @@ function setupForestSwitcher() {
             }
         );
 
-
         const activePage =
             pages[
                 state.page - 1
             ];
 
-
         if (!activePage) {
             return;
         }
 
-
         activePage.classList.add(
             "active"
         );
-
 
         buttons.forEach(
             function (button) {
@@ -510,7 +437,6 @@ function setupForestSwitcher() {
             }
         );
 
-
         if (title) {
 
             title.textContent =
@@ -521,7 +447,6 @@ function setupForestSwitcher() {
                         : "Yearly Grove";
         }
 
-
         if (description) {
 
             description.textContent =
@@ -529,7 +454,6 @@ function setupForestSwitcher() {
                     state.period
                 ];
         }
-
 
         if (pageLabel) {
 
@@ -540,20 +464,17 @@ function setupForestSwitcher() {
                 +
                 state.period.slice(1);
 
-
             pageLabel.textContent =
                 pages.length > 1
                     ? `${name} ${state.page} of ${pages.length}`
                     : `${name} 1`;
         }
 
-
         if (previousButton) {
 
             previousButton.disabled =
                 state.page <= 1;
         }
-
 
         if (nextButton) {
 
@@ -562,12 +483,10 @@ function setupForestSwitcher() {
                 pages.length;
         }
 
-
         positionTrees(
             activePage
         );
     }
-
 
     buttons.forEach(
         function (button) {
@@ -587,7 +506,6 @@ function setupForestSwitcher() {
         }
     );
 
-
     if (previousButton) {
 
         previousButton.addEventListener(
@@ -604,7 +522,6 @@ function setupForestSwitcher() {
         );
     }
 
-
     if (nextButton) {
 
         nextButton.addEventListener(
@@ -615,7 +532,6 @@ function setupForestSwitcher() {
                     getPages(
                         state.period
                     );
-
 
                 if (
                     state.page <
@@ -630,7 +546,6 @@ function setupForestSwitcher() {
         );
     }
 
-
     window.addEventListener(
         "resize",
         function () {
@@ -644,10 +559,8 @@ function setupForestSwitcher() {
         }
     );
 
-
     renderForest();
 }
-
 
 /* ==========================================================
    TREE COLLECTION
@@ -674,7 +587,6 @@ function setupTreeCollection() {
             }
         );
 
-
     document
         .querySelectorAll(
             ".all-tree-option"
@@ -697,12 +609,10 @@ function setupTreeCollection() {
             }
         );
 
-
     const moreButton =
         document.getElementById(
             "more-trees-button"
         );
-
 
     if (moreButton) {
 
@@ -717,9 +627,7 @@ function setupTreeCollection() {
         );
     }
 
-
     let pendingTreeId = null;
-
 
     window.currentLockedTree =
         function (treeId) {
@@ -728,12 +636,10 @@ function setupTreeCollection() {
                 treeId;
         };
 
-
     const unlockButton =
         document.getElementById(
             "tree-modal-unlock"
         );
-
 
     if (unlockButton) {
 
@@ -744,7 +650,6 @@ function setupTreeCollection() {
                 if (!pendingTreeId) {
                     return;
                 }
-
 
                 try {
 
@@ -759,10 +664,8 @@ function setupTreeCollection() {
                             }
                         );
 
-
                     const result =
                         await response.json();
-
 
                     if (
                         result.success
@@ -783,7 +686,6 @@ function setupTreeCollection() {
     }
 }
 
-
 /* ==========================================================
    TREE POPUP
    ========================================================== */
@@ -795,11 +697,9 @@ function openTreeInfo(data) {
             "tree-info-modal"
         );
 
-
     if (!modal) {
         return;
     }
-
 
     const image =
         document.getElementById(
@@ -831,7 +731,6 @@ function openTreeInfo(data) {
             "tree-modal-cost"
         );
 
-
     if (image) {
 
         image.src =
@@ -841,13 +740,11 @@ function openTreeInfo(data) {
             data.name || "Tree";
     }
 
-
     if (name) {
 
         name.textContent =
             data.name || "Tree";
     }
-
 
     if (description) {
 
@@ -856,12 +753,10 @@ function openTreeInfo(data) {
             "A beautiful addition to your focus forest.";
     }
 
-
     const unlocked =
         String(
             data.unlocked
         ) === "true";
-
 
     if (unlocked) {
 
@@ -870,7 +765,6 @@ function openTreeInfo(data) {
             status.textContent =
                 "UNLOCKED TREE";
         }
-
 
         if (costArea) {
 
@@ -887,13 +781,11 @@ function openTreeInfo(data) {
                 "LOCKED TREE";
         }
 
-
         if (cost) {
 
             cost.textContent =
                 `${data.cost || 0} 📡`;
         }
-
 
         if (costArea) {
 
@@ -901,7 +793,6 @@ function openTreeInfo(data) {
                 "hidden"
             );
         }
-
 
         if (
             typeof window.currentLockedTree ===
@@ -914,12 +805,10 @@ function openTreeInfo(data) {
         }
     }
 
-
     modal.classList.remove(
         "hidden"
     );
 }
-
 
 /* ==========================================================
    FOCUS SESSION SELECTION
@@ -957,7 +846,6 @@ function setupDurationFlow() {
             "focus-no-music"
         );
 
-
     if (
         !durationButtons.length ||
         !durationInput ||
@@ -970,13 +858,11 @@ function setupDurationFlow() {
         return;
     }
 
-
     let selectedDuration =
         null;
 
     let previewAudio =
         null;
-
 
     durationButtons.forEach(
         function (button) {
@@ -990,14 +876,11 @@ function setupDurationFlow() {
                             button.dataset.duration
                         );
 
-
                     durationInput.value =
                         selectedDuration;
 
-
                     musicInput.value =
                         "";
-
 
                     openModal(
                         "focus-tree-modal"
@@ -1006,7 +889,6 @@ function setupDurationFlow() {
             );
         }
     );
-
 
     document
         .querySelectorAll(
@@ -1023,11 +905,9 @@ function setupDurationFlow() {
                             card.dataset.tree ||
                             "";
 
-
                         closeModal(
                             "focus-tree-modal"
                         );
-
 
                         openModal(
                             "focus-music-modal"
@@ -1037,7 +917,6 @@ function setupDurationFlow() {
             }
         );
 
-
     noMusic.addEventListener(
         "click",
         function () {
@@ -1045,11 +924,9 @@ function setupDurationFlow() {
             musicInput.value =
                 "";
 
-
             closeModal(
                 "focus-music-modal"
             );
-
 
             if (selectedDuration) {
 
@@ -1057,7 +934,6 @@ function setupDurationFlow() {
             }
         }
     );
-
 
     document
         .querySelectorAll(
@@ -1074,11 +950,9 @@ function setupDurationFlow() {
                             card.dataset.focusMusic ||
                             "";
 
-
                         const file =
                             card.dataset.file ||
                             "";
-
 
                         if (previewAudio) {
 
@@ -1088,7 +962,6 @@ function setupDurationFlow() {
                                 0;
                         }
 
-
                         if (file) {
 
                             previewAudio =
@@ -1097,7 +970,6 @@ function setupDurationFlow() {
                             previewAudio.volume =
                                 0.55;
 
-
                             previewAudio
                                 .play()
                                 .catch(
@@ -1105,15 +977,12 @@ function setupDurationFlow() {
                                 );
                         }
 
-
                         musicInput.value =
                             musicId;
-
 
                         closeModal(
                             "focus-music-modal"
                         );
-
 
                         if (
                             selectedDuration
@@ -1127,7 +996,6 @@ function setupDurationFlow() {
         );
 }
 
-
 /* ==========================================================
    MUSIC
    ========================================================== */
@@ -1138,7 +1006,6 @@ function setupMusicCollection() {
         document.getElementById(
             "more-music-button"
         );
-
 
     if (moreButton) {
 
@@ -1153,10 +1020,8 @@ function setupMusicCollection() {
         );
     }
 
-
     let previewAudio =
         null;
-
 
     document
         .querySelectorAll(
@@ -1177,7 +1042,6 @@ function setupMusicCollection() {
                                 0;
                         }
 
-
                         if (card.dataset.file) {
 
                             previewAudio =
@@ -1188,14 +1052,12 @@ function setupMusicCollection() {
                             previewAudio.volume =
                                 0.55;
 
-
                             previewAudio
                                 .play()
                                 .catch(
                                     function () {}
                                 );
                         }
-
 
                         openMusicInfo(
                             card.dataset
@@ -1204,7 +1066,6 @@ function setupMusicCollection() {
                 );
             }
         );
-
 
     document
         .querySelectorAll(
@@ -1229,16 +1090,13 @@ function setupMusicCollection() {
             }
         );
 
-
     const unlockButton =
         document.getElementById(
             "music-modal-unlock"
         );
 
-
     let pendingMusicId =
         null;
-
 
     function getCurrentAntennas() {
 
@@ -1247,11 +1105,9 @@ function setupMusicCollection() {
                 ".antenna-counter strong"
             );
 
-
         if (!element) {
             return 0;
         }
-
 
         const value =
             Number(
@@ -1261,12 +1117,10 @@ function setupMusicCollection() {
                 )
             );
 
-
         return Number.isFinite(value)
             ? value
             : 0;
     }
-
 
     function openMusicInfo(data) {
 
@@ -1275,11 +1129,9 @@ function setupMusicCollection() {
                 "music-info-modal"
             );
 
-
         if (!modal) {
             return;
         }
-
 
         const name =
             document.getElementById(
@@ -1306,14 +1158,12 @@ function setupMusicCollection() {
                 "music-modal-cost"
             );
 
-
         if (costArea) {
 
             costArea.classList.add(
                 "hidden"
             );
         }
-
 
         if (unlockButton) {
 
@@ -1322,10 +1172,8 @@ function setupMusicCollection() {
             );
         }
 
-
         pendingMusicId =
             null;
-
 
         if (name) {
 
@@ -1333,14 +1181,12 @@ function setupMusicCollection() {
                 data.name || "Music";
         }
 
-
         if (description) {
 
             description.textContent =
                 data.description ||
                 "A focus atmosphere for your study session.";
         }
-
 
         if (player) {
 
@@ -1352,28 +1198,23 @@ function setupMusicCollection() {
             player.load();
         }
 
-
         const unlocked =
             String(
                 data.unlocked
             ) === "true";
-
 
         if (!unlocked) {
 
             pendingMusicId =
                 data.music || "";
 
-
             const required =
                 Number(
                     data.cost || 0
                 );
 
-
             const current =
                 getCurrentAntennas();
-
 
             const remaining =
                 Math.max(
@@ -1381,7 +1222,6 @@ function setupMusicCollection() {
                     current,
                     0
                 );
-
 
             if (cost) {
 
@@ -1391,14 +1231,12 @@ function setupMusicCollection() {
                         : `${required} antennas required`;
             }
 
-
             if (costArea) {
 
                 costArea.classList.remove(
                     "hidden"
                 );
             }
-
 
             if (unlockButton) {
 
@@ -1408,12 +1246,10 @@ function setupMusicCollection() {
             }
         }
 
-
         modal.classList.remove(
             "hidden"
         );
     }
-
 
     if (unlockButton) {
 
@@ -1424,7 +1260,6 @@ function setupMusicCollection() {
                 if (!pendingMusicId) {
                     return;
                 }
-
 
                 try {
 
@@ -1439,10 +1274,8 @@ function setupMusicCollection() {
                             }
                         );
 
-
                     const result =
                         await response.json();
-
 
                     if (
                         result.success
@@ -1463,7 +1296,6 @@ function setupMusicCollection() {
     }
 }
 
-
 /* ==========================================================
    DAILY GOAL
    ========================================================== */
@@ -1475,11 +1307,9 @@ function setupDailyGoal() {
             "daily-goal-modal"
         );
 
-
     if (!modal) {
         return;
     }
-
 
     const options =
         modal.querySelectorAll(
@@ -1491,15 +1321,12 @@ function setupDailyGoal() {
             "save-daily-goal"
         );
 
-
     if (!saveButton) {
         return;
     }
 
-
     let selectedGoal =
         null;
-
 
     options.forEach(
         function (option) {
@@ -1517,11 +1344,9 @@ function setupDailyGoal() {
                         }
                     );
 
-
                     option.classList.add(
                         "selected"
                     );
-
 
                     selectedGoal =
                         Number(
@@ -1532,7 +1357,6 @@ function setupDailyGoal() {
         }
     );
 
-
     saveButton.addEventListener(
         "click",
         async function () {
@@ -1541,16 +1365,13 @@ function setupDailyGoal() {
                 return;
             }
 
-
             const body =
                 new URLSearchParams();
-
 
             body.append(
                 "daily_goal",
                 selectedGoal
             );
-
 
             try {
 
@@ -1571,10 +1392,8 @@ function setupDailyGoal() {
                         }
                     );
 
-
                 const result =
                     await response.json();
-
 
                 if (
                     result.success
@@ -1594,7 +1413,6 @@ function setupDailyGoal() {
     );
 }
 
-
 /* ==========================================================
    FOCUS TIMER
    ========================================================== */
@@ -1606,12 +1424,10 @@ function setupFocusMode(
     const sessionId =
         focusMode.dataset.sessionId;
 
-
     const totalMinutes =
         Number(
             focusMode.dataset.duration
         );
-
 
     const totalSeconds =
         Math.max(
@@ -1619,12 +1435,10 @@ function setupFocusMode(
             totalMinutes * 60
         );
 
-
     const startedAtMs =
         Number(
             focusMode.dataset.startedAtMs
         );
-
 
     const timer =
         document.getElementById(
@@ -1661,7 +1475,6 @@ function setupFocusMode(
             "return-focus"
         );
 
-
     if (
         !timer ||
         !progress ||
@@ -1673,7 +1486,6 @@ function setupFocusMode(
         return;
     }
 
-
     let finished =
         false;
 
@@ -1682,7 +1494,6 @@ function setupFocusMode(
 
     let hiddenSince =
         null;
-
 
     function elapsed() {
 
@@ -1695,7 +1506,6 @@ function setupFocusMode(
             return 0;
         }
 
-
         return Math.max(
             0,
             Math.floor(
@@ -1707,7 +1517,6 @@ function setupFocusMode(
         );
     }
 
-
     function formatTime(
         seconds
     ) {
@@ -1718,12 +1527,10 @@ function setupFocusMode(
                 Math.floor(seconds)
             );
 
-
         const hours =
             Math.floor(
                 seconds / 3600
             );
-
 
         const minutes =
             Math.floor(
@@ -1732,10 +1539,8 @@ function setupFocusMode(
                 ) / 60
             );
 
-
         const remainder =
             seconds % 60;
-
 
         return (
             String(hours)
@@ -1753,12 +1558,10 @@ function setupFocusMode(
         );
     }
 
-
     function render() {
 
         const used =
             elapsed();
-
 
         const remaining =
             Math.max(
@@ -1767,12 +1570,10 @@ function setupFocusMode(
                 0
             );
 
-
         timer.textContent =
             formatTime(
                 remaining
             );
-
 
         const progressPercent =
             Math.min(
@@ -1783,10 +1584,8 @@ function setupFocusMode(
                 100
             );
 
-
         progress.style.width =
             `${progressPercent}%`;
-
 
         /* FIRST MINUTE */
 
@@ -1795,11 +1594,9 @@ function setupFocusMode(
             const secondsLeft =
                 60 - used;
 
-
             grace.classList.remove(
                 "expired"
             );
-
 
             grace.innerHTML = `
                 <strong>
@@ -1814,7 +1611,6 @@ function setupFocusMode(
                 </span>
             `;
 
-
             cancelButton.classList.remove(
                 "danger"
             );
@@ -1827,7 +1623,6 @@ function setupFocusMode(
                 "expired"
             );
 
-
             grace.innerHTML = `
                 <strong>
                     GRACE PERIOD OVER
@@ -1839,12 +1634,10 @@ function setupFocusMode(
                 </span>
             `;
 
-
             cancelButton.classList.add(
                 "danger"
             );
         }
-
 
         /* STATUS */
 
@@ -1873,7 +1666,6 @@ function setupFocusMode(
         }
     }
 
-
     async function completeSession() {
 
         if (
@@ -1883,10 +1675,8 @@ function setupFocusMode(
             return;
         }
 
-
         finished =
             true;
-
 
         try {
 
@@ -1899,10 +1689,8 @@ function setupFocusMode(
                     }
                 );
 
-
             const result =
                 await response.json();
-
 
             if (
                 result.success
@@ -1921,7 +1709,6 @@ function setupFocusMode(
 
                     +${result.antennas_earned} antennas 📡
                 `;
-
 
                 setTimeout(
                     function () {
@@ -1945,12 +1732,10 @@ function setupFocusMode(
                 error
             );
 
-
             finished =
                 false;
         }
     }
-
 
     async function failSession(
         reason
@@ -1963,10 +1748,8 @@ function setupFocusMode(
             return;
         }
 
-
         failed =
             true;
-
 
         try {
 
@@ -1995,10 +1778,8 @@ function setupFocusMode(
                     }
                 );
 
-
             const result =
                 await response.json();
-
 
             if (
                 result.success
@@ -2014,7 +1795,6 @@ function setupFocusMode(
                     A distorted tree has been
                     added to your grove.
                 `;
-
 
                 setTimeout(
                     function () {
@@ -2038,12 +1818,10 @@ function setupFocusMode(
                 error
             );
 
-
             failed =
                 false;
         }
     }
-
 
     cancelButton.addEventListener(
         "click",
@@ -2056,10 +1834,8 @@ function setupFocusMode(
                 return;
             }
 
-
             const used =
                 elapsed();
-
 
             if (used < 60) {
 
@@ -2074,10 +1850,8 @@ function setupFocusMode(
                             }
                         );
 
-
                     const result =
                         await response.json();
-
 
                     if (
                         result.success
@@ -2085,7 +1859,6 @@ function setupFocusMode(
 
                         finished =
                             true;
-
 
                         window.location.href =
                             "/lock-in-grove";
@@ -2099,28 +1872,23 @@ function setupFocusMode(
                     );
                 }
 
-
                 return;
             }
-
 
             const confirmed =
                 window.confirm(
                     "Your one-minute grace period has ended. Cancelling now may add a distorted tree to your forest. Continue?"
                 );
 
-
             if (!confirmed) {
                 return;
             }
-
 
             await failSession(
                 "User cancelled after the one-minute grace period."
             );
         }
     );
-
 
     document.addEventListener(
         "visibilitychange",
@@ -2133,14 +1901,12 @@ function setupFocusMode(
                 return;
             }
 
-
             if (
                 document.hidden
             ) {
 
                 hiddenSince =
                     Date.now();
-
 
                 if (warning) {
 
@@ -2154,7 +1920,6 @@ function setupFocusMode(
                 hiddenSince =
                     null;
 
-
                 if (warning) {
 
                     warning.classList.add(
@@ -2164,7 +1929,6 @@ function setupFocusMode(
             }
         }
     );
-
 
     const visibilityWatcher =
         setInterval(
@@ -2182,7 +1946,6 @@ function setupFocusMode(
                     return;
                 }
 
-
                 if (
                     hiddenSince !== null &&
                     (
@@ -2194,7 +1957,6 @@ function setupFocusMode(
                     hiddenSince =
                         null;
 
-
                     failSession(
                         "User left the StudySync tab during an active focus session."
                     );
@@ -2203,7 +1965,6 @@ function setupFocusMode(
             },
             500
         );
-
 
     if (returnButton) {
 
@@ -2220,7 +1981,6 @@ function setupFocusMode(
             }
         );
     }
-
 
     window.addEventListener(
         "beforeunload",
@@ -2239,9 +1999,7 @@ function setupFocusMode(
         }
     );
 
-
     render();
-
 
     const timerLoop =
         setInterval(
@@ -2263,9 +2021,7 @@ function setupFocusMode(
                     return;
                 }
 
-
                 render();
-
 
                 if (
                     elapsed() >=

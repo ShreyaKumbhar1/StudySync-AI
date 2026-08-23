@@ -469,6 +469,15 @@
 
     transition:
         transform .2s ease;
+
+    cursor:
+        grab;
+
+    touch-action:
+        none;
+
+    user-select:
+        none;
 }
 
 .forest-view-month .planted-tree {
@@ -488,6 +497,23 @@
 }
 
 .planted-tree:hover {
+    transform:
+        translate(
+            -50%,
+            -100%
+        )
+        scale(
+            1.05
+        );
+}
+
+.planted-tree.dragging {
+    cursor:
+        grabbing;
+
+    transition:
+        none;
+
     transform:
         translate(
             -50%,
@@ -2966,7 +2992,6 @@
 
 }
 
-
 /* ==========================================================
    FOCUS SESSION — PREMIUM REDESIGN
    ========================================================== */
@@ -3250,79 +3275,5 @@
 
     .duration-option {
         min-height: 100px;
-    }
-}
-
-
-/* ==========================================================
-   TEMPORARY FOREST COMPARTMENT DEBUG OVERLAY
-   Remove this block after the slot positions are approved.
-   ========================================================== */
-
-.forest-compartment-debug-layer {
-    position: absolute;
-    inset: 0;
-    z-index: 9980;
-    pointer-events: none;
-}
-
-.forest-compartment-debug-slot {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 56px;
-    height: 42px;
-    display: grid;
-    place-items: center;
-    box-sizing: border-box;
-    border: 2px dashed rgba(110, 60, 180, 0.82);
-    border-radius: 8px;
-    background: rgba(170, 120, 220, 0.16);
-    color: #57317f;
-    font-size: 10px;
-    font-weight: 800;
-    text-shadow: 0 1px 1px rgba(255,255,255,0.9);
-}
-
-.forest-view-week .forest-compartment-debug-slot {
-    width: 72px;
-    height: 52px;
-    font-size: 10px;
-}
-
-.forest-view-month .forest-compartment-debug-slot {
-    width: 54px;
-    height: 42px;
-    font-size: 8px;
-}
-
-.forest-view-year .forest-compartment-debug-slot {
-    width: 40px;
-    height: 34px;
-    font-size: 7px;
-}
-
-.forest-compartment-debug-slot::after {
-    content: "";
-    position: absolute;
-    inset: 5px;
-    border: 1px solid rgba(110, 60, 180, 0.26);
-    border-radius: 4px;
-}
-
-@media (max-width: 700px) {
-    .forest-view-week .forest-compartment-debug-slot {
-        width: 58px;
-        height: 44px;
-    }
-
-    .forest-view-month .forest-compartment-debug-slot {
-        width: 42px;
-        height: 34px;
-    }
-
-    .forest-view-year .forest-compartment-debug-slot {
-        width: 31px;
-        height: 26px;
-        font-size: 6px;
     }
 }

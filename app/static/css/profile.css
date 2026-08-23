@@ -100,7 +100,7 @@
 
     border-radius: 9px;
 
-    background: #f0ebff;
+    background: #d2c7e3;
 
     color: #6658c8;
 
@@ -135,18 +135,18 @@
 .profile-card {
     background:
         rgba(
-            255,
-            255,
-            255,
-            0.95
+            228,
+            227,
+            232,
+            0.94
         );
 
     border: 1px solid
         rgba(
-            108,
-            99,
-            255,
-            0.10
+            208,
+            206,
+            214,
+            1
         );
 
     border-radius: 22px;
@@ -188,7 +188,7 @@
 
     border-radius: 13px;
 
-    background: #f0ebff;
+    background: #d2c7e3;
 
     font-size: 18px;
 }
@@ -287,11 +287,11 @@
 
     padding: 12px 13px;
 
-    border: 1px solid #e5e0f0;
+    border: 1px solid #c7c4ce;
 
     border-radius: 12px;
 
-    background: #fcfbff;
+    background: #d9d8dd;
 
     color: #38334e;
 
@@ -481,9 +481,9 @@
 
     border-radius: 13px;
 
-    background: #faf9ff;
+    background: #d6d4da;
 
-    border: 1px solid #eeeafb;
+    border: 1px solid #cbc8d0;
 }
 
 .progress-stat span {
@@ -515,11 +515,11 @@
     background:
         linear-gradient(
             135deg,
-            #f5f1ff,
-            #faf8ff
+            #d3c9e3,
+            #d3c9e3
         );
 
-    border: 1px solid #ebe5fa;
+    border: 1px solid #c4b5d9;
 
     text-align: center;
 }
@@ -598,11 +598,11 @@
 
     padding: 9px;
 
-    border: 1px solid #e6e1f1;
+    border: 1px solid #c7c4ce;
 
     border-radius: 11px;
 
-    background: #fcfbff;
+    background: #d9d8dd;
 
     color: #777185;
 
@@ -680,11 +680,11 @@
 
     padding: 13px;
 
-    border: 1px solid #eeeaf8;
+    border: 1px solid #c9c6ce;
 
     border-radius: 13px;
 
-    background: #fcfbff;
+    background: #d9d8dd;
 }
 
 .document-info {
@@ -708,7 +708,7 @@
 
     border-radius: 10px;
 
-    background: #f0ebff;
+    background: #d2c7e3;
 
     font-size: 15px;
 }
@@ -774,7 +774,7 @@
 }
 
 .document-view {
-    background: #f0ebff;
+    background: #d2c7e3;
 
     color: #6c63ff;
 }
@@ -782,7 +782,7 @@
 .document-delete {
     border: none;
 
-    background: #fff0f0;
+    background: #ead0d6;
 
     color: #d15c5c;
 }
@@ -809,9 +809,9 @@
 
     border-radius: 13px;
 
-    background: #faf9ff;
+    background: #d6d4da;
 
-    border: 1px dashed #e3def3;
+    border: 1px dashed #ccc9d2;
 
     text-align: center;
 }
@@ -849,7 +849,7 @@
 
     border-radius: 14px;
 
-    background: #f7f3ff;
+    background: #d8d7dc;
 
     text-align: center;
 }
