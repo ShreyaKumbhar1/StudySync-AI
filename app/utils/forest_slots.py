@@ -5,7 +5,6 @@ They are intentionally kept inside the grassy planting area rather than
 using a generic rectangular grid.
 """
 
-
 def _grid(rows):
     """Expand row definitions into ordered (x, y) planting slots."""
     slots = []
@@ -15,7 +14,6 @@ def _grid(rows):
             slots.append((x, y))
 
     return slots
-
 
 # ----------------------------------------------------------
 # WEEK: 20 compartments
@@ -27,7 +25,6 @@ WEEK_SLOTS = [
     (35, 50), (47, 50), (59, 50), (71, 50), (82, 50),
     (40, 61), (50, 61), (60, 61), (70, 61), (79, 61),
 ]
-
 
 # ----------------------------------------------------------
 # MONTH: 70 compartments
@@ -45,7 +42,6 @@ MONTH_SLOTS = _grid([
     (73, [43, 52, 61, 70, 79, 86, 90]),
     (79, [47, 56, 65, 74, 82, 88, 92]),
 ])
-
 
 # ----------------------------------------------------------
 # YEAR: 150 compartments
@@ -70,13 +66,11 @@ YEAR_SLOTS = _grid([
     (92, [50, 56, 62, 68, 74, 80, 86, 91, 94, 96]),
 ])
 
-
 FOREST_SLOTS = {
     "week": WEEK_SLOTS,
     "month": MONTH_SLOTS,
     "year": YEAR_SLOTS,
 }
-
 
 FOREST_CAPACITIES = {
     "week": len(WEEK_SLOTS),

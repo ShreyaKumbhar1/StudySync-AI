@@ -2,7 +2,6 @@
    ORION • LOCK-IN GROVE
    ========================================================== */
 
-
 /* ==========================================================
    TEMPORARY FOREST COMPARTMENTS
    ========================================================== */
@@ -171,7 +170,6 @@ function setupModals() {
             if (closeButton) {
 
                 event.preventDefault();
-
                 event.stopPropagation();
 
                 closeModal(
@@ -192,6 +190,7 @@ function setupModals() {
                     event.target.id !==
                     "daily-goal-modal"
                 ) {
+
                     event.target.classList.add(
                         "hidden"
                     );
@@ -263,6 +262,7 @@ function setupForestSwitcher() {
 
 
     function getPages(period) {
+
         return [
             ...document.querySelectorAll(
                 `.forest-view[data-period="${period}"]`
@@ -475,6 +475,7 @@ function setupForestSwitcher() {
 
         views.forEach(
             function (view) {
+
                 view.classList.remove(
                     "active"
                 );
@@ -686,7 +687,6 @@ function setupTreeCollection() {
                     function (event) {
 
                         event.preventDefault();
-
                         event.stopPropagation();
 
                         openTreeInfo(
@@ -1788,9 +1788,7 @@ function setupFocusMode(
             `${progressPercent}%`;
 
 
-        /*
-         * FIRST MINUTE = SAFE CANCEL
-         */
+        /* FIRST MINUTE */
 
         if (used < 60) {
 
@@ -1821,12 +1819,9 @@ function setupFocusMode(
                 "danger"
             );
 
-
         } else {
 
-            /*
-             * GRACE PERIOD EXPIRED
-             */
+            /* GRACE PERIOD EXPIRED */
 
             grace.classList.add(
                 "expired"
@@ -1851,21 +1846,17 @@ function setupFocusMode(
         }
 
 
-        /*
-         * STATUS
-         */
+        /* STATUS */
 
         if (remaining <= 0) {
 
             status.textContent =
                 "Time's up. Planting your tree... 🌳";
 
-
         } else if (remaining <= 300) {
 
             status.textContent =
                 "FINAL FIVE MINUTES. DO NOT FOLD. 🔥";
-
 
         } else if (
             used >=
@@ -1874,7 +1865,6 @@ function setupFocusMode(
 
             status.textContent =
                 "Halfway there. Keep going. 🔥";
-
 
         } else {
 
@@ -1941,7 +1931,6 @@ function setupFocusMode(
                     },
                     2200
                 );
-
 
             } else {
 
@@ -2036,7 +2025,6 @@ function setupFocusMode(
                     1800
                 );
 
-
             } else {
 
                 failed =
@@ -2072,10 +2060,6 @@ function setupFocusMode(
             const used =
                 elapsed();
 
-
-            /*
-             * BEFORE 60 SECONDS
-             */
 
             if (used < 60) {
 
@@ -2120,10 +2104,6 @@ function setupFocusMode(
             }
 
 
-            /*
-             * AFTER 60 SECONDS
-             */
-
             const confirmed =
                 window.confirm(
                     "Your one-minute grace period has ended. Cancelling now may add a distorted tree to your forest. Continue?"
@@ -2141,10 +2121,6 @@ function setupFocusMode(
         }
     );
 
-
-    /*
-     * TAB / VISIBILITY
-     */
 
     document.addEventListener(
         "visibilitychange",
@@ -2172,7 +2148,6 @@ function setupFocusMode(
                         "hidden"
                     );
                 }
-
 
             } else {
 

@@ -1,33 +1,58 @@
-/* ORION ASSIGNMENTS — interactions */
-
 document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("assignmentModal");
-    const form = document.getElementById("assignmentForm");
-    const modalTitle = document.getElementById("modalTitle");
 
-    const titleInput = document.getElementById("assignmentTitle");
-    const subjectInput = document.getElementById("assignmentSubject");
-    const descriptionInput = document.getElementById("assignmentDescription");
-    const dueDateInput = document.getElementById("assignmentDueDate");
-    const priorityInput = document.getElementById("assignmentPriority");
-    const difficultyInput = document.getElementById("assignmentDifficulty");
-    const minutesInput = document.getElementById("assignmentMinutes");
-    const attachmentInput = document.getElementById("assignmentAttachment");
+    const modal =
+        document.getElementById("assignmentModal");
 
-    const createUrl = form ? form.action : "";
+    const form =
+        document.getElementById("assignmentForm");
 
-    /* ================================
+    const modalTitle =
+        document.getElementById("modalTitle");
+
+    const titleInput =
+        document.getElementById("assignmentTitle");
+
+    const subjectInput =
+        document.getElementById("assignmentSubject");
+
+    const descriptionInput =
+        document.getElementById("assignmentDescription");
+
+    const dueDateInput =
+        document.getElementById("assignmentDueDate");
+
+    const priorityInput =
+        document.getElementById("assignmentPriority");
+
+    const difficultyInput =
+        document.getElementById("assignmentDifficulty");
+
+    const minutesInput =
+        document.getElementById("assignmentMinutes");
+
+    const attachmentInput =
+        document.getElementById("assignmentAttachment");
+
+
+    const createUrl =
+        form ? form.action : "";
+
+
+    /* =================================
        MODAL
-    ================================= */
+       ================================= */
 
     function openCreateModal() {
+
         if (!modal || !form) {
             return;
         }
 
-        modalTitle.textContent = "Create Assignment";
+        modalTitle.textContent =
+            "Create Assignment";
 
         form.action = createUrl;
+
         form.reset();
 
         priorityInput.value = "Medium";
@@ -35,206 +60,263 @@ document.addEventListener("DOMContentLoaded", () => {
         minutesInput.value = "60";
 
         modal.classList.add("is-open");
-        modal.setAttribute("aria-hidden", "false");
+
+        modal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
 
         document.body.style.overflow = "hidden";
 
-        if (titleInput) {
-            titleInput.focus();
-        }
+        titleInput.focus();
     }
 
+
     function closeModal() {
+
         if (!modal) {
             return;
         }
 
         modal.classList.remove("is-open");
-        modal.setAttribute("aria-hidden", "true");
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
 
         document.body.style.overflow = "";
     }
 
-    /* New Assignment button */
-    const newAssignmentButton =
-        document.getElementById("newAssignmentButton");
 
-    if (newAssignmentButton) {
-        newAssignmentButton.addEventListener(
+    document
+        .getElementById("newAssignmentButton")
+        ?.addEventListener(
             "click",
             openCreateModal
         );
-    }
 
-    /* Empty-state Add Assignment button */
-    const emptyNewAssignmentButton =
-        document.getElementById("emptyNewAssignmentButton");
 
-    if (emptyNewAssignmentButton) {
-        emptyNewAssignmentButton.addEventListener(
+    document
+        .getElementById("emptyNewAssignmentButton")
+        ?.addEventListener(
             "click",
             openCreateModal
         );
-    }
 
-    /* Close buttons */
-    document.querySelectorAll("[data-close-modal]").forEach((element) => {
-        element.addEventListener("click", closeModal);
-    });
 
-    /* Escape key closes modal */
-    document.addEventListener("keydown", (event) => {
-        if (
-            event.key === "Escape" &&
-            modal &&
-            modal.classList.contains("is-open")
-        ) {
-            closeModal();
+    document
+        .querySelectorAll("[data-close-modal]")
+        .forEach((button) => {
+
+            button.addEventListener(
+                "click",
+                closeModal
+            );
+
+        });
+
+
+    document.addEventListener(
+        "keydown",
+        (event) => {
+
+            if (
+                event.key === "Escape" &&
+                modal &&
+                modal.classList.contains("is-open")
+            ) {
+                closeModal();
+            }
+
         }
-    });
+    );
 
 
-    /* ================================
-       EDIT ASSIGNMENT
-    ================================= */
+    /* =================================
+       EDIT
+       ================================= */
 
     document
         .querySelectorAll("[data-edit-assignment]")
         .forEach((button) => {
 
-            button.addEventListener("click", () => {
+            button.addEventListener(
+                "click",
+                () => {
 
-                if (!modal || !form) {
-                    return;
-                }
+                    if (!modal || !form) {
+                        return;
+                    }
 
-                modalTitle.textContent = "Edit Assignment";
+                    modalTitle.textContent =
+                        "Edit Assignment";
 
-                titleInput.value =
-                    button.dataset.title || "";
+                    titleInput.value =
+                        button.dataset.title || "";
 
-                subjectInput.value =
-                    button.dataset.subject || "";
+                    subjectInput.value =
+                        button.dataset.subject || "";
 
-                descriptionInput.value =
-                    button.dataset.description || "";
+                    descriptionInput.value =
+                        button.dataset.description || "";
 
-                dueDateInput.value =
-                    button.dataset.due || "";
+                    dueDateInput.value =
+                        button.dataset.due || "";
 
-                priorityInput.value =
-                    button.dataset.priority || "Medium";
+                    priorityInput.value =
+                        button.dataset.priority || "Medium";
 
-                difficultyInput.value =
-                    button.dataset.difficulty || "Medium";
+                    difficultyInput.value =
+                        button.dataset.difficulty || "Medium";
 
-                minutesInput.value =
-                    button.dataset.minutes || "60";
+                    minutesInput.value =
+                        button.dataset.minutes || "60";
 
-                attachmentInput.value =
-                    button.dataset.attachment || "";
+                    attachmentInput.value =
+                        button.dataset.attachment || "";
 
-                form.action =
-                    `/assignments/edit/${button.dataset.id}`;
+                    form.action =
+                        `/assignments/edit/${button.dataset.id}`;
 
-                modal.classList.add("is-open");
-                modal.setAttribute(
-                    "aria-hidden",
-                    "false"
-                );
+                    modal.classList.add(
+                        "is-open"
+                    );
 
-                document.body.style.overflow = "hidden";
+                    modal.setAttribute(
+                        "aria-hidden",
+                        "false"
+                    );
 
-                if (titleInput) {
+                    document.body.style.overflow =
+                        "hidden";
+
                     titleInput.focus();
+
                 }
-            });
+            );
+
         });
 
 
-    /* ================================
-       DELETE CONFIRMATION
-    ================================= */
+    /* =================================
+       DELETE
+       ================================= */
 
     document
         .querySelectorAll("[data-delete-form]")
         .forEach((deleteForm) => {
 
-            deleteForm.addEventListener("submit", (event) => {
+            deleteForm.addEventListener(
+                "submit",
+                (event) => {
 
-                const confirmed = window.confirm(
-                    "Delete this assignment permanently?"
-                );
+                    const confirmed =
+                        window.confirm(
+                            "Delete this assignment permanently?"
+                        );
 
-                if (!confirmed) {
-                    event.preventDefault();
+                    if (!confirmed) {
+                        event.preventDefault();
+                    }
+
                 }
-            });
+            );
+
         });
 
 
-    /* ================================
-       PROGRESS SLIDER
-    ================================= */
+    /* =================================
+       PROGRESS SLIDERS
+       ================================= */
 
     document
-        .querySelectorAll("[data-progress-slider]")
+        .querySelectorAll(
+            "[data-progress-slider]"
+        )
         .forEach((slider) => {
 
             const output =
-                slider.parentElement.querySelector("output");
+                slider.parentElement.querySelector(
+                    "output"
+                );
 
-            function updateOutput() {
+
+            function updateProgress() {
 
                 if (output) {
-                    output.value = `${slider.value}%`;
-                    output.textContent = `${slider.value}%`;
+
+                    output.textContent =
+                        `${slider.value}%`;
+
                 }
+
             }
+
 
             slider.addEventListener(
                 "input",
-                updateOutput
+                updateProgress
             );
 
-            updateOutput();
+            updateProgress();
+
         });
 
 
-    /* ================================
-       SEARCH + FILTERS
-    ================================= */
+    /* =================================
+       FILTERS
+       ================================= */
 
     const searchInput =
-        document.getElementById("assignmentSearch");
+        document.getElementById(
+            "assignmentSearch"
+        );
 
     const statusFilter =
-        document.getElementById("statusFilter");
+        document.getElementById(
+            "statusFilter"
+        );
 
     const priorityFilter =
-        document.getElementById("priorityFilter");
+        document.getElementById(
+            "priorityFilter"
+        );
 
     const sortSelect =
-        document.getElementById("sortAssignments");
+        document.getElementById(
+            "sortAssignments"
+        );
 
     const clearButton =
-        document.getElementById("clearAssignmentFilters");
+        document.getElementById(
+            "clearAssignmentFilters"
+        );
 
     const grid =
-        document.getElementById("assignmentGrid");
+        document.getElementById(
+            "assignmentGrid"
+        );
 
     const resultCount =
-        document.getElementById("assignmentResultCount");
+        document.getElementById(
+            "assignmentResultCount"
+        );
 
     const noResults =
-        document.getElementById("noSearchResults");
+        document.getElementById(
+            "noSearchResults"
+        );
 
 
-    function getAssignmentCards() {
+    function getCards() {
 
         return Array.from(
-            document.querySelectorAll(".assignment-card")
+            document.querySelectorAll(
+                ".assignment-card"
+            )
         );
+
     }
 
 
@@ -242,22 +324,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const search =
             searchInput
-                ? searchInput.value.trim().toLowerCase()
+                ? searchInput.value
+                    .trim()
+                    .toLowerCase()
                 : "";
+
 
         const status =
             statusFilter
                 ? statusFilter.value
                 : "all";
 
+
         const priority =
             priorityFilter
                 ? priorityFilter.value
                 : "all";
 
+
         let visibleCount = 0;
 
-        getAssignmentCards().forEach((card) => {
+
+        getCards().forEach((card) => {
 
             const title =
                 card.dataset.title || "";
@@ -288,7 +376,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 cardPriority === priority;
 
 
-            const shouldShow =
+            const visible =
                 matchesSearch &&
                 matchesStatus &&
                 matchesPriority;
@@ -296,13 +384,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             card.classList.toggle(
                 "hidden",
-                !shouldShow
+                !visible
             );
 
 
-            if (shouldShow) {
+            if (visible) {
                 visibleCount++;
             }
+
         });
 
 
@@ -310,8 +399,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             resultCount.textContent =
                 `${visibleCount} assignment${
-                    visibleCount === 1 ? "" : "s"
+                    visibleCount === 1
+                        ? ""
+                        : "s"
                 }`;
+
         }
 
 
@@ -321,13 +413,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 "hidden",
                 visibleCount !== 0
             );
+
         }
+
     }
 
 
-    /* ================================
-       SORTING
-    ================================= */
+    /* =================================
+       SORT
+       ================================= */
 
     function sortCards() {
 
@@ -335,11 +429,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+
         const mode =
             sortSelect.value;
 
+
         const cards =
-            getAssignmentCards();
+            getCards();
 
 
         const priorityRank = {
@@ -361,9 +457,14 @@ document.addEventListener("DOMContentLoaded", () => {
             if (mode === "recommendation") {
 
                 return (
-                    Number(b.dataset.score || 0) -
-                    Number(a.dataset.score || 0)
+                    Number(
+                        b.dataset.score || 0
+                    ) -
+                    Number(
+                        a.dataset.score || 0
+                    )
                 );
+
             }
 
 
@@ -375,37 +476,62 @@ document.addEventListener("DOMContentLoaded", () => {
                             b.dataset.due || ""
                         )
                 );
+
             }
 
 
             if (mode === "priority") {
 
                 return (
-                    (priorityRank[b.dataset.priority] || 0) -
-                    (priorityRank[a.dataset.priority] || 0)
+                    (
+                        priorityRank[
+                            b.dataset.priority
+                        ] || 0
+                    ) -
+                    (
+                        priorityRank[
+                            a.dataset.priority
+                        ] || 0
+                    )
                 );
+
             }
 
 
             if (mode === "difficulty") {
 
                 return (
-                    (difficultyRank[b.dataset.difficulty] || 0) -
-                    (difficultyRank[a.dataset.difficulty] || 0)
+                    (
+                        difficultyRank[
+                            b.dataset.difficulty
+                        ] || 0
+                    ) -
+                    (
+                        difficultyRank[
+                            a.dataset.difficulty
+                        ] || 0
+                    )
                 );
+
             }
 
 
             if (mode === "progress") {
 
                 return (
-                    Number(b.dataset.progress || 0) -
-                    Number(a.dataset.progress || 0)
+                    Number(
+                        b.dataset.progress || 0
+                    ) -
+                    Number(
+                        a.dataset.progress || 0
+                    )
                 );
+
             }
 
 
             return 0;
+
         });
 
 
@@ -415,85 +541,174 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         applyFilters();
+
     }
 
 
-    /* Search */
-    if (searchInput) {
+    /* =================================
+       FOCUS MODE
+       ================================= */
 
-        searchInput.addEventListener(
-            "input",
-            applyFilters
+    const focusButton =
+        document.getElementById(
+            "focusModeButton"
         );
-    }
 
 
-    /* Status filter */
-    if (statusFilter) {
-
-        statusFilter.addEventListener(
-            "change",
-            applyFilters
-        );
-    }
+    let focusMode = false;
 
 
-    /* Priority filter */
-    if (priorityFilter) {
+    if (focusButton) {
 
-        priorityFilter.addEventListener(
-            "change",
-            applyFilters
-        );
-    }
-
-
-    /* Sort */
-    if (sortSelect) {
-
-        sortSelect.addEventListener(
-            "change",
-            sortCards
-        );
-    }
-
-
-    /* ================================
-       CLEAR FILTERS
-    ================================= */
-
-    if (clearButton) {
-
-        clearButton.addEventListener(
+        focusButton.addEventListener(
             "click",
             () => {
 
-                if (searchInput) {
-                    searchInput.value = "";
+                const cards =
+                    getCards();
+
+
+                if (!cards.length) {
+                    return;
                 }
 
-                if (statusFilter) {
-                    statusFilter.value = "all";
+
+                focusMode = !focusMode;
+
+
+                cards.forEach((card) => {
+
+                    if (!focusMode) {
+
+                        card.classList.remove(
+                            "hidden"
+                        );
+
+                        return;
+                    }
+
+
+                    const score =
+                        Number(
+                            card.dataset.score || 0
+                        );
+
+
+                    const highest =
+                        Math.max(
+                            ...cards.map(
+                                (item) =>
+                                    Number(
+                                        item.dataset.score || 0
+                                    )
+                            )
+                        );
+
+
+                    card.classList.toggle(
+                        "hidden",
+                        score !== highest
+                    );
+
+                });
+
+
+                focusButton.textContent =
+                    focusMode
+                        ? "✕ Exit Focus"
+                        : "🎯 Focus Mode";
+
+
+                if (focusMode) {
+
+                    focusButton.classList.add(
+                        "active"
+                    );
+
+                } else {
+
+                    focusButton.classList.remove(
+                        "active"
+                    );
+
+                    applyFilters();
+
                 }
 
-                if (priorityFilter) {
-                    priorityFilter.value = "all";
-                }
-
-                if (sortSelect) {
-                    sortSelect.value = "recommendation";
-                }
-
-                sortCards();
             }
         );
+
     }
 
 
-    /* ================================
-       INITIAL LOAD
-    ================================= */
+    /* =================================
+       EVENTS
+       ================================= */
+
+    searchInput?.addEventListener(
+        "input",
+        applyFilters
+    );
+
+
+    statusFilter?.addEventListener(
+        "change",
+        applyFilters
+    );
+
+
+    priorityFilter?.addEventListener(
+        "change",
+        applyFilters
+    );
+
+
+    sortSelect?.addEventListener(
+        "change",
+        sortCards
+    );
+
+
+    clearButton?.addEventListener(
+        "click",
+        () => {
+
+            if (searchInput) {
+                searchInput.value = "";
+            }
+
+            if (statusFilter) {
+                statusFilter.value = "all";
+            }
+
+            if (priorityFilter) {
+                priorityFilter.value = "all";
+            }
+
+            if (sortSelect) {
+                sortSelect.value =
+                    "recommendation";
+            }
+
+
+            if (focusMode) {
+
+                focusMode = false;
+
+                focusButton.textContent =
+                    "🎯 Focus Mode";
+
+            }
+
+
+            sortCards();
+
+        }
+    );
+
+
+    /* INITIAL */
 
     sortCards();
-    applyFilters();
+
 });

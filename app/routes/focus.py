@@ -56,13 +56,11 @@ MUSIC_ASSET_DIR = os.path.join(
     "focus"
 )
 
-
 def _slug(value):
     value = str(value).strip().lower()
     value = re.sub(r"[^a-z0-9]+", "_", value)
     value = re.sub(r"_+", "_", value)
     return value.strip("_")
-
 
 def _pretty_name(filename):
     stem = os.path.splitext(
@@ -83,7 +81,6 @@ def _pretty_name(filename):
 
     return stem.title()
 
-
 def _asset_url(folder, filename):
     folder = folder.replace("\\", "/")
     filename = filename.replace("\\", "/")
@@ -94,7 +91,6 @@ def _asset_url(folder, filename):
         + "/"
         + filename
     )
-
 
 def _find_tree_asset(tree_id, known_name):
     if not os.path.isdir(TREE_ASSET_DIR):
@@ -135,7 +131,6 @@ def _find_tree_asset(tree_id, known_name):
 
     return None
 
-
 def _discover_tree_assets():
     if not os.path.isdir(TREE_ASSET_DIR):
         return []
@@ -174,7 +169,6 @@ def _discover_tree_assets():
 
     return result
 
-
 def _discover_music_assets():
     if not os.path.isdir(MUSIC_ASSET_DIR):
         return []
@@ -207,7 +201,6 @@ def _discover_music_assets():
             )
 
     return result
-
 
 # ==========================================================
 # TREE DEFINITIONS
@@ -266,9 +259,20 @@ BASE_TREES = {
     },
 }
 
+UGLY_TREE_ID = "__ugly_tree__"
+
+
+def _is_ugly_tree_asset(filename):
+    stem = _slug(os.path.splitext(filename)[0])
+    return stem in {"ugly_tree", "uglytree", "ugly"}
+
 
 def _build_tree_catalog():
-    discovered = _discover_tree_assets()
+    discovered = [
+        item
+        for item in _discover_tree_assets()
+        if not _is_ugly_tree_asset(item["filename"])
+    ]
 
     trees = {
         key: dict(value)
@@ -398,11 +402,40 @@ def _build_tree_catalog():
 
             fallback_index += 1
 
-    return trees
+    # Keep one catalog entry per actual image so fallback/repeated
+    # assets do not create visually duplicated rows in "All Trees".
+    unique_trees = {}
+    seen_images = set()
 
+    for tree_id, tree in trees.items():
+        image = tree.get("image")
+
+        if image and image in seen_images:
+            continue
+
+        if image:
+            seen_images.add(image)
+
+        unique_trees[tree_id] = tree
+
+    return unique_trees
 
 TREES = _build_tree_catalog()
 
+UGLY_TREE = {
+    "id": UGLY_TREE_ID,
+    "name": "Ugly Tree",
+    "emoji": "💀",
+    "cost": 0,
+    "image": (
+        _find_tree_asset("ugly_tree", "Ugly Tree")
+        or "/static/images/lockin_grove/trees/ugly_tree.png"
+    ),
+    "description": (
+        "A distorted tree that appears only as a consequence "
+        "of abandoning a focus session after the grace period."
+    ),
+}
 
 # ==========================================================
 # MUSIC DEFINITIONS
@@ -480,7 +513,6 @@ BASE_MUSIC = {
         ),
     },
 }
-
 
 def _build_music_catalog():
     discovered = _discover_music_assets()
@@ -597,7 +629,6 @@ def _build_music_catalog():
             fallback_index += 1
 
     return music
-
 
 MUSIC = _build_music_catalog()
 
@@ -882,7 +913,6 @@ def build_daily_challenges(sessions):
 
     return challenges
 
-
 # ==========================================================
 # WEEKLY + MONTHLY CHALLENGES
 # ==========================================================
@@ -914,7 +944,6 @@ WEEKLY_CHALLENGES = [
     ),
 ]
 
-
 MONTHLY_CHALLENGES = [
     (
         "Focus for 20 hours this month",
@@ -937,7 +966,6 @@ MONTHLY_CHALLENGES = [
         30,
     ),
 ]
-
 
 def _challenge_progress(
     sessions,
@@ -1013,7 +1041,6 @@ def _challenge_progress(
 
     return result
 
-
 def build_period_challenges(sessions):
     today = datetime.utcnow().date()
 
@@ -1063,7 +1090,6 @@ def build_period_challenges(sessions):
 
     return weekly, monthly
 
-
 # ==========================================================
 # CHALLENGE REWARDS
 # ==========================================================
@@ -1071,7 +1097,6 @@ def build_period_challenges(sessions):
 DAILY_CHALLENGE_REWARD = 15
 WEEKLY_CHALLENGE_REWARD = 5
 MONTHLY_CHALLENGE_REWARD = 20
-
 
 def _challenge_claim_exists(
     user_id,
@@ -1090,7 +1115,6 @@ def _challenge_claim_exists(
         .first()
         is not None
     )
-
 
 def _claim_challenge_reward(
     profile,
@@ -1125,7 +1149,6 @@ def _claim_challenge_reward(
 
     db.session.add(reward)
     return True
-
 
 def award_challenge_rewards(
     profile,
@@ -1342,7 +1365,6 @@ def get_tree_position(index, period):
     slot_index = index % len(slots)
     return slots[slot_index]
 
-
 # ==========================================================
 # FOREST PAGES
 # ==========================================================
@@ -1392,10 +1414,13 @@ def build_forest_pages(
     forest_trees = []
 
     for focus_session in relevant_sessions:
-        tree = TREES.get(
-            focus_session.tree_type,
-            TREES["starter"],
-        )
+        if focus_session.destroyed_tree:
+            tree = UGLY_TREE
+        else:
+            tree = TREES.get(
+                focus_session.tree_type,
+                TREES["starter"],
+            )
 
         count = max(
             1,
@@ -1452,7 +1477,6 @@ def build_forest_pages(
 
     return pages
 
-
 # ==========================================================
 # VISIBLE ITEMS
 # ==========================================================
@@ -1461,7 +1485,7 @@ def get_visible_trees(profile):
     visible = []
 
     for tree in TREES.values():
-        if len(visible) >= 6:
+        if len(visible) >= 5:
             break
 
         visible.append(tree)
@@ -2017,6 +2041,7 @@ def fail_session(session_id):
         0,
         completed_minutes
     )
+    focus_session.tree_type = UGLY_TREE_ID
     focus_session.trees_earned = 0
     focus_session.antennas_earned = 0
     focus_session.destroyed_tree = True

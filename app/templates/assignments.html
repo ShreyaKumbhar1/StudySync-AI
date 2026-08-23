@@ -5,398 +5,1046 @@
 {% endblock %}
 
 {% block content %}
+
 <main class="assignment-page">
 
-    <section class="assignment-hero">
-        <div class="hero-copy">
-            <h1>📝 Assignment Universe</h1>
-            <p>Keep every deadline under control and let Dimpu help you decide what deserves your attention next.</p>
+    <!-- PAGE HEADER -->
+    <section class="assignment-header">
+
+        <div class="header-copy">
+            <h1>📚 Assignment Dashboard</h1>
+            <p>Stay ahead of deadlines and keep your academic workload under control.</p>
         </div>
-        <button type="button" class="primary-action" id="newAssignmentButton">＋ New Assignment</button>
+
+        <div class="header-actions">
+
+            <button
+                type="button"
+                class="focus-mode-button"
+                id="focusModeButton"
+            >
+                🎯 Focus Mode
+            </button>
+
+            <button
+                type="button"
+                class="primary-button"
+                id="newAssignmentButton"
+            >
+                + New Assignment
+            </button>
+
+        </div>
+
     </section>
 
-    {% if recommended_assignment %}
-    <section class="dimpu-card">
-        <div class="dimpu-avatar" aria-hidden="true">🐍</div>
 
-        <div class="dimpu-content">
-            <div class="dimpu-label">DIMPU</div>
-            <h2>{{ dimpu_title }}</h2>
-            <p>{{ dimpu_message }}</p>
+    <!-- QUICK INSIGHT -->
+    <section class="quick-insight-grid">
 
-            <div class="dimpu-reasons">
-                {% for reason in recommended_assignment.recommendation_reasons %}
-                <span>{{ reason }}</span>
-                {% endfor %}
-                <span>⭐ {{ recommended_assignment.recommendation_score }}/100</span>
+        <div class="focus-card">
+
+            <div class="focus-card-icon">
+                🎯
+            </div>
+
+            <div>
+                <span class="small-label">TODAY'S FOCUS</span>
+
+                {% if recommended_assignment %}
+
+                <h2>{{ recommended_assignment.title }}</h2>
+
+                <p>
+                    Dimpu thinks this deserves your attention first.
+                </p>
+
+                {% else %}
+
+                <h2>You're all caught up!</h2>
+
+                <p>
+                    Add an assignment and Dimpu will help prioritize it.
+                </p>
+
+                {% endif %}
+            </div>
+
+        </div>
+
+
+        <div class="workload-card">
+
+            <div class="workload-top">
+
+                <div>
+                    <span class="small-label">WORKLOAD</span>
+                    <h2>{{ remaining_hours }}h remaining</h2>
+                </div>
+
+                <span class="workload-icon">⏱</span>
+
+            </div>
+
+            <div class="workload-track">
+                <span
+                    style="width: {{ workload_percent }}%;"
+                ></span>
+            </div>
+
+            <p>
+                Estimated remaining assignment workload
+            </p>
+
+        </div>
+
+
+        <div class="streak-card">
+
+            <div>
+                <span class="small-label">COMPLETION STREAK</span>
+
+                <h2>
+                    🔥 {{ completion_streak }} day{{ '' if completion_streak == 1 else 's' }}
+                </h2>
+
+                <p>
+                    Keep completing assignments to build your streak.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATISTICS -->
+    <section class="stats-grid">
+
+        <div class="stat-card">
+            <span class="stat-icon">📚</span>
+
+            <div>
+                <span>Total</span>
+                <strong>{{ total }}</strong>
             </div>
         </div>
 
-        <form method="POST"
-              action="{{ url_for('assignments.plan_assignment', assignment_id=recommended_assignment.id) }}">
-            <button type="submit" class="dimpu-action">🧠 Plan This</button>
-        </form>
-    </section>
-    {% else %}
-    <section class="dimpu-card dimpu-empty">
-        <div class="dimpu-avatar" aria-hidden="true">🐍</div>
-        <div class="dimpu-content">
-            <div class="dimpu-label">DIMPU</div>
-            <h2>I'm ready when you are.</h2>
-            <p>Add an assignment and I'll help you decide what to tackle first.</p>
-        </div>
-    </section>
-    {% endif %}
 
-    <section class="assignment-stats" aria-label="Assignment statistics">
-        <article class="stat-card">
-            <span class="stat-icon">📚</span>
-            <div><small>Total</small><strong>{{ total }}</strong></div>
-        </article>
-        <article class="stat-card">
+        <div class="stat-card">
             <span class="stat-icon">⏳</span>
-            <div><small>Pending</small><strong>{{ pending }}</strong></div>
-        </article>
-        <article class="stat-card">
-            <span class="stat-icon">🚨</span>
-            <div><small>Overdue</small><strong>{{ overdue }}</strong></div>
-        </article>
-        <article class="stat-card">
-            <span class="stat-icon">🔥</span>
-            <div><small>Due Soon</small><strong>{{ due_soon }}</strong></div>
-        </article>
-        <article class="stat-card">
-            <span class="stat-icon">✨</span>
-            <div><small>Completed</small><strong>{{ completed }}</strong></div>
-        </article>
-        <article class="stat-card">
-            <span class="stat-icon">⏱️</span>
-            <div><small>Work Left</small><strong>{{ remaining_hours }}h</strong></div>
-        </article>
-    </section>
 
-    <section class="analytics-grid">
-        <article class="analytics-card">
-            <div class="analytics-heading">
-                <div>
-                    <span class="section-kicker">PROGRESS</span>
-                    <h2>Completion Rate</h2>
-                </div>
+            <div>
+                <span>Pending</span>
+                <strong>{{ pending }}</strong>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <span class="stat-icon">🔥</span>
+
+            <div>
+                <span>Due Soon</span>
+                <strong>{{ due_soon }}</strong>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <span class="stat-icon">🚨</span>
+
+            <div>
+                <span>Overdue</span>
+                <strong>{{ overdue }}</strong>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <span class="stat-icon">✓</span>
+
+            <div>
+                <span>Completed</span>
+                <strong>{{ completed }}</strong>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <span class="stat-icon">📈</span>
+
+            <div>
+                <span>Completion</span>
                 <strong>{{ completion_rate }}%</strong>
             </div>
-            <div class="progress-ring" style="--progress: {{ completion_rate }}%;">
+        </div>
+
+    </section>
+
+
+    <!-- ANALYTICS -->
+    <section class="analytics-grid">
+
+        <!-- COMPLETION -->
+        <article class="analytics-card">
+
+            <div class="card-heading">
+
+                <div>
+                    <span class="section-label">PROGRESS</span>
+                    <h2>Completion</h2>
+                </div>
+
+                <strong>{{ completion_rate }}%</strong>
+
+            </div>
+
+
+            <div
+                class="progress-circle"
+                style="--progress: {{ completion_rate }}%;"
+            >
+
                 <div>
                     <strong>{{ completion_rate }}%</strong>
                     <span>complete</span>
                 </div>
+
             </div>
-            <p>{{ completed }} of {{ total }} assignments completed.</p>
+
+
+            <p>
+                {{ completed }} of {{ total }} assignments completed.
+            </p>
+
         </article>
 
+
+        <!-- STATUS -->
         <article class="analytics-card">
-            <div class="analytics-heading">
+
+            <div class="card-heading">
+
                 <div>
-                    <span class="section-kicker">STATUS</span>
-                    <h2>Assignment Breakdown</h2>
+                    <span class="section-label">OVERVIEW</span>
+                    <h2>Assignment Status</h2>
                 </div>
+
             </div>
 
-            <div class="donut-chart" style="--completed: {{ status_chart.completed }}%;">
+
+            <div
+                class="donut-chart"
+                style="--completed: {{ status_chart.completed }}%;"
+            >
+
                 <div class="donut-center">
                     <strong>{{ total }}</strong>
-                    <span>total</span>
+                    <span>assignments</span>
                 </div>
+
             </div>
+
 
             <div class="chart-legend">
-                <span><i class="legend-dot completed-dot"></i> Completed {{ status_chart.completed }}%</span>
-                <span><i class="legend-dot pending-dot"></i> Pending {{ status_chart.pending }}%</span>
+
+                <span>
+                    <i class="legend completed"></i>
+                    Completed {{ status_chart.completed }}%
+                </span>
+
+                <span>
+                    <i class="legend pending"></i>
+                    Pending {{ status_chart.pending }}%
+                </span>
+
             </div>
+
         </article>
 
+
+        <!-- PRIORITY -->
         <article class="analytics-card">
-            <div class="analytics-heading">
+
+            <div class="card-heading">
+
                 <div>
-                    <span class="section-kicker">PRIORITY</span>
+                    <span class="section-label">PRIORITY</span>
                     <h2>Priority Mix</h2>
                 </div>
+
             </div>
 
-            <div class="priority-bars">
-                <div>
-                    <div><span>🔴 High</span><strong>{{ priority_stats.High.count }}</strong></div>
-                    <div class="bar"><span style="width: {{ priority_stats.High.percent }}%;"></span></div>
+
+            <div class="priority-list">
+
+                <div class="priority-row">
+
+                    <div>
+                        <span>🔴 High</span>
+                        <strong>{{ priority_stats.High.count }}</strong>
+                    </div>
+
+                    <div class="bar">
+                        <span
+                            style="width: {{ priority_stats.High.percent }}%;"
+                        ></span>
+                    </div>
+
                 </div>
-                <div>
-                    <div><span>🟡 Medium</span><strong>{{ priority_stats.Medium.count }}</strong></div>
-                    <div class="bar"><span style="width: {{ priority_stats.Medium.percent }}%;"></span></div>
+
+
+                <div class="priority-row">
+
+                    <div>
+                        <span>🟡 Medium</span>
+                        <strong>{{ priority_stats.Medium.count }}</strong>
+                    </div>
+
+                    <div class="bar">
+                        <span
+                            style="width: {{ priority_stats.Medium.percent }}%;"
+                        ></span>
+                    </div>
+
                 </div>
-                <div>
-                    <div><span>🟢 Low</span><strong>{{ priority_stats.Low.count }}</strong></div>
-                    <div class="bar"><span style="width: {{ priority_stats.Low.percent }}%;"></span></div>
+
+
+                <div class="priority-row">
+
+                    <div>
+                        <span>🟢 Low</span>
+                        <strong>{{ priority_stats.Low.count }}</strong>
+                    </div>
+
+                    <div class="bar">
+                        <span
+                            style="width: {{ priority_stats.Low.percent }}%;"
+                        ></span>
+                    </div>
+
                 </div>
+
             </div>
 
-            <p class="analytics-note">Dimpu considers priority when deciding what deserves attention first.</p>
         </article>
+
     </section>
 
-    <section class="dimpu-how">
-        <div>
-            <span class="section-kicker">HOW DIMPU THINKS</span>
-            <h2>From your assignments to a useful recommendation.</h2>
+
+    <!-- DIMPU RECOMMENDATION -->
+    {% if recommended_assignment %}
+
+    <section class="dimpu-recommendation">
+
+        <div class="dimpu-icon">
+            🐍
+        </div>
+
+
+        <div class="dimpu-message">
+
+            <div class="dimpu-title">
+                Dimpu recommends
+            </div>
+
+            <h2>
+                {{ recommended_assignment.title }}
+            </h2>
+
             <p>
-                Dimpu looks at the information you provide — deadline, priority, difficulty,
-                estimated time and remaining progress — and ranks pending work using those features.
+                This assignment currently has the highest priority based
+                on deadline, priority, difficulty, workload and remaining progress.
             </p>
+
+
+            <div class="recommendation-tags">
+
+                {% for reason in recommended_assignment.recommendation_reasons %}
+
+                <span>
+                    {{ reason }}
+                </span>
+
+                {% endfor %}
+
+                <span>
+                    ⭐ {{ recommended_assignment.recommendation_score }}/100
+                </span>
+
+            </div>
+
         </div>
 
-        <div class="factor-list">
-            <span>📅 Deadline</span>
-            <span>🚦 Priority</span>
-            <span>🧩 Difficulty</span>
-            <span>⏱️ Workload</span>
-            <span>📈 Remaining work</span>
-        </div>
+
+        <form
+            method="POST"
+            action="{{ url_for(
+                'assignments.plan_assignment',
+                assignment_id=recommended_assignment.id
+            ) }}"
+        >
+
+            <button
+                type="submit"
+                class="recommend-button"
+            >
+                Plan This
+            </button>
+
+        </form>
+
     </section>
 
-    <section class="assignment-toolbar">
-        <label class="search-box">
-            <span aria-hidden="true">⌕</span>
-            <input type="search" id="assignmentSearch" placeholder="Search assignments or subjects..." autocomplete="off">
+    {% endif %}
+
+
+    <!-- FILTERS -->
+    <section class="filter-bar">
+
+        <label class="search-field">
+
+            <span>⌕</span>
+
+            <input
+                type="search"
+                id="assignmentSearch"
+                placeholder="Search assignments..."
+                autocomplete="off"
+            >
+
         </label>
 
-        <select id="statusFilter" aria-label="Filter by status">
+
+        <select id="statusFilter">
+
             <option value="all">All Status</option>
             <option value="pending">Pending</option>
             <option value="completed">Completed</option>
             <option value="overdue">Overdue</option>
             <option value="today">Due Today</option>
+
         </select>
 
-        <select id="priorityFilter" aria-label="Filter by priority">
+
+        <select id="priorityFilter">
+
             <option value="all">All Priorities</option>
             <option value="High">🔴 High</option>
             <option value="Medium">🟡 Medium</option>
             <option value="Low">🟢 Low</option>
+
         </select>
 
-        <select id="sortAssignments" aria-label="Sort assignments">
-            <option value="recommendation">Sort: Dimpu Score</option>
-            <option value="due">Sort: Due Date</option>
-            <option value="priority">Sort: Priority</option>
-            <option value="difficulty">Sort: Difficulty</option>
-            <option value="progress">Sort: Progress</option>
+
+        <select id="sortAssignments">
+
+            <option value="recommendation">
+                Sort: Dimpu Score
+            </option>
+
+            <option value="due">
+                Sort: Due Date
+            </option>
+
+            <option value="priority">
+                Sort: Priority
+            </option>
+
+            <option value="difficulty">
+                Sort: Difficulty
+            </option>
+
+            <option value="progress">
+                Sort: Progress
+            </option>
+
         </select>
+
     </section>
 
-    <div class="results-line">
-        <span id="assignmentResultCount">{{ total }} assignments</span>
-        <button type="button" id="clearAssignmentFilters" class="text-button">Clear filters</button>
+
+    <!-- RESULTS -->
+    <div class="results-row">
+
+        <span id="assignmentResultCount">
+            {{ total }} assignments
+        </span>
+
+        <button
+            type="button"
+            id="clearAssignmentFilters"
+            class="clear-button"
+        >
+            Clear filters
+        </button>
+
     </div>
 
-    <section class="assignment-grid" id="assignmentGrid">
-        {% for assignment in assignments %}
-        <article class="assignment-card {% if assignment.completed %}assignment-completed{% endif %}"
-                 data-title="{{ assignment.title|lower|e }}"
-                 data-subject="{{ assignment.subject|lower|e }}"
-                 data-status="{{ assignment.status_key }}"
-                 data-priority="{{ assignment.priority }}"
-                 data-due="{{ assignment.due_date.isoformat() }}"
-                 data-progress="{{ assignment.progress }}"
-                 data-difficulty="{{ assignment.difficulty }}"
-                 data-score="{{ assignment.recommendation_score }}">
 
-            <div class="assignment-card-top">
-                <span class="subject-pill">{{ assignment.subject }}</span>
-                <span class="status-pill {{ assignment.status_class }}">{{ assignment.status_label }}</span>
+    <!-- ASSIGNMENTS -->
+    <section
+        class="assignment-grid"
+        id="assignmentGrid"
+    >
+
+        {% for assignment in assignments %}
+
+        <article
+            class="assignment-card {% if assignment.completed %}completed-card{% endif %}"
+            data-title="{{ assignment.title|lower|e }}"
+            data-subject="{{ assignment.subject|lower|e }}"
+            data-status="{{ assignment.status_key }}"
+            data-priority="{{ assignment.priority }}"
+            data-due="{{ assignment.due_date.isoformat() }}"
+            data-progress="{{ assignment.progress }}"
+            data-difficulty="{{ assignment.difficulty }}"
+            data-score="{{ assignment.recommendation_score }}"
+        >
+
+            <div class="assignment-top">
+
+                <span class="subject-tag">
+                    {{ assignment.subject }}
+                </span>
+
+                <span class="status-tag {{ assignment.status_class }}">
+                    {{ assignment.status_label }}
+                </span>
+
             </div>
 
-            <h2>{{ assignment.title }}</h2>
+
+            <h2>
+                {{ assignment.title }}
+            </h2>
+
 
             {% if assignment.description %}
-            <p class="assignment-description">{{ assignment.description }}</p>
+
+            <p class="description">
+                {{ assignment.description }}
+            </p>
+
             {% else %}
-            <p class="assignment-description muted">No description added yet.</p>
+
+            <p class="description muted">
+                No description added.
+            </p>
+
             {% endif %}
 
-            <div class="assignment-meta">
-                <span>📅 {{ assignment.due_date.strftime('%d %b %Y') }}</span>
-                <span>⏱ {{ (assignment.estimated_minutes / 60)|round(1) }}h</span>
+
+            <div class="meta-row">
+
                 <span>
-                    {% if assignment.difficulty == "Hard" %}🔴
-                    {% elif assignment.difficulty == "Medium" %}🟡
-                    {% else %}🟢{% endif %}
-                    {{ assignment.difficulty }}
+                    📅 {{ assignment.due_date.strftime('%d %b %Y') }}
                 </span>
+
+                <span>
+                    ⏱ {{ (assignment.estimated_minutes / 60)|round(1) }}h
+                </span>
+
+                <span>
+
+                    {% if assignment.difficulty == "Hard" %}
+                        🔴
+                    {% elif assignment.difficulty == "Medium" %}
+                        🟡
+                    {% else %}
+                        🟢
+                    {% endif %}
+
+                    {{ assignment.difficulty }}
+
+                </span>
+
             </div>
 
-            <div class="assignment-tags">
-                <span class="priority-tag priority-{{ assignment.priority|lower }}">
-                    {% if assignment.priority == "High" %}🔴
-                    {% elif assignment.priority == "Medium" %}🟡
-                    {% else %}🟢{% endif %}
-                    {{ assignment.priority }} Priority
+
+            <div class="tag-row">
+
+                <span class="priority-tag">
+
+                    {% if assignment.priority == "High" %}
+                        🔴
+                    {% elif assignment.priority == "Medium" %}
+                        🟡
+                    {% else %}
+                        🟢
+                    {% endif %}
+
+                    {{ assignment.priority }}
+
                 </span>
+
 
                 {% if assignment.attachment_url %}
-                <a href="{{ assignment.attachment_url }}" target="_blank" rel="noopener noreferrer" class="attachment-tag">🔗 Resource</a>
+
+                <a
+                    href="{{ assignment.attachment_url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="resource-tag"
+                >
+                    🔗 Resource
+                </a>
+
                 {% endif %}
 
-                {% if not assignment.completed %}
-                <span class="score-tag">⭐ {{ assignment.recommendation_score }}/100</span>
-                {% endif %}
             </div>
+
+
+            <div class="urgency-line">
+
+                {% if assignment.status_key == "overdue" %}
+
+                <span class="urgency overdue">
+                    🚨 Overdue
+                </span>
+
+                {% elif assignment.status_key == "today" %}
+
+                <span class="urgency today">
+                    ⚡ Due today
+                </span>
+
+                {% elif assignment.status_key == "soon" %}
+
+                <span class="urgency soon">
+                    🔥 Due soon
+                </span>
+
+                {% else %}
+
+                <span class="urgency normal">
+                    ✓ On track
+                </span>
+
+                {% endif %}
+
+            </div>
+
 
             {% if not assignment.completed %}
-            <div class="recommendation-mini">
-                <strong>Dimpu's take</strong>
-                <span>{{ assignment.recommendation_reasons|join(' · ') }}</span>
+
+            <div class="mini-recommendation">
+
+                <span class="mini-dimpu">
+                    🐍 Dimpu
+                </span>
+
+                <span>
+                    {{ assignment.recommendation_reasons|join(" · ") }}
+                </span>
+
             </div>
+
             {% endif %}
 
-            <div class="assignment-progress-section">
-                <div class="progress-label">
+
+            <div class="progress-area">
+
+                <div class="progress-header">
+
                     <span>Progress</span>
-                    <strong>{{ assignment.progress }}%</strong>
+
+                    <strong>
+                        {{ assignment.progress }}%
+                    </strong>
+
                 </div>
-                <div class="assignment-progress">
-                    <div class="assignment-progress-fill" style="width: {{ assignment.progress }}%;"></div>
+
+
+                <div class="progress-track">
+
+                    <div
+                        class="progress-fill"
+                        style="width: {{ assignment.progress }}%;"
+                    ></div>
+
                 </div>
+
             </div>
 
+
             {% if not assignment.completed %}
-            <form method="POST"
-                  action="{{ url_for('assignments.update_progress', assignment_id=assignment.id) }}"
-                  class="progress-form">
-                <input type="range" name="progress" min="0" max="100"
-                       value="{{ assignment.progress }}" data-progress-slider>
-                <output>{{ assignment.progress }}%</output>
-                <button type="submit" class="mini-save">Save</button>
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'assignments.update_progress',
+                    assignment_id=assignment.id
+                ) }}"
+                class="progress-form"
+            >
+
+                <input
+                    type="range"
+                    name="progress"
+                    min="0"
+                    max="100"
+                    value="{{ assignment.progress }}"
+                    data-progress-slider
+                >
+
+                <output>
+                    {{ assignment.progress }}%
+                </output>
+
+                <button type="submit">
+                    Save
+                </button>
+
             </form>
+
             {% endif %}
+
 
             <div class="assignment-actions">
+
                 {% if not assignment.completed %}
-                <form method="POST" action="{{ url_for('assignments.complete_assignment', assignment_id=assignment.id) }}">
-                    <button type="submit" class="complete-button">✓ Complete</button>
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'assignments.complete_assignment',
+                        assignment_id=assignment.id
+                    ) }}"
+                >
+
+                    <button
+                        type="submit"
+                        class="complete-button"
+                    >
+                        ✓ Complete
+                    </button>
+
                 </form>
+
                 {% endif %}
 
-                <form method="POST" action="{{ url_for('assignments.plan_assignment', assignment_id=assignment.id) }}">
-                    <button type="submit" class="plan-button">🧠 Plan This</button>
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'assignments.plan_assignment',
+                        assignment_id=assignment.id
+                    ) }}"
+                >
+
+                    <button
+                        type="submit"
+                        class="plan-button"
+                    >
+                        🧠 Plan
+                    </button>
+
                 </form>
 
-                <button type="button" class="edit-button" data-edit-assignment
-                        data-id="{{ assignment.id }}"
-                        data-title="{{ assignment.title|e }}"
-                        data-subject="{{ assignment.subject|e }}"
-                        data-description="{{ (assignment.description or '')|e }}"
-                        data-due="{{ assignment.due_date.isoformat() }}"
-                        data-priority="{{ assignment.priority }}"
-                        data-difficulty="{{ assignment.difficulty }}"
-                        data-minutes="{{ assignment.estimated_minutes }}"
-                        data-attachment="{{ (assignment.attachment_url or '')|e }}"
-                        aria-label="Edit {{ assignment.title }}">✏️</button>
 
-                <form method="POST"
-                      action="{{ url_for('assignments.delete_assignment', assignment_id=assignment.id) }}"
-                      data-delete-form>
-                    <button type="submit" class="delete-button" aria-label="Delete {{ assignment.title }}">🗑</button>
+                <button
+                    type="button"
+                    class="icon-button"
+                    data-edit-assignment
+                    data-id="{{ assignment.id }}"
+                    data-title="{{ assignment.title|e }}"
+                    data-subject="{{ assignment.subject|e }}"
+                    data-description="{{ (assignment.description or '')|e }}"
+                    data-due="{{ assignment.due_date.isoformat() }}"
+                    data-priority="{{ assignment.priority }}"
+                    data-difficulty="{{ assignment.difficulty }}"
+                    data-minutes="{{ assignment.estimated_minutes }}"
+                    data-attachment="{{ (assignment.attachment_url or '')|e }}"
+                >
+                    ✏️
+                </button>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'assignments.delete_assignment',
+                        assignment_id=assignment.id
+                    ) }}"
+                    data-delete-form
+                >
+
+                    <button
+                        type="submit"
+                        class="icon-button delete-button"
+                    >
+                        🗑
+                    </button>
+
                 </form>
+
             </div>
+
         </article>
+
         {% else %}
-        <div class="assignment-empty">
-            <div class="empty-orbit">🪐</div>
-            <h2>Your assignment universe is empty.</h2>
-            <p>Add your first assignment and let Dimpu organize the chaos.</p>
-            <button type="button" class="primary-action" id="emptyNewAssignmentButton">＋ Add First Assignment</button>
+
+        <div class="empty-state">
+
+            <div>🪐</div>
+
+            <h2>No assignments yet</h2>
+
+            <p>
+                Add your first assignment and let Dimpu help you prioritize it.
+            </p>
+
+            <button
+                type="button"
+                class="primary-button"
+                id="emptyNewAssignmentButton"
+            >
+                + Add Assignment
+            </button>
+
         </div>
+
         {% endfor %}
+
     </section>
 
-    <div id="noSearchResults" class="assignment-empty hidden">
-        <div class="empty-orbit">🔭</div>
-        <h2>No matching assignments.</h2>
-        <p>Try another search term or clear your filters.</p>
+
+    <div
+        id="noSearchResults"
+        class="empty-state hidden"
+    >
+
+        <div>🔎</div>
+
+        <h2>No matching assignments</h2>
+
+        <p>
+            Try changing your search or filters.
+        </p>
+
     </div>
+
 </main>
 
-<div class="assignment-modal" id="assignmentModal" aria-hidden="true">
-    <div class="modal-overlay" data-close-modal></div>
 
-    <div class="assignment-modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-        <button type="button" class="modal-close" data-close-modal aria-label="Close">×</button>
+<!-- CREATE / EDIT ASSIGNMENT MODAL -->
 
-        <h2 id="modalTitle">Create Assignment</h2>
+<div
+    class="assignment-modal"
+    id="assignmentModal"
+    aria-hidden="true"
+>
 
-        <form method="POST" id="assignmentForm"
-              action="{{ url_for('assignments.create_assignment') }}">
+    <div
+        class="modal-overlay"
+        data-close-modal
+    ></div>
+
+
+    <div
+        class="modal-card"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+    >
+
+        <button
+            type="button"
+            class="modal-close"
+            data-close-modal
+        >
+            ×
+        </button>
+
+
+        <h2 id="modalTitle">
+            Create Assignment
+        </h2>
+
+
+        <form
+            method="POST"
+            id="assignmentForm"
+            action="{{ url_for('assignments.create_assignment') }}"
+        >
 
             <div class="form-grid">
-                <div class="full-field">
-                    <label for="assignmentTitle">Assignment Title</label>
-                    <input type="text" name="title" id="assignmentTitle"
-                           placeholder="e.g. DBMS Mini Project" required>
-                </div>
-
-                <div>
-                    <label for="assignmentSubject">Subject</label>
-                    <input type="text" name="subject" id="assignmentSubject"
-                           placeholder="e.g. DBMS" required>
-                </div>
-
-                <div>
-                    <label for="assignmentDueDate">Due Date</label>
-                    <input type="date" name="due_date" id="assignmentDueDate" required>
-                </div>
-
-                <div>
-                    <label for="assignmentPriority">Priority</label>
-                    <select name="priority" id="assignmentPriority">
-                        <option value="Low">🟢 Low</option>
-                        <option value="Medium" selected>🟡 Medium</option>
-                        <option value="High">🔴 High</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label for="assignmentDifficulty">Difficulty</label>
-                    <select name="difficulty" id="assignmentDifficulty">
-                        <option value="Easy">🟢 Easy</option>
-                        <option value="Medium" selected>🟡 Medium</option>
-                        <option value="Hard">🔴 Hard</option>
-                    </select>
-                </div>
-
-                <div>
-                    <label for="assignmentMinutes">Estimated Time</label>
-                    <div class="time-input">
-                        <input type="number" name="estimated_minutes"
-                               id="assignmentMinutes" value="60"
-                               min="15" max="10080" required>
-                        <span>minutes</span>
-                    </div>
-                </div>
-
-                <div>
-                    <label for="assignmentAttachment">Resource Link</label>
-                    <input type="url" name="attachment_url" id="assignmentAttachment"
-                           placeholder="Optional URL">
-                </div>
 
                 <div class="full-field">
-                    <label for="assignmentDescription">Description</label>
-                    <textarea name="description" id="assignmentDescription"
-                              rows="4" placeholder="What do you need to complete?"></textarea>
+
+                    <label for="assignmentTitle">
+                        Assignment Title
+                    </label>
+
+                    <input
+                        type="text"
+                        name="title"
+                        id="assignmentTitle"
+                        placeholder="e.g. DBMS Mini Project"
+                        required
+                    >
+
                 </div>
+
+
+                <div>
+
+                    <label for="assignmentSubject">
+                        Subject
+                    </label>
+
+                    <input
+                        type="text"
+                        name="subject"
+                        id="assignmentSubject"
+                        placeholder="e.g. DBMS"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="assignmentDueDate">
+                        Due Date
+                    </label>
+
+                    <input
+                        type="date"
+                        name="due_date"
+                        id="assignmentDueDate"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="assignmentPriority">
+                        Priority
+                    </label>
+
+                    <select
+                        name="priority"
+                        id="assignmentPriority"
+                    >
+
+                        <option value="Low">
+                            🟢 Low
+                        </option>
+
+                        <option value="Medium" selected>
+                            🟡 Medium
+                        </option>
+
+                        <option value="High">
+                            🔴 High
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label for="assignmentDifficulty">
+                        Difficulty
+                    </label>
+
+                    <select
+                        name="difficulty"
+                        id="assignmentDifficulty"
+                    >
+
+                        <option value="Easy">
+                            🟢 Easy
+                        </option>
+
+                        <option value="Medium" selected>
+                            🟡 Medium
+                        </option>
+
+                        <option value="Hard">
+                            🔴 Hard
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label for="assignmentMinutes">
+                        Estimated Time
+                    </label>
+
+                    <input
+                        type="number"
+                        name="estimated_minutes"
+                        id="assignmentMinutes"
+                        value="60"
+                        min="15"
+                        max="10080"
+                        required
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="assignmentAttachment">
+                        Resource Link
+                    </label>
+
+                    <input
+                        type="url"
+                        name="attachment_url"
+                        id="assignmentAttachment"
+                        placeholder="Optional URL"
+                    >
+
+                </div>
+
+
+                <div class="full-field">
+
+                    <label for="assignmentDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        name="description"
+                        id="assignmentDescription"
+                        rows="4"
+                        placeholder="What do you need to complete?"
+                    ></textarea>
+
+                </div>
+
             </div>
 
-            <button type="submit" class="modal-submit">✨ Save Assignment</button>
+
+            <button
+                type="submit"
+                class="modal-submit"
+            >
+                Save Assignment
+            </button>
+
         </form>
+
     </div>
+
 </div>
 
+
 <script src="{{ url_for('static', filename='js/assignments.js') }}"></script>
+
 {% endblock %}
