@@ -10,6 +10,7 @@ from flask import (
     request,
     session as flask_session,
     url_for,
+    send_from_directory,
 )
 
 from flask_login import current_user, login_required
@@ -182,25 +183,33 @@ def _discover_music_assets():
 
             relative = os.path.relpath(
                 os.path.join(root, filename),
-                STATIC_DIR
+                MUSIC_ASSET_DIR
             )
 
             result.append(
                 {
                     "filename": filename,
                     "relative": relative.replace("\\", "/"),
-                    "file":
-                        _asset_url(
-                            "",
-                            relative
-                        ).replace(
-                            "/static//",
-                            "/static/"
-                        ),
+                    "file": "/lock-in-grove/audio/" + relative.replace("\\", "/"),
                 }
             )
 
     return result
+
+# ==========================================================
+# FOCUS AUDIO
+# ==========================================================
+
+@focus.route("/lock-in-grove/audio/<path:filename>")
+def focus_audio(filename):
+    """Serve focus MP3 files stored in app/audio/focus/."""
+    return send_from_directory(
+        MUSIC_ASSET_DIR,
+        filename,
+        mimetype="audio/mpeg",
+        as_attachment=False,
+        max_age=0,
+    )
 
 # ==========================================================
 # TREE DEFINITIONS
@@ -444,7 +453,7 @@ BASE_MUSIC = {
         "id": "midnight_study",
         "name": "Midnight Study",
         "cost": 0,
-        "file": "/static/audio/focus/midnight_study.mp3",
+        "file": "/lock-in-grove/audio/midnight_study.mp3",
         "description": (
             "A quiet late-night atmosphere for peaceful study "
             "sessions and uninterrupted concentration."
@@ -454,7 +463,7 @@ BASE_MUSIC = {
         "id": "deep_focus",
         "name": "Deep Focus",
         "cost": 0,
-        "file": "/static/audio/focus/deep_focus.mp3",
+        "file": "/lock-in-grove/audio/deep_focus.mp3",
         "description": (
             "A minimal soundscape designed for calm and "
             "concentrated work."
@@ -464,7 +473,7 @@ BASE_MUSIC = {
         "id": "rainy_library",
         "name": "Rainy Library",
         "cost": 1000,
-        "file": "/static/audio/focus/rainy_library.mp3",
+        "file": "/lock-in-grove/audio/rainy_library.mp3",
         "description": (
             "A cosy rainy atmosphere inspired by quiet "
             "library evenings and slow focused study."
@@ -474,7 +483,7 @@ BASE_MUSIC = {
         "id": "cosmic_focus",
         "name": "Cosmic Focus",
         "cost": 1400,
-        "file": "/static/audio/focus/cosmic_focus.mp3",
+        "file": "/lock-in-grove/audio/cosmic_focus.mp3",
         "description": (
             "A spacious ambient soundscape for deep thinking, "
             "creativity and long focus sessions."
@@ -484,7 +493,7 @@ BASE_MUSIC = {
         "id": "forest_after_dark",
         "name": "Forest After Dark",
         "cost": 1700,
-        "file": "/static/audio/focus/forest_after_dark.mp3",
+        "file": "/lock-in-grove/audio/forest_after_dark.mp3",
         "description": (
             "A dark woodland atmosphere for quiet evening "
             "concentration."
@@ -494,7 +503,7 @@ BASE_MUSIC = {
         "id": "soft_study_room",
         "name": "Soft Study Room",
         "cost": 1900,
-        "file": "/static/audio/focus/soft_study_room.mp3",
+        "file": "/lock-in-grove/audio/soft_study_room.mp3",
         "description": (
             "A warm indoor atmosphere for relaxed and "
             "comfortable study sessions."
@@ -504,7 +513,7 @@ BASE_MUSIC = {
         "id": "night_rain",
         "name": "Night Rain",
         "cost": 2150,
-        "file": "/static/audio/focus/night_rain.mp3",
+        "file": "/lock-in-grove/audio/night_rain_thunder.mp3",
         "description": (
             "Gentle nighttime rain designed to create a calm "
             "and private focus environment."
@@ -584,47 +593,6 @@ def _build_music_catalog():
 
         known_files.add(file_url)
         extra_index += 1
-
-    # Repair any known track whose file does not exist.
-    discovered_files = {
-        item["file"]
-        for item in discovered
-    }
-
-    fallback_tracks = [
-        item["file"]
-        for item in discovered
-    ]
-
-    fallback_index = 0
-
-    for track in music.values():
-        if track["file"] in discovered_files:
-            continue
-
-        if os.path.isfile(
-            os.path.join(
-                STATIC_DIR,
-                track["file"]
-                .replace(
-                    "/static/",
-                    "",
-                    1
-                )
-                .replace(
-                    "/",
-                    os.sep
-                )
-            )
-        ):
-            continue
-
-        if fallback_tracks:
-            track["file"] = fallback_tracks[
-                fallback_index % len(fallback_tracks)
-            ]
-
-            fallback_index += 1
 
     return music
 

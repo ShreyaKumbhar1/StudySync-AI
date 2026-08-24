@@ -17,6 +17,7 @@
     data-session-id="{{ focus_session.id }}"
     data-duration="{{ focus_session.duration_minutes }}"
     data-started-at-ms="{{ focus_started_ms }}"
+    data-music-file="{{ selected_music.file if selected_music else '' }}"
 >
 
     <header class="focus-header">
@@ -61,6 +62,13 @@
     {% if selected_music %}
 
     <section class="active-focus-music">
+
+        <audio
+            id="focus-session-audio"
+            preload="auto"
+            autoplay
+            loop
+        ></audio>
 
         <span>🎧</span>
 
