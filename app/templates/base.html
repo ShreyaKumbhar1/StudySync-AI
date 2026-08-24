@@ -59,6 +59,21 @@
             filename='css/dimpu.css'
         ) }}"
     >
+    <!-- =====================================================
+     AUTHENTICATION CSS
+     ===================================================== -->
+
+    {% if request.path == '/login' or request.path == '/register' %}
+
+        <link
+            rel="stylesheet"
+            href="{{ url_for(
+                'static',
+                filename='css/auth.css'
+            ) }}"
+        >
+
+    {% endif %}
 
 
     <!-- =====================================================

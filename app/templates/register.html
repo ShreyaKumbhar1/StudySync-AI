@@ -1,3 +1,4 @@
+```html
 {% extends "base.html" %}
 
 {% block content %}
@@ -6,23 +7,78 @@
 
     <div class="auth-card">
 
-        <h1>Create Account ✨</h1>
+        <div class="auth-header">
 
-        <p>Join Dimpu's study squad.</p>
+            <div class="auth-symbol">
+                ✦
+            </div>
+
+            <span class="auth-eyebrow">
+                ORION STUDENT OS
+            </span>
+
+            <h1>Create Account ✨</h1>
+
+            <p>
+                Join Dimpu's study squad and begin your journey.
+            </p>
+
+        </div>
+
 
         <form method="POST">
 
             {{ form.hidden_tag() }}
 
-            {{ form.name(class="form-input") }}
+            <div class="auth-field">
 
-            {{ form.email(class="form-input") }}
+                <label for="{{ form.name.id }}">
+                    Full Name
+                </label>
 
-            {{ form.password(class="form-input") }}
+                {{ form.name(
+                    class="form-input",
+                    placeholder="Enter your full name"
+                ) }}
 
-            {{ form.submit(class="btn") }}
+            </div>
+
+
+            <div class="auth-field">
+
+                <label for="{{ form.email.id }}">
+                    Email Address
+                </label>
+
+                {{ form.email(
+                    class="form-input",
+                    placeholder="Enter your email address"
+                ) }}
+
+            </div>
+
+
+            <div class="auth-field">
+
+                <label for="{{ form.password.id }}">
+                    Password
+                </label>
+
+                {{ form.password(
+                    class="form-input",
+                    placeholder="Create a password"
+                ) }}
+
+            </div>
+
+
+            {{ form.submit(
+                class="auth-submit",
+                value="Create Account ✨"
+            ) }}
 
         </form>
+
 
         <p class="auth-link">
             Already have an account?
@@ -34,3 +90,4 @@
 </section>
 
 {% endblock %}
+```
