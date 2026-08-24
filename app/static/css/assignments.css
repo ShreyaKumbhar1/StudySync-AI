@@ -1,41 +1,43 @@
 /* =========================================================
    ORION — ASSIGNMENTS
-   Soft Blue / Lavender • Spacious UI
+   Calendar Glassy Purple / Blue Theme
    ========================================================= */
 
 .assignment-page {
+
     --text: #35343f;
     --muted: #858493;
     --light-muted: #a7a5b2;
 
     --purple: #8f72d8;
     --purple-dark: #7655c9;
-    --purple-soft: #d7d0e3;
-
-    /* Calendar-style cool blue / lavender-gray palette */
-    --panel-blue: #e7e5ea;
-    --panel-blue-light: #e0dfe4;
-    --panel-blue-deep: #d7d6dc;
+    --purple-soft: rgba(145, 126, 255, 0.12);
 
     --green: #54a875;
-    --green-soft: #d9e8df;
+    --green-soft: rgba(101, 189, 139, 0.12);
 
     --yellow: #c99545;
-    --yellow-soft: #eadfc8;
+    --yellow-soft: rgba(214, 155, 77, 0.12);
 
     --red: #b94e68;
     --red-dark: #963c55;
-    --red-soft: #ead0d6;
+    --red-soft: rgba(214, 132, 165, 0.12);
 
-    --border: #d0ced6;
+    /* EXACT CALENDAR CARD COLORS */
+    --calendar-card-bg: rgba(150, 140, 255, 0.10);
+    --calendar-card-border: rgba(174, 164, 255, 0.22);
+
+    /* EXACT CALENDAR SMALL BOX COLORS */
+    --calendar-small-bg: rgba(130, 180, 255, 0.09);
+    --calendar-small-border: rgba(155, 178, 255, 0.20);
+
+    --calendar-shadow: rgba(95, 82, 170, 0.07);
 
     width: min(1360px, calc(100% - 34px));
     margin: 0 auto;
-
     padding: 30px 0 60px;
 
     color: var(--text);
-
     font-size: 15px;
     line-height: 1.5;
 }
@@ -58,29 +60,26 @@
    HEADER
    ========================================================= */
 
-/* =========================================================
-   HEADER
-   ========================================================= */
-
 .assignment-header {
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     gap: 24px;
-
     margin-bottom: 24px;
+
     padding: 0;
 
     border: none;
     border-radius: 0;
 
     background: transparent;
-
     box-shadow: none;
 }
 
 .header-copy h1 {
+
     margin: 0;
 
     color: var(--text);
@@ -92,6 +91,7 @@
 }
 
 .header-copy p {
+
     margin: 5px 0 0;
 
     color: var(--muted);
@@ -100,12 +100,14 @@
 }
 
 .header-actions {
+
     display: flex;
     gap: 9px;
 }
 
 .primary-button,
 .focus-mode-button {
+
     border: none;
     border-radius: 9px;
 
@@ -120,19 +122,29 @@
 }
 
 .primary-button {
+
     color: white;
 
-    background: var(--purple);
+    background:
+        linear-gradient(
+            135deg,
+            #6C63FF,
+            #8068D8
+        );
 }
 
 .focus-mode-button {
-    color: var(--purple-dark);
 
-    background: var(--purple-soft);
+    color: #624c82;
+
+    background: rgba(145, 126, 255, 0.12);
+
+    border: 1px solid rgba(174, 164, 255, 0.22);
 }
 
 .primary-button:hover,
 .focus-mode-button:hover {
+
     transform: translateY(-1px);
 }
 
@@ -142,6 +154,7 @@
    ========================================================= */
 
 .quick-insight-grid {
+
     display: grid;
 
     grid-template-columns: 1.4fr 1fr 1fr;
@@ -154,24 +167,45 @@
 .focus-card,
 .workload-card,
 .streak-card {
+
     min-height: 108px;
 
     padding: 16px;
 
-    border: 1px solid var(--border);
+    border: 1px solid var(--calendar-card-border);
+
     border-radius: 17px;
 
-    background: linear-gradient(
-        135deg,
-        #e7e5ea 0%,
-        #e4e3e8 100%
-    );
+    background: var(--calendar-card-bg);
 
     box-shadow:
-        0 8px 30px rgba(70, 65, 85, 0.07);
+        0 8px 25px
+        rgba(95, 82, 170, 0.06);
+
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.focus-card:hover,
+.workload-card:hover,
+.streak-card:hover {
+
+    transform: translateY(-2px);
+
+    background: rgba(150, 140, 255, 0.13);
+
+    box-shadow:
+        0 12px 28px
+        rgba(95, 82, 170, 0.08);
 }
 
 .focus-card {
+
     display: flex;
     align-items: center;
 
@@ -179,6 +213,7 @@
 }
 
 .focus-card-icon {
+
     width: 43px;
     height: 43px;
 
@@ -189,13 +224,16 @@
 
     border-radius: 12px;
 
-    background: #d2c7e3;
+    background: rgba(145, 126, 255, 0.12);
+
+    border: 1px solid rgba(174, 164, 255, 0.22);
 
     font-size: 1.2rem;
 }
 
 .small-label,
 .section-label {
+
     display: block;
 
     color: #8065bd;
@@ -204,12 +242,14 @@
     font-weight: 800;
 
     letter-spacing: 0.12em;
+
     text-transform: uppercase;
 }
 
 .focus-card h2,
 .workload-card h2,
 .streak-card h2 {
+
     margin: 3px 0;
 
     color: var(--text);
@@ -221,6 +261,7 @@
 .focus-card p,
 .workload-card p,
 .streak-card p {
+
     margin: 0;
 
     color: var(--muted);
@@ -229,15 +270,18 @@
 }
 
 .workload-top {
+
     display: flex;
     justify-content: space-between;
 }
 
 .workload-icon {
+
     font-size: 1.1rem;
 }
 
 .workload-track {
+
     height: 6px;
 
     margin-top: 13px;
@@ -246,10 +290,11 @@
 
     border-radius: 99px;
 
-    background: #c9c7cf;
+    background: rgba(100, 100, 120, 0.14);
 }
 
 .workload-track span {
+
     display: block;
 
     height: 100%;
@@ -265,6 +310,7 @@
    ========================================================= */
 
 .stats-grid {
+
     display: grid;
 
     grid-template-columns: repeat(6, 1fr);
@@ -275,6 +321,7 @@
 }
 
 .stat-card {
+
     display: flex;
     align-items: center;
 
@@ -284,24 +331,27 @@
 
     padding: 12px;
 
-    border: 1px solid var(--border);
+    border: 1px solid var(--calendar-card-border);
+
     border-radius: 15px;
 
-    background: linear-gradient(
-        135deg,
-        #e7e5ea,
-        #e0dfe4
-    );
+    background: var(--calendar-card-bg);
 
     box-shadow:
-        0 7px 25px rgba(70, 65, 85, 0.06);
+        0 8px 25px
+        rgba(95, 82, 170, 0.06);
+
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
 }
 
 .stat-icon {
+
     font-size: 1rem;
 }
 
 .stat-card span:not(.stat-icon) {
+
     display: block;
 
     color: var(--muted);
@@ -310,6 +360,7 @@
 }
 
 .stat-card strong {
+
     display: block;
 
     margin-top: 1px;
@@ -325,6 +376,7 @@
    ========================================================= */
 
 .analytics-grid {
+
     display: grid;
 
     grid-template-columns: repeat(3, 1fr);
@@ -335,31 +387,35 @@
 }
 
 .analytics-card {
+
     min-height: 230px;
 
     padding: 17px;
 
-    border: 1px solid var(--border);
+    border: 1px solid var(--calendar-card-border);
+
     border-radius: 17px;
 
-    background: linear-gradient(
-        135deg,
-        #e7e5ea 0%,
-        #e0dfe4 70%,
-        #e5e1eb 100%
-    );
+    background: var(--calendar-card-bg);
 
     box-shadow:
-        0 9px 30px rgba(70, 65, 85, 0.07);
+        0 9px 30px
+        rgba(95, 82, 170, 0.07);
+
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
 }
 
 .card-heading {
+
     display: flex;
+
     justify-content: space-between;
     align-items: center;
 }
 
 .card-heading h2 {
+
     margin: 2px 0;
 
     color: var(--text);
@@ -368,6 +424,7 @@
 }
 
 .card-heading > strong {
+
     color: var(--purple);
 
     font-size: 1rem;
@@ -378,78 +435,220 @@
    CIRCULAR STATISTICS
    ========================================================= */
 
+/* -------------------------
+   BASE CIRCLE
+   ------------------------- */
+
 .progress-circle,
 .donut-chart {
+
     position: relative;
 
-    width: 112px;
-    height: 112px;
+    width: 118px;
+    height: 118px;
 
     display: grid;
     place-items: center;
 
-    margin: 15px auto 10px;
+    margin: 18px auto 13px;
 
     border-radius: 50%;
+
+    isolation: isolate;
+
+    filter:
+        drop-shadow(
+            0 8px 14px rgba(80, 65, 115, 0.10)
+        );
+
+    transition:
+        transform 0.25s ease,
+        filter 0.25s ease;
 }
 
-.progress-circle {
-    background:
-        conic-gradient(
-            var(--purple) var(--progress),
-            #c9c7cf 0
+.progress-circle:hover,
+.donut-chart:hover {
+
+    transform: translateY(-3px);
+
+    filter:
+        drop-shadow(
+            0 11px 18px rgba(80, 65, 115, 0.15)
         );
 }
 
-.donut-chart {
+
+/* -------------------------
+   PROGRESS CIRCLE
+   ------------------------- */
+
+.progress-circle {
+
     background:
         conic-gradient(
+            from -90deg,
+            var(--purple) var(--progress),
+            rgba(100, 100, 120, 0.14) var(--progress),
+            rgba(100, 100, 120, 0.14) 100%
+        );
+}
+
+
+/* -------------------------
+   DONUT CHART
+   ------------------------- */
+
+.donut-chart {
+
+    background:
+        conic-gradient(
+            from -90deg,
             var(--green) 0 var(--completed),
             var(--purple) var(--completed) 100%
         );
 }
 
-.progress-circle::before,
-.donut-chart::before {
+
+/* -------------------------
+   OUTER RING
+   ------------------------- */
+
+.progress-circle::after,
+.donut-chart::after {
+
     content: "";
 
     position: absolute;
 
-    inset: 9px;
+    inset: -4px;
 
     border-radius: 50%;
 
-    background: #e4e3e8;
+    border: 1px solid
+        rgba(174, 164, 255, 0.20);
+
+    z-index: -1;
+}
+
+
+/* -------------------------
+   INNER CIRCLE
+   ------------------------- */
+
+.progress-circle::before,
+.donut-chart::before {
+
+    content: "";
+
+    position: absolute;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            rgba(255, 255, 255, 0.72),
+            rgba(245, 243, 248, 0.58)
+        );
+
+    box-shadow:
+        inset 0 2px 5px
+        rgba(255, 255, 255, 0.65),
+
+        inset 0 -3px 7px
+        rgba(80, 70, 100, 0.07);
+
+    z-index: 1;
+}
+
+.progress-circle::before {
+
+    inset: 11px;
 }
 
 .donut-chart::before {
-    inset: 20px;
+
+    inset: 22px;
 }
+
+
+/* -------------------------
+   CENTER CONTENT
+   ------------------------- */
 
 .progress-circle > div,
 .donut-center {
+
     position: relative;
+
+    z-index: 2;
 
     text-align: center;
 }
 
 .progress-circle strong,
 .donut-center strong {
+
     display: block;
 
-    color: var(--text);
+    color: #373440;
 
-    font-size: 1.2rem;
+    font-size: 1.25rem;
+
+    font-weight: 780;
+
+    line-height: 1.1;
+
+    letter-spacing: -0.025em;
 }
 
 .progress-circle span,
 .donut-center span {
-    color: var(--muted);
 
-    font-size: 0.61rem;
+    display: block;
+
+    margin-top: 3px;
+
+    color: #85818d;
+
+    font-size: 0.59rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.02em;
 }
 
+.progress-circle > div::after,
+.donut-center::after {
+
+    content: "";
+
+    display: block;
+
+    width: 17px;
+    height: 3px;
+
+    margin: 7px auto 0;
+
+    border-radius: 99px;
+
+    background: var(--purple);
+
+    opacity: 0.55;
+}
+
+.donut-center::after {
+
+    background: var(--green);
+}
+
+
+/* =========================================================
+   CHART LEGEND
+   ========================================================= */
+
 .analytics-card > p {
+
     margin: 0;
 
     color: var(--muted);
@@ -460,10 +659,14 @@
 }
 
 .chart-legend {
+
     display: flex;
+
     justify-content: center;
 
-    gap: 10px;
+    gap: 12px;
+
+    margin-top: 4px;
 
     color: var(--muted);
 
@@ -471,6 +674,7 @@
 }
 
 .legend {
+
     display: inline-block;
 
     width: 7px;
@@ -482,11 +686,21 @@
 }
 
 .legend.completed {
+
     background: var(--green);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(84, 168, 117, 0.10);
 }
 
 .legend.pending {
+
     background: var(--purple);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(143, 114, 216, 0.10);
 }
 
 
@@ -495,6 +709,7 @@
    ========================================================= */
 
 .priority-list {
+
     display: grid;
 
     gap: 15px;
@@ -503,7 +718,9 @@
 }
 
 .priority-row > div:first-child {
+
     display: flex;
+
     justify-content: space-between;
 
     margin-bottom: 5px;
@@ -514,20 +731,26 @@
 }
 
 .priority-row strong {
+
     color: var(--muted);
 }
 
 .bar {
+
     height: 6px;
 
     overflow: hidden;
 
     border-radius: 99px;
 
-    background: #c9c7cf;
+    background: rgba(100, 100, 120, 0.14);
+
+    border: 1px solid
+        rgba(155, 178, 255, 0.16);
 }
 
 .bar span {
+
     display: block;
 
     height: 100%;
@@ -543,6 +766,7 @@
    ========================================================= */
 
 .dimpu-recommendation {
+
     display: grid;
 
     grid-template-columns: auto 1fr auto;
@@ -555,45 +779,55 @@
 
     padding: 15px 17px;
 
-    border: 1px solid #d0ced6;
+    border: 1px solid var(--calendar-card-border);
+
     border-radius: 17px;
 
-    background:
-        linear-gradient(
-            110deg,
-            #e7e5ea,
-            #e5e1eb
-        );
+    background: var(--calendar-card-bg);
 
     box-shadow:
-        0 8px 28px rgba(70, 65, 85, 0.06);
+        0 8px 28px
+        rgba(95, 82, 170, 0.06);
+
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
 }
 
 .dimpu-icon {
+
     width: 43px;
     height: 43px;
 
     display: grid;
+
     place-items: center;
 
     border-radius: 12px;
 
-    background: #d2c7e3;
+    background:
+        rgba(145, 126, 255, 0.12);
+
+    border: 1px solid
+        rgba(174, 164, 255, 0.22);
 
     font-size: 1.15rem;
 }
 
 .dimpu-title {
+
     color: #8065bd;
 
     font-size: 0.61rem;
+
     font-weight: 800;
 
     text-transform: uppercase;
+
     letter-spacing: 0.08em;
 }
 
 .dimpu-message h2 {
+
     margin: 2px 0;
 
     color: var(--text);
@@ -602,6 +836,7 @@
 }
 
 .dimpu-message p {
+
     margin: 0;
 
     color: var(--muted);
@@ -610,6 +845,7 @@
 }
 
 .recommendation-tags {
+
     display: flex;
 
     flex-wrap: wrap;
@@ -620,14 +856,18 @@
 }
 
 .recommendation-tags span {
+
     padding: 4px 7px;
 
-    border: 1px solid #d0ced6;
+    border: 1px solid
+        rgba(155, 178, 255, 0.20);
+
     border-radius: 999px;
 
     color: var(--muted);
 
-    background: #dedde2;
+    background:
+        rgba(130, 180, 255, 0.09);
 
     font-size: 0.57rem;
 }
@@ -638,6 +878,7 @@
    ========================================================= */
 
 .filter-bar {
+
     display: grid;
 
     grid-template-columns: 1fr 160px 160px 180px;
@@ -649,20 +890,29 @@
 
 .search-field,
 .filter-bar select {
+
     min-height: 42px;
 
-    border: 1px solid var(--border);
+    border: 1px solid
+        rgba(155, 178, 255, 0.20);
+
     border-radius: 11px;
 
     color: var(--text);
 
-    background: #d9d8dd;
+    background:
+        rgba(130, 180, 255, 0.09);
 
     font-size: 0.7rem;
+
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
 }
 
 .search-field {
+
     display: flex;
+
     align-items: center;
 
     gap: 7px;
@@ -671,13 +921,16 @@
 }
 
 .search-field span {
+
     font-size: 0.95rem;
 }
 
 .search-field input {
+
     width: 100%;
 
     border: none;
+
     outline: none;
 
     color: var(--text);
@@ -688,10 +941,12 @@
 }
 
 .search-field input::placeholder {
+
     color: #94919b;
 }
 
 .filter-bar select {
+
     padding: 0 9px;
 
     outline: none;
@@ -703,7 +958,9 @@
    ========================================================= */
 
 .results-row {
+
     display: flex;
+
     justify-content: space-between;
 
     margin: 8px 3px 15px;
@@ -714,6 +971,7 @@
 }
 
 .clear-button {
+
     border: none;
 
     padding: 0;
@@ -733,9 +991,11 @@
    ========================================================= */
 
 .assignment-grid {
+
     display: grid;
 
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
     gap: 24px;
 
@@ -743,40 +1003,51 @@
 }
 
 .assignment-card {
+
     padding: 17px;
 
-    border: 1px solid #d0ced6;
+    border: 1px solid
+        rgba(155, 178, 255, 0.20);
+
     border-radius: 17px;
 
     background:
-        linear-gradient(
-            145deg,
-            #e7e5ea 0%,
-            #e0dfe4 65%,
-            #e5e1eb 100%
-        );
+        rgba(130, 180, 255, 0.09);
 
     box-shadow:
-        0 9px 30px rgba(70, 65, 85, 0.06);
+        0 9px 30px
+        rgba(95, 82, 170, 0.06);
+
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
 
     transition:
         transform 0.18s ease,
-        box-shadow 0.18s ease;
+        box-shadow 0.18s ease,
+        background 0.18s ease;
 }
 
 .assignment-card:hover {
+
     transform: translateY(-2px);
 
+    background:
+        rgba(130, 180, 255, 0.13);
+
     box-shadow:
-        0 13px 35px rgba(70, 65, 85, 0.10);
+        0 13px 35px
+        rgba(95, 82, 170, 0.10);
 }
 
 .completed-card {
+
     opacity: 0.68;
 }
 
 .assignment-top {
+
     display: flex;
+
     justify-content: space-between;
 
     gap: 7px;
@@ -786,6 +1057,7 @@
 .status-tag,
 .priority-tag,
 .resource-tag {
+
     display: inline-flex;
 
     width: fit-content;
@@ -795,37 +1067,47 @@
     border-radius: 999px;
 
     font-size: 0.58rem;
+
     font-weight: 750;
 }
 
 .subject-tag {
+
     color: #665285;
 
-    background: #d9d1e7;
+    background:
+        rgba(145, 126, 255, 0.13);
 }
 
 .status-tag {
+
     color: #4f8c70;
 
-    background: #d9e8df;
+    background:
+        rgba(101, 189, 139, 0.12);
 }
 
 .priority-tag {
+
     color: #9a7130;
 
-    background: #eadfc8;
+    background:
+        rgba(214, 155, 77, 0.12);
 }
 
 .assignment-card h2 {
+
     margin: 11px 0 5px;
 
     color: var(--text);
 
     font-size: 0.92rem;
+
     font-weight: 760;
 }
 
 .description {
+
     min-height: 32px;
 
     margin: 0 0 10px;
@@ -837,6 +1119,7 @@
 
 .meta-row,
 .tag-row {
+
     display: flex;
 
     flex-wrap: wrap;
@@ -849,10 +1132,12 @@
 }
 
 .tag-row {
+
     margin-top: 6px;
 }
 
 .resource-tag {
+
     color: #7254a2;
 
     text-decoration: none;
@@ -864,10 +1149,12 @@
    ========================================================= */
 
 .urgency-line {
+
     margin-top: 8px;
 }
 
 .urgency {
+
     display: inline-block;
 
     padding: 3px 6px;
@@ -875,26 +1162,33 @@
     border-radius: 999px;
 
     font-size: 0.57rem;
+
     font-weight: 750;
 }
 
 .urgency.overdue {
+
     color: var(--red);
 
-    background: var(--red-soft);
+    background:
+        rgba(214, 132, 165, 0.12);
 }
 
 .urgency.today,
 .urgency.soon {
+
     color: #9a7130;
 
-    background: #eadfc8;
+    background:
+        rgba(214, 155, 77, 0.12);
 }
 
 .urgency.normal {
+
     color: #4f8c70;
 
-    background: #d9e8df;
+    background:
+        rgba(101, 189, 139, 0.12);
 }
 
 
@@ -903,24 +1197,32 @@
    ========================================================= */
 
 .mini-recommendation {
+
     display: flex;
+
     align-items: center;
 
     gap: 7px;
 
     margin-top: 9px;
+
     padding: 7px 8px;
 
     border-radius: 8px;
 
     color: var(--muted);
 
-    background: #d9d1e7;
+    background:
+        rgba(145, 126, 255, 0.10);
+
+    border: 1px solid
+        rgba(174, 164, 255, 0.16);
 
     font-size: 0.58rem;
 }
 
 .mini-dimpu {
+
     color: #7655a3;
 
     font-weight: 750;
@@ -932,11 +1234,14 @@
    ========================================================= */
 
 .progress-area {
+
     margin-top: 12px;
 }
 
 .progress-header {
+
     display: flex;
+
     justify-content: space-between;
 
     margin-bottom: 5px;
@@ -947,28 +1252,41 @@
 }
 
 .progress-header strong {
+
     color: var(--text);
 }
 
 .progress-track {
+
     height: 6px;
 
     overflow: hidden;
 
     border-radius: 99px;
 
-    background: #c9c7cf;
+    background:
+        rgba(100, 100, 120, 0.14);
+
+    border: 1px solid
+        rgba(155, 178, 255, 0.16);
 }
 
 .progress-fill {
+
     height: 100%;
 
     border-radius: inherit;
 
-    background: var(--purple);
+    background:
+        linear-gradient(
+            90deg,
+            #806bd0,
+            #b394e7
+        );
 }
 
 .progress-form {
+
     display: grid;
 
     grid-template-columns: 1fr 39px 44px;
@@ -981,26 +1299,32 @@
 }
 
 .progress-form input {
+
     width: 100%;
 
     accent-color: var(--purple);
 }
 
 .progress-form output {
+
     color: var(--muted);
 
     font-size: 0.58rem;
 }
 
 .progress-form button {
-    border: 1px solid var(--border);
+
+    border: 1px solid
+        rgba(155, 178, 255, 0.20);
+
     border-radius: 7px;
 
     padding: 5px;
 
     color: var(--text);
 
-    background: #e0dfe4;
+    background:
+        rgba(130, 180, 255, 0.09);
 
     cursor: pointer;
 
@@ -1013,7 +1337,9 @@
    ========================================================= */
 
 .assignment-actions {
+
     display: flex;
+
     align-items: center;
 
     gap: 7px;
@@ -1022,46 +1348,58 @@
 }
 
 .assignment-actions form:first-child {
+
     flex: 1;
 }
 
 .complete-button,
 .plan-button,
 .icon-button {
+
     min-height: 32px;
 
-    border: 1px solid var(--border);
+    border: 1px solid
+        rgba(155, 178, 255, 0.20);
+
     border-radius: 8px;
 
     cursor: pointer;
 
     font-size: 0.6rem;
+
     font-weight: 700;
 }
 
 .complete-button,
 .plan-button {
+
     width: 100%;
 }
 
 .complete-button {
+
     color: #4f8c70;
 
-    background: #d9e8df;
+    background:
+        rgba(101, 189, 139, 0.12);
 }
 
 .plan-button {
+
     color: #7254a2;
 
-    background: #d9d1e7;
+    background:
+        rgba(145, 126, 255, 0.12);
 }
 
 .icon-button {
+
     width: 32px;
 
     color: #77727f;
 
-    background: #dedde2;
+    background:
+        rgba(130, 180, 255, 0.09);
 }
 
 
@@ -1070,6 +1408,7 @@
    ========================================================= */
 
 .delete-button {
+
     color: #a95a6e !important;
 
     opacity: 1 !important;
@@ -1082,12 +1421,15 @@
 }
 
 .delete-button:hover {
+
     color: #923f57 !important;
 
-    background: #ead0d6;
+    background:
+        rgba(214, 132, 165, 0.12);
 }
 
 .completed-card .delete-button {
+
     color: #a44c63 !important;
 
     opacity: 1 !important;
@@ -1096,9 +1438,11 @@
 }
 
 .completed-card .delete-button:hover {
+
     color: #89364e !important;
 
-    background: #ead0d6;
+    background:
+        rgba(214, 132, 165, 0.12);
 }
 
 
@@ -1107,31 +1451,41 @@
    ========================================================= */
 
 .empty-state {
+
     grid-column: 1 / -1;
 
     padding: 45px 20px;
 
-    border: 1px dashed #d0ced6;
+    border: 1px dashed
+        rgba(174, 164, 255, 0.35);
+
     border-radius: 17px;
 
     text-align: center;
 
-    background: #e7e5ea;
+    background:
+        rgba(150, 140, 255, 0.10);
+
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
 }
 
 .empty-state > div {
+
     margin-bottom: 7px;
 
     font-size: 2rem;
 }
 
 .empty-state h2 {
+
     margin: 0 0 5px;
 
     font-size: 1rem;
 }
 
 .empty-state p {
+
     margin: 0 0 14px;
 
     color: var(--muted);
@@ -1140,6 +1494,7 @@
 }
 
 .hidden {
+
     display: none !important;
 }
 
@@ -1149,6 +1504,7 @@
    ========================================================= */
 
 .assignment-modal {
+
     position: fixed;
 
     inset: 0;
@@ -1163,20 +1519,24 @@
 }
 
 .assignment-modal.is-open {
+
     display: grid;
 }
 
 .modal-overlay {
+
     position: absolute;
 
     inset: 0;
 
-    background: rgba(30, 28, 40, 0.38);
+    background:
+        rgba(30, 28, 40, 0.38);
 
     backdrop-filter: blur(7px);
 }
 
 .modal-card {
+
     position: relative;
 
     width: min(650px, 100%);
@@ -1187,45 +1547,63 @@
 
     padding: 25px;
 
-    border: 1px solid rgba(112, 87, 232, 0.16);
+    border: 1px solid
+        rgba(174, 164, 255, 0.22);
 
     border-radius: 18px;
 
-    background: rgba(231, 229, 234, 0.97);
+    background:
+        rgba(150, 140, 255, 0.10);
 
     color: #292733;
 
     box-shadow:
-        0 25px 70px rgba(30, 25, 50, 0.18),
-        0 8px 25px rgba(30, 25, 50, 0.08);
+        0 25px 70px
+        rgba(30, 25, 50, 0.18),
 
-    backdrop-filter: blur(14px);
+        0 8px 25px
+        rgba(95, 82, 170, 0.08);
 
-    animation: modalAppear 0.2s ease-out;
+    backdrop-filter: blur(18px);
+
+    animation:
+        modalAppear 0.2s ease-out;
 }
 
 @keyframes modalAppear {
+
     from {
+
         opacity: 0;
-        transform: translateY(8px) scale(0.985);
+
+        transform:
+            translateY(8px)
+            scale(0.985);
     }
 
     to {
+
         opacity: 1;
-        transform: translateY(0) scale(1);
+
+        transform:
+            translateY(0)
+            scale(1);
     }
 }
 
 .modal-card h2 {
+
     margin: 0 0 18px;
 
     color: #292733;
 
     font-size: 1.18rem;
+
     font-weight: 760;
 }
 
 .modal-close {
+
     position: absolute;
 
     top: 12px;
@@ -1235,14 +1613,17 @@
     height: 31px;
 
     display: grid;
+
     place-items: center;
 
     border: none;
+
     border-radius: 8px;
 
     color: #686572;
 
-    background: #d9d8dd;
+    background:
+        rgba(130, 180, 255, 0.09);
 
     cursor: pointer;
 
@@ -1250,9 +1631,11 @@
 }
 
 .modal-close:hover {
+
     color: #35323f;
 
-    background: #cbc9d2;
+    background:
+        rgba(130, 180, 255, 0.15);
 }
 
 
@@ -1261,6 +1644,7 @@
    ========================================================= */
 
 .form-grid {
+
     display: grid;
 
     grid-template-columns: 1fr 1fr;
@@ -1269,10 +1653,12 @@
 }
 
 .full-field {
+
     grid-column: 1 / -1;
 }
 
 .form-grid label {
+
     display: block;
 
     margin-bottom: 6px;
@@ -1280,28 +1666,37 @@
     color: #3d3a46;
 
     font-size: 0.68rem;
+
     font-weight: 750;
 }
 
 .form-grid input,
 .form-grid select,
 .form-grid textarea {
+
     width: 100%;
 
     min-height: 40px;
 
     padding: 9px 11px;
 
-    border: 1px solid #c7c4ce;
+    border:
+        1px solid
+        rgba(155, 178, 255, 0.24);
+
     border-radius: 9px;
 
     outline: none;
 
     color: #302e39;
 
-    background: #d9d8dd;
+    background:
+        rgba(130, 180, 255, 0.10);
 
     font-size: 0.72rem;
+
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
 
     transition:
         border-color 0.15s ease,
@@ -1311,27 +1706,33 @@
 
 .form-grid input::placeholder,
 .form-grid textarea::placeholder {
+
     color: #88858f;
 }
 
 .form-grid input:focus,
 .form-grid select:focus,
 .form-grid textarea:focus {
-    border-color: var(--purple);
 
-    background: #e4e3e8;
+    border-color: #9678ca;
+
+    background:
+        rgba(255, 255, 255, 0.55);
 
     box-shadow:
-        0 0 0 3px rgba(112, 87, 232, 0.09);
+        0 0 0 3px
+        rgba(150, 120, 202, 0.10);
 }
 
 .form-grid textarea {
+
     min-height: 90px;
 
     resize: vertical;
 }
 
 .modal-submit {
+
     width: 100%;
 
     min-height: 42px;
@@ -1339,22 +1740,35 @@
     margin-top: 16px;
 
     border: none;
+
     border-radius: 9px;
 
     color: white;
 
-    background: var(--purple);
+    background:
+        linear-gradient(
+            135deg,
+            #6C63FF,
+            #8068D8
+        );
 
     cursor: pointer;
 
     font-size: 0.72rem;
+
     font-weight: 750;
 
     transition: 0.18s ease;
 }
 
 .modal-submit:hover {
-    background: var(--purple-dark);
+
+    background:
+        linear-gradient(
+            135deg,
+            #765cf8,
+            #8068D8
+        );
 
     transform: translateY(-1px);
 }
@@ -1367,24 +1781,33 @@
 @media (max-width: 1150px) {
 
     .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
+
+        grid-template-columns:
+            repeat(3, 1fr);
     }
 
     .quick-insight-grid {
-        grid-template-columns: 1fr 1fr;
+
+        grid-template-columns:
+            1fr 1fr;
     }
 
     .streak-card {
+
         grid-column: 1 / -1;
     }
 
     .analytics-grid,
     .assignment-grid {
-        grid-template-columns: repeat(2, 1fr);
+
+        grid-template-columns:
+            repeat(2, 1fr);
     }
 
     .filter-bar {
-        grid-template-columns: 1fr 1fr;
+
+        grid-template-columns:
+            1fr 1fr;
     }
 }
 
@@ -1392,20 +1815,24 @@
 @media (max-width: 700px) {
 
     .assignment-page {
+
         width: calc(100% - 20px);
 
         padding-top: 18px;
     }
 
     .assignment-header {
+
         display: block;
     }
 
     .header-actions {
+
         margin-top: 13px;
     }
 
     .header-actions button {
+
         flex: 1;
     }
 
@@ -1414,30 +1841,38 @@
     .analytics-grid,
     .assignment-grid,
     .filter-bar {
+
         grid-template-columns: 1fr;
     }
 
     .streak-card {
+
         grid-column: auto;
     }
 
     .dimpu-recommendation {
-        grid-template-columns: auto 1fr;
+
+        grid-template-columns:
+            auto 1fr;
     }
 
     .dimpu-recommendation form {
+
         grid-column: 1 / -1;
     }
 
     .form-grid {
+
         grid-template-columns: 1fr;
     }
 
     .full-field {
+
         grid-column: auto;
     }
 
     .modal-card {
+
         width: 100%;
 
         max-height: 92vh;
@@ -1448,9 +1883,20 @@
     }
 
     .header-copy h1 {
+
         font-size: 1.5rem;
     }
+
+    .progress-circle,
+    .donut-chart {
+
+        width: 108px;
+        height: 108px;
+    }
 }
+
+
 .focus-mode-button {
+
     text-decoration: none;
 }

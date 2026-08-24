@@ -1,7 +1,47 @@
-
 /* =====================================================
    ORION DASHBOARD
+
+   Grove Soft Purple / Lavender Glass Theme
    ===================================================== */
+
+
+/* =====================================================
+   THEME VARIABLES
+   ===================================================== */
+
+:root {
+
+    --grove-bg: #f6f4f8;
+
+    --grove-surface: rgba(255,255,255,.74);
+
+    --grove-surface-strong: rgba(255,255,255,.97);
+
+    --grove-text: #302d38;
+
+    --grove-text-soft: #777180;
+
+    --grove-text-muted: #a19ba7;
+
+    --grove-purple: #8062b5;
+
+    --grove-purple-dark: #62458f;
+
+    --grove-purple-soft: #eee8f7;
+
+    --grove-green: #6e9f82;
+
+    --grove-green-soft: #eaf3ec;
+
+    --grove-border: rgba(93,79,112,.11);
+
+    --grove-shadow:
+        0 12px 40px rgba(68,53,84,.08);
+
+    --grove-shadow-hover:
+        0 18px 42px rgba(68,53,84,.12);
+
+}
 
 
 /* =====================================================
@@ -15,6 +55,9 @@
     margin: auto;
 
     padding: 50px 30px;
+
+    color: var(--grove-text);
+
 }
 
 
@@ -25,6 +68,7 @@
 .welcome-card {
 
     margin-bottom: 45px;
+
 }
 
 
@@ -32,15 +76,17 @@
 
     font-size: 42px;
 
-    color: #2D2D2D;
+    color: var(--grove-text);
+
 }
 
 
 .welcome-card p {
 
-    color: #777080;
+    color: var(--grove-text-soft);
 
     margin-top: 10px;
+
 }
 
 
@@ -61,20 +107,25 @@
     gap: 25px;
 
     margin-top: 35px;
+
 }
 
 
+/* =====================================================
+   STAT CARD
+   ===================================================== */
+
 .stat-card {
 
-    /*
-       SAME MUTED GREY / LAVENDER
-       SURFACE USED THROUGHOUT
-       PLANNER AND CALENDAR
-    */
+    -webkit-backdrop-filter: blur(18px);
 
-    background: #E7E5EA;
+    backdrop-filter: blur(18px);
 
-    border: 1px solid #D5D1DC;
+    background:
+        var(--grove-surface);
+
+    border:
+        1px solid var(--grove-border);
 
     padding: 30px;
 
@@ -83,50 +134,58 @@
     text-align: center;
 
     box-shadow:
-        0 8px 25px
-        rgba(70, 65, 85, 0.08);
+        var(--grove-shadow);
 
     transition:
         transform 0.3s ease,
         background 0.3s ease,
         box-shadow 0.3s ease,
         border-color 0.3s ease;
+
 }
 
 
-/* STAT CARD HOVER */
+/* =====================================================
+   STAT CARD HOVER
+   ===================================================== */
 
 .stat-card:hover {
 
     transform: translateY(-8px);
 
-    background: #E4E3E8;
+    background:
+        rgba(255,255,255,.82);
 
-    border-color: #C5C0CD;
+    border-color:
+        rgba(93,79,112,.15);
 
     box-shadow:
-        0 18px 35px
-        rgba(70, 65, 85, 0.12);
+        var(--grove-shadow-hover);
+
 }
 
 
 .stat-card h3 {
 
-    color: #65616D;
+    color:
+        var(--grove-text-soft);
 
     margin-bottom: 15px;
 
     font-size: 18px;
+
 }
 
 
 .stat-card h1 {
 
-    color: #7254A2;
+    color:
+        var(--grove-purple);
 
     font-size: 42px;
 
     margin: 0;
+
 }
 
 
@@ -136,22 +195,22 @@
 
 .quote-card {
 
-    /*
-       SAME MAIN PANEL SURFACE
-       AS PLANNER
-    */
+    -webkit-backdrop-filter: blur(18px);
 
-    background: rgba(228, 227, 232, 0.94);
+    backdrop-filter: blur(18px);
 
-    border: 1px solid #D0CED6;
+    background:
+        var(--grove-surface);
+
+    border:
+        1px solid var(--grove-border);
 
     padding: 30px;
 
     border-radius: 20px;
 
     box-shadow:
-        0 12px 35px
-        rgba(70, 65, 85, 0.12);
+        var(--grove-shadow);
 
     margin-top: 35px;
 
@@ -161,28 +220,35 @@
         background 0.3s ease,
         box-shadow 0.3s ease,
         border-color 0.3s ease;
+
 }
 
 
-/* QUOTE HOVER */
+/* =====================================================
+   QUOTE HOVER
+   ===================================================== */
 
 .quote-card:hover {
 
-    background: rgba(228, 227, 232, 0.98);
+    background:
+        rgba(255,255,255,.82);
 
-    border-color: #C5C0CD;
+    border-color:
+        rgba(93,79,112,.15);
 
     box-shadow:
-        0 16px 38px
-        rgba(70, 65, 85, 0.14);
+        var(--grove-shadow-hover);
+
 }
 
 
 .quote-card h2 {
 
-    color: #7254A2;
+    color:
+        var(--grove-purple);
 
     margin-bottom: 15px;
+
 }
 
 
@@ -192,22 +258,22 @@
 
 .progress-card {
 
-    /*
-       SAME MAIN PANEL SURFACE
-       AS CALENDAR / PLANNER
-    */
+    -webkit-backdrop-filter: blur(18px);
 
-    background: rgba(228, 227, 232, 0.94);
+    backdrop-filter: blur(18px);
 
-    border: 1px solid #D0CED6;
+    background:
+        var(--grove-surface);
+
+    border:
+        1px solid var(--grove-border);
 
     padding: 30px;
 
     border-radius: 20px;
 
     box-shadow:
-        0 12px 35px
-        rgba(70, 65, 85, 0.12);
+        var(--grove-shadow);
 
     margin-bottom: 40px;
 
@@ -215,20 +281,25 @@
         background 0.3s ease,
         box-shadow 0.3s ease,
         border-color 0.3s ease;
+
 }
 
 
-/* PROGRESS CARD HOVER */
+/* =====================================================
+   PROGRESS CARD HOVER
+   ===================================================== */
 
 .progress-card:hover {
 
-    background: rgba(228, 227, 232, 0.98);
+    background:
+        rgba(255,255,255,.82);
 
-    border-color: #C5C0CD;
+    border-color:
+        rgba(93,79,112,.15);
 
     box-shadow:
-        0 16px 38px
-        rgba(70, 65, 85, 0.14);
+        var(--grove-shadow-hover);
+
 }
 
 
@@ -242,21 +313,18 @@
 
     height: 15px;
 
-    /*
-       MUTED INNER SURFACE
-       MATCHING PLANNER INPUTS
-       AND CALENDAR ELEMENTS
-    */
+    background:
+        rgba(246,244,248,.78);
 
-    background: #D1D0D5;
-
-    border: 1px solid #CCC9D2;
+    border:
+        1px solid var(--grove-border);
 
     border-radius: 50px;
 
     overflow: hidden;
 
     margin: 20px 0;
+
 }
 
 
@@ -268,11 +336,14 @@
 
     height: 100%;
 
-    background: #8F72D8;
+    background:
+        var(--grove-purple);
 
     border-radius: 50px;
 
-    transition: width 0.4s ease;
+    transition:
+        width 0.4s ease;
+
 }
 
 
@@ -284,7 +355,9 @@
 
     margin-bottom: 30px;
 
-    color: #302E3A;
+    color:
+        var(--grove-text);
+
 }
 
 
@@ -299,6 +372,7 @@
         );
 
     gap: 25px;
+
 }
 
 
@@ -308,70 +382,78 @@
 
 .dashboard-card {
 
-    /*
-       SAME MAIN CARD SURFACE
-       AS PLANNER TASK PANELS
-       AND CALENDAR CARDS
-    */
+    -webkit-backdrop-filter: blur(18px);
 
-    background: rgba(228, 227, 232, 0.94);
+    backdrop-filter: blur(18px);
 
-    border: 1px solid #D0CED6;
+    background:
+        var(--grove-surface);
+
+    border:
+        1px solid var(--grove-border);
 
     padding: 30px;
 
     border-radius: 20px;
 
     box-shadow:
-        0 12px 35px
-        rgba(70, 65, 85, 0.12);
+        var(--grove-shadow);
 
     transition:
         transform 0.3s ease,
         background 0.3s ease,
         box-shadow 0.3s ease,
         border-color 0.3s ease;
+
 }
 
 
-/* DASHBOARD CARD HOVER */
+/* =====================================================
+   DASHBOARD CARD HOVER
+   ===================================================== */
 
 .dashboard-card:hover {
 
     transform: translateY(-8px);
 
-    background: rgba(228, 227, 232, 0.98);
+    background:
+        rgba(255,255,255,.82);
 
-    border-color: #C5C0CD;
+    border-color:
+        rgba(93,79,112,.15);
 
     box-shadow:
-        0 20px 40px
-        rgba(70, 65, 85, 0.14);
+        var(--grove-shadow-hover);
+
 }
 
 
 .dashboard-card h3 {
 
-    color: #7254A2;
+    color:
+        var(--grove-purple);
 
     margin-bottom: 15px;
+
 }
 
 
 /* =====================================================
-   CONSISTENT DASHBOARD TEXT
+   DASHBOARD TEXT
    ===================================================== */
 
 .dashboard-card p {
 
-    color: #777080;
+    color:
+        var(--grove-text-soft);
 
 }
 
 
 .dashboard-card strong {
 
-    color: #514861;
+    color:
+        #514861;
 
 }
 
@@ -385,6 +467,7 @@
     .dashboard {
 
         padding: 40px 25px;
+
     }
 
 }
@@ -395,24 +478,28 @@
     .dashboard {
 
         padding: 30px 20px;
+
     }
 
 
     .welcome-card h1 {
 
         font-size: 34px;
+
     }
 
 
     .stat-card {
 
         padding: 25px;
+
     }
 
 
     .stat-card h1 {
 
         font-size: 36px;
+
     }
 
 
@@ -423,6 +510,7 @@
         padding: 22px;
 
         border-radius: 20px;
+
     }
 
 }

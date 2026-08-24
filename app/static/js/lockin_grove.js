@@ -1890,6 +1890,73 @@ function setupFocusMode(
         }
     );
 
+    let leavingFocusPage = false;
+    let visibilityWatcher = null;
+
+    /*
+     * Focus-lock warning.
+     *
+     * The existing Orion warning component is reused so its
+     * existing styling/animation stays untouched. We only add
+     * the focus-lock message when the user attempts to leave.
+     */
+    function showFocusExitWarning() {
+
+        if (!warning) {
+            return;
+        }
+
+        let message =
+            warning.querySelector(
+                ".orion-focus-exit-message"
+            );
+
+        if (!message) {
+
+            message =
+                document.createElement(
+                    "div"
+                );
+
+            message.className =
+                "orion-focus-exit-message";
+
+            message.style.marginBottom =
+                "14px";
+
+            message.style.lineHeight =
+                "1.5";
+
+            message.style.textAlign =
+                "center";
+
+            if (returnButton) {
+                warning.insertBefore(
+                    message,
+                    returnButton
+                );
+            } else {
+                warning.appendChild(
+                    message
+                );
+            }
+        }
+
+        message.innerHTML = `
+            <strong style="display:block; margin-bottom:6px;">
+                🌳 FOCUS LOCK ACTIVE
+            </strong>
+            <span>
+                If you close this tab or leave ORION,
+                a destroyed tree will be planted in your forest.
+            </span>
+        `;
+
+        warning.classList.remove(
+            "hidden"
+        );
+    }
+
     document.addEventListener(
         "visibilitychange",
         function () {
@@ -1905,66 +1972,24 @@ function setupFocusMode(
                 document.hidden
             ) {
 
-                hiddenSince =
-                    Date.now();
-
-                if (warning) {
-
-                    warning.classList.remove(
-                        "hidden"
-                    );
-                }
+                /*
+                 * Opening a new browser tab, switching away,
+                 * minimizing the browser, etc. makes the page
+                 * hidden. Show the Orion focus warning immediately.
+                 */
+                showFocusExitWarning();
 
             } else {
 
-                hiddenSince =
-                    null;
-
                 if (warning) {
-
                     warning.classList.add(
                         "hidden"
                     );
                 }
+
             }
         }
     );
-
-    const visibilityWatcher =
-        setInterval(
-            function () {
-
-                if (
-                    finished ||
-                    failed
-                ) {
-
-                    clearInterval(
-                        visibilityWatcher
-                    );
-
-                    return;
-                }
-
-                if (
-                    hiddenSince !== null &&
-                    (
-                        Date.now() -
-                        hiddenSince
-                    ) >= 5000
-                ) {
-
-                    hiddenSince =
-                        null;
-
-                    failSession(
-                        "User left the StudySync tab during an active focus session."
-                    );
-                }
-
-            },
-            500
-        );
 
     if (returnButton) {
 
@@ -1987,16 +2012,80 @@ function setupFocusMode(
         function (event) {
 
             if (
-                !finished &&
-                !failed
+                finished ||
+                failed ||
+                leavingFocusPage
+            ) {
+                return;
+            }
+
+            /*
+             * Browsers do not allow a website to replace the
+             * native close/reload confirmation with a custom
+             * popup. The existing Orion warning is shown first,
+             * while returnValue triggers the browser's native
+             * "Leave site?" confirmation when the tab is closed.
+             */
+            showFocusExitWarning();
+
+            event.preventDefault();
+
+            event.returnValue =
+                "Your focus session is still active. Leaving ORION will plant a destroyed tree in your forest.";
+        }
+    );
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const link =
+                event.target.closest(
+                    "a"
+                );
+
+            if (!link) {
+                return;
+            }
+
+            if (
+                !link.href
+            ) {
+                return;
+            }
+
+            /*
+             * Opening a new tab/window:
+             * block it and show the existing
+             * Orion focus warning.
+             */
+            const opensNewContext =
+                link.target === "_blank" ||
+                event.ctrlKey ||
+                event.metaKey ||
+                event.shiftKey ||
+                event.button === 1;
+
+            if (
+                opensNewContext
             ) {
 
                 event.preventDefault();
 
-                event.returnValue =
-                    "";
+                event.stopPropagation();
+
+                showFocusExitWarning();
+
+                return;
             }
-        }
+
+            /*
+             * Normal navigation inside
+             * StudySync is allowed.
+             */
+
+        },
+        true
     );
 
     render();
@@ -2014,9 +2103,11 @@ function setupFocusMode(
                         timerLoop
                     );
 
-                    clearInterval(
-                        visibilityWatcher
-                    );
+                    if (visibilityWatcher) {
+                        clearInterval(
+                            visibilityWatcher
+                        );
+                    }
 
                     return;
                 }
@@ -2032,9 +2123,11 @@ function setupFocusMode(
                         timerLoop
                     );
 
-                    clearInterval(
-                        visibilityWatcher
-                    );
+                    if (visibilityWatcher) {
+                        clearInterval(
+                            visibilityWatcher
+                        );
+                    }
 
                     completeSession();
                 }

@@ -1,7 +1,22 @@
 :root {
+
     --grove-bg: #f6f4f8;
-    --grove-surface: rgba(255,255,255,.74);
-    --grove-surface-strong: rgba(255,255,255,.97);
+
+    /* ======================================================
+       ORION CALENDAR BOX PALETTE
+       ====================================================== */
+
+    --grove-surface: rgba(150, 140, 255, 0.10);
+    --grove-surface-strong: rgba(255, 255, 255, 0.97);
+
+    --grove-surface-blue: rgba(130, 180, 255, 0.09);
+    --grove-surface-blue-hover: rgba(130, 180, 255, 0.13);
+
+    --grove-surface-purple: rgba(145, 126, 255, 0.12);
+    --grove-surface-purple-hover: rgba(145, 126, 255, 0.17);
+
+    --grove-border: rgba(174, 164, 255, 0.22);
+    --grove-border-blue: rgba(155, 178, 255, 0.20);
 
     --grove-text: #302d38;
     --grove-text-soft: #777180;
@@ -9,34 +24,36 @@
 
     --grove-purple: #8062b5;
     --grove-purple-dark: #62458f;
-    --grove-purple-soft: #eee8f7;
+    --grove-purple-soft: rgba(145, 126, 255, 0.12);
 
     --grove-green: #6e9f82;
     --grove-green-soft: #eaf3ec;
 
-    --grove-border: rgba(93,79,112,.11);
-
     --grove-shadow:
-        0 12px 40px rgba(68,53,84,.08);
+        0 12px 35px rgba(95, 82, 170, 0.07);
 
     --grove-shadow-hover:
-        0 18px 42px rgba(68,53,84,.12);
+        0 12px 28px rgba(95, 82, 170, 0.08);
 
     --grove-radius-lg: 24px;
     --grove-radius-md: 17px;
     --grove-radius-sm: 13px;
 }
 
+
 /* ==========================================================
    PAGE
    ========================================================== */
 
 .lockin-page {
+
     width: min(1180px,94%);
     margin: 0 auto;
     padding: 34px 0 80px;
     color: var(--grove-text);
+
 }
+
 
 /* ==========================================================
    TYPOGRAPHY
@@ -46,25 +63,32 @@
 .lockin-page h2,
 .lockin-page h3,
 .lockin-page p {
+
     margin-top: 0;
+
 }
 
 .lockin-page h1 {
+
     font-size: clamp(34px,5vw,52px);
     line-height: 1.05;
     letter-spacing: -1.5px;
     font-weight: 750;
+
 }
 
 .lockin-page h2 {
+
     font-size: 22px;
     line-height: 1.15;
     letter-spacing: -.5px;
     font-weight: 700;
+
 }
 
 .lockin-eyebrow,
 .calendar-section-label {
+
     display: block;
     color: var(--grove-text-muted);
     font-size: 9px;
@@ -72,76 +96,101 @@
     letter-spacing: 2px;
     text-transform: uppercase;
     font-weight: 700;
+
 }
+
 
 /* ==========================================================
    HEADER
    ========================================================== */
 
 .lockin-header {
+
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     gap: 24px;
     margin-bottom: 28px;
+
 }
 
 .lockin-title-block {
+
     max-width: 700px;
+
 }
 
 .lockin-eyebrow {
+
     margin-bottom: 10px;
     color: var(--grove-purple);
+
 }
 
 .lockin-header h1 {
+
     margin-bottom: 9px;
+
 }
 
 .lockin-header p {
+
     margin-bottom: 0;
     color: var(--grove-text-soft);
     font-size: 13px;
     line-height: 1.6;
+
 }
+
 
 /* ==========================================================
    ANTENNAS
    ========================================================== */
 
 .antenna-counter {
+
     display: flex;
     align-items: center;
     gap: 9px;
-
     padding: 12px 15px;
 
     border: 1px solid var(--grove-border);
     border-radius: 16px;
 
-    background: rgba(255,255,255,.7);
+    background: rgba(150, 140, 255, 0.10);
+
     box-shadow: var(--grove-shadow);
 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+
     white-space: nowrap;
+
 }
 
 .antenna-counter span {
+
     font-size: 18px;
+
 }
 
 .antenna-counter strong {
+
     color: var(--grove-purple-dark);
     font-size: 20px;
     font-weight: 750;
+
 }
 
 .antenna-counter small {
+
     color: var(--grove-text-muted);
     font-size: 8px;
     letter-spacing: 1.2px;
     font-weight: 700;
+
 }
+
 
 /* ==========================================================
    CARDS
@@ -152,6 +201,7 @@
 .selected-focus-tree,
 .active-focus-music,
 .focus-timer-card {
+
     border: 1px solid var(--grove-border);
 
     background:
@@ -165,9 +215,11 @@
 
     -webkit-backdrop-filter:
         blur(18px);
+
 }
 
 .forest-card {
+
     border-radius:
         var(--grove-radius-lg);
 
@@ -176,9 +228,11 @@
 
     margin-bottom:
         22px;
+
 }
 
 .lockin-card {
+
     margin-bottom:
         20px;
 
@@ -187,20 +241,25 @@
 
     border-radius:
         var(--grove-radius-md);
+
 }
 
 .selected-focus-tree,
 .active-focus-music,
 .focus-timer-card {
+
     border-radius:
         var(--grove-radius-lg);
+
 }
+
 
 /* ==========================================================
    FOREST
    ========================================================== */
 
 .forest-header {
+
     display:
         flex;
 
@@ -215,15 +274,19 @@
 
     margin-bottom:
         18px;
+
 }
 
 .forest-header h2 {
+
     margin:
         0 0 6px;
+
 }
 
 .forest-description,
 .section-description {
+
     margin:
         0;
 
@@ -235,17 +298,21 @@
 
     line-height:
         1.6;
+
 }
 
 .forest-stats {
+
     display:
         flex;
 
     gap:
         7px;
+
 }
 
 .forest-stats span {
+
     padding:
         7px 10px;
 
@@ -253,7 +320,10 @@
         10px;
 
     background:
-        #f0edf3;
+        rgba(130, 180, 255, 0.09);
+
+    border:
+        1px solid rgba(155, 178, 255, 0.20);
 
     color:
         var(--grove-text-soft);
@@ -263,13 +333,16 @@
 
     font-weight:
         700;
+
 }
+
 
 /* ==========================================================
    FOREST PERIOD
    ========================================================== */
 
 .forest-period-tabs {
+
     display:
         grid;
 
@@ -281,9 +354,11 @@
 
     margin-bottom:
         14px;
+
 }
 
 .forest-period-button {
+
     min-height:
         54px;
 
@@ -291,13 +366,13 @@
         10px 14px;
 
     border:
-        1px solid transparent;
+        1px solid rgba(155, 178, 255, 0.20);
 
     border-radius:
         14px;
 
     background:
-        #efedf1;
+        rgba(130, 180, 255, 0.09);
 
     color:
         var(--grove-text-soft);
@@ -317,29 +392,39 @@
     transition:
         transform .2s ease,
         background .2s ease;
+
 }
 
 .forest-period-button:hover {
+
     transform:
         translateY(-1px);
 
     background:
-        #e9e5ed;
+        rgba(130, 180, 255, 0.13);
+
 }
 
 .forest-period-button.active {
+
     background:
-        var(--grove-purple-soft);
+        rgba(145, 126, 255, 0.12);
+
+    border-color:
+        rgba(174, 164, 255, 0.22);
 
     color:
         var(--grove-purple-dark);
+
 }
+
 
 /* ==========================================================
    FOREST STAGE
    ========================================================== */
 
 .forest-stage {
+
     position:
         relative;
 
@@ -353,7 +438,7 @@
         hidden;
 
     border:
-        1px solid rgba(92,76,108,.08);
+        1px solid rgba(155, 178, 255, 0.20);
 
     border-radius:
         18px;
@@ -361,13 +446,21 @@
     background:
         radial-gradient(
             circle at 50% 25%,
-            #ffffff 0%,
-            #f1eef4 65%,
-            #ece8ef 100%
+            rgba(255,255,255,.72) 0%,
+            rgba(150,140,255,.10) 65%,
+            rgba(130,180,255,.10) 100%
         );
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
 }
 
 .forest-view {
+
     position:
         absolute;
 
@@ -382,17 +475,21 @@
 
     transition:
         opacity .25s ease;
+
 }
 
 .forest-view.active {
+
     opacity:
         1;
 
     visibility:
         visible;
+
 }
 
 .forest-land {
+
     position:
         absolute;
 
@@ -419,28 +516,37 @@
 
     pointer-events:
         none;
+
 }
 
 .forest-view-week .forest-land {
+
     width:
         74%;
+
 }
 
 .forest-view-month .forest-land {
+
     width:
         86%;
+
 }
 
 .forest-view-year .forest-land {
+
     width:
         97%;
+
 }
+
 
 /* ==========================================================
    PLANTED TREES
    ========================================================== */
 
 .planted-tree {
+
     position:
         absolute;
 
@@ -478,25 +584,31 @@
 
     user-select:
         none;
+
 }
 
 .forest-view-month .planted-tree {
+
     width:
         66px;
 
     height:
         66px;
+
 }
 
 .forest-view-year .planted-tree {
+
     width:
         58px;
 
     height:
         58px;
+
 }
 
 .planted-tree:hover {
+
     transform:
         translate(
             -50%,
@@ -505,9 +617,11 @@
         scale(
             1.05
         );
+
 }
 
 .planted-tree.dragging {
+
     cursor:
         grabbing;
 
@@ -522,21 +636,26 @@
         scale(
             1.05
         );
+
 }
 
 .planted-tree-destroyed {
+
     filter:
         grayscale(.28)
         drop-shadow(
             0 5px 5px rgba(75,47,62,.16)
         );
+
 }
+
 
 /* ==========================================================
    FOREST PAGINATION
    ========================================================== */
 
 .forest-page-controls {
+
     display:
         flex;
 
@@ -551,9 +670,11 @@
 
     margin-top:
         12px;
+
 }
 
 .forest-page-arrow {
+
     width:
         34px;
 
@@ -567,24 +688,31 @@
         50%;
 
     background:
-        rgba(255,255,255,.7);
+        rgba(150, 140, 255, 0.10);
 
     color:
         var(--grove-text-soft);
 
     cursor:
         pointer;
+
+    backdrop-filter:
+        blur(12px);
+
 }
 
 .forest-page-arrow:disabled {
+
     opacity:
         .35;
 
     cursor:
         default;
+
 }
 
 #forest-page-label {
+
     min-width:
         110px;
 
@@ -599,9 +727,11 @@
 
     font-weight:
         650;
+
 }
 
 .forest-period-caption {
+
     display:
         flex;
 
@@ -619,9 +749,11 @@
 
     text-align:
         center;
+
 }
 
 .forest-period-title {
+
     color:
         var(--grove-text);
 
@@ -630,15 +762,19 @@
 
     font-weight:
         700;
+
 }
 
 .forest-period-description {
+
     color:
         var(--grove-text-muted);
 
     font-size:
         9px;
+
 }
+
 
 /* ==========================================================
    SECTION HEADINGS
@@ -647,6 +783,7 @@
 .section-heading,
 .analytics-heading,
 .modal-heading {
+
     display:
         flex;
 
@@ -658,44 +795,53 @@
 
     gap:
         18px;
+
 }
 
 .analytics-heading {
+
     margin-bottom:
         17px;
+
 }
 
 .section-heading h2,
 .analytics-heading h2,
 .modal-heading h2 {
+
     margin:
         0;
+
 }
 
 .analytics-heading > span {
+
     color:
         var(--grove-text-muted);
 
     font-size:
         9px;
+
 }
+
 
 /* ==========================================================
    BUTTONS
    ========================================================== */
 
 .small-action-button {
+
     padding:
         9px 13px;
 
     border:
-        1px solid rgba(128,98,181,.14);
+        1px solid rgba(174, 164, 255, 0.22);
 
     border-radius:
         10px;
 
     background:
-        var(--grove-purple-soft);
+        rgba(145, 126, 255, 0.12);
 
     color:
         var(--grove-purple-dark);
@@ -711,9 +857,11 @@
 
     font-weight:
         700;
+
 }
 
 .lockin-submit {
+
     width:
         100%;
 
@@ -732,8 +880,8 @@
     background:
         linear-gradient(
             135deg,
-            #7656a8,
-            #9271bd
+            #6C63FF,
+            #8068D8
         );
 
     color:
@@ -750,13 +898,16 @@
 
     font-weight:
         750;
+
 }
+
 
 /* ==========================================================
    TREE COLLECTION
    ========================================================== */
 
 .tree-selection {
+
     display:
         grid;
 
@@ -768,9 +919,11 @@
 
     margin-top:
         18px;
+
 }
 
 .tree-option {
+
     display:
         flex;
 
@@ -787,13 +940,13 @@
         10px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(155, 178, 255, 0.20);
 
     border-radius:
         15px;
 
     background:
-        rgba(246,244,248,.75);
+        rgba(130, 180, 255, 0.09);
 
     color:
         var(--grove-text);
@@ -803,9 +956,17 @@
 
     text-align:
         left;
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
 }
 
 .tree-option-image-wrap {
+
     position:
         relative;
 
@@ -828,14 +989,15 @@
         13px;
 
     background:
-        linear-gradient(
-            145deg,
-            #f2eef6,
-            #e9e4ed
-        );
+        rgba(145, 126, 255, 0.12);
+
+    border:
+        1px solid rgba(174, 164, 255, 0.18);
+
 }
 
 .tree-option-image {
+
     width:
         100%;
 
@@ -844,9 +1006,11 @@
 
     object-fit:
         contain;
+
 }
 
 .tree-lock {
+
     position:
         absolute;
 
@@ -858,9 +1022,11 @@
 
     font-size:
         12px;
+
 }
 
 .tree-option-info strong {
+
     display:
         block;
 
@@ -869,9 +1035,11 @@
 
     font-size:
         10px;
+
 }
 
 .tree-option-info small {
+
     display:
         block;
 
@@ -883,13 +1051,16 @@
 
     font-size:
         8px;
+
 }
+
 
 /* ==========================================================
    GRAPH
    ========================================================== */
 
 .focus-chart {
+
     position:
         relative;
 
@@ -915,13 +1086,13 @@
         hidden;
 
     border:
-        1px solid rgba(102,82,122,.09);
+        1px solid rgba(155, 178, 255, 0.20);
 
     border-radius:
         17px;
 
     background-color:
-        #f3f0f5;
+        rgba(130, 180, 255, 0.09);
 
     background-image:
         linear-gradient(
@@ -938,9 +1109,17 @@
     background-size:
         100% 20%,
         14.2857% 100%;
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
 }
 
 .focus-chart::after {
+
     content:
         "FOCUS MINUTES";
 
@@ -964,9 +1143,11 @@
 
     font-weight:
         800;
+
 }
 
 .chart-column {
+
     position:
         relative;
 
@@ -996,9 +1177,11 @@
 
     gap:
         6px;
+
 }
 
 .chart-value {
+
     min-height:
         14px;
 
@@ -1009,7 +1192,10 @@
         7px;
 
     background:
-        rgba(255,255,255,.65);
+        rgba(255,255,255,.45);
+
+    border:
+        1px solid rgba(174,164,255,.16);
 
     color:
         #705888;
@@ -1019,9 +1205,11 @@
 
     font-weight:
         750;
+
 }
 
 .chart-bar-track {
+
     width:
         100%;
 
@@ -1036,9 +1224,11 @@
 
     justify-content:
         center;
+
 }
 
 .chart-bar {
+
     position:
         relative;
 
@@ -1065,21 +1255,26 @@
     box-shadow:
         0 10px 18px
         rgba(116,84,158,.18);
+
 }
 
 .chart-column small {
+
     color:
         #817a88;
 
     font-size:
         8px;
+
 }
+
 
 /* ==========================================================
    DASHBOARD
    ========================================================== */
 
 .dashboard-mini-grid {
+
     display:
         grid;
 
@@ -1091,9 +1286,11 @@
 
     margin-bottom:
         20px;
+
 }
 
 .mini-dashboard-card {
+
     display:
         flex;
 
@@ -1107,19 +1304,27 @@
         16px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(174, 164, 255, 0.22);
 
     border-radius:
         var(--grove-radius-md);
 
     background:
-        rgba(255,255,255,.68);
+        rgba(150, 140, 255, 0.10);
 
     box-shadow:
         var(--grove-shadow);
+
+    backdrop-filter:
+        blur(16px);
+
+    -webkit-backdrop-filter:
+        blur(16px);
+
 }
 
 .mini-card-icon {
+
     width:
         44px;
 
@@ -1139,13 +1344,18 @@
         13px;
 
     background:
-        var(--grove-purple-soft);
+        rgba(145, 126, 255, 0.12);
+
+    border:
+        1px solid rgba(174,164,255,.18);
 
     font-size:
         21px;
+
 }
 
 .mini-dashboard-card span {
+
     display:
         block;
 
@@ -1160,9 +1370,11 @@
 
     font-weight:
         700;
+
 }
 
 .mini-dashboard-card strong {
+
     display:
         block;
 
@@ -1174,9 +1386,11 @@
 
     font-size:
         18px;
+
 }
 
 .mini-dashboard-card small {
+
     display:
         block;
 
@@ -1188,13 +1402,16 @@
 
     font-size:
         8px;
+
 }
+
 
 /* ==========================================================
    CHALLENGES
    ========================================================== */
 
 .challenge-list {
+
     display:
         grid;
 
@@ -1203,9 +1420,11 @@
 
     gap:
         10px;
+
 }
 
 .challenge-card {
+
     display:
         flex;
 
@@ -1219,29 +1438,31 @@
         14px;
 
     border:
-        1px solid rgba(92,145,112,.10);
+        1px solid rgba(155, 178, 255, 0.20);
 
     border-radius:
         15px;
 
     background:
-        linear-gradient(
-            135deg,
-            #f0f7f1,
-            #e9f3eb
-        );
+        rgba(130, 180, 255, 0.09);
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
 }
 
 .challenge-complete {
+
     background:
-        linear-gradient(
-            135deg,
-            #edf7ef,
-            #e3f1e6
-        );
+        rgba(130, 180, 255, 0.13);
+
 }
 
 .challenge-icon {
+
     width:
         40px;
 
@@ -1261,18 +1482,25 @@
         12px;
 
     background:
-        rgba(255,255,255,.68);
+        rgba(255,255,255,.35);
+
+    border:
+        1px solid rgba(174,164,255,.16);
 
     font-size:
         18px;
+
 }
 
 .challenge-content {
+
     flex:
         1;
+
 }
 
 .challenge-content strong {
+
     display:
         block;
 
@@ -1284,9 +1512,11 @@
 
     line-height:
         1.45;
+
 }
 
 .challenge-progress {
+
     height:
         6px;
 
@@ -1300,10 +1530,12 @@
         10px;
 
     background:
-        rgba(255,255,255,.75);
+        rgba(100,100,120,.14);
+
 }
 
 .challenge-progress-fill {
+
     height:
         100%;
 
@@ -1316,9 +1548,11 @@
             #7fb08f,
             #5f9271
         );
+
 }
 
 .challenge-content small {
+
     display:
         block;
 
@@ -1330,13 +1564,16 @@
 
     font-size:
         8px;
+
 }
+
 
 /* ==========================================================
    MUSIC
    ========================================================== */
 
 .music-grid {
+
     display:
         grid;
 
@@ -1348,9 +1585,11 @@
 
     margin-top:
         18px;
+
 }
 
 .music-item {
+
     display:
         flex;
 
@@ -1364,27 +1603,37 @@
         11px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(155, 178, 255, 0.20);
 
     border-radius:
         13px;
 
     background:
-        rgba(246,244,248,.72);
+        rgba(130, 180, 255, 0.09);
 
     cursor:
         pointer;
 
     text-align:
         left;
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
 }
 
 .music-item.locked {
+
     opacity:
         .58;
+
 }
 
 .music-icon {
+
     width:
         35px;
 
@@ -1404,10 +1653,15 @@
         10px;
 
     background:
-        #eeeaf2;
+        rgba(145, 126, 255, 0.12);
+
+    border:
+        1px solid rgba(174,164,255,.16);
+
 }
 
 .music-item strong {
+
     display:
         block;
 
@@ -1416,9 +1670,11 @@
 
     font-size:
         10px;
+
 }
 
 .music-item small {
+
     display:
         block;
 
@@ -1430,13 +1686,16 @@
 
     font-size:
         8px;
+
 }
+
 
 /* ==========================================================
    STATS
    ========================================================== */
 
 .lockin-stats {
+
     display:
         grid;
 
@@ -1448,26 +1707,36 @@
 
     margin-bottom:
         28px;
+
 }
 
 .lockin-stats > div {
+
     padding:
         15px 12px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(155, 178, 255, 0.20);
 
     border-radius:
         14px;
 
     background:
-        rgba(255,255,255,.60);
+        rgba(130, 180, 255, 0.09);
 
     text-align:
         center;
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
 }
 
 .lockin-stats small {
+
     display:
         block;
 
@@ -1479,9 +1748,11 @@
 
     letter-spacing:
         1px;
+
 }
 
 .lockin-stats strong {
+
     display:
         block;
 
@@ -1493,18 +1764,23 @@
 
     font-size:
         16px;
+
 }
+
 
 /* ==========================================================
    MODALS
    ========================================================== */
 
 .hidden {
+
     display:
         none !important;
+
 }
 
 .site-modal {
+
     position:
         fixed;
 
@@ -1531,12 +1807,14 @@
 
     overflow-y:
         auto;
+
 }
 
 .site-modal-card,
 .selection-modal-card,
 .goal-modal-card,
 .large-modal-card {
+
     position:
         relative;
 
@@ -1558,44 +1836,58 @@
         28px;
 
     border:
-        1px solid rgba(96,78,114,.12);
+        1px solid rgba(174,164,255,.22);
 
     border-radius:
         22px;
 
     background:
-        var(--grove-surface-strong);
+        rgba(150,140,255,.10);
 
     box-shadow:
         0 30px 90px
-        rgba(25,20,35,.24);
+        rgba(95,82,170,.16);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
 
     z-index:
         100001;
+
 }
 
 .selection-modal-card {
+
     width:
         min(
             680px,
             100%
         );
+
 }
 
 .large-modal-card {
+
     width:
         min(
             930px,
             100%
         );
+
 }
 
 .collection-modal-layer {
+
     z-index:
         200000 !important;
+
 }
 
 .collection-modal {
+
     max-height:
         calc(
             100vh - 150px
@@ -1603,9 +1895,11 @@
 
     overflow-y:
         auto;
+
 }
 
 .site-modal-close {
+
     position:
         absolute;
 
@@ -1628,13 +1922,13 @@
         center;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(155,178,255,.20);
 
     border-radius:
         50%;
 
     background:
-        #f3f0f5;
+        rgba(130,180,255,.10);
 
     color:
         var(--grove-text-soft);
@@ -1653,9 +1947,11 @@
 
     pointer-events:
         auto;
+
 }
 
 .modal-heading {
+
     position:
         relative;
 
@@ -1667,9 +1963,11 @@
 
     margin-bottom:
         20px;
+
 }
 
 .modal-status {
+
     display:
         block;
 
@@ -1684,22 +1982,26 @@
 
     font-weight:
         750;
+
 }
 
 .site-modal-card h2,
 .selection-modal-card h2,
 .goal-modal-card h2,
 .large-modal-card h2 {
+
     margin:
         7px 0;
 
     color:
         var(--grove-text);
+
 }
 
 .site-modal-card p,
 .selection-modal-card p,
 .goal-modal-card p {
+
     color:
         var(--grove-text-soft);
 
@@ -1708,38 +2010,48 @@
 
     line-height:
         1.65;
+
 }
+
 
 /* ==========================================================
    TREE POPUP ABOVE MORE TREES
    ========================================================== */
 
 #tree-info-modal {
+
     z-index:
         400000 !important;
+
 }
 
 #tree-info-modal .site-modal-card {
+
     position:
         relative;
 
     z-index:
         400001 !important;
+
 }
 
 #tree-info-modal .site-modal-close {
+
     z-index:
         400010 !important;
 
     pointer-events:
         auto !important;
+
 }
+
 
 /* ==========================================================
    TREE POPUP
    ========================================================== */
 
 .modal-tree-image {
+
     display:
         block;
 
@@ -1759,15 +2071,22 @@
         18px;
 
     background:
-        #f2eef5;
+        rgba(130,180,255,.09);
+
+    border:
+        1px solid rgba(155,178,255,.20);
+
 }
 
 .modal-cost-area {
+
     margin-top:
         15px;
+
 }
 
 .modal-cost-area strong {
+
     display:
         block;
 
@@ -1779,9 +2098,11 @@
 
     font-size:
         17px;
+
 }
 
 .modal-primary-button {
+
     width:
         100%;
 
@@ -1797,8 +2118,8 @@
     background:
         linear-gradient(
             135deg,
-            #7656a8,
-            #9271bd
+            #6C63FF,
+            #8068D8
         );
 
     color:
@@ -1815,13 +2136,16 @@
 
     font-weight:
         750;
+
 }
+
 
 /* ==========================================================
    ALL TREES
    ========================================================== */
 
 .all-trees-grid {
+
     display:
         grid;
 
@@ -1830,9 +2154,11 @@
 
     gap:
         10px;
+
 }
 
 .all-tree-option {
+
     min-height:
         140px;
 
@@ -1840,22 +2166,24 @@
         10px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(155,178,255,.20);
 
     border-radius:
         14px;
 
     background:
-        #f7f4f8;
+        rgba(130,180,255,.09);
 
     cursor:
         pointer;
 
     text-align:
         center;
+
 }
 
 .all-tree-image {
+
     display:
         block;
 
@@ -1870,9 +2198,11 @@
 
     object-fit:
         contain;
+
 }
 
 .all-tree-option strong {
+
     display:
         block;
 
@@ -1881,9 +2211,11 @@
 
     font-size:
         9px;
+
 }
 
 .all-tree-option small {
+
     display:
         block;
 
@@ -1895,21 +2227,26 @@
 
     font-size:
         8px;
+
 }
+
 
 /* ==========================================================
    MUSIC POPUP
    ========================================================== */
 
 .music-popup-layer {
+
     z-index:
         400000 !important;
 
     padding:
         96px 20px 25px;
+
 }
 
 .music-info-popup {
+
     width:
         min(
             440px,
@@ -1926,17 +2263,21 @@
 
     z-index:
         400001;
+
 }
 
 .music-popup-layer .site-modal-close {
+
     z-index:
         400010 !important;
 
     pointer-events:
         auto !important;
+
 }
 
 .music-modal-icon {
+
     width:
         66px;
 
@@ -1956,21 +2297,28 @@
         18px;
 
     background:
-        var(--grove-purple-soft);
+        rgba(145,126,255,.12);
+
+    border:
+        1px solid rgba(174,164,255,.20);
 
     font-size:
         30px;
+
 }
 
 .music-preview-player {
+
     width:
         100%;
 
     margin-top:
         12px;
+
 }
 
 .music-antenna-message {
+
     display:
         block;
 
@@ -1988,19 +2336,24 @@
 
     font-weight:
         650;
+
 }
 
 #music-modal-cost-area.hidden,
 #music-modal-unlock.hidden {
+
     display:
         none !important;
+
 }
+
 
 /* ==========================================================
    FOCUS TREE CHOICE
    ========================================================== */
 
 .focus-choice-grid {
+
     display:
         grid;
 
@@ -2012,29 +2365,33 @@
 
     margin-top:
         18px;
+
 }
 
 .focus-choice-card {
+
     padding:
         12px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(155,178,255,.20);
 
     border-radius:
         15px;
 
     background:
-        #f7f4f8;
+        rgba(130,180,255,.09);
 
     cursor:
         pointer;
 
     text-align:
         center;
+
 }
 
 .focus-choice-card img {
+
     width:
         90px;
 
@@ -2049,9 +2406,11 @@
 
     object-fit:
         contain;
+
 }
 
 .focus-choice-card strong {
+
     display:
         block;
 
@@ -2060,13 +2419,16 @@
 
     font-size:
         9px;
+
 }
+
 
 /* ==========================================================
    FOCUS MUSIC CHOICE
    ========================================================== */
 
 .music-choice-grid {
+
     display:
         grid;
 
@@ -2078,29 +2440,33 @@
 
     margin-top:
         18px;
+
 }
 
 .music-choice-card {
+
     padding:
         16px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(155,178,255,.20);
 
     border-radius:
         15px;
 
     background:
-        #f7f4f8;
+        rgba(130,180,255,.09);
 
     cursor:
         pointer;
 
     text-align:
         center;
+
 }
 
 .music-choice-card span {
+
     display:
         block;
 
@@ -2109,9 +2475,11 @@
 
     font-size:
         26px;
+
 }
 
 .music-choice-card strong {
+
     display:
         block;
 
@@ -2120,9 +2488,11 @@
 
     font-size:
         10px;
+
 }
 
 .music-choice-card small {
+
     display:
         block;
 
@@ -2134,13 +2504,16 @@
 
     font-size:
         8px;
+
 }
+
 
 /* ==========================================================
    MORE MUSIC
    ========================================================== */
 
 .music-library-modal {
+
     width:
         min(
             920px,
@@ -2151,9 +2524,11 @@
         calc(
             100vh - 150px
         );
+
 }
 
 .all-music-grid {
+
     display:
         grid;
 
@@ -2162,9 +2537,11 @@
 
     gap:
         10px;
+
 }
 
 .all-music-option {
+
     position:
         relative;
 
@@ -2189,22 +2566,30 @@
         12px 14px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(155,178,255,.20);
 
     border-radius:
         17px;
 
     background:
-        rgba(255,255,255,.72);
+        rgba(130,180,255,.09);
 
     cursor:
         pointer;
 
     text-align:
         left;
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
 }
 
 .all-music-icon {
+
     width:
         48px;
 
@@ -2221,22 +2606,25 @@
         14px;
 
     background:
-        linear-gradient(
-            145deg,
-            #eee7f5,
-            #e5ddec
-        );
+        rgba(145,126,255,.12);
+
+    border:
+        1px solid rgba(174,164,255,.18);
 
     font-size:
         20px;
+
 }
 
 .all-music-main {
+
     min-width:
         0;
+
 }
 
 .all-music-main strong {
+
     display:
         block;
 
@@ -2254,9 +2642,11 @@
 
     text-overflow:
         ellipsis;
+
 }
 
 .all-music-main small {
+
     display:
         -webkit-box;
 
@@ -2280,9 +2670,11 @@
 
     -webkit-box-orient:
         vertical;
+
 }
 
 .all-music-status {
+
     padding:
         6px 8px;
 
@@ -2290,7 +2682,10 @@
         9px;
 
     background:
-        var(--grove-purple-soft);
+        rgba(145,126,255,.12);
+
+    border:
+        1px solid rgba(174,164,255,.18);
 
     color:
         var(--grove-purple-dark);
@@ -2303,21 +2698,26 @@
 
     white-space:
         nowrap;
+
 }
 
 .all-music-option.locked .all-music-status {
+
     background:
-        #f0edf2;
+        rgba(130,180,255,.08);
 
     color:
         var(--grove-text-muted);
+
 }
+
 
 /* ==========================================================
    DAILY GOAL
    ========================================================== */
 
 .goal-modal-icon {
+
     width:
         66px;
 
@@ -2337,13 +2737,18 @@
         18px;
 
     background:
-        var(--grove-purple-soft);
+        rgba(145,126,255,.12);
+
+    border:
+        1px solid rgba(174,164,255,.20);
 
     font-size:
         31px;
+
 }
 
 .goal-options {
+
     display:
         grid;
 
@@ -2355,62 +2760,75 @@
 
     margin:
         18px 0;
+
 }
 
 .goal-option {
+
     padding:
         14px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(155,178,255,.20);
 
     border-radius:
         12px;
 
     background:
-        #f7f4f8;
+        rgba(130,180,255,.09);
 
     color:
         var(--grove-text);
 
     cursor:
         pointer;
+
 }
 
 .goal-option.selected {
+
     background:
-        var(--grove-purple-soft);
+        rgba(145,126,255,.12);
 
     border-color:
-        rgba(128,98,181,.20);
+        rgba(174,164,255,.22);
+
 }
 
 .goal-option strong {
+
     display:
         block;
 
     font-size:
         23px;
+
 }
 
 .goal-option small {
+
     color:
         var(--grove-text-muted);
 
     font-size:
         8px;
+
 }
+
 
 /* ==========================================================
    FOCUS MODE
    ========================================================== */
 
 .focus-mode {
+
     min-height:
         100vh;
+
 }
 
 .focus-header {
+
     display:
         flex;
 
@@ -2422,9 +2840,11 @@
 
     text-align:
         center;
+
 }
 
 .selected-focus-tree {
+
     max-width:
         720px;
 
@@ -2442,9 +2862,11 @@
 
     gap:
         18px;
+
 }
 
 .selected-focus-tree img {
+
     width:
         98px;
 
@@ -2461,10 +2883,15 @@
         18px;
 
     background:
-        #f1edf4;
+        rgba(130,180,255,.09);
+
+    border:
+        1px solid rgba(155,178,255,.20);
+
 }
 
 .selected-focus-tree h2 {
+
     margin:
         5px 0;
 
@@ -2473,9 +2900,11 @@
 
     font-size:
         21px;
+
 }
 
 .selected-focus-tree p {
+
     margin:
         0;
 
@@ -2487,9 +2916,11 @@
 
     line-height:
         1.6;
+
 }
 
 .active-focus-music {
+
     max-width:
         720px;
 
@@ -2507,14 +2938,18 @@
 
     gap:
         10px;
+
 }
 
 .active-focus-music span {
+
     font-size:
         21px;
+
 }
 
 .active-focus-music small {
+
     display:
         block;
 
@@ -2526,17 +2961,21 @@
 
     letter-spacing:
         1px;
+
 }
 
 .active-focus-music strong {
+
     color:
         var(--grove-purple-dark);
 
     font-size:
         10px;
+
 }
 
 .focus-timer-card {
+
     max-width:
         720px;
 
@@ -2548,9 +2987,11 @@
 
     text-align:
         center;
+
 }
 
 .focus-timer {
+
     margin-top:
         10px;
 
@@ -2572,9 +3013,11 @@
 
     font-variant-numeric:
         tabular-nums;
+
 }
 
 .focus-progress {
+
     height:
         9px;
 
@@ -2588,10 +3031,15 @@
         20px;
 
     background:
-        #e0dbe4;
+        rgba(100,100,120,.14);
+
+    border:
+        1px solid rgba(155,178,255,.16);
+
 }
 
 .focus-progress-fill {
+
     width:
         0;
 
@@ -2604,12 +3052,14 @@
     background:
         linear-gradient(
             90deg,
-            #7656a8,
-            #a186cd
+            #806bd0,
+            #b394e7
         );
+
 }
 
 .cancel-grace {
+
     display:
         flex;
 
@@ -2631,36 +3081,48 @@
     padding:
         12px 15px;
 
+    border:
+        1px solid rgba(174,164,255,.18);
+
     border-radius:
         13px;
 
     background:
-        var(--grove-purple-soft);
+        rgba(145,126,255,.12);
 
     color:
         #6e607a;
 
     font-size:
         9px;
+
 }
 
 .cancel-grace strong {
+
     color:
         #58466d;
 
     font-size:
         11px;
+
 }
 
 .cancel-grace.expired {
+
     background:
-        #f4e7e9;
+        rgba(214,132,165,.12);
+
+    border-color:
+        rgba(214,132,165,.18);
 
     color:
         #79535c;
+
 }
 
 .focus-status {
+
     min-height:
         35px;
 
@@ -2675,9 +3137,11 @@
 
     line-height:
         1.6;
+
 }
 
 .cancel-focus-button {
+
     min-width:
         155px;
 
@@ -2685,13 +3149,13 @@
         10px 18px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(155,178,255,.20);
 
     border-radius:
         11px;
 
     background:
-        #f1eef3;
+        rgba(130,180,255,.09);
 
     color:
         var(--grove-text-soft);
@@ -2701,21 +3165,26 @@
 
     font-size:
         10px;
+
 }
 
 .cancel-focus-button.danger {
+
     background:
-        #f2e3e7;
+        rgba(214,132,165,.12);
 
     color:
         #7d4a57;
+
 }
+
 
 /* ==========================================================
    WARNING
    ========================================================== */
 
 .focus-warning {
+
     position:
         fixed;
 
@@ -2739,9 +3208,11 @@
 
     backdrop-filter:
         blur(8px);
+
 }
 
 .warning-box {
+
     width:
         min(
             420px,
@@ -2752,28 +3223,38 @@
         28px;
 
     border:
-        1px solid var(--grove-border);
+        1px solid rgba(174,164,255,.22);
 
     border-radius:
         21px;
 
     background:
-        rgba(255,255,255,.96);
+        rgba(150,140,255,.10);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
 
     text-align:
         center;
 
     box-shadow:
         0 30px 80px
-        rgba(30,25,40,.18);
+        rgba(95,82,170,.16);
+
 }
 
 .warning-icon {
+
     font-size:
         36px;
+
 }
 
 .warning-box h2 {
+
     margin:
         10px 0 8px;
 
@@ -2782,9 +3263,11 @@
 
     font-size:
         19px;
+
 }
 
 .warning-box p {
+
     color:
         var(--grove-text-soft);
 
@@ -2793,9 +3276,11 @@
 
     line-height:
         1.6;
+
 }
 
 .focus-return-button {
+
     margin-top:
         10px;
 
@@ -2809,7 +3294,11 @@
         10px;
 
     background:
-        var(--grove-purple);
+        linear-gradient(
+            135deg,
+            #6C63FF,
+            #8068D8
+        );
 
     color:
         white;
@@ -2822,16 +3311,21 @@
 
     font-weight:
         700;
+
 }
+
 
 /* ==========================================================
    NO TOAST
    ========================================================== */
 
 .site-toast {
+
     display:
         none !important;
+
 }
+
 
 /* ==========================================================
    RESPONSIVE
@@ -2840,28 +3334,38 @@
 @media (max-width:1000px) {
 
     .tree-selection {
+
         grid-template-columns:
             repeat(2,1fr);
+
     }
 
     .all-trees-grid {
+
         grid-template-columns:
             repeat(4,1fr);
+
     }
 
     .music-grid {
+
         grid-template-columns:
             repeat(2,1fr);
+
     }
 
     .lockin-stats {
+
         grid-template-columns:
             repeat(2,1fr);
+
     }
 
     .challenge-list {
+
         grid-template-columns:
             1fr;
+
     }
 
 }
@@ -2869,85 +3373,113 @@
 @media (max-width:700px) {
 
     .lockin-page {
+
         width:
             92%;
 
         padding-top:
             24px;
+
     }
 
     .lockin-header {
+
         flex-direction:
             column;
 
         align-items:
             flex-start;
+
     }
 
     .forest-header {
+
         flex-direction:
             column;
+
     }
 
     .forest-period-tabs {
+
         grid-template-columns:
             1fr;
+
     }
 
     .forest-stage {
+
         min-height:
             380px;
+
     }
 
     .tree-selection {
+
         grid-template-columns:
             1fr;
+
     }
 
     .dashboard-mini-grid {
+
         grid-template-columns:
             1fr;
+
     }
 
     .music-grid {
+
         grid-template-columns:
             1fr;
+
     }
 
     .lockin-stats {
+
         grid-template-columns:
             1fr 1fr;
+
     }
 
     .selected-focus-tree {
+
         flex-direction:
             column;
 
         text-align:
             center;
+
     }
 
     .focus-choice-grid,
     .music-choice-grid {
+
         grid-template-columns:
             1fr 1fr;
+
     }
 
     .all-music-grid {
+
         grid-template-columns:
             1fr;
+
     }
 
     .site-modal {
+
         padding:
             85px 14px 18px;
+
     }
 
     .collection-modal {
+
         max-height:
             calc(
                 100vh - 110px
             );
+
     }
 
 }
@@ -2955,31 +3487,40 @@
 @media (max-width:450px) {
 
     .all-trees-grid {
+
         grid-template-columns:
             repeat(2,1fr);
+
     }
 
     .lockin-stats {
+
         grid-template-columns:
             1fr;
+
     }
 
     .focus-choice-grid,
     .music-choice-grid {
+
         grid-template-columns:
             1fr;
+
     }
 
     .all-music-option {
+
         grid-template-columns:
             42px
             minmax(0,1fr);
 
         padding-right:
             62px;
+
     }
 
     .all-music-status {
+
         position:
             absolute;
 
@@ -2988,292 +3529,681 @@
 
         right:
             12px;
+
     }
 
 }
+
 
 /* ==========================================================
    FOCUS SESSION — PREMIUM REDESIGN
    ========================================================== */
 
 .focus-setup-card {
-    position: relative;
-    overflow: hidden;
-    padding: 30px;
-    border: 1px solid rgba(128,98,181,.16);
+
+    position:
+        relative;
+
+    overflow:
+        hidden;
+
+    padding:
+        30px;
+
+    border:
+        1px solid rgba(174,164,255,.22);
+
     background:
-        radial-gradient(circle at 10% 0%, rgba(184,155,221,.18), transparent 35%),
-        radial-gradient(circle at 90% 100%, rgba(121,170,139,.12), transparent 35%),
-        rgba(255,255,255,.82);
-    box-shadow: 0 20px 55px rgba(71,54,92,.10);
+        linear-gradient(
+            135deg,
+            rgba(150,140,255,.12),
+            rgba(130,180,255,.10)
+        );
+
+    box-shadow:
+        0 20px 55px
+        rgba(95,82,170,.10);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
 }
 
 .focus-setup-card::before {
+
     content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+
+    position:
+        absolute;
+
+    inset:
+        0;
+
+    pointer-events:
+        none;
+
     background:
-        linear-gradient(135deg, rgba(255,255,255,.32), transparent 45%);
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.22),
+            transparent 45%
+        );
+
 }
 
 .focus-setup-card > h2 {
-    position: relative;
-    margin-bottom: 8px;
-    font-size: 26px;
-    letter-spacing: -.8px;
+
+    position:
+        relative;
+
+    margin-bottom:
+        8px;
+
+    font-size:
+        26px;
+
+    letter-spacing:
+        -.8px;
+
 }
 
 .focus-setup-card::after {
-    content: "Choose your time. Protect your focus. Grow your grove.";
-    position: relative;
-    display: block;
-    margin-bottom: 24px;
-    color: var(--grove-text-soft);
-    font-size: 10px;
-    line-height: 1.6;
+
+    content:
+        "Choose your time. Protect your focus. Grow your grove.";
+
+    position:
+        relative;
+
+    display:
+        block;
+
+    margin-bottom:
+        24px;
+
+    color:
+        var(--grove-text-soft);
+
+    font-size:
+        10px;
+
+    line-height:
+        1.6;
+
 }
 
 .focus-setup-card form {
-    position: relative;
-    z-index: 1;
+
+    position:
+        relative;
+
+    z-index:
+        1;
+
 }
 
 .duration-options {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap:
+        12px;
+
 }
 
 .duration-option {
-    position: relative;
-    min-height: 112px;
-    padding: 18px 12px 15px;
-    border: 1px solid rgba(128,98,181,.14);
-    border-radius: 19px;
-    background: linear-gradient(145deg, rgba(255,255,255,.92), rgba(244,239,248,.88));
-    color: var(--grove-text);
-    cursor: pointer;
-    overflow: hidden;
-    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+
+    position:
+        relative;
+
+    min-height:
+        112px;
+
+    padding:
+        18px 12px 15px;
+
+    border:
+        1px solid rgba(155,178,255,.20);
+
+    border-radius:
+        19px;
+
+    background:
+        rgba(130,180,255,.09);
+
+    color:
+        var(--grove-text);
+
+    cursor:
+        pointer;
+
+    overflow:
+        hidden;
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
+    transition:
+        transform .22s ease,
+        box-shadow .22s ease,
+        border-color .22s ease,
+        background .22s ease;
+
 }
 
 .duration-option::before {
-    content: "⌛";
-    display: block;
-    margin-bottom: 5px;
-    font-size: 18px;
-    opacity: .76;
+
+    content:
+        "⌛";
+
+    display:
+        block;
+
+    margin-bottom:
+        5px;
+
+    font-size:
+        18px;
+
+    opacity:
+        .76;
+
 }
 
 .duration-option:nth-child(2)::before {
-    content: "🌿";
+
+    content:
+        "🌿";
+
 }
 
 .duration-option:nth-child(3)::before {
-    content: "🌙";
+
+    content:
+        "🌙";
+
 }
 
 .duration-option:nth-child(4)::before {
-    content: "🌳";
+
+    content:
+        "🌳";
+
 }
 
 .duration-option::after {
-    content: "";
-    position: absolute;
-    left: -25%;
-    right: -25%;
-    bottom: -48px;
-    height: 90px;
-    border-radius: 50%;
-    background: rgba(128,98,181,.08);
-    transition: transform .22s ease;
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    left:
+        -25%;
+
+    right:
+        -25%;
+
+    bottom:
+        -48px;
+
+    height:
+        90px;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(145,126,255,.08);
+
+    transition:
+        transform .22s ease;
+
 }
 
 .duration-option:hover {
-    transform: translateY(-5px);
-    border-color: rgba(128,98,181,.30);
-    background: linear-gradient(145deg, #ffffff, #f3edf9);
-    box-shadow: 0 15px 30px rgba(92,68,122,.12);
+
+    transform:
+        translateY(-5px);
+
+    border-color:
+        rgba(174,164,255,.30);
+
+    background:
+        rgba(145,126,255,.13);
+
+    box-shadow:
+        0 15px 30px
+        rgba(95,82,170,.12);
+
 }
 
 .duration-option:hover::after {
-    transform: translateY(-8px);
+
+    transform:
+        translateY(-8px);
+
 }
 
 .duration-option strong,
 .duration-option small {
-    position: relative;
-    z-index: 2;
-    display: block;
+
+    position:
+        relative;
+
+    z-index:
+        2;
+
+    display:
+        block;
+
 }
 
 .duration-option strong {
-    font-size: 27px;
-    line-height: 1;
-    font-weight: 800;
-    color: var(--grove-purple-dark);
+
+    font-size:
+        27px;
+
+    line-height:
+        1;
+
+    font-weight:
+        800;
+
+    color:
+        var(--grove-purple-dark);
+
 }
 
 .duration-option small {
-    margin-top: 6px;
-    color: var(--grove-text-muted);
-    font-size: 8px;
-    letter-spacing: .8px;
-    text-transform: uppercase;
-    font-weight: 700;
+
+    margin-top:
+        6px;
+
+    color:
+        var(--grove-text-muted);
+
+    font-size:
+        8px;
+
+    letter-spacing:
+        .8px;
+
+    text-transform:
+        uppercase;
+
+    font-weight:
+        700;
+
 }
 
 .lockin-submit {
-    margin-top: 18px;
-    min-height: 52px;
-    border-radius: 15px;
-    font-size: 12px;
-    letter-spacing: .2px;
-    background: linear-gradient(135deg, #7352a3, #9a7ac6);
-    box-shadow: 0 12px 25px rgba(112,79,159,.18);
-    transition: transform .2s ease, box-shadow .2s ease;
+
+    margin-top:
+        18px;
+
+    min-height:
+        52px;
+
+    border-radius:
+        15px;
+
+    font-size:
+        12px;
+
+    letter-spacing:
+        .2px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7352a3,
+            #9a7ac6
+        );
+
+    box-shadow:
+        0 12px 25px
+        rgba(112,79,159,.18);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease;
+
 }
 
 .lockin-submit:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 32px rgba(112,79,159,.24);
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 16px 32px
+        rgba(112,79,159,.24);
+
 }
 
 .reward-preview {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    margin-top: 15px;
-    padding: 11px 14px;
-    border: 1px solid rgba(128,98,181,.10);
-    border-radius: 13px;
-    background: rgba(242,237,247,.68);
-    color: var(--grove-text-soft);
-    text-align: center;
-    font-size: 9px;
-    line-height: 1.5;
+
+    position:
+        relative;
+
+    z-index:
+        1;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        9px;
+
+    margin-top:
+        15px;
+
+    padding:
+        11px 14px;
+
+    border:
+        1px solid rgba(174,164,255,.18);
+
+    border-radius:
+        13px;
+
+    background:
+        rgba(130,180,255,.09);
+
+    color:
+        var(--grove-text-soft);
+
+    text-align:
+        center;
+
+    font-size:
+        9px;
+
+    line-height:
+        1.5;
+
+    backdrop-filter:
+        blur(12px);
+
 }
 
 .reward-preview span:first-child {
-    display: grid;
-    place-items: center;
-    width: 28px;
-    height: 28px;
-    flex: 0 0 28px;
-    border-radius: 9px;
-    background: rgba(255,255,255,.78);
-    font-size: 14px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    width:
+        28px;
+
+    height:
+        28px;
+
+    flex:
+        0 0 28px;
+
+    border-radius:
+        9px;
+
+    background:
+        rgba(255,255,255,.35);
+
+    border:
+        1px solid rgba(174,164,255,.16);
+
+    font-size:
+        14px;
+
 }
+
 
 /* ==========================================================
    CHALLENGES — DAILY / WEEKLY / MONTHLY
    ========================================================== */
 
 .challenge-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 11px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap:
+        11px;
+
 }
 
 .challenge-period-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0,1fr));
-    gap: 16px;
-    margin-bottom: 20px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap:
+        16px;
+
+    margin-bottom:
+        20px;
+
 }
 
 .challenge-period-card {
-    margin-bottom: 0;
+
+    margin-bottom:
+        0;
+
 }
 
 .challenge-period-card .analytics-heading {
-    align-items: flex-start;
+
+    align-items:
+        flex-start;
+
 }
 
 .challenge-subtitle {
-    display: block;
-    margin-top: 5px;
-    color: var(--grove-text-muted);
-    font-size: 8px;
+
+    display:
+        block;
+
+    margin-top:
+        5px;
+
+    color:
+        var(--grove-text-muted);
+
+    font-size:
+        8px;
+
 }
 
 .challenge-list-compact {
-    grid-template-columns: 1fr;
-    margin-top: 14px;
+
+    grid-template-columns:
+        1fr;
+
+    margin-top:
+        14px;
+
 }
 
 .challenge-card-period {
-    padding: 12px;
+
+    padding:
+        12px;
+
 }
 
 .challenge-progress {
-    margin-top: 8px;
+
+    margin-top:
+        8px;
+
 }
 
 .challenge-progress-native {
-    display: block;
-    width: 100%;
-    height: 7px;
-    border: 0;
-    border-radius: 99px;
-    overflow: hidden;
-    appearance: none;
-    -webkit-appearance: none;
-    background: rgba(255,255,255,.76);
+
+    display:
+        block;
+
+    width:
+        100%;
+
+    height:
+        7px;
+
+    border:
+        0;
+
+    border-radius:
+        99px;
+
+    overflow:
+        hidden;
+
+    appearance:
+        none;
+
+    -webkit-appearance:
+        none;
+
+    background:
+        rgba(100,100,120,.14);
+
 }
 
 .challenge-progress-native::-webkit-progress-bar {
-    background: rgba(255,255,255,.76);
-    border-radius: 99px;
+
+    background:
+        rgba(100,100,120,.14);
+
+    border-radius:
+        99px;
+
 }
 
 .challenge-progress-native::-webkit-progress-value {
-    background: linear-gradient(90deg, #86ad92, #5f9271);
-    border-radius: 99px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #86ad92,
+            #5f9271
+        );
+
+    border-radius:
+        99px;
+
 }
 
 .challenge-progress-native::-moz-progress-bar {
-    background: linear-gradient(90deg, #86ad92, #5f9271);
-    border-radius: 99px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #86ad92,
+            #5f9271
+        );
+
+    border-radius:
+        99px;
+
 }
 
 .challenge-complete .challenge-progress-native::-webkit-progress-value {
-    background: linear-gradient(90deg, #6da47d, #4f8661);
+
+    background:
+        linear-gradient(
+            90deg,
+            #6da47d,
+            #4f8661
+        );
+
 }
 
 .challenge-complete .challenge-progress-native::-moz-progress-bar {
-    background: linear-gradient(90deg, #6da47d, #4f8661);
+
+    background:
+        linear-gradient(
+            90deg,
+            #6da47d,
+            #4f8661
+        );
+
 }
 
 @media (max-width: 900px) {
+
     .duration-options {
-        grid-template-columns: repeat(2, minmax(0,1fr));
+
+        grid-template-columns:
+            repeat(2, minmax(0,1fr));
+
     }
 
     .challenge-list {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
+
     }
 
     .challenge-period-grid {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+            1fr;
+
     }
+
 }
 
 @media (max-width: 520px) {
+
     .focus-setup-card {
-        padding: 21px;
+
+        padding:
+            21px;
+
     }
 
     .duration-options {
-        grid-template-columns: 1fr 1fr;
-        gap: 9px;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        gap:
+            9px;
+
     }
 
     .duration-option {
-        min-height: 100px;
+
+        min-height:
+            100px;
+
     }
+
 }
