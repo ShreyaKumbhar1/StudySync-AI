@@ -1,30 +1,109 @@
 {% extends "base.html" %}
 
+{% block head %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/auth.css') }}"
+>
+
+{% endblock %}
+
+
 {% block content %}
 
 <section class="auth-container">
 
     <div class="auth-card">
 
-        <h1>Welcome Back 👋</h1>
+        <!-- =================================================
+             ORION LOGIN HEADER
+             ================================================= -->
 
-        <p>Dimpu missed judging your study habits.</p>
+        <div class="auth-header">
+
+            <div class="auth-symbol">
+                ✦
+            </div>
+
+            <span class="auth-eyebrow">
+                ORION STUDENT OS
+            </span>
+
+            <h1>
+                Welcome Back 👋
+            </h1>
+
+            <p>
+                Dimpu missed judging your study habits.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             LOGIN FORM
+             ================================================= -->
 
         <form method="POST">
 
             {{ form.hidden_tag() }}
 
-            {{ form.email(class="form-input") }}
 
-            {{ form.password(class="form-input") }}
+            <!-- EMAIL -->
 
-            {{ form.submit(class="btn") }}
+            <div class="auth-field">
+
+                <label for="{{ form.email.id }}">
+                    Email
+                </label>
+
+                {{ form.email(
+                    class="form-input",
+                    placeholder="Enter your email"
+                ) }}
+
+            </div>
+
+
+            <!-- PASSWORD -->
+
+            <div class="auth-field">
+
+                <label for="{{ form.password.id }}">
+                    Password
+                </label>
+
+                {{ form.password(
+                    class="form-input",
+                    placeholder="Enter your password"
+                ) }}
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            {{ form.submit(
+                class="btn auth-submit",
+                value="Enter Orion ✦"
+            ) }}
 
         </form>
 
+
+        <!-- =================================================
+             REGISTER LINK
+             ================================================= -->
+
         <p class="auth-link">
+
             Don't have an account?
-            <a href="/register">Create one</a>
+
+            <a href="/register">
+                Create one
+            </a>
+
         </p>
 
     </div>
