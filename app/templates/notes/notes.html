@@ -98,6 +98,7 @@
 
                 <article
                     class="notebook-card"
+                    style="--notebook-accent: {{ notebook.color or '#9b8ddd' }}"
                     data-type="{{ notebook.notebook_type }}"
                     data-search="{{ notebook.title|lower }} {{ notebook.subject|default('', true)|lower }}"
                 >

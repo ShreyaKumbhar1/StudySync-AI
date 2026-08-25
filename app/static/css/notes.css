@@ -1078,3 +1078,44 @@
     }
 
 }
+/* Notebook personalization */
+.color-input {
+    width: 58px;
+    height: 38px;
+
+    padding: 3px;
+
+    border: 1px solid rgba(164, 153, 190, 0.18);
+
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.55);
+
+    cursor: pointer;
+}
+
+.notebook-card {
+    border-top:
+        3px solid
+        color-mix(
+            in srgb,
+            var(--notebook-accent, #9b8ddd) 55%,
+            transparent
+        );
+}
+
+.notebook-icon {
+    background:
+        color-mix(
+            in srgb,
+            var(--notebook-accent, #9b8ddd) 12%,
+            transparent
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent, #9b8ddd) 18%,
+            transparent
+        );
+}

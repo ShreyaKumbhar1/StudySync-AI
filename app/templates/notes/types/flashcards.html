@@ -1,0 +1,97 @@
+<div class="special-notebook">
+
+    <!-- =====================================================
+         FLASHCARDS INTRO
+         ===================================================== -->
+
+    <div class="workspace-intro">
+
+        <span class="workspace-icon">
+            🗂️
+        </span>
+
+        <div>
+
+            <h2>
+                Flashcards & Revision
+            </h2>
+
+            <p>
+                Active recall cards for fast revision.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         FLASHCARD BUILDER
+         ===================================================== -->
+
+    <section class="special-card">
+
+        <div class="flashcard-builder">
+
+            <input
+                data-note-field="front"
+                placeholder="Question / concept"
+            >
+
+            <textarea
+                data-note-field="back"
+                placeholder="Answer / explanation"
+            ></textarea>
+
+            <input
+                data-note-field="hint"
+                placeholder="Hint"
+            >
+
+            <select
+                data-note-field="difficulty"
+            >
+
+                <option>
+                    Easy
+                </option>
+
+                <option selected>
+                    Medium
+                </option>
+
+                <option>
+                    Hard
+                </option>
+
+            </select>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         REVISION NOTES
+         ===================================================== -->
+
+    <section class="special-card">
+
+        <div class="special-card-header">
+
+            🧠
+
+            <strong>
+                Revision Notes
+            </strong>
+
+        </div>
+
+        <textarea
+            data-note-field="content"
+            class="special-textarea"
+        >{{ page_data.content }}</textarea>
+
+    </section>
+
+</div>

@@ -1,24 +1,49 @@
 {% extends "base.html" %}
 
+
 {% block head %}
 
 <link
     rel="stylesheet"
-    href="{{ url_for(
-        'static',
-        filename='css/notebook.css'
-    ) }}"
+    href="{{ url_for('static', filename='css/notebook.css') }}"
 >
 
 <link
     rel="stylesheet"
-    href="{{ url_for(
-        'static',
-        filename='css/notebook-types.css'
-    ) }}"
+    href="{{ url_for('static', filename='css/notebook-types.css') }}"
 >
 
+<script
+    src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"
+></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"
+></script>
+
+
+{% if notebook.notebook_type == 'mathematics' %}
+
+<script
+    src="https://cdn.jsdelivr.net/npm/mathjs@14.0.1/lib/browser/math.js"
+></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/nerdamer.core.js"
+></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Algebra.js"
+></script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Calculus.js"
+></script>
+
+{% endif %}
+
 {% endblock %}
+
 
 
 {% block content %}
@@ -26,8 +51,13 @@
 <section
     class="notebook-page"
     data-notebook-type="{{ notebook.notebook_type }}"
+    data-notebook-color="{{ notebook.color or '#9b8ddd' }}"
 >
 
+
+    <!-- =====================================================
+         NOTEBOOK HEADER
+         ===================================================== -->
 
     <header class="notebook-header">
 
@@ -58,9 +88,9 @@
 
                 {% if notebook.subject %}
 
-                    <span class="notebook-header-subject">
-                        {{ notebook.subject }}
-                    </span>
+                <span class="notebook-header-subject">
+                    {{ notebook.subject }}
+                </span>
 
                 {% endif %}
 
@@ -68,6 +98,8 @@
 
         </div>
 
+
+        <!-- Header Actions -->
 
         <div class="notebook-header-actions">
 
@@ -77,6 +109,24 @@
             >
                 ● Saved
             </span>
+
+
+            <button
+                type="button"
+                class="notebook-header-btn"
+                id="openNotebookSettings"
+            >
+                🎨 Customize
+            </button>
+
+
+            <button
+                type="button"
+                class="notebook-header-btn"
+                id="openShareSettings"
+            >
+                🔗 Share
+            </button>
 
 
             <form
@@ -92,7 +142,7 @@
                     type="submit"
                     class="notebook-delete-btn"
                 >
-                    Delete Notebook
+                    Delete
                 </button>
 
             </form>
@@ -102,17 +152,26 @@
     </header>
 
 
+
+    <!-- =====================================================
+         NOTEBOOK LAYOUT
+         ===================================================== -->
+
     <div class="notebook-layout">
 
 
-        <aside class="notebook-sidebar">
+        <!-- =================================================
+             SIDEBAR
+             ================================================= -->
 
+        <aside class="notebook-sidebar">
 
             <div class="sidebar-heading">
 
                 <div>
                     Pages
                 </div>
+
 
                 <form
                     method="POST"
@@ -141,95 +200,338 @@
             </div>
 
 
+            <!-- Page List -->
+
             <div class="page-list">
 
                 {% for page in pages %}
 
-                    <a
-                        href="{{ url_for(
-                            'notes.open_notebook',
-                            notebook_id=notebook.id,
-                            page=page.id
-                        ) }}"
-                        class="page-item {% if selected_page and selected_page.id == page.id %}active{% endif %}"
-                    >
+                <a
+                    href="{{ url_for(
+                        'notes.open_notebook',
+                        notebook_id=notebook.id,
+                        page=page.id
+                    ) }}"
+                    class="page-item {% if selected_page and selected_page.id == page.id %}active{% endif %}"
+                >
 
-                        <span class="page-item-icon">
-                            {% if page.pinned %}
-                                📌
-                            {% else %}
-                                ◇
-                            {% endif %}
-                        </span>
+                    <span class="page-item-icon">
 
-                        <span class="page-item-title">
-                            {{ page.title }}
-                        </span>
+                        {% if page.pinned %}
+                            📌
+                        {% else %}
+                            ◇
+                        {% endif %}
 
-                    </a>
+                    </span>
+
+
+                    <span class="page-item-title">
+                        {{ page.title }}
+                    </span>
+
+                </a>
 
                 {% endfor %}
 
             </div>
 
 
+            <!-- Sidebar Footer -->
+
             <div class="sidebar-bottom">
-
-                <span>
-                    {{ pages|length }} pages
-                </span>
-
+                {{ pages|length }} pages
             </div>
 
         </aside>
 
 
+
+        <!-- =================================================
+             MAIN WORKSPACE
+             ================================================= -->
+
         <main class="notebook-workspace">
+
 
             {% if selected_page %}
 
 
-                <div class="workspace-topbar">
+            <!-- =============================================
+                 WORKSPACE TOPBAR
+                 ============================================= -->
 
-                    <div>
+            <div class="workspace-topbar">
 
-                        <span class="workspace-page-label">
-                            PAGE
-                        </span>
+                <div>
 
-                        <span class="workspace-page-number">
-                            {{ loop.index if loop is defined else "" }}
-                        </span>
+                    <span class="workspace-page-label">
+                        PAGE
+                    </span>
 
-                    </div>
+                    <span class="workspace-page-number">
+                        {{ selected_page.position + 1 }}
+                    </span>
+
+                </div>
 
 
-                    <div class="workspace-tools">
+                <div class="workspace-tools">
 
-                        <form
-                            method="POST"
-                            action="{{ url_for(
-                                'notes.toggle_pin',
-                                notebook_id=notebook.id,
-                                page_id=selected_page.id
-                            ) }}"
+
+                    <!-- Pin Page -->
+
+                    <form
+                        method="POST"
+                        action="{{ url_for(
+                            'notes.toggle_pin',
+                            notebook_id=notebook.id,
+                            page_id=selected_page.id
+                        ) }}"
+                    >
+
+                        <button
+                            type="submit"
+                            class="workspace-tool-btn"
                         >
 
-                            <button
-                                type="submit"
-                                class="workspace-tool-btn"
-                                title="Pin page"
-                            >
-                                {% if selected_page.pinned %}
-                                    📌 Pinned
-                                {% else %}
-                                    📍 Pin
-                                {% endif %}
-                            </button>
+                            {% if selected_page.pinned %}
+                                📌 Pinned
+                            {% else %}
+                                📍 Pin
+                            {% endif %}
 
-                        </form>
+                        </button>
 
-                    </div>
+                    </form>
+
+
+                    <!-- Insert Image -->
+
+                    <button
+                        type="button"
+                        class="workspace-tool-btn"
+                        id="insertImageBtn"
+                    >
+                        🖼 Image
+                    </button>
+
+
+                    <input
+                        type="file"
+                        id="noteImageInput"
+                        accept="image/*"
+                        multiple
+                        hidden
+                    >
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =============================================
+                 NOTEBOOK EDITOR
+                 ============================================= -->
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'notes.save_page',
+                    notebook_id=notebook.id,
+                    page_id=selected_page.id
+                ) }}"
+                class="notebook-editor-form"
+                id="notebookForm"
+            >
+
+
+                <!-- Hidden Page Data -->
+
+                <input
+                    type="hidden"
+                    name="page_data"
+                    id="pageDataInput"
+                >
+
+
+                <!-- Page Title -->
+
+                <div class="page-title-area">
+
+                    <input
+                        type="text"
+                        name="title"
+                        value="{{ selected_page.title }}"
+                        class="page-title-input"
+                        maxlength="200"
+                        placeholder="Page title..."
+                    >
+
+                </div>
+
+
+
+                <!-- =========================================
+                     SPECIALIZED NOTEBOOK CONTENT
+                     ========================================= -->
+
+                <div class="specialized-workspace">
+
+
+                    {% if notebook.notebook_type == 'coding' %}
+
+                        {% include 'notes/types/coding.html' %}
+
+
+                    {% elif notebook.notebook_type == 'theory' %}
+
+                        {% include 'notes/types/theory.html' %}
+
+
+                    {% elif notebook.notebook_type == 'mathematics' %}
+
+                        {% include 'notes/types/mathematics.html' %}
+
+
+                    {% elif notebook.notebook_type == 'graphs_dsa' %}
+
+                        {% include 'notes/types/graphs_dsa.html' %}
+
+
+                    {% elif notebook.notebook_type == 'project' %}
+
+                        {% include 'notes/types/project.html' %}
+
+
+                    {% elif notebook.notebook_type == 'flashcards' %}
+
+                        {% include 'notes/types/flashcards.html' %}
+
+
+                    {% elif notebook.notebook_type == 'lab' %}
+
+                        {% include 'notes/types/lab.html' %}
+
+
+                    {% elif notebook.notebook_type == 'exam' %}
+
+                        {% include 'notes/types/exam.html' %}
+
+
+                    {% else %}
+
+                        {% include 'notes/types/general.html' %}
+
+                    {% endif %}
+
+
+
+                    <!-- =====================================
+                         SHARED IMAGE SECTION
+                         ===================================== -->
+
+                    <section class="shared-media-card">
+
+                        <div class="special-card-header">
+
+                            <span>
+                                🖼️
+                            </span>
+
+                            <strong>
+                                Notebook Images & Handwritten Notes
+                            </strong>
+
+                        </div>
+
+
+                        <p class="helper-text">
+                            Add screenshots, diagrams, scanned
+                            handwritten pages or any image.
+                            They are saved with this page.
+                        </p>
+
+
+                        <div
+                            id="imageGallery"
+                            class="note-image-gallery"
+                        ></div>
+
+                    </section>
+
+                </div>
+
+
+
+                <!-- =========================================
+                     EDITOR ACTIONS
+                     ========================================= -->
+
+                <div class="editor-actions">
+
+                    <button
+                        type="button"
+                        class="delete-page-btn"
+                        id="deletePageButton"
+                    >
+                        Delete Page
+                    </button>
+
+
+                    <button
+                        type="submit"
+                        class="save-page-btn"
+                    >
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+
+
+            <!-- =============================================
+                 DELETE PAGE FORM
+                 ============================================= -->
+
+            <form
+                id="deletePageForm"
+                method="POST"
+                action="{{ url_for(
+                    'notes.delete_page',
+                    notebook_id=notebook.id,
+                    page_id=selected_page.id
+                ) }}"
+                hidden
+            ></form>
+
+
+
+            <!-- =============================================
+                 NOTEBOOK SETTINGS PANEL
+                 ============================================= -->
+
+            <section
+                class="notebook-settings-panel"
+                id="notebookSettingsPanel"
+                hidden
+            >
+
+                <div class="panel-header">
+
+                    <h3>
+                        Notebook appearance
+                    </h3>
+
+                    <button
+                        type="button"
+                        class="panel-close"
+                    >
+                        ×
+                    </button>
 
                 </div>
 
@@ -237,107 +539,234 @@
                 <form
                     method="POST"
                     action="{{ url_for(
-                        'notes.save_page',
-                        notebook_id=notebook.id,
-                        page_id=selected_page.id
+                        'notes.update_notebook_settings',
+                        notebook_id=notebook.id
                     ) }}"
-                    class="notebook-editor-form"
-                    id="notebookForm"
                 >
 
-                    <div class="page-title-area">
+
+                    <!-- Color Palette -->
+
+                    <div class="color-palette">
+
+                        {% for c in [
+                            '#9b8ddd',
+                            '#7ea7d8',
+                            '#86b99a',
+                            '#d79bba',
+                            '#d6a86b',
+                            '#8fa4a7',
+                            '#b28bd8',
+                            '#e68d8d'
+                        ] %}
+
+                        <label class="color-choice">
+
+                            <input
+                                type="radio"
+                                name="color"
+                                value="{{ c }}"
+                                {% if (notebook.color or '#9b8ddd') == c %}
+                                    checked
+                                {% endif %}
+                            >
+
+                            <span
+                                style="--choice-color: {{ c }}"
+                            ></span>
+
+                        </label>
+
+                        {% endfor %}
+
+                    </div>
+
+
+
+                    <!-- Icon -->
+
+                    <label class="panel-label">
+
+                        Icon
 
                         <input
-                            type="text"
-                            name="title"
-                            value="{{ selected_page.title }}"
-                            class="page-title-input"
-                            maxlength="200"
-                            placeholder="Page title..."
+                            name="icon"
+                            value="{{ notebook.icon }}"
+                            maxlength="10"
                         >
 
-                    </div>
+                    </label>
 
 
-                    <div class="specialized-workspace">
 
-                        {% if notebook.notebook_type == "coding" %}
+                    <!-- Description -->
 
-                            {% include "notes/types/coding.html" %}
+                    <label class="panel-label">
 
-                        {% elif notebook.notebook_type == "theory" %}
+                        Description
 
-                            {% include "notes/types/theory.html" %}
+                        <textarea
+                            name="description"
+                            rows="3"
+                        >{{ notebook.description or '' }}</textarea>
 
-                        {% elif notebook.notebook_type == "mathematics" %}
-
-                            {% include "notes/types/mathematics.html" %}
-
-                        {% elif notebook.notebook_type == "graphs_dsa" %}
-
-                            {% include "notes/types/graphs_dsa.html" %}
-
-                        {% elif notebook.notebook_type == "project" %}
-
-                            {% include "notes/types/project.html" %}
-
-                        {% else %}
-
-                            {% include "notes/types/general.html" %}
-
-                        {% endif %}
-
-                    </div>
+                    </label>
 
 
-                    <div class="editor-actions">
-
-                        <form
-                            method="POST"
-                            action="{{ url_for(
-                                'notes.delete_page',
-                                notebook_id=notebook.id,
-                                page_id=selected_page.id
-                            ) }}"
-                            onsubmit="return confirm('Delete this page?');"
-                        >
-                            <button
-                                type="submit"
-                                class="delete-page-btn"
-                            >
-                                Delete Page
-                            </button>
-                        </form>
-
-
-                        <button
-                            type="submit"
-                            class="save-page-btn"
-                        >
-                            Save Changes
-                        </button>
-
-                    </div>
+                    <button
+                        class="save-page-btn"
+                        type="submit"
+                    >
+                        Save Appearance
+                    </button>
 
                 </form>
 
-            {% else %}
+            </section>
 
-                <div class="no-page-state">
 
-                    <div>
-                        📖
-                    </div>
 
-                    <h2>
-                        Your notebook is ready.
-                    </h2>
+            <!-- =============================================
+                 SHARE SETTINGS PANEL
+                 ============================================= -->
 
-                    <p>
-                        Create a page to start writing.
-                    </p>
+            <section
+                class="notebook-settings-panel"
+                id="shareSettingsPanel"
+                hidden
+            >
+
+                <div class="panel-header">
+
+                    <h3>
+                        Sharing
+                    </h3>
+
+                    <button
+                        type="button"
+                        class="panel-close"
+                    >
+                        ×
+                    </button>
 
                 </div>
+
+
+                {% if notebook.share and notebook.share.token %}
+
+
+                    <p class="helper-text">
+                        Turn sharing on when you are ready
+                        to use this notebook with Study Meet.
+                    </p>
+
+
+                    <form
+                        method="POST"
+                        action="{{ url_for(
+                            'notes.toggle_share',
+                            notebook_id=notebook.id
+                        ) }}"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="enabled"
+                            value="1"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="permission"
+                            value="view"
+                        >
+
+                        <button
+                            class="save-page-btn"
+                            type="submit"
+                        >
+                            Enable Share Link
+                        </button>
+
+                    </form>
+
+
+                    {% if notebook.share.enabled %}
+
+                    <div class="share-link-box">
+
+                        {{ url_for(
+                            'notes.shared_notebook',
+                            token=notebook.share.token,
+                            _external=True
+                        ) }}
+
+                    </div>
+
+                    {% endif %}
+
+
+                {% else %}
+
+
+                    <form
+                        method="POST"
+                        action="{{ url_for(
+                            'notes.toggle_share',
+                            notebook_id=notebook.id
+                        ) }}"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="enabled"
+                            value="1"
+                        >
+
+                        <input
+                            type="hidden"
+                            name="permission"
+                            value="view"
+                        >
+
+                        <button
+                            class="save-page-btn"
+                            type="submit"
+                        >
+                            Create Share Link
+                        </button>
+
+                    </form>
+
+
+                {% endif %}
+
+            </section>
+
+
+            {% else %}
+
+
+            <!-- =============================================
+                 NO PAGE STATE
+                 ============================================= -->
+
+            <div class="no-page-state">
+
+                <div>
+                    📖
+                </div>
+
+                <h2>
+                    Your notebook is ready.
+                </h2>
+
+                <p>
+                    Create a page to start writing.
+                </p>
+
+            </div>
+
 
             {% endif %}
 
@@ -347,8 +776,4 @@
 
 </section>
 
-{% endblock %}
-
-
-{% block head_extra %}
 {% endblock %}

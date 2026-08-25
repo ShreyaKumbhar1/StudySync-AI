@@ -1,5 +1,9 @@
 <div class="special-notebook coding-notebook">
 
+    <!-- =====================================================
+         CODING & LOGIC INTRO
+         ===================================================== -->
+
     <div class="workspace-intro">
 
         <span class="workspace-icon">
@@ -7,136 +11,339 @@
         </span>
 
         <div>
+
             <h2>
                 Coding & Logic
             </h2>
 
             <p>
-                Break the problem down before you write the code.
+                Think, code, analyze and visualize the solution.
             </p>
+
         </div>
 
     </div>
 
 
+    <!-- =====================================================
+         CODING WORKSPACE
+         ===================================================== -->
+
     <div class="coding-grid">
 
 
+        <!-- =================================================
+             PROBLEM
+             ================================================= -->
+
         <section class="special-card">
 
             <div class="special-card-header">
-                <span>🎯</span>
-                <strong>Problem</strong>
+
+                <span>
+                    🎯
+                </span>
+
+                <strong>
+                    Problem
+                </strong>
+
             </div>
 
             <textarea
-                name="content"
+                data-note-field="content"
                 class="special-textarea"
                 placeholder="What problem are you solving?"
-            >{{ selected_page.content or "" }}</textarea>
+            >{{ page_data.content }}</textarea>
 
         </section>
 
+
+        <!-- =================================================
+             LOGIC / APPROACH
+             ================================================= -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-                <span>🧠</span>
-                <strong>Logic / Approach</strong>
+
+                <span>
+                    🧠
+                </span>
+
+                <strong>
+                    Logic / Approach
+                </strong>
+
             </div>
 
             <textarea
+                data-note-field="logic"
                 class="special-textarea"
                 placeholder="Write your logic step by step..."
-            ></textarea>
+            >{{ page_data.logic }}</textarea>
 
         </section>
 
+
+        <!-- =================================================
+             CODE EDITOR
+             ================================================= -->
 
         <section class="special-card code-card">
 
             <div class="special-card-header">
 
-                <span>⌨️</span>
+                <span>
+                    ⌨️
+                </span>
 
                 <strong>
                     Code
                 </strong>
 
+
+                <!-- Programming Language -->
+
                 <select
+                    data-note-field="language"
                     class="language-select"
                 >
-                    <option>C++</option>
-                    <option>Python</option>
-                    <option>Java</option>
-                    <option>JavaScript</option>
-                    <option>C</option>
+
+                    {% for lang in [
+                        'C',
+                        'C++',
+                        'C#',
+                        'Java',
+                        'Python',
+                        'JavaScript',
+                        'TypeScript',
+                        'Go',
+                        'Rust',
+                        'Kotlin',
+                        'Swift',
+                        'Dart',
+                        'PHP',
+                        'Ruby',
+                        'R',
+                        'MATLAB',
+                        'Julia',
+                        'Scala',
+                        'Groovy',
+                        'Perl',
+                        'Lua',
+                        'Haskell',
+                        'Elixir',
+                        'Erlang',
+                        'Clojure',
+                        'F#',
+                        'Objective-C',
+                        'Visual Basic',
+                        'Fortran',
+                        'COBOL',
+                        'Assembly',
+                        'Bash',
+                        'PowerShell',
+                        'SQL',
+                        'PL/SQL',
+                        'T-SQL',
+                        'HTML',
+                        'CSS',
+                        'SCSS',
+                        'Sass',
+                        'Less',
+                        'XML',
+                        'JSON',
+                        'YAML',
+                        'TOML',
+                        'Markdown',
+                        'Solidity',
+                        'VHDL',
+                        'Verilog',
+                        'SystemVerilog',
+                        'GDScript',
+                        'Zig',
+                        'Nim',
+                        'Crystal',
+                        'D',
+                        'OCaml',
+                        'Prolog',
+                        'Racket',
+                        'Scheme',
+                        'Lisp',
+                        'Ada',
+                        'Pascal',
+                        'Delphi',
+                        'ABAP',
+                        'Apex',
+                        'Gherkin',
+                        'HCL',
+                        'GraphQL',
+                        'LaTeX',
+                        'Arduino',
+                        'CUDA',
+                        'OpenCL',
+                        'SAS',
+                        'Fortran 95',
+                        'Fortran 2008',
+                        'WebAssembly',
+                        'SQL/SQLite'
+                    ] %}
+
+                    <option
+                        {% if page_data.language == lang %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ lang }}
+                    </option>
+
+                    {% endfor %}
+
                 </select>
 
             </div>
 
+
+            <!-- Code Input -->
+
             <textarea
+                data-note-field="code"
                 class="code-editor"
                 spellcheck="false"
-                placeholder="// Write your code here..."
-            ></textarea>
-
-        </section>
+                placeholder="Write your code here..."
+            >{{ page_data.code }}</textarea>
 
 
-        <section class="complexity-grid">
+            <!-- Complexity Analysis -->
 
-            <div class="complexity-card">
+            <div class="complexity-grid complexity-live-grid">
 
-                <span>
-                    ⏱
-                </span>
 
-                <label>
-                    Time Complexity
-                </label>
+                <!-- Time Complexity -->
 
-                <input
-                    type="text"
-                    placeholder="O(n)"
-                >
+                <div class="complexity-card">
+
+                    <span>
+                        ⏱
+                    </span>
+
+                    <label>
+                        Estimated Time Complexity
+                    </label>
+
+                    <input
+                        data-note-field="time_complexity"
+                        class="complexity-output"
+                        value="{{ page_data.time_complexity }}"
+                        readonly
+                    >
+
+                </div>
+
+
+                <!-- Space Complexity -->
+
+                <div class="complexity-card">
+
+                    <span>
+                        💾
+                    </span>
+
+                    <label>
+                        Estimated Space Complexity
+                    </label>
+
+                    <input
+                        data-note-field="space_complexity"
+                        class="complexity-output"
+                        value="{{ page_data.space_complexity }}"
+                        readonly
+                    >
+
+                </div>
 
             </div>
 
 
-            <div class="complexity-card">
-
-                <span>
-                    💾
-                </span>
-
-                <label>
-                    Space Complexity
-                </label>
-
-                <input
-                    type="text"
-                    placeholder="O(1)"
-                >
-
-            </div>
+            <small class="analysis-note">
+                ORION estimates complexity from common algorithmic
+                patterns. Always verify the result for production code.
+            </small>
 
         </section>
 
+
+        <!-- =================================================
+             FLOWCHART BUILDER
+             ================================================= -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-                <span>⚠️</span>
-                <strong>Mistakes / Things to Remember</strong>
+
+                <span>
+                    🔀
+                </span>
+
+                <strong>
+                    Flowchart Builder
+                </strong>
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="renderCodingFlowchart"
+                >
+                    Render
+                </button>
+
             </div>
 
+
             <textarea
-                class="special-textarea"
-                placeholder="What should you remember next time?"
-            ></textarea>
+                data-note-field="flowchart"
+                id="codingFlowchartSource"
+                class="flowchart-source"
+                placeholder="Mermaid flowchart syntax..."
+            >{{ page_data.flowchart }}</textarea>
+
+
+            <div
+                class="mermaid-preview"
+                id="codingFlowchartPreview"
+            ></div>
 
         </section>
+
+
+        <!-- =================================================
+             MISTAKES / THINGS TO REMEMBER
+             ================================================= -->
+
+        <section class="special-card">
+
+            <div class="special-card-header">
+
+                <span>
+                    ⚠️
+                </span>
+
+                <strong>
+                    Mistakes / Things to Remember
+                </strong>
+
+            </div>
+
+
+            <textarea
+                data-note-field="mistakes"
+                class="special-textarea"
+                placeholder="What should you remember next time?"
+            >{{ page_data.fields.mistakes or '' }}</textarea>
+
+        </section>
+
 
     </div>
 

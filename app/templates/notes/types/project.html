@@ -1,5 +1,9 @@
 <div class="special-notebook project-notebook">
 
+    <!-- =====================================================
+         PROJECT & RESEARCH INTRO
+         ===================================================== -->
+
     <div class="workspace-intro">
 
         <span class="workspace-icon">
@@ -13,7 +17,7 @@
             </h2>
 
             <p>
-                Turn ideas into something real.
+                Plan, research, experiment, reference and track progress.
             </p>
 
         </div>
@@ -21,98 +25,223 @@
     </div>
 
 
+    <!-- =====================================================
+         PROJECT WORKSPACE
+         ===================================================== -->
+
     <div class="project-grid">
 
 
-        <section class="special-card">
-
-            <div class="special-card-header">
-                <span>🎯</span>
-                <strong>Objective</strong>
-            </div>
-
-            <textarea
-                class="special-textarea"
-                placeholder="What are you trying to achieve?"
-            ></textarea>
-
-        </section>
-
+        <!-- Objective -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-                <span>💡</span>
-                <strong>Ideas</strong>
+
+                🎯
+
+                <strong>
+                    Objective
+                </strong>
+
             </div>
 
             <textarea
+                data-note-field="objective"
                 class="special-textarea"
-                placeholder="Ideas, possibilities and experiments..."
-            ></textarea>
+            >{{ page_data.fields.objective or '' }}</textarea>
 
         </section>
 
+
+        <!-- Ideas & Hypotheses -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-                <span>🔬</span>
-                <strong>Research</strong>
+
+                💡
+
+                <strong>
+                    Ideas & Hypotheses
+                </strong>
+
             </div>
 
             <textarea
+                data-note-field="ideas"
                 class="special-textarea"
-                placeholder="Research notes..."
-            ></textarea>
+            >{{ page_data.fields.ideas or '' }}</textarea>
 
         </section>
 
+
+        <!-- Research Notes -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-                <span>🐛</span>
-                <strong>Problems</strong>
+
+                🔬
+
+                <strong>
+                    Research Notes
+                </strong>
+
             </div>
 
             <textarea
+                data-note-field="research"
                 class="special-textarea"
-                placeholder="Problems, bugs and things to solve..."
-            ></textarea>
+            >{{ page_data.fields.research or '' }}</textarea>
 
         </section>
 
+
+        <!-- Problems / Risks -->
+
+        <section class="special-card">
+
+            <div class="special-card-header">
+
+                🐛
+
+                <strong>
+                    Problems / Risks
+                </strong>
+
+            </div>
+
+            <textarea
+                data-note-field="problems"
+                class="special-textarea"
+            >{{ page_data.fields.problems or '' }}</textarea>
+
+        </section>
+
+
+        <!-- Roadmap & Milestones -->
 
         <section class="special-card full-width">
 
             <div class="special-card-header">
-                <span>📝</span>
-                <strong>Main Notes</strong>
+
+                🗺️
+
+                <strong>
+                    Roadmap & Milestones
+                </strong>
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="addMilestone"
+                >
+                    + Milestone
+                </button>
+
             </div>
 
+
+            <div
+                id="milestones"
+                class="milestone-list"
+            ></div>
+
+        </section>
+
+
+        <!-- Main Research Journal -->
+
+        <section class="special-card full-width">
+
+            <div class="special-card-header">
+
+                📝
+
+                <strong>
+                    Main Research Journal
+                </strong>
+
+            </div>
+
+
             <textarea
-                name="content"
+                data-note-field="content"
                 class="special-textarea project-main-editor"
-                placeholder="Write your main project notes..."
-            >{{ selected_page.content or "" }}</textarea>
+            >{{ page_data.content }}</textarea>
 
         </section>
 
+
+        <!-- References / Sources -->
+
+        <section class="special-card">
+
+            <div class="special-card-header">
+
+                🔗
+
+                <strong>
+                    References / Sources
+                </strong>
+
+            </div>
+
+
+            <textarea
+                data-note-field="references"
+                class="special-textarea"
+            >{{ page_data.fields.references or '' }}</textarea>
+
+        </section>
+
+
+        <!-- Experiments & Results -->
+
+        <section class="special-card">
+
+            <div class="special-card-header">
+
+                🧪
+
+                <strong>
+                    Experiments & Results
+                </strong>
+
+            </div>
+
+
+            <textarea
+                data-note-field="experiments"
+                class="special-textarea"
+            >{{ page_data.fields.experiments or '' }}</textarea>
+
+        </section>
+
+
+        <!-- Decision Log -->
 
         <section class="special-card full-width">
 
             <div class="special-card-header">
-                <span>🔗</span>
-                <strong>References</strong>
+
+                📊
+
+                <strong>
+                    Decision Log
+                </strong>
+
             </div>
 
+
             <textarea
+                data-note-field="decisions"
                 class="special-textarea"
-                placeholder="Useful links, books, papers or resources..."
-            ></textarea>
+            >{{ page_data.fields.decisions or '' }}</textarea>
 
         </section>
+
 
     </div>
 

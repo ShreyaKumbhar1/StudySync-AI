@@ -901,6 +901,12 @@
             defer
         ></script>
 
+        {% if request.path.startswith('/notes/') and '/shared/' not in request.path %}
+            {% if notebook is defined and notebook.notebook_type == 'coding' %}<script src="{{ url_for('static', filename='js/coding-notebook.js') }}" defer></script>{% endif %}
+            {% if notebook is defined and notebook.notebook_type == 'mathematics' %}<script src="{{ url_for('static', filename='js/math-notebook.js') }}" defer></script>{% endif %}
+            {% if notebook is defined and notebook.notebook_type == 'graphs_dsa' %}<script src="{{ url_for('static', filename='js/graph-notebook.js') }}" defer></script>{% endif %}
+        {% endif %}
+
     {% endif %}
 
 

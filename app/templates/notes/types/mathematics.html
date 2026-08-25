@@ -1,5 +1,9 @@
 <div class="special-notebook mathematics-notebook">
 
+    <!-- =====================================================
+         MATHEMATICS WORKSPACE INTRO
+         ===================================================== -->
+
     <div class="workspace-intro">
 
         <span class="workspace-icon">
@@ -13,7 +17,8 @@
             </h2>
 
             <p>
-                Formulae, problems, working and final answers.
+                Unlimited working, scientific calculator,
+                calculus and formula discovery.
             </p>
 
         </div>
@@ -21,11 +26,165 @@
     </div>
 
 
+    <!-- =====================================================
+         ADVANCED CALCULATOR
+         ===================================================== -->
+
+    <section class="math-calculator-card special-card">
+
+        <div class="special-card-header">
+
+            🧠
+
+            <strong>
+                Advanced Calculator
+            </strong>
+
+        </div>
+
+
+        <!-- Calculator Display -->
+
+        <div class="calculator-display">
+
+            <input
+                id="mathExpression"
+                placeholder="e.g. sin(pi/4) + 5^2 / 3"
+            >
+
+            <button
+                type="button"
+                id="calculateMath"
+            >
+                =
+            </button>
+
+        </div>
+
+
+        <!-- Calculator Result -->
+
+        <div
+            id="calculatorResult"
+            class="calculator-result"
+        >
+            Ready
+        </div>
+
+
+        <!-- Calculator Actions -->
+
+        <div class="calculator-actions">
+
+            <button
+                type="button"
+                data-math="sin(x)"
+            >
+                sin
+            </button>
+
+            <button
+                type="button"
+                data-math="cos(x)"
+            >
+                cos
+            </button>
+
+            <button
+                type="button"
+                data-math="tan(x)"
+            >
+                tan
+            </button>
+
+            <button
+                type="button"
+                data-math="sqrt(x)"
+            >
+                √
+            </button>
+
+            <button
+                type="button"
+                data-math="log(x)"
+            >
+                log
+            </button>
+
+            <button
+                type="button"
+                data-math="ln(x)"
+            >
+                ln
+            </button>
+
+            <button
+                type="button"
+                data-math="x^2"
+            >
+                x²
+            </button>
+
+            <button
+                type="button"
+                data-math="pi"
+            >
+                π
+            </button>
+
+            <button
+                type="button"
+                data-math="e"
+            >
+                e
+            </button>
+
+        </div>
+
+
+        <!-- Calculus -->
+
+        <div class="calculus-row">
+
+            <input
+                id="calculusExpression"
+                placeholder="Expression for differentiation/integration, e.g. x^2 + sin(x)"
+            >
+
+            <input
+                id="calculusVariable"
+                value="x"
+                maxlength="3"
+            >
+
+            <button
+                type="button"
+                id="differentiateMath"
+            >
+                d/dx
+            </button>
+
+            <button
+                type="button"
+                id="integrateMath"
+            >
+                ∫
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FORMULA
+         ===================================================== -->
+
     <section class="special-card formula-card">
 
         <div class="special-card-header">
 
-            <span>📐</span>
+            📐
 
             <strong>
                 Formula
@@ -33,90 +192,82 @@
 
         </div>
 
+
         <textarea
+            data-note-field="formula"
             class="formula-input"
-            placeholder="Write the important formula..."
-        ></textarea>
+        >{{ page_data.formula }}</textarea>
 
     </section>
 
+
+    <!-- =====================================================
+         PROBLEM
+         ===================================================== -->
 
     <section class="special-card">
 
         <div class="special-card-header">
-            <span>❓</span>
-            <strong>Problem</strong>
+
+            ❓
+
+            <strong>
+                Problem
+            </strong>
+
         </div>
 
+
         <textarea
-            name="content"
+            data-note-field="content"
             class="math-problem-input"
-            placeholder="Write the problem here..."
-        >{{ selected_page.content or "" }}</textarea>
+        >{{ page_data.content }}</textarea>
 
     </section>
 
+
+    <!-- =====================================================
+         STEP-BY-STEP WORKING
+         ===================================================== -->
 
     <section class="special-card working-card">
 
         <div class="special-card-header">
-            <span>✏️</span>
-            <strong>Step-by-Step Working</strong>
-        </div>
 
+            ✏️
 
-        <div class="math-steps">
+            <strong>
+                Step-by-Step Working
+            </strong>
 
-            <div class="math-step">
-
-                <span>
-                    1
-                </span>
-
-                <textarea
-                    placeholder="First step..."
-                ></textarea>
-
-            </div>
-
-
-            <div class="math-step">
-
-                <span>
-                    2
-                </span>
-
-                <textarea
-                    placeholder="Second step..."
-                ></textarea>
-
-            </div>
-
-
-            <div class="math-step">
-
-                <span>
-                    3
-                </span>
-
-                <textarea
-                    placeholder="Third step..."
-                ></textarea>
-
-            </div>
+            <button
+                type="button"
+                class="mini-action"
+                id="addMathStep"
+            >
+                + Step
+            </button>
 
         </div>
+
+
+        <div
+            class="math-steps"
+            id="mathSteps"
+        ></div>
 
     </section>
 
+
+    <!-- =====================================================
+         FINAL ANSWER
+         ===================================================== -->
 
     <section class="answer-card">
 
         <div class="special-card-header">
 
-            <span>
-                ✅
-            </span>
+            ✅
 
             <strong>
                 Final Answer
@@ -124,9 +275,105 @@
 
         </div>
 
+
         <textarea
-            placeholder="Write your final answer..."
-        ></textarea>
+            data-note-field="final_answer"
+        >{{ page_data.final_answer }}</textarea>
+
+    </section>
+
+
+    <!-- =====================================================
+         FORMULA LIBRARY
+         ===================================================== -->
+
+    <section class="formula-library special-card">
+
+        <div class="special-card-header">
+
+            📚
+
+            <strong>
+                Formula Library
+            </strong>
+
+        </div>
+
+
+        <div class="formula-tabs">
+
+            {% for key, formulas in {
+
+                'Algebra': [
+                    '(a+b)^2=a^2+2ab+b^2',
+                    'a^2-b^2=(a-b)(a+b)',
+                    'x=(-b±√(b²-4ac))/(2a)'
+                ],
+
+                'Geometry': [
+                    'Area of circle=πr²',
+                    'Area of triangle=½bh',
+                    'Sphere volume=4πr³/3'
+                ],
+
+                'Differentiation': [
+                    'd(x^n)/dx = nx^(n-1)',
+                    'd(sin x)/dx = cos x',
+                    'd(cos x)/dx = -sin x'
+                ],
+
+                'Integration': [
+                    '∫x^n dx=x^(n+1)/(n+1)+C',
+                    '∫sin x dx=-cos x+C',
+                    '∫cos x dx=sin x+C'
+                ],
+
+                'Trigonometry': [
+                    'sin²x+cos²x=1',
+                    '1+tan²x=sec²x',
+                    'sin(2x)=2sin x cos x'
+                ],
+
+                'Statistics': [
+                    'Mean=Σx/n',
+                    'Variance=Σ(x-μ)²/n',
+                    'σ=√variance'
+                ]
+
+            }.items() %}
+
+
+            <!-- Formula Category -->
+
+            <details>
+
+                <summary>
+                    {{ key }}
+                </summary>
+
+
+                <div class="formula-list">
+
+                    {% for f in formulas %}
+
+                    <button
+                        type="button"
+                        class="formula-item"
+                        data-formula="{{ f }}"
+                    >
+                        {{ f }}
+                    </button>
+
+                    {% endfor %}
+
+                </div>
+
+            </details>
+
+
+            {% endfor %}
+
+        </div>
 
     </section>
 

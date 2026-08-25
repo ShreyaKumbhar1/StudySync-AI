@@ -814,3 +814,560 @@
     }
 
 }
+/* ==========================================================
+   ADVANCED NOTEBOOK TOOLS
+   ========================================================== */
+.rich-editor-card {
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(165, 154, 191, 0.16);
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.rich-toolbar {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+
+    padding: 10px;
+
+    border-bottom: 1px solid rgba(164, 153, 190, 0.13);
+
+    background: rgba(255, 255, 255, 0.35);
+}
+
+.rich-toolbar button,
+.calculator-actions button {
+    border: 1px solid rgba(163, 152, 188, 0.16);
+    background: rgba(255, 255, 255, 0.55);
+    color: #6d6477;
+
+    border-radius: 8px;
+    padding: 7px 9px;
+
+    cursor: pointer;
+
+    font: inherit;
+    font-size: 10px;
+}
+
+.rich-editor {
+    min-height: 260px;
+
+    padding: 20px;
+
+    outline: 0;
+
+    color: #4e4855;
+
+    line-height: 1.75;
+}
+
+.rich-editor:empty:before {
+    content: "Start writing...";
+    color: #aaa4ad;
+}
+
+
+/* ==========================================================
+   TABLES
+   ========================================================== */
+
+.data-table-wrap {
+    overflow: auto;
+}
+
+.editable-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.editable-table td,
+.editable-table th {
+    border: 1px solid rgba(164, 153, 190, 0.18);
+
+    padding: 9px;
+
+    font-size: 11px;
+
+    min-width: 90px;
+
+    text-align: left;
+}
+
+.editable-table td[contenteditable="true"] {
+    outline: 0;
+}
+
+
+/* ==========================================================
+   THEORY CHARTS
+   ========================================================== */
+
+.theory-chart-card canvas {
+    height: 300px !important;
+    max-height: 300px;
+}
+
+.chart-builder {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 8px;
+
+    margin-bottom: 12px;
+}
+
+.chart-builder input,
+.calculus-row input,
+.calculator-display input {
+    border: 1px solid rgba(164, 153, 190, 0.18);
+
+    background: rgba(255, 255, 255, 0.58);
+
+    border-radius: 10px;
+
+    padding: 10px;
+
+    outline: 0;
+
+    font: inherit;
+
+    color: #4e4855;
+}
+
+.theory-chart-card select,
+.calculus-row button,
+.calculator-display button {
+    border: 1px solid rgba(163, 152, 188, 0.16);
+
+    background: rgba(255, 255, 255, 0.55);
+
+    border-radius: 9px;
+
+    padding: 6px;
+
+    color: #6d6477;
+}
+
+
+/* ==========================================================
+   FLOWCHART
+   ========================================================== */
+
+.flowchart-source {
+    width: 100%;
+
+    min-height: 120px;
+
+    box-sizing: border-box;
+
+    border: 1px solid rgba(164, 153, 190, 0.14);
+
+    background: rgba(255, 255, 255, 0.35);
+
+    border-radius: 12px;
+
+    padding: 12px;
+
+    outline: 0;
+
+    resize: vertical;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 11px;
+}
+
+.mermaid-preview {
+    min-height: 120px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    overflow: auto;
+
+    margin-top: 10px;
+}
+
+
+/* ==========================================================
+   COMPLEXITY
+   ========================================================== */
+
+.complexity-live-grid {
+    margin-top: 15px;
+}
+
+.complexity-output {
+    font-weight: 600;
+}
+
+
+/* ==========================================================
+   CALCULATOR
+   ========================================================== */
+
+.calculator-display {
+    display: grid;
+
+    grid-template-columns: 1fr 52px;
+
+    gap: 8px;
+}
+
+.calculator-display button {
+    font-size: 20px;
+}
+
+.calculator-result {
+    margin: 10px 0;
+
+    padding: 12px;
+
+    border-radius: 11px;
+
+    background: rgba(151, 138, 217, 0.07);
+
+    color: #55496d;
+
+    min-height: 20px;
+
+    word-break: break-word;
+}
+
+.calculator-actions {
+    display: flex;
+
+    gap: 6px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 10px;
+}
+
+.calculus-row {
+    display: grid;
+
+    grid-template-columns: 1fr 55px 70px 70px;
+
+    gap: 7px;
+}
+
+
+/* ==========================================================
+   FORMULA LIBRARY
+   ========================================================== */
+
+.formula-library details {
+    margin-bottom: 8px;
+
+    border-radius: 11px;
+
+    background: rgba(255, 255, 255, 0.35);
+
+    padding: 9px;
+}
+
+.formula-library summary {
+    cursor: pointer;
+
+    color: #5b5168;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.formula-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    margin-top: 7px;
+}
+
+.formula-item {
+    border: 0;
+
+    background: transparent;
+
+    text-align: left;
+
+    padding: 6px;
+
+    color: #71677b;
+
+    cursor: pointer;
+
+    font: inherit;
+
+    font-size: 11px;
+}
+
+.formula-item:hover {
+    background: rgba(151, 138, 217, 0.08);
+
+    border-radius: 7px;
+}
+
+
+/* ==========================================================
+   MATHEMATICS STEPS
+   ========================================================== */
+
+.math-step {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 9px;
+}
+
+.math-step textarea {
+    flex: 1;
+
+    min-height: 60px;
+}
+
+.remove-step {
+    border: 0;
+
+    background: transparent;
+
+    color: #a0818c;
+
+    cursor: pointer;
+
+    font-size: 18px;
+}
+
+
+/* ==========================================================
+   GRAPH / DSA
+   ========================================================== */
+
+.graph-canvas {
+    min-height: 420px;
+
+    position: relative;
+}
+
+.graph-node {
+    position: absolute;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(151, 138, 217, 0.18);
+
+    border: 2px solid rgba(125, 108, 180, 0.35);
+
+    color: #584c6f;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: grab;
+
+    z-index: 3;
+
+    box-shadow:
+        0 8px 20px rgba(70, 58, 105, 0.08);
+}
+
+.graph-node.selected {
+    outline: 3px solid rgba(151, 138, 217, 0.18);
+}
+
+.graph-edge-line {
+    position: absolute;
+
+    height: 2px;
+
+    background: rgba(115, 99, 150, 0.42);
+
+    transform-origin: 0 50%;
+
+    z-index: 1;
+}
+
+
+/* ==========================================================
+   GENERAL NOTEBOOK
+   ========================================================== */
+
+.general-feature-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}
+
+.check-row {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px;
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.35);
+
+    margin-bottom: 5px;
+
+    font-size: 11px;
+
+    color: #625b6b;
+}
+
+.check-row span {
+    outline: 0;
+
+    flex: 1;
+}
+
+
+/* ==========================================================
+   PROJECT / RESEARCH
+   ========================================================== */
+
+.milestone-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+.milestone-row {
+    display: grid;
+
+    grid-template-columns: 24px 1fr 140px;
+
+    gap: 7px;
+}
+
+.milestone-row input {
+    border: 1px solid rgba(164, 153, 190, 0.16);
+
+    background: rgba(255, 255, 255, 0.5);
+
+    border-radius: 9px;
+
+    padding: 8px;
+
+    font: inherit;
+
+    font-size: 11px;
+}
+
+
+/* ==========================================================
+   FLASHCARDS
+   ========================================================== */
+
+.flashcard-builder {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+}
+
+.flashcard-builder input,
+.flashcard-builder textarea,
+.flashcard-builder select {
+    border: 1px solid rgba(164, 153, 190, 0.16);
+
+    background: rgba(255, 255, 255, 0.5);
+
+    border-radius: 10px;
+
+    padding: 10px;
+
+    font: inherit;
+}
+
+.flashcard-builder textarea {
+    min-height: 130px;
+}
+
+
+/* ==========================================================
+   GENERAL EDITOR
+   ========================================================== */
+
+.general-editor-area {
+    width: 100%;
+
+    min-height: 260px;
+
+    border: 0;
+
+    background: transparent;
+
+    outline: 0;
+
+    resize: vertical;
+
+    font: inherit;
+
+    line-height: 1.7;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 800px) {
+
+    .general-feature-grid,
+    .flashcard-builder,
+    .chart-builder,
+    .calculus-row {
+        grid-template-columns: 1fr;
+    }
+
+    .milestone-row {
+        grid-template-columns: 24px 1fr;
+    }
+
+    .milestone-row input[type="date"] {
+        grid-column: 2;
+    }
+
+    .notebook-header-actions {
+        flex-wrap: wrap;
+    }
+
+    .notebook-settings-panel {
+        position: fixed;
+
+        right: 20px;
+        top: 90px;
+    }
+
+    .workspace-tools {
+        flex-wrap: wrap;
+    }
+}

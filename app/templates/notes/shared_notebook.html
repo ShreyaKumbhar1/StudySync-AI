@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/notebook.css') }}"
+>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/notebook-types.css') }}"
+>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+<section class="notes-page shared-view">
+
+
+    <!-- =====================================================
+         SHARED NOTEBOOK HEADER
+         ===================================================== -->
+
+    <header class="notes-header">
+
+        <div>
+
+            <span class="notes-eyebrow">
+                SHARED NOTEBOOK
+            </span>
+
+            <h1>
+                {{ notebook.icon }} {{ notebook.title }}
+            </h1>
+
+            <p>
+                {{ notebook.description or
+                   notebook_types.get(
+                       notebook.notebook_type,
+                       {}
+                   ).get(
+                       'description',
+                       ''
+                   )
+                }}
+            </p>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         SHARED NOTEBOOK PAGES
+         ===================================================== -->
+
+    {% for page in pages %}
+
+    <article class="shared-page">
+
+        <h2>
+            {{ page.title }}
+        </h2>
+
+
+        {% set data = page.content %}
+
+
+        <pre class="shared-content">{{ data }}</pre>
+
+    </article>
+
+    {% endfor %}
+
+
+</section>
+
+{% endblock %}

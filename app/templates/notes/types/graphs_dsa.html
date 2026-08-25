@@ -1,5 +1,9 @@
 <div class="special-notebook graph-notebook">
 
+    <!-- =====================================================
+         GRAPHS & DSA INTRO
+         ===================================================== -->
+
     <div class="workspace-intro">
 
         <span class="workspace-icon">
@@ -13,7 +17,8 @@
             </h2>
 
             <p>
-                Visualize structures, algorithms and complexity.
+                Build graphs, trees, tables, algorithm traces
+                and flowcharts on the same page.
             </p>
 
         </div>
@@ -21,23 +26,68 @@
     </div>
 
 
-    <section class="graph-canvas-card">
+    <!-- =====================================================
+         INTERACTIVE STRUCTURE BUILDER
+         ===================================================== -->
+
+    <section class="graph-canvas-card special-card">
 
         <div class="special-card-header">
 
-            <span>
-                🕸️
-            </span>
+            🕸️
 
             <strong>
-                Visual Workspace
+                Interactive Structure Builder
             </strong>
+
+
+            <!-- Structure Type -->
+
+            <select id="structureType">
+
+                <option value="graph">
+                    Graph
+                </option>
+
+                <option value="tree">
+                    Tree
+                </option>
+
+                <option value="linked-list">
+                    Linked List
+                </option>
+
+                <option value="stack">
+                    Stack
+                </option>
+
+                <option value="queue">
+                    Queue
+                </option>
+
+                <option value="heap">
+                    Heap
+                </option>
+
+                <option value="array">
+                    Array
+                </option>
+
+                <option value="matrix">
+                    Matrix
+                </option>
+
+            </select>
+
+
+            <!-- Graph Tools -->
 
             <div class="graph-tools">
 
                 <button
                     type="button"
                     class="graph-tool active"
+                    data-tool="select"
                 >
                     Select
                 </button>
@@ -45,13 +95,15 @@
                 <button
                     type="button"
                     class="graph-tool"
+                    data-tool="node"
                 >
-                    Node
+                    + Node
                 </button>
 
                 <button
                     type="button"
                     class="graph-tool"
+                    data-tool="edge"
                 >
                     Edge
                 </button>
@@ -59,6 +111,7 @@
                 <button
                     type="button"
                     class="graph-tool"
+                    data-tool="clear"
                 >
                     Clear
                 </button>
@@ -67,6 +120,8 @@
 
         </div>
 
+
+        <!-- Graph Canvas -->
 
         <div
             class="graph-canvas"
@@ -80,11 +135,12 @@
                 </span>
 
                 <strong>
-                    Interactive graph canvas
+                    Click “+ Node” to build your structure
                 </strong>
 
                 <small>
-                    Your graph visualizer will live here.
+                    Drag nodes, connect them and save the
+                    visual with the page.
                 </small>
 
             </div>
@@ -94,16 +150,20 @@
     </section>
 
 
+    <!-- =====================================================
+         ALGORITHM & TRAVERSAL
+         ===================================================== -->
+
     <div class="dsa-grid">
 
+
+        <!-- Algorithm -->
 
         <section class="special-card">
 
             <div class="special-card-header">
 
-                <span>
-                    🧠
-                </span>
+                🧠
 
                 <strong>
                     Algorithm
@@ -112,39 +172,111 @@
             </div>
 
             <textarea
+                data-note-field="algorithm"
                 class="special-textarea"
-                placeholder="Write the algorithm step by step..."
-            ></textarea>
+            >{{ page_data.fields.algorithm or '' }}</textarea>
 
         </section>
 
+
+        <!-- Trace / Traversal -->
 
         <section class="special-card">
 
             <div class="special-card-header">
 
-                <span>
-                    🔄
-                </span>
+                🔄
 
                 <strong>
-                    Traversal / Process
+                    Trace / Traversal
                 </strong>
 
             </div>
 
             <textarea
+                data-note-field="traversal"
                 class="special-textarea"
-                placeholder="Example: 1 → 2 → 4 → 3"
-            ></textarea>
+            >{{ page_data.fields.traversal or '' }}</textarea>
 
         </section>
-
 
     </div>
 
 
+    <!-- =====================================================
+         ALGORITHM TRACE TABLE
+         ===================================================== -->
+
+    <section class="special-card">
+
+        <div class="special-card-header">
+
+            📋
+
+            <strong>
+                Algorithm Trace Table
+            </strong>
+
+            <button
+                type="button"
+                class="mini-action"
+                id="addDsaRow"
+            >
+                + Row
+            </button>
+
+        </div>
+
+
+        <div class="data-table-wrap">
+
+            <table
+                class="editable-table"
+                id="dsaTable"
+            >
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Step
+                        </th>
+
+                        <th>
+                            State / Input
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                        <th>
+                            Output
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody></tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         COMPLEXITY
+         ===================================================== -->
+
     <div class="complexity-grid">
+
+
+        <!-- Time Complexity -->
 
         <div class="complexity-card">
 
@@ -157,12 +289,15 @@
             </label>
 
             <input
-                type="text"
+                data-note-field="time_complexity"
+                value="{{ page_data.time_complexity }}"
                 placeholder="O(V + E)"
             >
 
         </div>
 
+
+        <!-- Space Complexity -->
 
         <div class="complexity-card">
 
@@ -175,7 +310,8 @@
             </label>
 
             <input
-                type="text"
+                data-note-field="space_complexity"
+                value="{{ page_data.space_complexity }}"
                 placeholder="O(V)"
             >
 
@@ -184,13 +320,59 @@
     </div>
 
 
+    <!-- =====================================================
+         ALGORITHM FLOWCHART
+         ===================================================== -->
+
     <section class="special-card">
 
         <div class="special-card-header">
 
-            <span>
-                📖
-            </span>
+            🔀
+
+            <strong>
+                Algorithm Flowchart
+            </strong>
+
+            <button
+                type="button"
+                class="mini-action"
+                id="renderDsaFlowchart"
+            >
+                Render
+            </button>
+
+        </div>
+
+
+        <textarea
+            data-note-field="flowchart"
+            id="dsaFlowchartSource"
+            class="flowchart-source"
+            placeholder="graph TD
+A[Start] --> B[Choose algorithm]
+B --> C[Process]
+C --> D[End]"
+        >{{ page_data.flowchart }}</textarea>
+
+
+        <div
+            class="mermaid-preview"
+            id="dsaFlowchartPreview"
+        ></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         EXPLANATION
+         ===================================================== -->
+
+    <section class="special-card">
+
+        <div class="special-card-header">
+
+            📖
 
             <strong>
                 Explanation
@@ -198,11 +380,11 @@
 
         </div>
 
+
         <textarea
-            name="content"
+            data-note-field="content"
             class="special-textarea"
-            placeholder="Explain the concept in your own words..."
-        >{{ selected_page.content or "" }}</textarea>
+        >{{ page_data.content }}</textarea>
 
     </section>
 

@@ -1,5 +1,9 @@
 <div class="special-notebook theory-notebook">
 
+    <!-- =====================================================
+         THEORY NOTES INTRO
+         ===================================================== -->
+
     <div class="workspace-intro">
 
         <span class="workspace-icon">
@@ -13,7 +17,8 @@
             </h2>
 
             <p>
-                Turn complicated concepts into simple explanations.
+                Write like Word or PowerPoint: headings, lists,
+                tables, callouts and charts.
             </p>
 
         </div>
@@ -21,116 +26,338 @@
     </div>
 
 
-    <section class="special-card">
+    <!-- =====================================================
+         RICH TEXT EDITOR
+         ===================================================== -->
 
-        <div class="special-card-header">
-            <span>📌</span>
-            <strong>Definition</strong>
+    <section class="rich-editor-card">
+
+        <div
+            class="rich-toolbar"
+            data-editor="theoryEditor"
+        >
+
+            <button
+                type="button"
+                data-cmd="bold"
+            >
+                <b>B</b>
+            </button>
+
+            <button
+                type="button"
+                data-cmd="italic"
+            >
+                <i>I</i>
+            </button>
+
+            <button
+                type="button"
+                data-cmd="underline"
+            >
+                <u>U</u>
+            </button>
+
+            <button
+                type="button"
+                data-cmd="insertUnorderedList"
+            >
+                • List
+            </button>
+
+            <button
+                type="button"
+                data-cmd="insertOrderedList"
+            >
+                1. List
+            </button>
+
+            <button
+                type="button"
+                data-cmd="formatBlock"
+                data-value="h2"
+            >
+                H2
+            </button>
+
+            <button
+                type="button"
+                data-cmd="formatBlock"
+                data-value="blockquote"
+            >
+                ❝
+            </button>
+
+            <button
+                type="button"
+                data-cmd="justifyLeft"
+            >
+                Left
+            </button>
+
+            <button
+                type="button"
+                data-cmd="justifyCenter"
+            >
+                Center
+            </button>
+
+            <button
+                type="button"
+                data-cmd="justifyRight"
+            >
+                Right
+            </button>
+
         </div>
 
-        <textarea
-            name="content"
-            class="special-textarea"
-            placeholder="Write the main definition..."
-        >{{ selected_page.content or "" }}</textarea>
+
+        <div
+            id="theoryEditor"
+            class="rich-editor"
+            contenteditable="true"
+            data-note-field="rich_content"
+        >{{ page_data.fields.rich_content|safe }}</div>
 
     </section>
 
 
+    <!-- =====================================================
+         DEFINITIONS & KEY CONCEPTS
+         ===================================================== -->
+
     <div class="theory-grid">
+
+        <!-- Definition -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-                <span>💡</span>
-                <strong>Key Concepts</strong>
+
+                📌
+
+                <strong>
+                    Definition
+                </strong>
+
             </div>
 
             <textarea
+                data-note-field="definition"
                 class="special-textarea"
-                placeholder="Important concepts..."
-            ></textarea>
+            >{{ page_data.fields.definition or '' }}</textarea>
 
         </section>
 
 
+        <!-- Key Concepts -->
+
         <section class="special-card">
 
             <div class="special-card-header">
-                <span>🧠</span>
-                <strong>Explanation</strong>
+
+                💡
+
+                <strong>
+                    Key Concepts
+                </strong>
+
             </div>
 
             <textarea
+                data-note-field="concepts"
                 class="special-textarea"
-                placeholder="Explain this in your own words..."
-            ></textarea>
+            >{{ page_data.fields.concepts or '' }}</textarea>
 
         </section>
 
     </div>
 
 
+    <!-- =====================================================
+         COMPARISON / DATA TABLE
+         ===================================================== -->
+
     <section class="special-card">
 
         <div class="special-card-header">
-            <span>⭐</span>
-            <strong>Important Points</strong>
+
+            📋
+
+            <strong>
+                Comparison / Data Table
+            </strong>
+
+            <button
+                type="button"
+                class="mini-action"
+                id="addTheoryRow"
+            >
+                + Row
+            </button>
+
         </div>
 
-        <textarea
-            class="special-textarea"
-            placeholder="Things you absolutely need to remember..."
-        ></textarea>
+
+        <div class="data-table-wrap">
+
+            <table
+                class="editable-table"
+                id="theoryTable"
+            >
+
+                <tbody></tbody>
+
+            </table>
+
+        </div>
 
     </section>
 
 
+    <!-- =====================================================
+         GRAPHICAL DATA
+         ===================================================== -->
+
+    <section class="special-card theory-chart-card">
+
+        <div class="special-card-header">
+
+            📈
+
+            <strong>
+                Graphical Data
+            </strong>
+
+
+            <select id="theoryChartType">
+
+                <option value="bar">
+                    Bar
+                </option>
+
+                <option value="line">
+                    Line
+                </option>
+
+                <option value="pie">
+                    Pie
+                </option>
+
+                <option value="doughnut">
+                    Doughnut
+                </option>
+
+                <option value="radar">
+                    Radar
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                class="mini-action"
+                id="renderTheoryChart"
+            >
+                Render Chart
+            </button>
+
+        </div>
+
+
+        <div class="chart-builder">
+
+            <input
+                id="chartLabels"
+                placeholder="Labels: Unit 1, Unit 2, Unit 3"
+            >
+
+            <input
+                id="chartValues"
+                placeholder="Values: 30, 50, 20"
+            >
+
+        </div>
+
+
+        <canvas id="theoryChart"></canvas>
+
+    </section>
+
+
+    <!-- =====================================================
+         WARNINGS & POSSIBLE QUESTIONS
+         ===================================================== -->
+
     <div class="theory-grid">
+
+        <!-- Don't Forget -->
 
         <section class="special-card warning-card">
 
             <div class="special-card-header">
-                <span>⚠️</span>
-                <strong>Don't Forget</strong>
+
+                ⚠️
+
+                <strong>
+                    Don't Forget
+                </strong>
+
             </div>
 
             <textarea
+                data-note-field="dont_forget"
                 class="special-textarea"
-                placeholder="Common mistakes or confusing points..."
-            ></textarea>
+            >{{ page_data.fields.dont_forget or '' }}</textarea>
 
         </section>
 
 
+        <!-- Possible Questions -->
+
         <section class="special-card question-card">
 
             <div class="special-card-header">
-                <span>❓</span>
-                <strong>Possible Questions</strong>
+
+                ❓
+
+                <strong>
+                    Possible Questions
+                </strong>
+
             </div>
 
             <textarea
+                data-note-field="questions"
                 class="special-textarea"
-                placeholder="Exam questions you might get..."
-            ></textarea>
+            >{{ page_data.fields.questions or '' }}</textarea>
 
         </section>
 
     </div>
 
 
+    <!-- =====================================================
+         QUICK SUMMARY
+         ===================================================== -->
+
     <section class="special-card summary-card">
 
         <div class="special-card-header">
-            <span>📝</span>
-            <strong>Quick Summary</strong>
+
+            📝
+
+            <strong>
+                Quick Summary
+            </strong>
+
         </div>
 
         <textarea
+            data-note-field="summary"
             class="special-textarea"
-            placeholder="Summarize the whole topic in a few lines..."
-        ></textarea>
+        >{{ page_data.fields.summary or '' }}</textarea>
 
     </section>
 

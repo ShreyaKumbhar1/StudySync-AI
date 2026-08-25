@@ -1,5 +1,9 @@
 <div class="special-notebook general-notebook">
 
+    <!-- =====================================================
+         GENERAL NOTES INTRO
+         ===================================================== -->
+
     <div class="workspace-intro">
 
         <span class="workspace-icon">
@@ -13,7 +17,8 @@
             </h2>
 
             <p>
-                Write whatever your brain needs to remember.
+                A flexible workspace with rich writing,
+                checklists, tables, callouts and embeds.
             </p>
 
         </div>
@@ -21,40 +26,187 @@
     </div>
 
 
-    <section class="general-editor-card">
+    <!-- =====================================================
+         RICH TEXT EDITOR
+         ===================================================== -->
 
-        <textarea
-            name="content"
+    <section class="rich-editor-card">
+
+        <div
+            class="rich-toolbar"
+            data-editor="generalEditor"
+        >
+
+            <button
+                type="button"
+                data-cmd="bold"
+            >
+                <b>B</b>
+            </button>
+
+            <button
+                type="button"
+                data-cmd="italic"
+            >
+                <i>I</i>
+            </button>
+
+            <button
+                type="button"
+                data-cmd="underline"
+            >
+                <u>U</u>
+            </button>
+
+            <button
+                type="button"
+                data-cmd="insertUnorderedList"
+            >
+                • List
+            </button>
+
+            <button
+                type="button"
+                data-cmd="insertOrderedList"
+            >
+                1. List
+            </button>
+
+            <button
+                type="button"
+                data-cmd="formatBlock"
+                data-value="h2"
+            >
+                H2
+            </button>
+
+            <button
+                type="button"
+                data-cmd="formatBlock"
+                data-value="blockquote"
+            >
+                Callout
+            </button>
+
+            <button
+                type="button"
+                data-cmd="createLink"
+            >
+                🔗 Link
+            </button>
+
+        </div>
+
+
+        <div
             id="generalEditor"
-            class="general-editor"
-            placeholder="Start writing..."
-        >{{ selected_page.content or "" }}</textarea>
+            class="rich-editor"
+            contenteditable="true"
+            data-note-field="rich_content"
+        >{{ page_data.fields.rich_content|safe }}</div>
 
     </section>
 
 
-    <div class="general-tools">
+    <!-- =====================================================
+         GENERAL FEATURES
+         ===================================================== -->
 
-        <button type="button">
-            B
-        </button>
+    <div class="general-feature-grid">
 
-        <button type="button">
-            I
-        </button>
 
-        <button type="button">
-            U
-        </button>
+        <!-- Checklist -->
 
-        <button type="button">
-            • List
-        </button>
+        <section class="special-card">
 
-        <button type="button">
-            ✓ Checklist
-        </button>
+            <div class="special-card-header">
+
+                ☑️
+
+                <strong>
+                    Checklist
+                </strong>
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="addChecklist"
+                >
+                    + Item
+                </button>
+
+            </div>
+
+
+            <div id="checklist"></div>
+
+        </section>
+
+
+        <!-- Quick Table -->
+
+        <section class="special-card">
+
+            <div class="special-card-header">
+
+                📋
+
+                <strong>
+                    Quick Table
+                </strong>
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="addGeneralRow"
+                >
+                    + Row
+                </button>
+
+            </div>
+
+
+            <div class="data-table-wrap">
+
+                <table
+                    class="editable-table"
+                    id="generalTable"
+                >
+
+                    <tbody></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
 
     </div>
+
+
+    <!-- =====================================================
+         IDEAS / QUESTIONS / REMINDERS
+         ===================================================== -->
+
+    <section class="special-card">
+
+        <div class="special-card-header">
+
+            💭
+
+            <strong>
+                Ideas / Questions / Reminders
+            </strong>
+
+        </div>
+
+
+        <textarea
+            data-note-field="content"
+            class="general-editor-area"
+            placeholder="Capture anything..."
+        >{{ page_data.content }}</textarea>
+
+    </section>
 
 </div>

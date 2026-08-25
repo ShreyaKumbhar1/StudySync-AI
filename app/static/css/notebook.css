@@ -802,3 +802,279 @@
     }
 
 }
+/* ==========================================================
+   ORION NOTES — ADVANCED WORKSPACE ADDITIONS
+   ========================================================== */
+.notebook-page {
+    --notebook-accent: #9b8ddd;
+}
+
+.notebook-workspace,
+.notebook-sidebar,
+.special-card,
+.graph-canvas-card,
+.general-editor-card,
+.answer-card,
+.rich-editor-card,
+.shared-media-card {
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 22%,
+            rgba(169, 158, 195, 0.18)
+        );
+}
+
+.notebook-header-icon,
+.new-page-btn,
+.page-item.active,
+.save-page-btn {
+    background:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 13%,
+            transparent
+        );
+}
+
+.notebook-header-btn,
+.mini-action {
+    border: 1px solid
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 24%,
+            transparent
+        );
+
+    background: rgba(255, 255, 255, 0.5);
+    color: #625676;
+
+    border-radius: 10px;
+    padding: 8px 11px;
+
+    cursor: pointer;
+
+    font: inherit;
+    font-size: 11px;
+}
+
+.notebook-header-actions form {
+    margin: 0;
+}
+
+.notebook-settings-panel {
+    position: absolute;
+    z-index: 50;
+
+    right: 30px;
+    top: 90px;
+
+    width: min(390px, calc(100% - 40px));
+
+    padding: 20px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.94);
+
+    border: 1px solid rgba(169, 158, 195, 0.25);
+
+    box-shadow:
+        0 25px 60px rgba(60, 45, 90, 0.16);
+
+    backdrop-filter: blur(20px);
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+}
+
+.panel-header h3 {
+    margin: 0;
+    color: #403949;
+}
+
+.panel-close {
+    border: 0;
+    background: transparent;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    color: #777;
+}
+
+.color-palette {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+
+    margin-bottom: 18px;
+}
+
+.color-choice input {
+    display: none;
+}
+
+.color-choice span {
+    display: block;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background: var(--choice-color);
+
+    border: 3px solid transparent;
+
+    box-shadow:
+        0 4px 12px rgba(50, 40, 75, 0.1);
+
+    cursor: pointer;
+}
+
+.color-choice input:checked + span {
+    border-color: #fff;
+
+    outline:
+        2px solid var(--choice-color);
+}
+
+.panel-label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    margin: 12px 0;
+
+    font-size: 11px;
+    color: #665d70;
+}
+
+.panel-label input,
+.panel-label textarea {
+    border: 1px solid rgba(164, 153, 190, 0.18);
+
+    border-radius: 11px;
+
+    padding: 10px;
+
+    background: rgba(255, 255, 255, 0.65);
+
+    font: inherit;
+}
+
+.share-link-box {
+    margin-top: 12px;
+
+    padding: 10px;
+
+    border-radius: 10px;
+
+    background: rgba(150, 137, 219, 0.08);
+
+    font-size: 10px;
+
+    word-break: break-all;
+}
+
+.helper-text,
+.analysis-note {
+    font-size: 11px;
+
+    color: #8a8390;
+
+    line-height: 1.6;
+}
+
+.note-image-gallery {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(130px, 1fr)
+        );
+
+    gap: 12px;
+}
+
+.note-image-item {
+    position: relative;
+
+    margin: 0;
+    padding: 6px;
+
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.48);
+
+    border: 1px solid rgba(164, 153, 190, 0.15);
+}
+
+.note-image-item img {
+    width: 100%;
+    height: 130px;
+
+    object-fit: contain;
+
+    border-radius: 9px;
+}
+
+.note-image-item figcaption {
+    font-size: 9px;
+
+    color: #827b89;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.note-image-item button {
+    position: absolute;
+
+    top: 7px;
+    right: 7px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    width: 22px;
+    height: 22px;
+
+    background: rgba(50, 40, 65, 0.65);
+
+    color: #fff;
+
+    cursor: pointer;
+}
+
+.shared-view .shared-page {
+    padding: 24px;
+
+    border-radius: 20px;
+
+    background: rgba(255, 255, 255, 0.58);
+
+    margin-bottom: 18px;
+}
+
+.shared-content {
+    white-space: pre-wrap;
+
+    word-break: break-word;
+
+    font-family: inherit;
+
+    color: #514b57;
+}
