@@ -1,0 +1,225 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for(
+        'static',
+        filename='css/notes.css'
+    ) }}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="create-notebook-page">
+
+
+    <a
+        href="{{ url_for('notes.notes_page') }}"
+        class="back-to-notes"
+    >
+        ← Back to Notes
+    </a>
+
+
+    <header class="create-notebook-header">
+
+        <span class="notes-eyebrow">
+            CREATE YOUR SPACE
+        </span>
+
+        <h1>
+            New Notebook
+        </h1>
+
+        <p>
+            Choose the kind of knowledge you're about to build.
+        </p>
+
+    </header>
+
+
+    <form
+        method="POST"
+        class="notebook-create-form"
+    >
+
+        <section class="type-selection">
+
+            <div class="section-heading">
+
+                <h2>
+                    Choose a notebook type
+                </h2>
+
+                <p>
+                    Orion will customize the workspace around your choice.
+                </p>
+
+            </div>
+
+
+            <div class="notebook-types-grid">
+
+                {% for key, info in notebook_types.items() %}
+
+                    <label class="type-option">
+
+                        <input
+                            type="radio"
+                            name="notebook_type"
+                            value="{{ key }}"
+                            {% if loop.first %}checked{% endif %}
+                        >
+
+                        <span class="type-option-card">
+
+                            <span class="type-option-icon">
+                                {{ info.icon }}
+                            </span>
+
+                            <span class="type-option-content">
+
+                                <strong>
+                                    {{ info.name }}
+                                </strong>
+
+                                <small>
+                                    {{ info.description }}
+                                </small>
+
+                            </span>
+
+                            <span class="type-check">
+                                ✓
+                            </span>
+
+                        </span>
+
+                    </label>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <section class="notebook-details">
+
+            <div class="section-heading">
+
+                <h2>
+                    Give it an identity
+                </h2>
+
+                <p>
+                    You can always change your notes later.
+                </p>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-field full">
+
+                    <label for="title">
+                        Notebook name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="e.g. Data Structures & Algorithms"
+                        maxlength="150"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="subject">
+                        Subject / Area
+                    </label>
+
+                    <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        placeholder="e.g. DSA"
+                        maxlength="150"
+                    >
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label for="icon">
+                        Notebook icon
+                    </label>
+
+                    <input
+                        type="text"
+                        id="icon"
+                        name="icon"
+                        placeholder="📓"
+                        maxlength="10"
+                    >
+
+                </div>
+
+
+                <div class="form-field full">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="4"
+                        maxlength="500"
+                        placeholder="What will you use this notebook for?"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <div class="create-actions">
+
+            <a
+                href="{{ url_for('notes.notes_page') }}"
+                class="secondary-action"
+            >
+                Cancel
+            </a>
+
+            <button
+                type="submit"
+                class="primary-action"
+            >
+                Create Notebook
+                <span>→</span>
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

@@ -1002,298 +1002,166 @@ function setupDurationFlow() {
 
 function setupMusicCollection() {
 
-    const moreButton =
-        document.getElementById(
-            "more-music-button"
-        );
+    const moreButton = document.getElementById("more-music-button");
 
     if (moreButton) {
-
-        moreButton.addEventListener(
-            "click",
-            function () {
-
-                openModal(
-                    "more-music-modal"
-                );
-            }
-        );
+        moreButton.addEventListener("click", function () {
+            openModal("more-music-modal");
+        });
     }
 
-    let previewAudio =
-        null;
+    let previewAudio = null;
 
-    document
-        .querySelectorAll(
-            ".music-item"
-        )
-        .forEach(
-            function (card) {
+    function stopPreview() {
+        if (!previewAudio) return;
+        previewAudio.pause();
+        previewAudio.currentTime = 0;
+        previewAudio.removeAttribute("src");
+        previewAudio.load();
+        previewAudio = null;
+    }
 
-                card.addEventListener(
-                    "click",
-                    function () {
+    function playPreview(file) {
+        stopPreview();
 
-                        if (previewAudio) {
+        if (!file) return;
 
-                            previewAudio.pause();
+        previewAudio = new Audio(file);
+        previewAudio.preload = "auto";
+        previewAudio.volume = 0.65;
 
-                            previewAudio.currentTime =
-                                0;
-                        }
+        const audio = previewAudio;
+        audio.addEventListener("error", function () {
+            console.error("Music preview failed:", file, audio.error);
+        });
 
-                        if (card.dataset.file) {
+        audio.play().catch(function (error) {
+            console.warn("Music preview was blocked:", error);
+            // The visible HTML audio player below will still be usable.
+        });
+    }
 
-                            previewAudio =
-                                new Audio(
-                                    card.dataset.file
-                                );
-
-                            previewAudio.volume =
-                                0.55;
-
-                            previewAudio
-                                .play()
-                                .catch(
-                                    function () {}
-                                );
-                        }
-
-                        openMusicInfo(
-                            card.dataset
-                        );
-                    }
-                );
+    document.querySelectorAll(".music-item").forEach(function (card) {
+        card.addEventListener("click", function () {
+            const unlocked = card.dataset.unlocked === "true";
+            if (!unlocked) {
+                stopPreview();
+                openMusicInfo(card.dataset);
+                return;
             }
-        );
 
-    document
-        .querySelectorAll(
-            ".all-music-option"
-        )
-        .forEach(
-            function (card) {
+            playPreview(card.dataset.file || "");
+            openMusicInfo(card.dataset);
+        });
+    });
 
-                card.addEventListener(
-                    "click",
-                    function (event) {
+    document.querySelectorAll(".all-music-option").forEach(function (card) {
+        card.addEventListener("click", function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            openMusicInfo(card.dataset);
+        });
+    });
 
-                        event.preventDefault();
-
-                        event.stopPropagation();
-
-                        openMusicInfo(
-                            card.dataset
-                        );
-                    }
-                );
-            }
-        );
-
-    const unlockButton =
-        document.getElementById(
-            "music-modal-unlock"
-        );
-
-    let pendingMusicId =
-        null;
+    const unlockButton = document.getElementById("music-modal-unlock");
+    let pendingMusicId = null;
 
     function getCurrentAntennas() {
-
-        const element =
-            document.querySelector(
-                ".antenna-counter strong"
-            );
-
-        if (!element) {
-            return 0;
-        }
-
-        const value =
-            Number(
-                element.textContent.replace(
-                    /[^0-9]/g,
-                    ""
-                )
-            );
-
-        return Number.isFinite(value)
-            ? value
-            : 0;
+        const element = document.querySelector(".antenna-counter strong");
+        if (!element) return 0;
+        const value = Number(element.textContent.replace(/[^0-9]/g, ""));
+        return Number.isFinite(value) ? value : 0;
     }
 
     function openMusicInfo(data) {
+        const modal = document.getElementById("music-info-modal");
+        if (!modal) return;
 
-        const modal =
-            document.getElementById(
-                "music-info-modal"
-            );
+        const name = document.getElementById("music-modal-name");
+        const description = document.getElementById("music-modal-description");
+        const player = document.getElementById("music-preview-player");
+        const costArea = document.getElementById("music-modal-cost-area");
+        const cost = document.getElementById("music-modal-cost");
 
-        if (!modal) {
-            return;
-        }
+        if (costArea) costArea.classList.add("hidden");
+        if (unlockButton) unlockButton.classList.add("hidden");
+        pendingMusicId = null;
 
-        const name =
-            document.getElementById(
-                "music-modal-name"
-            );
-
-        const description =
-            document.getElementById(
-                "music-modal-description"
-            );
-
-        const player =
-            document.getElementById(
-                "music-preview-player"
-            );
-
-        const costArea =
-            document.getElementById(
-                "music-modal-cost-area"
-            );
-
-        const cost =
-            document.getElementById(
-                "music-modal-cost"
-            );
-
-        if (costArea) {
-
-            costArea.classList.add(
-                "hidden"
-            );
-        }
-
-        if (unlockButton) {
-
-            unlockButton.classList.add(
-                "hidden"
-            );
-        }
-
-        pendingMusicId =
-            null;
-
-        if (name) {
-
-            name.textContent =
-                data.name || "Music";
-        }
-
+        if (name) name.textContent = data.name || "Music";
         if (description) {
-
-            description.textContent =
-                data.description ||
+            description.textContent = data.description ||
                 "A focus atmosphere for your study session.";
         }
 
         if (player) {
-
             player.pause();
-
-            player.src =
-                data.file || "";
-
+            player.currentTime = 0;
+            player.src = data.file || "";
             player.load();
+
+            // The click that opened this popup is a user gesture, so attempt
+            // playback immediately. Controls remain available if autoplay is blocked.
+            if (data.unlocked === "true" && data.file) {
+                player.volume = 0.65;
+                player.play().catch(function (error) {
+                    console.warn("Preview player was blocked:", error);
+                });
+            }
         }
 
-        const unlocked =
-            String(
-                data.unlocked
-            ) === "true";
+        const unlocked = String(data.unlocked) === "true";
 
         if (!unlocked) {
-
-            pendingMusicId =
-                data.music || "";
-
-            const required =
-                Number(
-                    data.cost || 0
-                );
-
-            const current =
-                getCurrentAntennas();
-
-            const remaining =
-                Math.max(
-                    required -
-                    current,
-                    0
-                );
+            pendingMusicId = data.music || "";
+            const required = Number(data.cost || 0);
+            const current = getCurrentAntennas();
+            const remaining = Math.max(required - current, 0);
 
             if (cost) {
-
-                cost.textContent =
-                    remaining > 0
-                        ? `${remaining} more antennas needed`
-                        : `${required} antennas required`;
+                cost.textContent = remaining > 0
+                    ? `${remaining} more antennas needed`
+                    : `${required} antennas required`;
             }
 
-            if (costArea) {
-
-                costArea.classList.remove(
-                    "hidden"
-                );
-            }
-
-            if (unlockButton) {
-
-                unlockButton.classList.remove(
-                    "hidden"
-                );
-            }
+            if (costArea) costArea.classList.remove("hidden");
+            if (unlockButton) unlockButton.classList.remove("hidden");
         }
 
-        modal.classList.remove(
-            "hidden"
-        );
+        modal.classList.remove("hidden");
     }
 
     if (unlockButton) {
+        unlockButton.addEventListener("click", async function () {
+            if (!pendingMusicId) return;
 
-        unlockButton.addEventListener(
-            "click",
-            async function () {
-
-                if (!pendingMusicId) {
-                    return;
-                }
-
-                try {
-
-                    const response =
-                        await fetch(
-                            `/lock-in-grove/unlock-music/${encodeURIComponent(
-                                pendingMusicId
-                            )}`,
-                            {
-                                method:
-                                    "POST"
-                            }
-                        );
-
-                    const result =
-                        await response.json();
-
-                    if (
-                        result.success
-                    ) {
-
-                        window.location.reload();
-                    }
-
-                } catch (error) {
-
-                    console.error(
-                        "Music unlock error:",
-                        error
-                    );
-                }
+            try {
+                const response = await fetch(
+                    `/lock-in-grove/unlock-music/${encodeURIComponent(pendingMusicId)}`,
+                    { method: "POST" }
+                );
+                const result = await response.json();
+                if (result.success) window.location.reload();
+            } catch (error) {
+                console.error("Music unlock error:", error);
             }
-        );
+        });
     }
+
+    // Stop the background preview whenever either music modal is closed.
+    document.addEventListener("click", function (event) {
+        const closeButton = event.target.closest("[data-close-modal]");
+        if (!closeButton) return;
+
+        const modalId = closeButton.dataset.closeModal;
+        if (modalId === "music-info-modal" || modalId === "more-music-modal") {
+            stopPreview();
+            const player = document.getElementById("music-preview-player");
+            if (player) {
+                player.pause();
+                player.currentTime = 0;
+            }
+        }
+    });
 }
 
 /* ==========================================================
@@ -1484,6 +1352,30 @@ function setupFocusMode(
     ) {
 
         return;
+    }
+
+    const focusAudio = document.getElementById("focus-session-audio");
+    const focusMusicFile = focusMode.dataset.musicFile || "";
+
+    if (focusAudio && focusMusicFile) {
+        focusAudio.src = focusMusicFile;
+        focusAudio.loop = true;
+        focusAudio.volume = 0.65;
+        focusAudio.load();
+
+        const startFocusAudio = function () {
+            focusAudio.play().catch(function (error) {
+                console.warn("Focus music autoplay was blocked:", error);
+            });
+        };
+
+        startFocusAudio();
+
+        // Browsers may block autoplay after navigation. Start it on the
+        // first user interaction with the focus page.
+        ["click", "pointerdown", "keydown", "touchstart"].forEach(function (eventName) {
+            document.addEventListener(eventName, startFocusAudio, { once: true });
+        });
     }
 
     let finished =
@@ -1890,6 +1782,73 @@ function setupFocusMode(
         }
     );
 
+    let leavingFocusPage = false;
+    let visibilityWatcher = null;
+
+    /*
+     * Focus-lock warning.
+     *
+     * The existing Orion warning component is reused so its
+     * existing styling/animation stays untouched. We only add
+     * the focus-lock message when the user attempts to leave.
+     */
+    function showFocusExitWarning() {
+
+        if (!warning) {
+            return;
+        }
+
+        let message =
+            warning.querySelector(
+                ".orion-focus-exit-message"
+            );
+
+        if (!message) {
+
+            message =
+                document.createElement(
+                    "div"
+                );
+
+            message.className =
+                "orion-focus-exit-message";
+
+            message.style.marginBottom =
+                "14px";
+
+            message.style.lineHeight =
+                "1.5";
+
+            message.style.textAlign =
+                "center";
+
+            if (returnButton) {
+                warning.insertBefore(
+                    message,
+                    returnButton
+                );
+            } else {
+                warning.appendChild(
+                    message
+                );
+            }
+        }
+
+        message.innerHTML = `
+            <strong style="display:block; margin-bottom:6px;">
+                🌳 FOCUS LOCK ACTIVE
+            </strong>
+            <span>
+                If you close this tab or leave ORION,
+                a destroyed tree will be planted in your forest.
+            </span>
+        `;
+
+        warning.classList.remove(
+            "hidden"
+        );
+    }
+
     document.addEventListener(
         "visibilitychange",
         function () {
@@ -1905,66 +1864,24 @@ function setupFocusMode(
                 document.hidden
             ) {
 
-                hiddenSince =
-                    Date.now();
-
-                if (warning) {
-
-                    warning.classList.remove(
-                        "hidden"
-                    );
-                }
+                /*
+                 * Opening a new browser tab, switching away,
+                 * minimizing the browser, etc. makes the page
+                 * hidden. Show the Orion focus warning immediately.
+                 */
+                showFocusExitWarning();
 
             } else {
 
-                hiddenSince =
-                    null;
-
                 if (warning) {
-
                     warning.classList.add(
                         "hidden"
                     );
                 }
+
             }
         }
     );
-
-    const visibilityWatcher =
-        setInterval(
-            function () {
-
-                if (
-                    finished ||
-                    failed
-                ) {
-
-                    clearInterval(
-                        visibilityWatcher
-                    );
-
-                    return;
-                }
-
-                if (
-                    hiddenSince !== null &&
-                    (
-                        Date.now() -
-                        hiddenSince
-                    ) >= 5000
-                ) {
-
-                    hiddenSince =
-                        null;
-
-                    failSession(
-                        "User left the StudySync tab during an active focus session."
-                    );
-                }
-
-            },
-            500
-        );
 
     if (returnButton) {
 
@@ -1987,16 +1904,80 @@ function setupFocusMode(
         function (event) {
 
             if (
-                !finished &&
-                !failed
+                finished ||
+                failed ||
+                leavingFocusPage
+            ) {
+                return;
+            }
+
+            /*
+             * Browsers do not allow a website to replace the
+             * native close/reload confirmation with a custom
+             * popup. The existing Orion warning is shown first,
+             * while returnValue triggers the browser's native
+             * "Leave site?" confirmation when the tab is closed.
+             */
+            showFocusExitWarning();
+
+            event.preventDefault();
+
+            event.returnValue =
+                "Your focus session is still active. Leaving ORION will plant a destroyed tree in your forest.";
+        }
+    );
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const link =
+                event.target.closest(
+                    "a"
+                );
+
+            if (!link) {
+                return;
+            }
+
+            if (
+                !link.href
+            ) {
+                return;
+            }
+
+            /*
+             * Opening a new tab/window:
+             * block it and show the existing
+             * Orion focus warning.
+             */
+            const opensNewContext =
+                link.target === "_blank" ||
+                event.ctrlKey ||
+                event.metaKey ||
+                event.shiftKey ||
+                event.button === 1;
+
+            if (
+                opensNewContext
             ) {
 
                 event.preventDefault();
 
-                event.returnValue =
-                    "";
+                event.stopPropagation();
+
+                showFocusExitWarning();
+
+                return;
             }
-        }
+
+            /*
+             * Normal navigation inside
+             * StudySync is allowed.
+             */
+
+        },
+        true
     );
 
     render();
@@ -2014,9 +1995,11 @@ function setupFocusMode(
                         timerLoop
                     );
 
-                    clearInterval(
-                        visibilityWatcher
-                    );
+                    if (visibilityWatcher) {
+                        clearInterval(
+                            visibilityWatcher
+                        );
+                    }
 
                     return;
                 }
@@ -2032,9 +2015,11 @@ function setupFocusMode(
                         timerLoop
                     );
 
-                    clearInterval(
-                        visibilityWatcher
-                    );
+                    if (visibilityWatcher) {
+                        clearInterval(
+                            visibilityWatcher
+                        );
+                    }
 
                     completeSession();
                 }

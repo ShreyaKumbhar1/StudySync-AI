@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for(
+        'static',
+        filename='css/notebook.css'
+    ) }}"
+>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for(
+        'static',
+        filename='css/notebook-types.css'
+    ) }}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section
+    class="notebook-page"
+    data-notebook-type="{{ notebook.notebook_type }}"
+>
+
+
+    <header class="notebook-header">
+
+        <div class="notebook-header-left">
+
+            <a
+                href="{{ url_for('notes.notes_page') }}"
+                class="notebook-back"
+            >
+                ←
+            </a>
+
+
+            <div class="notebook-header-icon">
+                {{ notebook.icon }}
+            </div>
+
+
+            <div>
+
+                <span class="notebook-header-type">
+                    {{ type_template.name }}
+                </span>
+
+                <h1>
+                    {{ notebook.title }}
+                </h1>
+
+                {% if notebook.subject %}
+
+                    <span class="notebook-header-subject">
+                        {{ notebook.subject }}
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="notebook-header-actions">
+
+            <span
+                class="save-status"
+                id="saveStatus"
+            >
+                ● Saved
+            </span>
+
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'notes.delete_notebook',
+                    notebook_id=notebook.id
+                ) }}"
+                onsubmit="return confirm('Delete this entire notebook?');"
+            >
+
+                <button
+                    type="submit"
+                    class="notebook-delete-btn"
+                >
+                    Delete Notebook
+                </button>
+
+            </form>
+
+        </div>
+
+    </header>
+
+
+    <div class="notebook-layout">
+
+
+        <aside class="notebook-sidebar">
+
+
+            <div class="sidebar-heading">
+
+                <div>
+                    Pages
+                </div>
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'notes.create_page',
+                        notebook_id=notebook.id
+                    ) }}"
+                >
+
+                    <input
+                        type="hidden"
+                        name="title"
+                        value="Untitled Page"
+                    >
+
+                    <button
+                        type="submit"
+                        class="new-page-btn"
+                        title="New page"
+                    >
+                        +
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <div class="page-list">
+
+                {% for page in pages %}
+
+                    <a
+                        href="{{ url_for(
+                            'notes.open_notebook',
+                            notebook_id=notebook.id,
+                            page=page.id
+                        ) }}"
+                        class="page-item {% if selected_page and selected_page.id == page.id %}active{% endif %}"
+                    >
+
+                        <span class="page-item-icon">
+                            {% if page.pinned %}
+                                📌
+                            {% else %}
+                                ◇
+                            {% endif %}
+                        </span>
+
+                        <span class="page-item-title">
+                            {{ page.title }}
+                        </span>
+
+                    </a>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div class="sidebar-bottom">
+
+                <span>
+                    {{ pages|length }} pages
+                </span>
+
+            </div>
+
+        </aside>
+
+
+        <main class="notebook-workspace">
+
+            {% if selected_page %}
+
+
+                <div class="workspace-topbar">
+
+                    <div>
+
+                        <span class="workspace-page-label">
+                            PAGE
+                        </span>
+
+                        <span class="workspace-page-number">
+                            {{ loop.index if loop is defined else "" }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="workspace-tools">
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'notes.toggle_pin',
+                                notebook_id=notebook.id,
+                                page_id=selected_page.id
+                            ) }}"
+                        >
+
+                            <button
+                                type="submit"
+                                class="workspace-tool-btn"
+                                title="Pin page"
+                            >
+                                {% if selected_page.pinned %}
+                                    📌 Pinned
+                                {% else %}
+                                    📍 Pin
+                                {% endif %}
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'notes.save_page',
+                        notebook_id=notebook.id,
+                        page_id=selected_page.id
+                    ) }}"
+                    class="notebook-editor-form"
+                    id="notebookForm"
+                >
+
+                    <div class="page-title-area">
+
+                        <input
+                            type="text"
+                            name="title"
+                            value="{{ selected_page.title }}"
+                            class="page-title-input"
+                            maxlength="200"
+                            placeholder="Page title..."
+                        >
+
+                    </div>
+
+
+                    <div class="specialized-workspace">
+
+                        {% if notebook.notebook_type == "coding" %}
+
+                            {% include "notes/types/coding.html" %}
+
+                        {% elif notebook.notebook_type == "theory" %}
+
+                            {% include "notes/types/theory.html" %}
+
+                        {% elif notebook.notebook_type == "mathematics" %}
+
+                            {% include "notes/types/mathematics.html" %}
+
+                        {% elif notebook.notebook_type == "graphs_dsa" %}
+
+                            {% include "notes/types/graphs_dsa.html" %}
+
+                        {% elif notebook.notebook_type == "project" %}
+
+                            {% include "notes/types/project.html" %}
+
+                        {% else %}
+
+                            {% include "notes/types/general.html" %}
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="editor-actions">
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'notes.delete_page',
+                                notebook_id=notebook.id,
+                                page_id=selected_page.id
+                            ) }}"
+                            onsubmit="return confirm('Delete this page?');"
+                        >
+                            <button
+                                type="submit"
+                                class="delete-page-btn"
+                            >
+                                Delete Page
+                            </button>
+                        </form>
+
+
+                        <button
+                            type="submit"
+                            class="save-page-btn"
+                        >
+                            Save Changes
+                        </button>
+
+                    </div>
+
+                </form>
+
+            {% else %}
+
+                <div class="no-page-state">
+
+                    <div>
+                        📖
+                    </div>
+
+                    <h2>
+                        Your notebook is ready.
+                    </h2>
+
+                    <p>
+                        Create a page to start writing.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </main>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block head_extra %}
+{% endblock %}

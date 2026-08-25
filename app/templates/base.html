@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,9 +58,11 @@
             filename='css/dimpu.css'
         ) }}"
     >
+
+
     <!-- =====================================================
-     AUTHENTICATION CSS
-     ===================================================== -->
+         AUTHENTICATION CSS
+         ===================================================== -->
 
     {% if request.path == '/login' or request.path == '/register' %}
 
@@ -82,13 +83,13 @@
 
     {% if request.path == '/planner' %}
 
-    <link
-        rel="stylesheet"
-        href="{{ url_for(
-            'static',
-            filename='css/planner.css'
-        ) }}"
-    >
+        <link
+            rel="stylesheet"
+            href="{{ url_for(
+                'static',
+                filename='css/planner.css'
+            ) }}"
+        >
 
     {% endif %}
 
@@ -99,13 +100,13 @@
 
     {% if request.path == '/profile' %}
 
-    <link
-        rel="stylesheet"
-        href="{{ url_for(
-            'static',
-            filename='css/profile.css'
-        ) }}"
-    >
+        <link
+            rel="stylesheet"
+            href="{{ url_for(
+                'static',
+                filename='css/profile.css'
+            ) }}"
+        >
 
     {% endif %}
 
@@ -126,13 +127,46 @@
 
     {% if request.path.startswith('/assignments') %}
 
-    <link
-        rel="stylesheet"
-        href="{{ url_for(
-            'static',
-            filename='css/assignments.css'
-        ) }}"
-    >
+        <link
+            rel="stylesheet"
+            href="{{ url_for(
+                'static',
+                filename='css/assignments.css'
+            ) }}"
+        >
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         NOTES CSS
+         ===================================================== -->
+
+    {% if request.path.startswith('/notes') %}
+
+        <link
+            rel="stylesheet"
+            href="{{ url_for(
+                'static',
+                filename='css/notes.css'
+            ) }}"
+        >
+
+        <link
+            rel="stylesheet"
+            href="{{ url_for(
+                'static',
+                filename='css/notebook.css'
+            ) }}"
+        >
+
+        <link
+            rel="stylesheet"
+            href="{{ url_for(
+                'static',
+                filename='css/notebook-types.css'
+            ) }}"
+        >
 
     {% endif %}
 
@@ -189,7 +223,9 @@
             <ul class="nav-links">
 
 
-                <!-- HOME -->
+                <!-- =================================================
+                     HOME
+                     ================================================= -->
 
                 <li>
 
@@ -200,7 +236,9 @@
                 </li>
 
 
-                <!-- DASHBOARD -->
+                <!-- =================================================
+                     DASHBOARD
+                     ================================================= -->
 
                 <li>
 
@@ -211,7 +249,9 @@
                 </li>
 
 
-                <!-- CALENDAR -->
+                <!-- =================================================
+                     CALENDAR
+                     ================================================= -->
 
                 <li>
 
@@ -227,7 +267,9 @@
                 </li>
 
 
-                <!-- PROFILE -->
+                <!-- =================================================
+                     PROFILE
+                     ================================================= -->
 
                 <li>
 
@@ -261,7 +303,9 @@
                     <div class="more-dropdown">
 
 
-                        <!-- PLANNER -->
+                        <!-- =================================================
+                             PLANNER
+                             ================================================= -->
 
                         <a
                             href="/planner"
@@ -279,7 +323,9 @@
                         </a>
 
 
-                        <!-- ASSIGNMENTS -->
+                        <!-- =================================================
+                             ASSIGNMENTS
+                             ================================================= -->
 
                         <a
                             href="{{ url_for(
@@ -299,7 +345,29 @@
                         </a>
 
 
-                        <!-- LOCK-IN GROVE -->
+                        <!-- =================================================
+                             NOTES
+                             ================================================= -->
+
+                        <a
+                            href="{{ url_for('notes.notes_page') }}"
+                            class="notes-link"
+                        >
+
+                            <span class="menu-icon">
+                                📚
+                            </span>
+
+                            <span>
+                                Notes
+                            </span>
+
+                        </a>
+
+
+                        <!-- =================================================
+                             LOCK-IN GROVE
+                             ================================================= -->
 
                         <a
                             href="{{ url_for(
@@ -324,7 +392,9 @@
                 </li>
 
 
-                <!-- LOGOUT -->
+                <!-- =================================================
+                     LOGOUT
+                     ================================================= -->
 
                 <li>
 
@@ -399,6 +469,7 @@
                 id="dimpu-character"
                 alt="Dimpu"
             >
+
 
         </div>
 
@@ -807,11 +878,45 @@
 
     </script>
 
+
+    <!-- =====================================================
+         NOTES JAVASCRIPT
+         ===================================================== -->
+
+    {% if request.path.startswith('/notes') %}
+
+        <script
+            src="{{ url_for(
+                'static',
+                filename='js/notes.js'
+            ) }}"
+            defer
+        ></script>
+
+        <script
+            src="{{ url_for(
+                'static',
+                filename='js/notebook.js'
+            ) }}"
+            defer
+        ></script>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         FOCUS GUARD
+         ===================================================== -->
+
     <script
-        src="{{ url_for('static', filename='js/focus_guard.js') }}"
+        src="{{ url_for(
+            'static',
+            filename='js/focus_guard.js'
+        ) }}"
         defer
     ></script>
+
+
 </body>
 
 </html>
-```

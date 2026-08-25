@@ -1,0 +1,209 @@
+<div class="special-notebook graph-notebook">
+
+    <div class="workspace-intro">
+
+        <span class="workspace-icon">
+            📊
+        </span>
+
+        <div>
+
+            <h2>
+                Graphs & DSA
+            </h2>
+
+            <p>
+                Visualize structures, algorithms and complexity.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <section class="graph-canvas-card">
+
+        <div class="special-card-header">
+
+            <span>
+                🕸️
+            </span>
+
+            <strong>
+                Visual Workspace
+            </strong>
+
+            <div class="graph-tools">
+
+                <button
+                    type="button"
+                    class="graph-tool active"
+                >
+                    Select
+                </button>
+
+                <button
+                    type="button"
+                    class="graph-tool"
+                >
+                    Node
+                </button>
+
+                <button
+                    type="button"
+                    class="graph-tool"
+                >
+                    Edge
+                </button>
+
+                <button
+                    type="button"
+                    class="graph-tool"
+                >
+                    Clear
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="graph-canvas"
+            id="graphCanvas"
+        >
+
+            <div class="graph-placeholder">
+
+                <span>
+                    ◇
+                </span>
+
+                <strong>
+                    Interactive graph canvas
+                </strong>
+
+                <small>
+                    Your graph visualizer will live here.
+                </small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <div class="dsa-grid">
+
+
+        <section class="special-card">
+
+            <div class="special-card-header">
+
+                <span>
+                    🧠
+                </span>
+
+                <strong>
+                    Algorithm
+                </strong>
+
+            </div>
+
+            <textarea
+                class="special-textarea"
+                placeholder="Write the algorithm step by step..."
+            ></textarea>
+
+        </section>
+
+
+        <section class="special-card">
+
+            <div class="special-card-header">
+
+                <span>
+                    🔄
+                </span>
+
+                <strong>
+                    Traversal / Process
+                </strong>
+
+            </div>
+
+            <textarea
+                class="special-textarea"
+                placeholder="Example: 1 → 2 → 4 → 3"
+            ></textarea>
+
+        </section>
+
+
+    </div>
+
+
+    <div class="complexity-grid">
+
+        <div class="complexity-card">
+
+            <span>
+                ⏱
+            </span>
+
+            <label>
+                Time Complexity
+            </label>
+
+            <input
+                type="text"
+                placeholder="O(V + E)"
+            >
+
+        </div>
+
+
+        <div class="complexity-card">
+
+            <span>
+                💾
+            </span>
+
+            <label>
+                Space Complexity
+            </label>
+
+            <input
+                type="text"
+                placeholder="O(V)"
+            >
+
+        </div>
+
+    </div>
+
+
+    <section class="special-card">
+
+        <div class="special-card-header">
+
+            <span>
+                📖
+            </span>
+
+            <strong>
+                Explanation
+            </strong>
+
+        </div>
+
+        <textarea
+            name="content"
+            class="special-textarea"
+            placeholder="Explain the concept in your own words..."
+        >{{ selected_page.content or "" }}</textarea>
+
+    </section>
+
+</div>

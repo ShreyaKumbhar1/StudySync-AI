@@ -1,0 +1,282 @@
+{% extends "base.html" %}
+
+{% block head %}
+
+<link
+    rel="stylesheet"
+    href="{{ url_for(
+        'static',
+        filename='css/notes.css'
+    ) }}"
+>
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="notes-page">
+
+    <header class="notes-header">
+
+        <div class="notes-header-copy">
+
+            <h1>
+                Notes
+            </h1>
+
+            <p>
+                Build your own study universe, one notebook at a time.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('notes.create_notebook') }}"
+            class="notes-create-btn"
+        >
+            <span>＋</span>
+            New Notebook
+        </a>
+
+    </header>
+
+
+    <section class="notes-toolbar">
+
+        <div class="notes-search">
+
+            <span>⌕</span>
+
+            <input
+                type="text"
+                id="notebookSearch"
+                placeholder="Search your notebooks..."
+                autocomplete="off"
+            >
+
+        </div>
+
+
+        <div class="notes-filter">
+
+            <button
+                type="button"
+                class="filter-btn active"
+                data-filter="all"
+            >
+                All
+            </button>
+
+            {% for key, info in notebook_types.items() %}
+
+                <button
+                    type="button"
+                    class="filter-btn"
+                    data-filter="{{ key }}"
+                >
+                    {{ info.icon }}
+                    {{ info.name }}
+                </button>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    {% if notebooks %}
+
+        <section
+            class="notebooks-grid"
+            id="notebooksGrid"
+        >
+
+            {% for notebook in notebooks %}
+
+                <article
+                    class="notebook-card"
+                    data-type="{{ notebook.notebook_type }}"
+                    data-search="{{ notebook.title|lower }} {{ notebook.subject|default('', true)|lower }}"
+                >
+
+                    <div class="notebook-card-top">
+
+                        <div class="notebook-icon">
+                            {{ notebook.icon }}
+                        </div>
+
+
+                        <div class="notebook-menu">
+
+                            <button
+                                type="button"
+                                class="notebook-menu-btn"
+                                aria-label="Notebook options"
+                            >
+                                ⋯
+                            </button>
+
+                            <div class="notebook-menu-dropdown">
+
+                                <a
+                                    href="{{ url_for(
+                                        'notes.open_notebook',
+                                        notebook_id=notebook.id
+                                    ) }}"
+                                >
+                                    Open
+                                </a>
+
+                                <form
+                                    method="POST"
+                                    action="{{ url_for(
+                                        'notes.delete_notebook',
+                                        notebook_id=notebook.id
+                                    ) }}"
+                                    onsubmit="return confirm('Delete this notebook and all its pages?');"
+                                >
+                                    <button type="submit">
+                                        Delete
+                                    </button>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="{{ url_for(
+                            'notes.open_notebook',
+                            notebook_id=notebook.id
+                        ) }}"
+                        class="notebook-card-link"
+                    >
+
+                        <h2>
+                            {{ notebook.title }}
+                        </h2>
+
+
+                        <span class="notebook-type">
+
+                            {{ notebook_types.get(
+                                notebook.notebook_type,
+                                notebook_types["general"]
+                            ).icon }}
+
+                            {{ notebook_types.get(
+                                notebook.notebook_type,
+                                notebook_types["general"]
+                            ).name }}
+
+                        </span>
+
+
+                        {% if notebook.subject %}
+
+                            <span class="notebook-subject">
+                                {{ notebook.subject }}
+                            </span>
+
+                        {% endif %}
+
+
+                        <p>
+
+                            {{ notebook.description
+                                if notebook.description
+                                else notebook_types.get(
+                                    notebook.notebook_type,
+                                    notebook_types["general"]
+                                ).description
+                            }}
+
+                        </p>
+
+                    </a>
+
+
+                    <div class="notebook-card-footer">
+
+                        <span>
+                            {{ notebook.pages|length }}
+                            {% if notebook.pages|length == 1 %}
+                                page
+                            {% else %}
+                                pages
+                            {% endif %}
+                        </span>
+
+                        <span>
+                            Open →
+                        </span>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </section>
+
+
+        <div
+            class="notes-empty-search"
+            id="emptySearch"
+            hidden
+        >
+
+            <div>
+                🔎
+            </div>
+
+            <h3>
+                No notebooks found
+            </h3>
+
+            <p>
+                Try a different search or filter.
+            </p>
+
+        </div>
+
+    {% else %}
+
+        <section class="notes-empty-state">
+
+            <div class="empty-notes-icon">
+                📚
+            </div>
+
+            <h2>
+                Your knowledge space is empty.
+            </h2>
+
+            <p>
+                Create your first notebook and give your ideas a home.
+            </p>
+
+            <a
+                href="{{ url_for('notes.create_notebook') }}"
+                class="notes-empty-btn"
+            >
+                Create Your First Notebook
+            </a>
+
+        </section>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}
+
+
+{% block head_extra %}
+{% endblock %}

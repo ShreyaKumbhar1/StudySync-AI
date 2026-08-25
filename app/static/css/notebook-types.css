@@ -1,0 +1,816 @@
+/* ==========================================================
+   ORION NOTEBOOK TYPE WORKSPACES
+
+   Light Glassy Purple / Blue Theme
+   Matches ORION Calendar
+   ========================================================== */
+
+
+/* ==========================================================
+   WORKSPACE INTRO
+   ========================================================== */
+
+.workspace-intro {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-bottom: 20px;
+}
+
+
+.workspace-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        rgba(145, 126, 255, 0.12);
+
+    border:
+        1px solid
+        rgba(174, 164, 255, 0.20);
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
+    font-size: 22px;
+}
+
+
+.workspace-intro h2 {
+
+    margin: 0;
+
+    font-size: 18px;
+
+    color: #45404d;
+}
+
+
+.workspace-intro p {
+
+    margin: 3px 0 0;
+
+    color: #8a8390;
+
+    font-size: 11px;
+}
+
+
+/* ==========================================================
+   COMMON CARDS
+
+   THIS IS THE IMPORTANT PART
+   ========================================================== */
+
+.special-card,
+.graph-canvas-card,
+.general-editor-card,
+.answer-card {
+
+    border-radius: 17px;
+
+    /*
+       MATCH CALENDAR GLASS
+    */
+
+    background:
+        rgba(150, 140, 255, 0.10);
+
+    border:
+        1px solid
+        rgba(174, 164, 255, 0.22);
+
+    box-shadow:
+        0 10px 30px
+        rgba(95, 82, 170, 0.055);
+
+    padding: 17px;
+
+    margin-bottom: 15px;
+
+    backdrop-filter: blur(16px);
+
+    -webkit-backdrop-filter: blur(16px);
+}
+
+
+.special-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 11px;
+
+    color: #5a5263;
+
+    font-size: 12px;
+}
+
+
+.special-card-header strong {
+
+    font-weight: 600;
+}
+
+
+/* ==========================================================
+   TEXT AREAS
+   ========================================================== */
+
+.special-textarea,
+.math-problem-input,
+.formula-input {
+
+    width: 100%;
+
+    min-height: 110px;
+
+    box-sizing: border-box;
+
+    border: 0;
+
+    outline: 0;
+
+    resize: vertical;
+
+    background: transparent;
+
+    color: #514b57;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+.special-textarea::placeholder,
+.math-problem-input::placeholder,
+.formula-input::placeholder {
+
+    color: #aaa4ae;
+}
+
+
+/* ==========================================================
+   CODING
+   ========================================================== */
+
+.coding-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 15px;
+}
+
+
+.code-card {
+
+    grid-column: 1 / -1;
+}
+
+
+.language-select {
+
+    margin-left: auto;
+
+    border:
+        1px solid
+        rgba(155, 178, 255, 0.20);
+
+    background:
+        rgba(130, 180, 255, 0.09);
+
+    color: #6e6577;
+
+    border-radius: 8px;
+
+    padding: 5px 8px;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    outline: none;
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+/* ==========================================================
+   CODE EDITOR
+   ========================================================== */
+
+.code-editor {
+
+    width: 100%;
+
+    min-height: 300px;
+
+    box-sizing: border-box;
+
+    resize: vertical;
+
+    border:
+        1px solid
+        rgba(174, 164, 255, 0.12);
+
+    outline: 0;
+
+    border-radius: 12px;
+
+    padding: 15px;
+
+    /*
+       Keep coding editor darker for readability.
+    */
+
+    background:
+        rgba(45, 40, 55, 0.055);
+
+    color: #534b5d;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 13px;
+
+    line-height: 1.65;
+}
+
+
+/* ==========================================================
+   COMPLEXITY
+   ========================================================== */
+
+.complexity-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 15px;
+}
+
+
+.complexity-card {
+
+    display: grid;
+
+    grid-template-columns:
+        auto 1fr;
+
+    gap: 3px 9px;
+
+    padding: 14px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(130, 180, 255, 0.08);
+
+    border:
+        1px solid
+        rgba(155, 178, 255, 0.20);
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+}
+
+
+.complexity-card span {
+
+    grid-row: span 2;
+
+    font-size: 18px;
+}
+
+
+.complexity-card label {
+
+    color: #7c7287;
+
+    font-size: 10px;
+}
+
+
+.complexity-card input {
+
+    border: 0;
+
+    outline: 0;
+
+    background: transparent;
+
+    color: #50485b;
+
+    font-family: inherit;
+
+    font-size: 13px;
+}
+
+
+/* ==========================================================
+   THEORY
+   ========================================================== */
+
+.theory-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 15px;
+}
+
+
+/* ==========================================================
+   THEORY VARIANTS
+   ========================================================== */
+
+.warning-card {
+
+    background:
+        rgba(202, 168, 177, 0.08);
+
+    border-color:
+        rgba(202, 168, 177, 0.18);
+}
+
+
+.question-card {
+
+    background:
+        rgba(130, 180, 255, 0.08);
+
+    border-color:
+        rgba(155, 178, 255, 0.20);
+}
+
+
+.summary-card {
+
+    background:
+        rgba(145, 126, 255, 0.08);
+
+    border-color:
+        rgba(174, 164, 255, 0.20);
+}
+
+
+/* ==========================================================
+   MATHEMATICS
+   ========================================================== */
+
+.formula-card {
+
+    background:
+        rgba(145, 126, 255, 0.08);
+
+    border-color:
+        rgba(174, 164, 255, 0.20);
+}
+
+
+.formula-input {
+
+    min-height: 80px;
+
+    font-family: Georgia, serif;
+
+    font-size: 18px;
+}
+
+
+.working-card {
+
+    padding-bottom: 20px;
+}
+
+
+.math-steps {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.math-step {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+}
+
+
+.math-step > span {
+
+    flex-shrink: 0;
+
+    width: 28px;
+
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(145, 126, 255, 0.13);
+
+    color: #66557f;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.math-step textarea {
+
+    flex: 1;
+
+    min-height: 60px;
+
+    border: 0;
+
+    border-bottom:
+        1px dashed
+        rgba(154, 143, 176, 0.24);
+
+    outline: 0;
+
+    resize: vertical;
+
+    background: transparent;
+
+    color: #514b57;
+
+    font-family: inherit;
+
+    font-size: 13px;
+}
+
+
+/* ==========================================================
+   ANSWER
+   ========================================================== */
+
+.answer-card {
+
+    background:
+        rgba(138, 170, 147, 0.08);
+
+    border-color:
+        rgba(138, 170, 147, 0.18);
+}
+
+
+.answer-card textarea {
+
+    width: 100%;
+
+    min-height: 70px;
+
+    border: 0;
+
+    outline: 0;
+
+    resize: vertical;
+
+    background: transparent;
+
+    color: #514b57;
+
+    font-family: inherit;
+}
+
+
+/* ==========================================================
+   GRAPH / DSA
+   ========================================================== */
+
+.graph-canvas-card {
+
+    padding-bottom: 15px;
+}
+
+
+.graph-tools {
+
+    display: flex;
+
+    gap: 5px;
+
+    margin-left: auto;
+}
+
+
+.graph-tool {
+
+    border:
+        1px solid
+        rgba(155, 178, 255, 0.20);
+
+    background:
+        rgba(130, 180, 255, 0.08);
+
+    color: #77707e;
+
+    border-radius: 7px;
+
+    padding: 5px 7px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 9px;
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+.graph-tool.active {
+
+    background:
+        rgba(145, 126, 255, 0.13);
+
+    color: #604f7a;
+
+    border-color:
+        rgba(174, 164, 255, 0.25);
+}
+
+
+/* ==========================================================
+   GRAPH CANVAS
+   ========================================================== */
+
+.graph-canvas {
+
+    position: relative;
+
+    min-height: 330px;
+
+    border-radius: 14px;
+
+    background:
+        radial-gradient(
+            circle at 1px 1px,
+            rgba(125, 112, 159, 0.14) 1px,
+            transparent 1px
+        ),
+        rgba(130, 180, 255, 0.045);
+
+    background-size:
+        24px 24px;
+
+    border:
+        1px dashed
+        rgba(174, 164, 255, 0.25);
+
+    overflow: hidden;
+}
+
+
+.graph-placeholder {
+
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #9a92a1;
+
+    text-align: center;
+}
+
+
+.graph-placeholder span {
+
+    font-size: 42px;
+
+    color: #a89bc1;
+
+    margin-bottom: 8px;
+}
+
+
+.graph-placeholder strong {
+
+    color: #766d80;
+
+    font-size: 13px;
+}
+
+
+.graph-placeholder small {
+
+    margin-top: 4px;
+
+    font-size: 10px;
+}
+
+
+.dsa-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 15px;
+}
+
+
+/* ==========================================================
+   GENERAL
+   ========================================================== */
+
+.general-editor-card {
+
+    padding: 0;
+}
+
+
+.general-editor {
+
+    width: 100%;
+
+    min-height: 500px;
+
+    box-sizing: border-box;
+
+    border: 0;
+
+    outline: 0;
+
+    resize: vertical;
+
+    background: transparent;
+
+    color: #4e4855;
+
+    padding: 22px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+.general-editor::placeholder {
+
+    color: #aaa4ad;
+}
+
+
+.general-tools {
+
+    display: flex;
+
+    gap: 6px;
+
+    margin-bottom: 15px;
+}
+
+
+.general-tools button {
+
+    border:
+        1px solid
+        rgba(155, 178, 255, 0.20);
+
+    background:
+        rgba(130, 180, 255, 0.08);
+
+    color: #716979;
+
+    border-radius: 8px;
+
+    padding: 7px 10px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
+}
+
+
+/* ==========================================================
+   PROJECT
+   ========================================================== */
+
+.project-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 15px;
+}
+
+
+.project-grid .full-width {
+
+    grid-column: 1 / -1;
+}
+
+
+.project-main-editor {
+
+    min-height: 240px;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 800px) {
+
+    .coding-grid,
+    .theory-grid,
+    .dsa-grid,
+    .project-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .code-card,
+    .project-grid .full-width {
+
+        grid-column: auto;
+    }
+
+
+    .complexity-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .graph-tools {
+
+        display: none;
+    }
+
+}

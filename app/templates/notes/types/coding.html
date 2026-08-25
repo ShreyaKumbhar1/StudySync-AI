@@ -1,0 +1,143 @@
+<div class="special-notebook coding-notebook">
+
+    <div class="workspace-intro">
+
+        <span class="workspace-icon">
+            💻
+        </span>
+
+        <div>
+            <h2>
+                Coding & Logic
+            </h2>
+
+            <p>
+                Break the problem down before you write the code.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="coding-grid">
+
+
+        <section class="special-card">
+
+            <div class="special-card-header">
+                <span>🎯</span>
+                <strong>Problem</strong>
+            </div>
+
+            <textarea
+                name="content"
+                class="special-textarea"
+                placeholder="What problem are you solving?"
+            >{{ selected_page.content or "" }}</textarea>
+
+        </section>
+
+
+        <section class="special-card">
+
+            <div class="special-card-header">
+                <span>🧠</span>
+                <strong>Logic / Approach</strong>
+            </div>
+
+            <textarea
+                class="special-textarea"
+                placeholder="Write your logic step by step..."
+            ></textarea>
+
+        </section>
+
+
+        <section class="special-card code-card">
+
+            <div class="special-card-header">
+
+                <span>⌨️</span>
+
+                <strong>
+                    Code
+                </strong>
+
+                <select
+                    class="language-select"
+                >
+                    <option>C++</option>
+                    <option>Python</option>
+                    <option>Java</option>
+                    <option>JavaScript</option>
+                    <option>C</option>
+                </select>
+
+            </div>
+
+            <textarea
+                class="code-editor"
+                spellcheck="false"
+                placeholder="// Write your code here..."
+            ></textarea>
+
+        </section>
+
+
+        <section class="complexity-grid">
+
+            <div class="complexity-card">
+
+                <span>
+                    ⏱
+                </span>
+
+                <label>
+                    Time Complexity
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="O(n)"
+                >
+
+            </div>
+
+
+            <div class="complexity-card">
+
+                <span>
+                    💾
+                </span>
+
+                <label>
+                    Space Complexity
+                </label>
+
+                <input
+                    type="text"
+                    placeholder="O(1)"
+                >
+
+            </div>
+
+        </section>
+
+
+        <section class="special-card">
+
+            <div class="special-card-header">
+                <span>⚠️</span>
+                <strong>Mistakes / Things to Remember</strong>
+            </div>
+
+            <textarea
+                class="special-textarea"
+                placeholder="What should you remember next time?"
+            ></textarea>
+
+        </section>
+
+    </div>
+
+</div>

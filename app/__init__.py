@@ -67,6 +67,9 @@ def create_app():
     from app.models.profile_document import ProfileDocument
     from app.models.calendar_event import CalendarEvent
 
+    # NOTES
+    from app.models.note import Notebook, NotebookPage
+
     # LOCK-IN GROVE MODELS
     from app.models.focus_session import FocusSession
     from app.models.focus_profile import FocusProfile
@@ -78,6 +81,7 @@ def create_app():
     from app.routes.auth import auth
     from app.routes.calendar import calendar
     from app.routes.assignments import assignments
+    from app.routes.notes import notes
 
     # LOCK-IN GROVE BLUEPRINT
     from app.routes.focus import focus
@@ -86,6 +90,7 @@ def create_app():
     app.register_blueprint(calendar)
     app.register_blueprint(focus)
     app.register_blueprint(assignments)
+    app.register_blueprint(notes)
 
     # ======================================================
     # CREATE DATABASE TABLES

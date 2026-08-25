@@ -1,0 +1,133 @@
+<div class="special-notebook mathematics-notebook">
+
+    <div class="workspace-intro">
+
+        <span class="workspace-icon">
+            🧮
+        </span>
+
+        <div>
+
+            <h2>
+                Mathematics Workspace
+            </h2>
+
+            <p>
+                Formulae, problems, working and final answers.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <section class="special-card formula-card">
+
+        <div class="special-card-header">
+
+            <span>📐</span>
+
+            <strong>
+                Formula
+            </strong>
+
+        </div>
+
+        <textarea
+            class="formula-input"
+            placeholder="Write the important formula..."
+        ></textarea>
+
+    </section>
+
+
+    <section class="special-card">
+
+        <div class="special-card-header">
+            <span>❓</span>
+            <strong>Problem</strong>
+        </div>
+
+        <textarea
+            name="content"
+            class="math-problem-input"
+            placeholder="Write the problem here..."
+        >{{ selected_page.content or "" }}</textarea>
+
+    </section>
+
+
+    <section class="special-card working-card">
+
+        <div class="special-card-header">
+            <span>✏️</span>
+            <strong>Step-by-Step Working</strong>
+        </div>
+
+
+        <div class="math-steps">
+
+            <div class="math-step">
+
+                <span>
+                    1
+                </span>
+
+                <textarea
+                    placeholder="First step..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="math-step">
+
+                <span>
+                    2
+                </span>
+
+                <textarea
+                    placeholder="Second step..."
+                ></textarea>
+
+            </div>
+
+
+            <div class="math-step">
+
+                <span>
+                    3
+                </span>
+
+                <textarea
+                    placeholder="Third step..."
+                ></textarea>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="answer-card">
+
+        <div class="special-card-header">
+
+            <span>
+                ✅
+            </span>
+
+            <strong>
+                Final Answer
+            </strong>
+
+        </div>
+
+        <textarea
+            placeholder="Write your final answer..."
+        ></textarea>
+
+    </section>
+
+</div>
