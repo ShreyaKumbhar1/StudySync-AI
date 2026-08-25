@@ -1,8 +1,8 @@
 <div class="special-notebook coding-notebook">
 
-    <!-- =====================================================
+    <!-- ==========================================================
          CODING & LOGIC INTRO
-         ===================================================== -->
+         ========================================================== -->
 
     <div class="workspace-intro">
 
@@ -11,222 +11,232 @@
         </span>
 
         <div>
-
-            <h2>
-                Coding & Logic
-            </h2>
+            <h2>Coding & Logic</h2>
 
             <p>
-                Think, code, analyze and visualize the solution.
+                Think, design, code, analyze, test and visualize your solution.
             </p>
-
         </div>
 
     </div>
 
 
-    <!-- =====================================================
-         CODING WORKSPACE
-         ===================================================== -->
+    <!-- ==========================================================
+         PROBLEM + LOGIC
+         ========================================================== -->
 
     <div class="coding-grid">
 
+        <!-- PROBLEM -->
 
-        <!-- =================================================
-             PROBLEM
-             ================================================= -->
-
-        <section class="special-card">
+        <section class="special-card coding-problem-card">
 
             <div class="special-card-header">
-
-                <span>
-                    🎯
-                </span>
-
-                <strong>
-                    Problem
-                </strong>
-
+                <span>🎯</span>
+                <strong>Problem</strong>
             </div>
 
             <textarea
                 data-note-field="content"
                 class="special-textarea"
-                placeholder="What problem are you solving?"
-            >{{ page_data.content }}</textarea>
+                placeholder="What problem are you solving? Describe the problem clearly..."
+            >{{ page_data.content or '' }}</textarea>
 
         </section>
 
 
-        <!-- =================================================
-             LOGIC / APPROACH
-             ================================================= -->
+        <!-- LOGIC -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-
-                <span>
-                    🧠
-                </span>
-
-                <strong>
-                    Logic / Approach
-                </strong>
-
+                <span>🧠</span>
+                <strong>Logic / Approach</strong>
             </div>
 
             <textarea
                 data-note-field="logic"
                 class="special-textarea"
-                placeholder="Write your logic step by step..."
-            >{{ page_data.logic }}</textarea>
+                placeholder="Break the solution into clear logical steps..."
+            >{{ page_data.logic or '' }}</textarea>
 
         </section>
 
 
-        <!-- =================================================
+        <!-- ======================================================
              CODE EDITOR
-             ================================================= -->
+             ====================================================== -->
 
         <section class="special-card code-card">
 
-            <div class="special-card-header">
+            <div class="special-card-header coding-editor-header">
 
-                <span>
-                    ⌨️
-                </span>
+                <div class="coding-card-title">
+                    <span>⌨️</span>
+                    <strong>Code</strong>
+                </div>
 
-                <strong>
-                    Code
-                </strong>
+                <div class="coding-editor-actions">
 
-
-                <!-- Programming Language -->
-
-                <select
-                    data-note-field="language"
-                    class="language-select"
-                >
-
-                    {% for lang in [
-                        'C',
-                        'C++',
-                        'C#',
-                        'Java',
-                        'Python',
-                        'JavaScript',
-                        'TypeScript',
-                        'Go',
-                        'Rust',
-                        'Kotlin',
-                        'Swift',
-                        'Dart',
-                        'PHP',
-                        'Ruby',
-                        'R',
-                        'MATLAB',
-                        'Julia',
-                        'Scala',
-                        'Groovy',
-                        'Perl',
-                        'Lua',
-                        'Haskell',
-                        'Elixir',
-                        'Erlang',
-                        'Clojure',
-                        'F#',
-                        'Objective-C',
-                        'Visual Basic',
-                        'Fortran',
-                        'COBOL',
-                        'Assembly',
-                        'Bash',
-                        'PowerShell',
-                        'SQL',
-                        'PL/SQL',
-                        'T-SQL',
-                        'HTML',
-                        'CSS',
-                        'SCSS',
-                        'Sass',
-                        'Less',
-                        'XML',
-                        'JSON',
-                        'YAML',
-                        'TOML',
-                        'Markdown',
-                        'Solidity',
-                        'VHDL',
-                        'Verilog',
-                        'SystemVerilog',
-                        'GDScript',
-                        'Zig',
-                        'Nim',
-                        'Crystal',
-                        'D',
-                        'OCaml',
-                        'Prolog',
-                        'Racket',
-                        'Scheme',
-                        'Lisp',
-                        'Ada',
-                        'Pascal',
-                        'Delphi',
-                        'ABAP',
-                        'Apex',
-                        'Gherkin',
-                        'HCL',
-                        'GraphQL',
-                        'LaTeX',
-                        'Arduino',
-                        'CUDA',
-                        'OpenCL',
-                        'SAS',
-                        'Fortran 95',
-                        'Fortran 2008',
-                        'WebAssembly',
-                        'SQL/SQLite'
-                    ] %}
-
-                    <option
-                        {% if page_data.language == lang %}
-                            selected
-                        {% endif %}
+                    <select
+                        data-note-field="language"
+                        class="language-select"
+                        id="codingLanguage"
                     >
-                        {{ lang }}
-                    </option>
 
-                    {% endfor %}
+                        {% for lang in [
+                            'C',
+                            'C++',
+                            'C#',
+                            'Java',
+                            'Python',
+                            'JavaScript',
+                            'TypeScript',
+                            'Go',
+                            'Rust',
+                            'Kotlin',
+                            'Swift',
+                            'Dart',
+                            'PHP',
+                            'Ruby',
+                            'R',
+                            'MATLAB',
+                            'Julia',
+                            'Scala',
+                            'Groovy',
+                            'Perl',
+                            'Lua',
+                            'Haskell',
+                            'Elixir',
+                            'Erlang',
+                            'Clojure',
+                            'F#',
+                            'Objective-C',
+                            'Visual Basic',
+                            'Fortran',
+                            'COBOL',
+                            'Assembly',
+                            'Bash',
+                            'PowerShell',
+                            'SQL',
+                            'PL/SQL',
+                            'T-SQL',
+                            'HTML',
+                            'CSS',
+                            'SCSS',
+                            'Sass',
+                            'Less',
+                            'XML',
+                            'JSON',
+                            'YAML',
+                            'TOML',
+                            'Markdown',
+                            'Solidity',
+                            'VHDL',
+                            'Verilog',
+                            'SystemVerilog',
+                            'GDScript',
+                            'Zig',
+                            'Nim',
+                            'Crystal',
+                            'D',
+                            'OCaml',
+                            'Prolog',
+                            'Racket',
+                            'Scheme',
+                            'Lisp',
+                            'Ada',
+                            'Pascal',
+                            'Delphi',
+                            'ABAP',
+                            'Apex',
+                            'Gherkin',
+                            'HCL',
+                            'GraphQL',
+                            'LaTeX',
+                            'Arduino',
+                            'CUDA',
+                            'OpenCL',
+                            'SAS',
+                            'Fortran 95',
+                            'Fortran 2008',
+                            'WebAssembly',
+                            'SQL/SQLite'
+                        ] %}
 
-                </select>
+                        <option
+                            value="{{ lang }}"
+                            {% if page_data.language == lang %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ lang }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+
+                    <button
+                        type="button"
+                        class="mini-action"
+                        id="copyCodingCode"
+                    >
+                        Copy
+                    </button>
+
+                </div>
 
             </div>
 
 
-            <!-- Code Input -->
+            <div class="code-editor-wrap">
 
-            <textarea
-                data-note-field="code"
-                class="code-editor"
-                spellcheck="false"
-                placeholder="Write your code here..."
-            >{{ page_data.code }}</textarea>
+                <div class="code-line-gutter" id="codeLineGutter">
+                    <span>1</span>
+                </div>
+
+                <textarea
+                    data-note-field="code"
+                    class="code-editor"
+                    id="codingCodeEditor"
+                    spellcheck="false"
+                    placeholder="Write your code here..."
+                >{{ page_data.code or '' }}</textarea>
+
+            </div>
 
 
-            <!-- Complexity Analysis -->
+            <!-- CODE STATISTICS -->
+
+            <div class="code-stat-strip">
+
+                <span>
+                    Lines:
+                    <strong id="codeLineCount">0</strong>
+                </span>
+
+                <span>
+                    Characters:
+                    <strong id="codeCharCount">0</strong>
+                </span>
+
+                <span>
+                    TODO:
+                    <strong id="codeTodoCount">0</strong>
+                </span>
+
+            </div>
+
+
+            <!-- COMPLEXITY -->
 
             <div class="complexity-grid complexity-live-grid">
 
-
-                <!-- Time Complexity -->
-
                 <div class="complexity-card">
 
-                    <span>
-                        ⏱
-                    </span>
+                    <span>⏱</span>
 
                     <label>
                         Estimated Time Complexity
@@ -235,20 +245,16 @@
                     <input
                         data-note-field="time_complexity"
                         class="complexity-output"
-                        value="{{ page_data.time_complexity }}"
+                        value="{{ page_data.time_complexity or '' }}"
                         readonly
                     >
 
                 </div>
 
 
-                <!-- Space Complexity -->
-
                 <div class="complexity-card">
 
-                    <span>
-                        💾
-                    </span>
+                    <span>💾</span>
 
                     <label>
                         Estimated Space Complexity
@@ -257,7 +263,7 @@
                     <input
                         data-note-field="space_complexity"
                         class="complexity-output"
-                        value="{{ page_data.space_complexity }}"
+                        value="{{ page_data.space_complexity or '' }}"
                         readonly
                     >
 
@@ -267,67 +273,858 @@
 
 
             <small class="analysis-note">
-                ORION estimates complexity from common algorithmic
-                patterns. Always verify the result for production code.
+                ORION estimates complexity from common algorithmic patterns.
+                Always verify the result for production code.
             </small>
 
         </section>
 
 
-        <!-- =================================================
-             FLOWCHART BUILDER
-             ================================================= -->
+        <!-- ======================================================
+             FORMULA
+             ====================================================== -->
 
-        <section class="special-card">
+        <section class="special-card coding-formula-card">
 
             <div class="special-card-header">
 
-                <span>
-                    🔀
-                </span>
+                <span>📐</span>
 
                 <strong>
-                    Flowchart Builder
+                    Formula
                 </strong>
+
+                <span class="card-header-hint">
+                    Major formulas used in this solution
+                </span>
+
+            </div>
+
+
+            <textarea
+                data-note-field="formula"
+                class="formula-editor coding-formula-editor"
+                placeholder="Write the major formula(s) used in your code...
+
+Example:
+mid = low + (high - low) / 2
+
+T(n) = 2T(n/2) + O(n)
+"
+            >{{ page_data.formula or '' }}</textarea>
+
+
+            <div class="formula-helper">
+
+                <span>Quick insert:</span>
 
                 <button
                     type="button"
-                    class="mini-action"
-                    id="renderCodingFlowchart"
+                    class="formula-chip"
+                    data-formula="mid = low + (high - low) / 2"
                 >
-                    Render
+                    Binary Search
+                </button>
+
+                <button
+                    type="button"
+                    class="formula-chip"
+                    data-formula="sum = n(n + 1) / 2"
+                >
+                    Sum of n
+                </button>
+
+                <button
+                    type="button"
+                    class="formula-chip"
+                    data-formula="gcd(a,b) = gcd(b, a mod b)"
+                >
+                    GCD
+                </button>
+
+                <button
+                    type="button"
+                    class="formula-chip"
+                    data-formula="T(n) = 2T(n/2) + O(n)"
+                >
+                    Recurrence
+                </button>
+
+                <button
+                    type="button"
+                    class="formula-chip"
+                    data-formula="nCr = n! / (r!(n-r)!)"
+                >
+                    Combination
                 </button>
 
             </div>
 
 
             <textarea
-                data-note-field="flowchart"
-                id="codingFlowchartSource"
-                class="flowchart-source"
-                placeholder="Mermaid flowchart syntax..."
-            >{{ page_data.flowchart }}</textarea>
-
-
-            <div
-                class="mermaid-preview"
-                id="codingFlowchartPreview"
-            ></div>
+                data-note-field="formula_notes"
+                class="formula-notes-editor"
+                placeholder="Explain what the formula means and where you used it..."
+            >{{ page_data.formula_notes or '' }}</textarea>
 
         </section>
 
 
-        <!-- =================================================
-             MISTAKES / THINGS TO REMEMBER
-             ================================================= -->
+        <!-- ======================================================
+             OUTPUT
+             ====================================================== -->
+
+        <section class="special-card coding-output-card">
+
+            <div class="special-card-header">
+
+                <span>🖥️</span>
+
+                <strong>
+                    Output
+                </strong>
+
+                <span class="card-header-hint">
+                    Record the actual result produced by your program
+                </span>
+
+            </div>
+
+
+            <div class="output-grid">
+
+                <div>
+
+                    <label class="coding-field-label">
+                        Program Output
+                    </label>
+
+                    <textarea
+                        data-note-field="output"
+                        class="output-editor"
+                        spellcheck="false"
+                        placeholder="Paste or write the output produced by the program..."
+                    >{{ page_data.output or '' }}</textarea>
+
+                </div>
+
+
+                <div>
+
+                    <label class="coding-field-label">
+                        Expected Output
+                    </label>
+
+                    <textarea
+                        data-note-field="expected_output"
+                        class="output-editor"
+                        spellcheck="false"
+                        placeholder="What output should the program produce?"
+                    >{{ page_data.expected_output or '' }}</textarea>
+
+                </div>
+
+            </div>
+
+
+            <!-- TEST CASES -->
+
+            <div class="test-case-section">
+
+                <div class="test-case-heading">
+
+                    <div>
+
+                        <strong>
+                            🧪 Test Cases
+                        </strong>
+
+                        <small>
+                            Check normal, boundary and unusual inputs.
+                        </small>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="mini-action"
+                        id="addCodingTestCase"
+                    >
+                        + Test Case
+                    </button>
+
+                </div>
+
+
+                <div class="test-case-table-wrap">
+
+                    <table class="coding-test-table">
+
+                        <thead>
+
+                            <tr>
+                                <th>#</th>
+                                <th>Input</th>
+                                <th>Expected</th>
+                                <th>Actual</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="codingTestCases"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+            <textarea
+                id="codingTestCasesData"
+                data-note-field="test_cases"
+                hidden
+            >{{ page_data.test_cases or '[]' }}</textarea>
+
+        </section>
+
+
+        <!-- ======================================================
+             FLOWCHART DESIGNER
+             ====================================================== -->
+
+        <section class="special-card coding-flowchart-card">
+
+            <div class="special-card-header coding-flowchart-heading">
+
+                <div class="coding-card-title">
+
+                    <span>🔀</span>
+
+                    <strong>
+                        Flowchart Designer
+                    </strong>
+
+                </div>
+
+                <div class="flowchart-header-actions">
+
+                    <button
+                        type="button"
+                        class="mini-action"
+                        id="flowchartUndo"
+                    >
+                        ↶ Undo
+                    </button>
+
+                    <button
+                        type="button"
+                        class="mini-action"
+                        id="flowchartAutoLayout"
+                    >
+                        ✦ Auto Layout
+                    </button>
+
+                    <button
+                        type="button"
+                        class="mini-action"
+                        id="flowchartClear"
+                    >
+                        Clear
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <p class="flowchart-description">
+                Build your algorithm visually using standard flowchart symbols.
+                Drag shapes, connect steps, snap them to the grid and keep the
+                structure presentation-ready.
+            </p>
+
+
+            <div class="coding-flowchart-workspace">
+
+
+                <!-- SHAPE LIBRARY -->
+
+                <aside class="flowchart-shape-library">
+
+                    <div class="flowchart-panel-title">
+                        Shapes
+                    </div>
+
+
+                    <button
+                        type="button"
+                        class="flow-shape-tool"
+                        data-flow-shape="start"
+                    >
+                        <span class="flow-shape-preview shape-start">
+                            ●
+                        </span>
+                        Start / End
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="flow-shape-tool"
+                        data-flow-shape="process"
+                    >
+                        <span class="flow-shape-preview shape-process">
+                            ▭
+                        </span>
+                        Process
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="flow-shape-tool"
+                        data-flow-shape="decision"
+                    >
+                        <span class="flow-shape-preview shape-decision">
+                            ◇
+                        </span>
+                        Decision
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="flow-shape-tool"
+                        data-flow-shape="io"
+                    >
+                        <span class="flow-shape-preview shape-io">
+                            ▱
+                        </span>
+                        Input / Output
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="flow-shape-tool"
+                        data-flow-shape="document"
+                    >
+                        <span class="flow-shape-preview shape-document">
+                            ▤
+                        </span>
+                        Document
+                    </button>
+
+
+                    <div class="flowchart-library-divider"></div>
+
+
+                    <button
+                        type="button"
+                        class="flow-special-tool active"
+                        id="flowSelectTool"
+                    >
+                        ↖ Select
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="flow-special-tool"
+                        id="flowConnectTool"
+                    >
+                        ↗ Connect
+                    </button>
+
+
+                    <label class="flow-option">
+
+                        <input
+                            type="checkbox"
+                            id="flowSnapGrid"
+                            checked
+                        >
+
+                        <span>
+                            Snap to grid
+                        </span>
+
+                    </label>
+
+
+                    <label class="flow-option">
+
+                        <span>
+                            Connector
+                        </span>
+
+                        <select id="flowConnectorStyle">
+
+                            <option value="elbow">
+                                Elbow
+                            </option>
+
+                            <option value="straight">
+                                Straight
+                            </option>
+
+                            <option value="curved">
+                                Curved
+                            </option>
+
+                        </select>
+
+                    </label>
+
+                </aside>
+
+
+                <!-- CANVAS -->
+
+                <div class="flowchart-canvas-area">
+
+                    <div
+                        class="coding-flowchart-canvas"
+                        id="codingFlowchartCanvas"
+                    >
+
+                        <svg
+                            class="flowchart-connectors"
+                            id="codingFlowchartSvg"
+                        >
+                            <defs>
+
+                                <marker
+                                    id="codingArrow"
+                                    markerWidth="9"
+                                    markerHeight="9"
+                                    refX="7"
+                                    refY="4"
+                                    orient="auto"
+                                >
+                                    <path
+                                        d="M0,0 L8,4 L0,8 Z"
+                                        fill="currentColor"
+                                    ></path>
+                                </marker>
+
+                            </defs>
+                        </svg>
+
+
+                        <div
+                            class="flowchart-empty-state"
+                            id="codingFlowchartEmpty"
+                        >
+
+                            <span>
+                                🔀
+                            </span>
+
+                            <strong>
+                                Start designing your algorithm
+                            </strong>
+
+                            <small>
+                                Choose a shape from the left or use a template below.
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- QUICK TEMPLATES -->
+
+                    <div class="flowchart-template-bar">
+
+                        <span>
+                            Templates
+                        </span>
+
+                        <button
+                            type="button"
+                            class="flow-template"
+                            data-flow-template="linear"
+                        >
+                            Linear Algorithm
+                        </button>
+
+                        <button
+                            type="button"
+                            class="flow-template"
+                            data-flow-template="decision"
+                        >
+                            If / Else
+                        </button>
+
+                        <button
+                            type="button"
+                            class="flow-template"
+                            data-flow-template="loop"
+                        >
+                            Loop
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- INSPECTOR -->
+
+                <aside class="flowchart-inspector">
+
+                    <div class="flowchart-panel-title">
+                        Inspector
+                    </div>
+
+
+                    <div
+                        class="flow-inspector-empty"
+                        id="flowInspectorEmpty"
+                    >
+                        Select a shape to edit it.
+                    </div>
+
+
+                    <div
+                        id="flowInspector"
+                        class="flow-inspector-content"
+                        hidden
+                    >
+
+                        <label>
+                            Shape
+
+                            <select id="flowNodeType">
+
+                                <option value="start">
+                                    Start / End
+                                </option>
+
+                                <option value="process">
+                                    Process
+                                </option>
+
+                                <option value="decision">
+                                    Decision
+                                </option>
+
+                                <option value="io">
+                                    Input / Output
+                                </option>
+
+                                <option value="document">
+                                    Document
+                                </option>
+
+                            </select>
+
+                        </label>
+
+
+                        <label>
+                            Text
+
+                            <textarea
+                                id="flowNodeText"
+                                rows="4"
+                            ></textarea>
+
+                        </label>
+
+
+                        <div class="flow-inspector-actions">
+
+                            <button
+                                type="button"
+                                class="mini-action"
+                                id="flowApplyNode"
+                            >
+                                Apply
+                            </button>
+
+                            <button
+                                type="button"
+                                class="mini-action danger-mini"
+                                id="flowDeleteNode"
+                            >
+                                Delete
+                            </button>
+
+                            <button
+                                type="button"
+                                class="mini-action"
+                                id="flowDuplicateNode"
+                            >
+                                Duplicate
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+
+            <!-- VISUAL FLOWCHART DATA -->
+
+            <textarea
+                id="codingFlowchartVisualData"
+                data-note-field="flowchart_visual"
+                hidden
+            >{{ page_data.flowchart_visual or '{"nodes":[],"edges":[]}' }}</textarea>
+
+
+            <!-- MERMAID ADVANCED MODE -->
+
+            <details class="flowchart-source-panel">
+
+                <summary>
+                    Advanced Mermaid source
+                </summary>
+
+                <div class="flowchart-source-inner">
+
+                    <textarea
+                        data-note-field="flowchart"
+                        id="codingFlowchartSource"
+                        class="flowchart-source"
+                        placeholder="flowchart TD
+A([Start]) --> B[Process input]
+B --> C{Condition?}
+C -->|Yes| D[Process A]
+C -->|No| E[Process B]
+D --> F([End])
+E --> F"
+                    >{{ page_data.flowchart or '' }}</textarea>
+
+
+                    <button
+                        type="button"
+                        class="mini-action"
+                        id="renderCodingFlowchart"
+                    >
+                        Render Mermaid Preview
+                    </button>
+
+
+                    <div
+                        class="mermaid-preview"
+                        id="codingFlowchartPreview"
+                    ></div>
+
+                </div>
+
+            </details>
+
+        </section>
+
+
+        <!-- ======================================================
+             ALGORITHM PROFILE
+             ====================================================== -->
+
+        <div class="coding-analysis-grid">
+
+
+            <section class="special-card">
+
+                <div class="special-card-header">
+                    <span>🧩</span>
+                    <strong>Algorithm Profile</strong>
+                </div>
+
+
+                <label class="coding-field-label">
+                    Algorithm Pattern
+                </label>
+
+                <select
+                    data-note-field="algorithm_pattern"
+                    class="coding-select"
+                >
+
+                    <option value="">
+                        Select a pattern
+                    </option>
+
+                    {% for pattern in [
+                        'Brute Force',
+                        'Two Pointers',
+                        'Sliding Window',
+                        'Binary Search',
+                        'Divide & Conquer',
+                        'Greedy',
+                        'Dynamic Programming',
+                        'Backtracking',
+                        'Recursion',
+                        'Hashing',
+                        'Sorting',
+                        'Graph Traversal',
+                        'Shortest Path',
+                        'Tree Traversal',
+                        'Bit Manipulation',
+                        'Mathematical',
+                        'Other'
+                    ] %}
+
+                    <option
+                        value="{{ pattern }}"
+                        {% if page_data.algorithm_pattern == pattern %}
+                            selected
+                        {% endif %}
+                    >
+                        {{ pattern }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+
+                <label class="coding-field-label">
+                    Data Structures Used
+                </label>
+
+                <input
+                    data-note-field="data_structures"
+                    class="coding-input"
+                    value="{{ page_data.data_structures or '' }}"
+                    placeholder="Array, Stack, Queue, HashMap, Tree..."
+                >
+
+            </section>
+
+
+            <section class="special-card">
+
+                <div class="special-card-header">
+                    <span>🛡️</span>
+                    <strong>Edge Cases</strong>
+                </div>
+
+                <textarea
+                    data-note-field="edge_cases"
+                    class="special-textarea compact-textarea"
+                    placeholder="Empty input, duplicate values, negative numbers, overflow, null values..."
+                >{{ page_data.edge_cases or '' }}</textarea>
+
+            </section>
+
+        </div>
+
+
+        <!-- ======================================================
+             CODE REVIEW CHECKLIST
+             ====================================================== -->
+
+        <section class="special-card coding-checklist-card">
+
+            <div class="special-card-header">
+
+                <span>✅</span>
+
+                <strong>
+                    Code Review Checklist
+                </strong>
+
+            </div>
+
+
+            <div class="coding-checklist-grid">
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-note-field="check_correctness"
+                        {% if page_data.check_correctness %}
+                            checked
+                        {% endif %}
+                    >
+                    <span>Logic is correct</span>
+                </label>
+
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-note-field="check_complexity"
+                        {% if page_data.check_complexity %}
+                            checked
+                        {% endif %}
+                    >
+                    <span>Complexity is verified</span>
+                </label>
+
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-note-field="check_edge_cases"
+                        {% if page_data.check_edge_cases %}
+                            checked
+                        {% endif %}
+                    >
+                    <span>Edge cases tested</span>
+                </label>
+
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-note-field="check_readability"
+                        {% if page_data.check_readability %}
+                            checked
+                        {% endif %}
+                    >
+                    <span>Code is readable</span>
+                </label>
+
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-note-field="check_output"
+                        {% if page_data.check_output %}
+                            checked
+                        {% endif %}
+                    >
+                    <span>Output verified</span>
+                </label>
+
+
+                <label>
+                    <input
+                        type="checkbox"
+                        data-note-field="check_optimized"
+                        {% if page_data.check_optimized %}
+                            checked
+                        {% endif %}
+                    >
+                    <span>Solution is optimized</span>
+                </label>
+
+            </div>
+
+        </section>
+
+
+        <!-- ======================================================
+             MISTAKES
+             ====================================================== -->
 
         <section class="special-card">
 
             <div class="special-card-header">
 
-                <span>
-                    ⚠️
-                </span>
+                <span>⚠️</span>
 
                 <strong>
                     Mistakes / Things to Remember
@@ -339,11 +1136,10 @@
             <textarea
                 data-note-field="mistakes"
                 class="special-textarea"
-                placeholder="What should you remember next time?"
-            >{{ page_data.fields.mistakes or '' }}</textarea>
+                placeholder="What went wrong? What should you remember next time?"
+            >{{ page_data.mistakes or page_data.fields.mistakes or '' }}</textarea>
 
         </section>
-
 
     </div>
 

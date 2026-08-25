@@ -1078,3 +1078,863 @@
 
     color: #514b57;
 }
+/* ==========================================================
+   ORION NOTEBOOK — STRONG NOTEBOOK COLOR SYSTEM
+   ========================================================== */
+
+/*
+   The selected notebook color is supplied by notebook.js
+   through:
+
+       --notebook-accent
+
+   These rules make the selected color clearly visible
+   throughout the notebook without destroying the glass
+   aesthetic.
+*/
+
+
+/* ==========================================================
+   NOTEBOOK ROOT
+   ========================================================== */
+
+.notebook-page {
+
+    --notebook-accent: #9b8ddd;
+
+    --accent-soft:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 15%,
+            transparent
+        );
+
+    --accent-medium:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 28%,
+            transparent
+        );
+
+    --accent-strong:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 45%,
+            transparent
+        );
+
+    --accent-border:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 42%,
+            rgba(255,255,255,.35)
+        );
+
+    --accent-text:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 72%,
+            #40394c
+        );
+}
+
+
+/* ==========================================================
+   MAIN NOTEBOOK WORKSPACE
+   ========================================================== */
+
+.notebook-workspace {
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 13%,
+                rgba(255,255,255,.58)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 7%,
+                rgba(255,255,255,.38)
+            )
+        );
+
+    border-color: var(--accent-border);
+
+    box-shadow:
+        0 18px 45px
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 17%,
+            rgba(70,55,110,.08)
+        );
+
+    transition:
+        background .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+
+/* ==========================================================
+   SIDEBAR
+   ========================================================== */
+
+.notebook-sidebar {
+
+    background:
+        linear-gradient(
+            145deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 15%,
+                rgba(255,255,255,.52)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 8%,
+                rgba(255,255,255,.38)
+            )
+        );
+
+    border-color: var(--accent-border);
+
+    box-shadow:
+        0 18px 40px
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 15%,
+            rgba(75,60,110,.08)
+        );
+
+    transition:
+        background .35s ease,
+        border-color .35s ease,
+        box-shadow .35s ease;
+}
+
+
+/* ==========================================================
+   SPECIAL CARDS
+   ========================================================== */
+
+.notebook-page .special-card,
+.notebook-page .graph-canvas-card,
+.notebook-page .rich-editor-card,
+.notebook-page .shared-media-card,
+.notebook-page .answer-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 12%,
+                rgba(255,255,255,.57)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 6%,
+                rgba(255,255,255,.42)
+            )
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 32%,
+            rgba(174,164,255,.22)
+        );
+
+    box-shadow:
+        0 10px 30px
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 10%,
+            rgba(70,55,110,.055)
+        );
+
+    transition:
+        background .3s ease,
+        border-color .3s ease,
+        box-shadow .3s ease,
+        transform .2s ease;
+}
+
+
+/* ==========================================================
+   CARD HOVER
+   ========================================================== */
+
+.notebook-page .special-card:hover {
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 43%,
+            rgba(174,164,255,.24)
+        );
+
+    box-shadow:
+        0 14px 34px
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 14%,
+            rgba(70,55,110,.07)
+        );
+}
+
+
+/* ==========================================================
+   ACTIVE PAGE
+   ========================================================== */
+
+.notebook-page .page-item.active {
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 27%,
+                rgba(255,255,255,.35)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 16%,
+                rgba(255,255,255,.25)
+            )
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 48%,
+            transparent
+        );
+
+    color: var(--accent-text);
+
+    box-shadow:
+        inset 0 0 0 1px
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 10%,
+            transparent
+        );
+}
+
+
+/* ==========================================================
+   HEADER ICON
+   ========================================================== */
+
+.notebook-page .notebook-header-icon,
+.notebook-page .workspace-icon {
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 30%,
+                rgba(255,255,255,.45)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 16%,
+                rgba(255,255,255,.35)
+            )
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 42%,
+            transparent
+        );
+
+    box-shadow:
+        0 8px 20px
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 15%,
+            transparent
+        );
+}
+
+
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
+
+.notebook-page .save-page-btn,
+.notebook-page .notebook-header-btn,
+.notebook-page .mini-action,
+.notebook-page .workspace-tool-btn,
+.notebook-page .new-page-btn {
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 22%,
+                rgba(255,255,255,.48)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 12%,
+                rgba(255,255,255,.38)
+            )
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 38%,
+            rgba(174,164,255,.22)
+        );
+
+    color: var(--accent-text);
+
+    transition:
+        background .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease,
+        transform .2s ease;
+}
+
+
+.notebook-page .save-page-btn:hover,
+.notebook-page .notebook-header-btn:hover,
+.notebook-page .mini-action:hover,
+.notebook-page .workspace-tool-btn:hover,
+.notebook-page .new-page-btn:hover {
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 35%,
+                rgba(255,255,255,.42)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 20%,
+                rgba(255,255,255,.32)
+            )
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 55%,
+            transparent
+        );
+
+    box-shadow:
+        0 8px 22px
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 18%,
+            transparent
+        );
+}
+
+
+/* ==========================================================
+   NOTEBOOK TOPBAR
+   ========================================================== */
+
+.notebook-page .workspace-topbar {
+
+    background:
+        linear-gradient(
+            90deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 12%,
+                transparent
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 5%,
+                transparent
+            )
+        );
+
+    border-bottom-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 28%,
+            rgba(174,164,255,.16)
+        );
+}
+
+
+/* ==========================================================
+   PAGE TITLE
+   ========================================================== */
+
+.notebook-page .page-title-input:focus {
+
+    color: var(--accent-text);
+
+    text-shadow:
+        0 0 18px
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 18%,
+            transparent
+        );
+}
+
+
+/* ==========================================================
+   TEXTAREA / INPUT FOCUS
+   ========================================================== */
+
+.notebook-page textarea:focus,
+.notebook-page input:focus,
+.notebook-page select:focus {
+
+    outline: none;
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 42%,
+            rgba(255,255,255,.25)
+        );
+
+    box-shadow:
+        0 0 0 3px
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 11%,
+            transparent
+        );
+}
+
+
+/* ==========================================================
+   CODING NOTEBOOK
+   ========================================================== */
+
+.coding-notebook .code-card {
+
+    background:
+        linear-gradient(
+            145deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 13%,
+                rgba(255,255,255,.48)
+            ),
+            rgba(55,48,70,.035)
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 34%,
+            rgba(174,164,255,.18)
+        );
+}
+
+
+/* ==========================================================
+   CODE EDITOR
+   ========================================================== */
+
+.coding-notebook .code-editor {
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 8%,
+                rgba(45,40,55,.055)
+            ),
+            rgba(255,255,255,.18)
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 28%,
+            rgba(174,164,255,.12)
+        );
+}
+
+
+/* ==========================================================
+   COMPLEXITY CARDS
+   ========================================================== */
+
+.coding-notebook .complexity-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 17%,
+                rgba(255,255,255,.35)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 8%,
+                rgba(255,255,255,.28)
+            )
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 30%,
+            rgba(155,178,255,.20)
+        );
+}
+
+
+/* ==========================================================
+   FORMULA CARD
+   ========================================================== */
+
+.coding-notebook .coding-formula-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 18%,
+                rgba(255,255,255,.52)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 9%,
+                rgba(255,255,255,.40)
+            )
+        );
+}
+
+
+/* ==========================================================
+   FORMULA EDITOR
+   ========================================================== */
+
+.coding-formula-editor {
+
+    width: 100%;
+    min-height: 155px;
+
+    display: block;
+
+    box-sizing: border-box;
+
+    padding: 16px;
+
+    border-radius: 13px;
+
+    background:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 5%,
+            rgba(255,255,255,.46)
+        ) !important;
+
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 20%,
+            rgba(164,153,190,.15)
+        ) !important;
+
+    font-family:
+        "Cambria",
+        "Georgia",
+        serif;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+
+/* ==========================================================
+   FORMULA QUICK INSERT
+   ========================================================== */
+
+.formula-quick-tools {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin:
+        11px 0;
+}
+
+.formula-quick-tools > span {
+
+    color: #8b8391;
+
+    font-size: 10px;
+
+    margin-right: 2px;
+}
+
+
+.formula-chip {
+
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 22%,
+            rgba(255,255,255,.25)
+        );
+
+    background:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 8%,
+            rgba(255,255,255,.48)
+        );
+
+    color: #6f647c;
+
+    border-radius: 8px;
+
+    padding: 6px 9px;
+
+    cursor: pointer;
+
+    font: inherit;
+
+    font-size: 9px;
+
+    transition: .2s ease;
+}
+
+
+.formula-chip:hover {
+
+    background:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 20%,
+            rgba(255,255,255,.4)
+        );
+
+    border-color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 38%,
+            transparent
+        );
+
+    transform: translateY(-1px);
+}
+
+
+.formula-notes-editor {
+
+    width: 100%;
+
+    min-height: 80px;
+
+    box-sizing: border-box;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    border:
+        1px dashed
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 25%,
+            rgba(164,153,190,.18)
+        );
+
+    background:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 4%,
+            rgba(255,255,255,.28)
+        );
+
+    resize: vertical;
+
+    font: inherit;
+
+    font-size: 11px;
+
+    color: #625a69;
+}
+
+
+/* ==========================================================
+   OUTPUT CARD
+   ========================================================== */
+
+.coding-notebook .coding-output-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 15%,
+                rgba(255,255,255,.52)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 7%,
+                rgba(255,255,255,.38)
+            )
+        );
+}
+
+
+.output-label {
+
+    margin-bottom: 7px;
+
+    color:
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 65%,
+            #777080
+        );
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+}
+
+
+.coding-output-editor {
+
+    width: 100%;
+
+    min-height: 190px;
+
+    box-sizing: border-box;
+
+    display: block;
+
+    padding: 15px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(255,255,255,.38) !important;
+
+    border:
+        1px solid
+        color-mix(
+            in srgb,
+            var(--notebook-accent) 22%,
+            rgba(164,153,190,.15)
+        ) !important;
+
+    color: #514b57;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    resize: vertical;
+}
+
+
+/* ==========================================================
+   FLOWCHART
+   ========================================================== */
+
+.coding-notebook .coding-flowchart-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 14%,
+                rgba(255,255,255,.50)
+            ),
+            color-mix(
+                in srgb,
+                var(--notebook-accent) 7%,
+                rgba(255,255,255,.35)
+            )
+        );
+}
+
+
+/* ==========================================================
+   REMOVE UNWANTED SECONDARY FORMULA / OUTPUT FIELDS
+   ----------------------------------------------------------
+   These selectors are intentionally defensive. If an older
+   version of coding.html still contains the old helper fields,
+   they will disappear instead of producing the squeezed text
+   visible in the screenshot.
+   ========================================================== */
+
+.coding-notebook .formula-helper,
+.coding-notebook .formula-side,
+.coding-notebook .formula-description-side,
+.coding-notebook .expected-output,
+.coding-notebook .output-expected,
+.coding-notebook .output-side,
+.coding-notebook .output-helper {
+
+    display: none !important;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 800px) {
+
+    .coding-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+    .coding-half-card {
+
+        grid-column: auto;
+    }
+
+    .coding-formula-editor,
+    .coding-output-editor {
+
+        min-height: 140px;
+    }
+
+    .formula-quick-tools {
+
+        align-items: flex-start;
+    }
+}
