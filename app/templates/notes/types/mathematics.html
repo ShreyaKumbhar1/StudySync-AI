@@ -4,23 +4,34 @@
          MATHEMATICS WORKSPACE INTRO
          ===================================================== -->
 
-    <div class="workspace-intro">
+    <div class="workspace-intro math-workspace-intro">
 
-        <span class="workspace-icon">
-            🧮
-        </span>
+        <div class="workspace-icon math-icon">
+            ∑
+        </div>
 
-        <div>
+        <div class="workspace-intro-content">
+
+            <span class="math-eyebrow">
+                MATHEMATICS NOTEBOOK
+            </span>
 
             <h2>
                 Mathematics Workspace
             </h2>
 
             <p>
-                Unlimited working, scientific calculator,
-                calculus and formula discovery.
+                Explore formulas, solve problems, work through calculations,
+                and keep every mathematical idea organized in one place.
             </p>
 
+        </div>
+
+        <div class="math-symbols" aria-hidden="true">
+            <span>π</span>
+            <span>√x</span>
+            <span>∫</span>
+            <span>∞</span>
         </div>
 
     </div>
@@ -32,13 +43,29 @@
 
     <section class="math-calculator-card special-card">
 
-        <div class="special-card-header">
+        <div class="special-card-header math-section-header">
 
-            🧠
+            <div class="section-title-group">
 
-            <strong>
-                Advanced Calculator
-            </strong>
+                <span class="section-icon calculator-icon">
+                    🧠
+                </span>
+
+                <div>
+                    <strong>
+                        Advanced Calculator
+                    </strong>
+
+                    <small>
+                        Scientific calculations & calculus
+                    </small>
+                </div>
+
+            </div>
+
+            <span class="math-badge">
+                SMART
+            </span>
 
         </div>
 
@@ -47,14 +74,25 @@
 
         <div class="calculator-display">
 
-            <input
-                id="mathExpression"
-                placeholder="e.g. sin(pi/4) + 5^2 / 3"
-            >
+            <div class="calculator-input-wrapper">
+
+                <span class="input-prefix">
+                    fx
+                </span>
+
+                <input
+                    id="mathExpression"
+                    placeholder="e.g. sin(pi/4) + 5^2 / 3"
+                    autocomplete="off"
+                >
+
+            </div>
 
             <button
                 type="button"
                 id="calculateMath"
+                class="calculate-button"
+                aria-label="Calculate"
             >
                 =
             </button>
@@ -68,75 +106,94 @@
             id="calculatorResult"
             class="calculator-result"
         >
-            Ready
+            <span class="result-label">
+                RESULT
+            </span>
+
+            <span class="result-value">
+                Ready
+            </span>
         </div>
 
 
         <!-- Calculator Actions -->
+
+        <div class="calculator-tools-label">
+            <span>QUICK FUNCTIONS</span>
+        </div>
 
         <div class="calculator-actions">
 
             <button
                 type="button"
                 data-math="sin(x)"
+                title="Sine"
             >
-                sin
+                <span>sin</span>
             </button>
 
             <button
                 type="button"
                 data-math="cos(x)"
+                title="Cosine"
             >
-                cos
+                <span>cos</span>
             </button>
 
             <button
                 type="button"
                 data-math="tan(x)"
+                title="Tangent"
             >
-                tan
+                <span>tan</span>
             </button>
 
             <button
                 type="button"
                 data-math="sqrt(x)"
+                title="Square root"
             >
-                √
+                <span>√</span>
             </button>
 
             <button
                 type="button"
                 data-math="log(x)"
+                title="Logarithm"
             >
-                log
+                <span>log</span>
             </button>
 
             <button
                 type="button"
                 data-math="ln(x)"
+                title="Natural logarithm"
             >
-                ln
+                <span>ln</span>
             </button>
 
             <button
                 type="button"
                 data-math="x^2"
+                title="Square"
             >
-                x²
+                <span>x²</span>
             </button>
 
             <button
                 type="button"
                 data-math="pi"
+                title="Pi"
             >
-                π
+                <span>π</span>
             </button>
 
             <button
                 type="button"
                 data-math="e"
+                title="Euler's number"
             >
-                e
+                <span>e</span>
             </button>
 
         </div>
@@ -144,36 +201,83 @@
 
         <!-- Calculus -->
 
-        <div class="calculus-row">
+        <div class="calculus-panel">
 
-            <input
-                id="calculusExpression"
-                placeholder="Expression for differentiation/integration, e.g. x^2 + sin(x)"
-            >
+            <div class="calculus-heading">
 
-            <input
-                id="calculusVariable"
-                value="x"
-                maxlength="3"
-            >
+                <div>
+                    <span class="calculus-symbol">
+                        ∫
+                    </span>
 
-            <button
-                type="button"
-                id="differentiateMath"
-            >
-                d/dx
-            </button>
+                    <div>
+                        <strong>Calculus Tools</strong>
 
-            <button
-                type="button"
-                id="integrateMath"
-            >
-                ∫
-            </button>
+                        <small>
+                            Differentiate or integrate an expression
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="calculus-row">
+
+                <div class="calculus-expression">
+
+                    <span class="field-label">
+                        EXPRESSION
+                    </span>
+
+                    <input
+                        id="calculusExpression"
+                        placeholder="e.g. x^2 + sin(x)"
+                    >
+
+                </div>
+
+
+                <div class="calculus-variable">
+
+                    <span class="field-label">
+                        VARIABLE
+                    </span>
+
+                    <input
+                        id="calculusVariable"
+                        value="x"
+                        maxlength="3"
+                    >
+
+                </div>
+
+
+                <button
+                    type="button"
+                    id="differentiateMath"
+                    class="calculus-action"
+                >
+                    <span>d/dx</span>
+                    <small>Differentiate</small>
+                </button>
+
+
+                <button
+                    type="button"
+                    id="integrateMath"
+                    class="calculus-action integration-action"
+                >
+                    <span>∫</span>
+                    <small>Integrate</small>
+                </button>
+
+            </div>
 
         </div>
 
     </section>
+
 
 
     <!-- =====================================================
@@ -182,48 +286,92 @@
 
     <section class="special-card formula-card">
 
-        <div class="special-card-header">
+        <div class="special-card-header math-section-header">
 
-            📐
+            <div class="section-title-group">
 
-            <strong>
-                Formula
-            </strong>
+                <span class="section-icon formula-icon">
+                    📐
+                </span>
+
+                <div>
+                    <strong>
+                        Formula
+                    </strong>
+
+                    <small>
+                        Write down the formula you need
+                    </small>
+                </div>
+
+            </div>
 
         </div>
 
 
-        <textarea
-            data-note-field="formula"
-            class="formula-input"
-        >{{ page_data.formula }}</textarea>
+        <div class="math-editor-wrapper">
+
+            <div class="editor-line-marker">
+                ∑
+            </div>
+
+            <textarea
+                data-note-field="formula"
+                class="formula-input"
+                placeholder="Write your formula here..."
+            >{{ page_data.formula }}</textarea>
+
+        </div>
 
     </section>
+
 
 
     <!-- =====================================================
          PROBLEM
          ===================================================== -->
 
-    <section class="special-card">
+    <section class="special-card problem-card">
 
-        <div class="special-card-header">
+        <div class="special-card-header math-section-header">
 
-            ❓
+            <div class="section-title-group">
 
-            <strong>
-                Problem
-            </strong>
+                <span class="section-icon problem-icon">
+                    ?
+                </span>
+
+                <div>
+                    <strong>
+                        Problem
+                    </strong>
+
+                    <small>
+                        Describe the problem you're solving
+                    </small>
+                </div>
+
+            </div>
 
         </div>
 
 
-        <textarea
-            data-note-field="content"
-            class="math-problem-input"
-        >{{ page_data.content }}</textarea>
+        <div class="math-editor-wrapper problem-editor">
+
+            <div class="editor-line-marker">
+                01
+            </div>
+
+            <textarea
+                data-note-field="content"
+                class="math-problem-input"
+                placeholder="Write the mathematical problem here..."
+            >{{ page_data.content }}</textarea>
+
+        </div>
 
     </section>
+
 
 
     <!-- =====================================================
@@ -232,20 +380,34 @@
 
     <section class="special-card working-card">
 
-        <div class="special-card-header">
+        <div class="special-card-header math-section-header">
 
-            ✏️
+            <div class="section-title-group">
 
-            <strong>
-                Step-by-Step Working
-            </strong>
+                <span class="section-icon working-icon">
+                    ✎
+                </span>
+
+                <div>
+                    <strong>
+                        Step-by-Step Working
+                    </strong>
+
+                    <small>
+                        Break the solution into clear steps
+                    </small>
+                </div>
+
+            </div>
+
 
             <button
                 type="button"
                 class="mini-action"
                 id="addMathStep"
             >
-                + Step
+                <span>+</span>
+                Step
             </button>
 
         </div>
@@ -256,7 +418,27 @@
             id="mathSteps"
         ></div>
 
+
+        <div class="steps-empty-state">
+
+            <span class="empty-step-symbol">
+                →
+            </span>
+
+            <div>
+                <strong>
+                    Start working through the problem
+                </strong>
+
+                <p>
+                    Add your first step and build the solution one stage at a time.
+                </p>
+            </div>
+
+        </div>
+
     </section>
+
 
 
     <!-- =====================================================
@@ -265,22 +447,48 @@
 
     <section class="answer-card">
 
-        <div class="special-card-header">
+        <div class="special-card-header math-section-header">
 
-            ✅
+            <div class="section-title-group">
 
-            <strong>
-                Final Answer
-            </strong>
+                <span class="section-icon answer-icon">
+                    ✓
+                </span>
+
+                <div>
+                    <strong>
+                        Final Answer
+                    </strong>
+
+                    <small>
+                        Record the result of your solution
+                    </small>
+                </div>
+
+            </div>
+
+            <span class="answer-status">
+                SOLUTION
+            </span>
 
         </div>
 
 
-        <textarea
-            data-note-field="final_answer"
-        >{{ page_data.final_answer }}</textarea>
+        <div class="answer-editor">
+
+            <div class="answer-symbol">
+                ∴
+            </div>
+
+            <textarea
+                data-note-field="final_answer"
+                placeholder="Write your final answer here..."
+            >{{ page_data.final_answer }}</textarea>
+
+        </div>
 
     </section>
+
 
 
     <!-- =====================================================
@@ -289,13 +497,43 @@
 
     <section class="formula-library special-card">
 
-        <div class="special-card-header">
+        <div class="special-card-header math-section-header">
 
-            📚
+            <div class="section-title-group">
 
-            <strong>
-                Formula Library
-            </strong>
+                <span class="section-icon library-icon">
+                    π
+                </span>
+
+                <div>
+                    <strong>
+                        Formula Library
+                    </strong>
+
+                    <small>
+                        Quick access to essential formulas
+                    </small>
+                </div>
+
+            </div>
+
+            <span class="library-count">
+                6 CATEGORIES
+            </span>
+
+        </div>
+
+
+        <div class="formula-library-intro">
+
+            <span>
+                ✦
+            </span>
+
+            <p>
+                Select a category to explore useful formulas.
+                Click any formula to quickly use it in your workspace.
+            </p>
 
         </div>
 
@@ -348,7 +586,37 @@
             <details>
 
                 <summary>
-                    {{ key }}
+
+                    <span class="formula-category-symbol">
+
+                        {% if key == 'Algebra' %}
+                            ∑
+                        {% elif key == 'Geometry' %}
+                            △
+                        {% elif key == 'Differentiation' %}
+                            d
+                        {% elif key == 'Integration' %}
+                            ∫
+                        {% elif key == 'Trigonometry' %}
+                            θ
+                        {% elif key == 'Statistics' %}
+                            σ
+                        {% endif %}
+
+                    </span>
+
+                    <span class="formula-category-name">
+                        {{ key }}
+                    </span>
+
+                    <span class="formula-category-count">
+                        {{ formulas|length }}
+                    </span>
+
+                    <span class="formula-chevron">
+                        ›
+                    </span>
+
                 </summary>
 
 
@@ -361,7 +629,19 @@
                         class="formula-item"
                         data-formula="{{ f }}"
                     >
-                        {{ f }}
+
+                        <span class="formula-item-symbol">
+                            ≈
+                        </span>
+
+                        <span class="formula-text">
+                            {{ f }}
+                        </span>
+
+                        <span class="formula-copy-icon">
+                            +
+                        </span>
+
                     </button>
 
                     {% endfor %}

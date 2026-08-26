@@ -1,5 +1,964 @@
 <div class="special-notebook theory-notebook">
 
+<style>
+/* =========================================================
+   ORION — THEORY NOTEBOOK / PREMIUM VISUAL LAYER
+   Scoped to .theory-notebook so other Notes pages are untouched.
+   ========================================================= */
+
+.theory-notebook {
+    --theory-ink: #292735;
+    --theory-muted: #777383;
+    --theory-soft: #f7f6fa;
+    --theory-surface: #ffffff;
+    --theory-border: #e6e2ec;
+    --theory-border-strong: #d8d2e2;
+    --theory-accent: #7568a8;
+    --theory-accent-dark: #5e538d;
+    --theory-accent-soft: #f0edf8;
+    --theory-warm: #fff8e8;
+    --theory-danger: #fff1f1;
+    --theory-shadow: 0 14px 40px rgba(52, 45, 73, .08);
+    color: var(--theory-ink);
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 20px 48px;
+}
+
+/* ---------- INTRO ---------- */
+
+.theory-notebook .workspace-intro {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 22px;
+    padding: 22px 24px;
+    border: 1px solid var(--theory-border);
+    border-radius: 20px;
+    background:
+        radial-gradient(circle at 92% 10%, rgba(117,104,168,.10), transparent 30%),
+        linear-gradient(135deg, #fff 0%, #faf9fc 100%);
+    box-shadow: 0 8px 28px rgba(52,45,73,.055);
+    overflow: hidden;
+}
+
+.theory-notebook .workspace-intro::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #7568a8, #aaa0d0, transparent 75%);
+    opacity: .75;
+}
+
+.theory-notebook .workspace-icon {
+    width: 56px;
+    height: 56px;
+    flex: 0 0 56px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    background: var(--theory-accent-soft);
+    border: 1px solid #e1dcef;
+    font-size: 27px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.8);
+}
+
+.theory-notebook .workspace-intro h2 {
+    margin: 0 0 5px;
+    color: var(--theory-ink);
+    font-size: clamp(1.35rem, 2vw, 1.7rem);
+    font-weight: 750;
+    letter-spacing: -.025em;
+}
+
+.theory-notebook .workspace-intro p {
+    margin: 0;
+    color: var(--theory-muted);
+    font-size: .94rem;
+    line-height: 1.55;
+}
+
+/* ---------- MAIN EDITOR CARD ---------- */
+
+.theory-notebook .theory-editor-card {
+    position: relative;
+    border: 1px solid var(--theory-border);
+    border-radius: 22px;
+    background: var(--theory-surface);
+    box-shadow: var(--theory-shadow);
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.theory-notebook .theory-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 11px 13px;
+    background: rgba(255,255,255,.96);
+    border-bottom: 1px solid var(--theory-border);
+    box-shadow: 0 5px 18px rgba(52,45,73,.055);
+    backdrop-filter: blur(12px);
+}
+
+.theory-notebook .theory-toolbar button,
+.theory-notebook .theory-toolbar select,
+.theory-notebook .theory-toolbar label {
+    height: 36px;
+    box-sizing: border-box;
+    border: 1px solid #e2dfe8;
+    border-radius: 9px;
+    background: #fff;
+    color: #4a4655;
+    font: inherit;
+    transition: background .16s ease, border-color .16s ease,
+                box-shadow .16s ease, transform .16s ease, color .16s ease;
+}
+
+.theory-notebook .theory-toolbar button {
+    min-width: 36px;
+    padding: 0 10px;
+    cursor: pointer;
+    font-size: .82rem;
+    font-weight: 650;
+}
+
+.theory-notebook .theory-toolbar button:hover {
+    background: var(--theory-accent-soft);
+    border-color: #d4cde5;
+    color: var(--theory-accent-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(117,104,168,.10);
+}
+
+.theory-notebook .theory-toolbar button:active {
+    transform: translateY(0);
+}
+
+.theory-notebook .theory-toolbar button:focus-visible,
+.theory-notebook .theory-toolbar select:focus-visible,
+.theory-notebook .theory-toolbar input:focus-visible {
+    outline: 3px solid rgba(117,104,168,.16);
+    outline-offset: 1px;
+    border-color: #bdb3d8;
+}
+
+.theory-notebook .theory-toolbar select {
+    padding: 0 30px 0 11px;
+    cursor: pointer;
+    appearance: auto;
+}
+
+.theory-notebook .theory-toolbar select:first-child {
+    min-width: 145px;
+}
+
+.theory-notebook .theory-toolbar .theory-font-size {
+    min-width: 76px;
+}
+
+.theory-notebook .toolbar-divider {
+    width: 1px;
+    height: 22px;
+    margin: 0 2px;
+    background: #e4e0e9;
+}
+
+.theory-notebook .theory-color-tool {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    min-width: 36px;
+    padding: 0 7px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.theory-notebook .theory-color-tool span {
+    font-size: .9rem;
+    font-weight: 800;
+}
+
+.theory-notebook .theory-color-tool input {
+    width: 18px;
+    height: 18px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.theory-notebook .theory-highlight-tool span {
+    padding: 0 2px;
+    background: #fff2a8;
+}
+
+.theory-notebook .smartart-open-btn,
+.theory-notebook .theory-table-open-btn {
+    padding-inline: 13px !important;
+    border-color: #d8d1e7 !important;
+    background: #f8f6fc !important;
+    color: #5d527f !important;
+}
+
+.theory-notebook .smartart-open-btn:hover,
+.theory-notebook .theory-table-open-btn:hover {
+    background: #eeeaf8 !important;
+}
+
+/* ---------- WRITING SURFACE ---------- */
+
+.theory-notebook .theory-rich-editor {
+    min-height: 530px;
+    padding: 42px clamp(22px, 6vw, 72px);
+    box-sizing: border-box;
+    background:
+        linear-gradient(#fff, #fff) padding-box,
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 31px,
+            rgba(117,104,168,.045) 32px
+        );
+    color: #35313e;
+    font-size: 16px;
+    line-height: 1.75;
+    outline: none;
+    caret-color: var(--theory-accent);
+}
+
+.theory-notebook .theory-rich-editor:focus {
+    background:
+        linear-gradient(#fff, #fff) padding-box,
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0,
+            transparent 31px,
+            rgba(117,104,168,.065) 32px
+        );
+}
+
+.theory-notebook .theory-rich-editor:empty::before {
+    content: "Start writing your theory notes here…";
+    color: #aaa5b3;
+    pointer-events: none;
+}
+
+.theory-notebook .theory-rich-editor h1,
+.theory-notebook .theory-rich-editor h2,
+.theory-notebook .theory-rich-editor h3 {
+    color: #302c3b;
+    letter-spacing: -.025em;
+    line-height: 1.25;
+}
+
+.theory-notebook .theory-rich-editor h1 {
+    font-size: 2rem;
+    margin: .3em 0 .45em;
+}
+
+.theory-notebook .theory-rich-editor h2 {
+    font-size: 1.55rem;
+    margin: .7em 0 .4em;
+}
+
+.theory-notebook .theory-rich-editor h3 {
+    font-size: 1.25rem;
+    margin: .7em 0 .35em;
+}
+
+.theory-notebook .theory-rich-editor blockquote {
+    margin: 18px 0;
+    padding: 14px 18px;
+    border-left: 4px solid #8b7fba;
+    border-radius: 0 12px 12px 0;
+    background: #f7f5fb;
+    color: #5f5a69;
+}
+
+.theory-notebook .theory-rich-editor ul,
+.theory-notebook .theory-rich-editor ol {
+    padding-left: 28px;
+}
+
+.theory-notebook .theory-rich-editor a {
+    color: #67599b;
+}
+
+/* ---------- LOWER NOTE CARDS ---------- */
+
+.theory-notebook .theory-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.theory-notebook .special-card {
+    position: relative;
+    min-width: 0;
+    border: 1px solid var(--theory-border);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 8px 26px rgba(52,45,73,.055);
+    overflow: hidden;
+}
+
+.theory-notebook .special-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: #d8d1e7;
+}
+
+.theory-notebook .special-card-header {
+    min-height: 52px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 16px;
+    border-bottom: 1px solid #ece9f0;
+    background: #fcfbfd;
+}
+
+.theory-notebook .special-card-header strong {
+    color: #403b4b;
+    font-size: .94rem;
+    font-weight: 750;
+}
+
+.theory-notebook .special-textarea {
+    display: block;
+    width: 100%;
+    min-height: 150px;
+    box-sizing: border-box;
+    padding: 15px 16px 17px;
+    border: 0;
+    resize: vertical;
+    background: #fff;
+    color: #484350;
+    font: inherit;
+    font-size: .93rem;
+    line-height: 1.65;
+    outline: none;
+}
+
+.theory-notebook .special-textarea::placeholder {
+    color: #aaa6b0;
+}
+
+.theory-notebook .special-textarea:focus {
+    background: #fdfcff;
+    box-shadow: inset 0 0 0 2px rgba(117,104,168,.11);
+}
+
+.theory-notebook .warning-card::before {
+    background: #e4b45e;
+}
+
+.theory-notebook .warning-card .special-card-header {
+    background: #fffbf2;
+}
+
+.theory-notebook .question-card::before {
+    background: #8f86bb;
+}
+
+.theory-notebook .summary-card {
+    margin-bottom: 18px;
+}
+
+.theory-notebook .summary-card::before {
+    background: #7568a8;
+}
+
+.theory-notebook .summary-card .special-textarea {
+    min-height: 170px;
+}
+
+/* ---------- TABLE SECTION ---------- */
+
+.theory-notebook .theory-table-section {
+    margin-bottom: 18px;
+}
+
+.theory-notebook .theory-table-section .special-card-header {
+    flex-wrap: wrap;
+}
+
+.theory-notebook .mini-action {
+    margin-left: auto;
+    padding: 7px 10px;
+    border: 1px solid #ddd7e8;
+    border-radius: 8px;
+    background: #fff;
+    color: #665a91;
+    font: inherit;
+    font-size: .78rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.theory-notebook .mini-action + .mini-action {
+    margin-left: 0;
+}
+
+.theory-notebook .mini-action:hover {
+    background: #f4f1fa;
+    border-color: #cfc6df;
+}
+
+.theory-notebook .table-builder-hint {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 14px 16px 12px;
+    padding: 10px 12px;
+    border: 1px solid #ebe7f0;
+    border-radius: 10px;
+    background: #faf9fc;
+    color: #77717f;
+    font-size: .8rem;
+}
+
+.theory-notebook .data-table-wrap {
+    overflow-x: auto;
+    padding: 0 16px 17px;
+}
+
+.theory-notebook .editable-table {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid #e4e0e9;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.theory-notebook .editable-table td {
+    padding: 0;
+    border-right: 1px solid #e9e5ed;
+    border-bottom: 1px solid #e9e5ed;
+}
+
+.theory-notebook .editable-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.theory-notebook .editable-table td:last-child {
+    border-right: 0;
+}
+
+.theory-notebook .editable-table tr:first-child {
+    background: #f7f5fb;
+}
+
+.theory-notebook .editable-table input {
+    width: 100%;
+    min-height: 43px;
+    box-sizing: border-box;
+    padding: 9px 11px;
+    border: 0;
+    outline: none;
+    background: transparent;
+    color: #46414e;
+    font: inherit;
+    font-size: .84rem;
+}
+
+.theory-notebook .editable-table tr:first-child input {
+    color: #51466f;
+    font-weight: 750;
+}
+
+.theory-notebook .editable-table input:focus {
+    background: #fbfaff;
+    box-shadow: inset 0 0 0 2px rgba(117,104,168,.18);
+}
+
+/* ---------- MODALS ---------- */
+
+.theory-notebook .theory-modal[hidden] {
+    display: none !important;
+}
+
+.theory-notebook .theory-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+}
+
+.theory-notebook .theory-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(31,27,42,.48);
+    backdrop-filter: blur(5px);
+}
+
+.theory-notebook .theory-modal-card {
+    position: relative;
+    z-index: 1;
+    width: min(760px, calc(100vw - 32px));
+    max-height: min(760px, calc(100vh - 40px));
+    margin: 20px auto;
+    overflow: auto;
+    border: 1px solid rgba(255,255,255,.65);
+    border-radius: 22px;
+    background: #fff;
+    box-shadow: 0 28px 80px rgba(24,20,34,.22);
+}
+
+.theory-notebook .theory-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 24px 25px 20px;
+    border-bottom: 1px solid #ebe7ef;
+    background:
+        radial-gradient(circle at 88% 10%, rgba(117,104,168,.10), transparent 32%),
+        #fff;
+}
+
+.theory-notebook .theory-modal-kicker {
+    display: inline-block;
+    margin-bottom: 5px;
+    color: #8177a2;
+    font-size: .67rem;
+    font-weight: 800;
+    letter-spacing: .13em;
+}
+
+.theory-notebook .theory-modal-header h3 {
+    margin: 0;
+    color: #332e3f;
+    font-size: 1.35rem;
+    letter-spacing: -.02em;
+}
+
+.theory-notebook .theory-modal-header p {
+    margin: 5px 0 0;
+    color: #827d89;
+    font-size: .84rem;
+}
+
+.theory-notebook .theory-modal-close {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    border: 1px solid #e2dee8;
+    border-radius: 10px;
+    background: #fff;
+    color: #716b78;
+    font-size: 1.45rem;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.theory-notebook .theory-modal-close:hover {
+    background: #f6f4f8;
+    color: #403a49;
+}
+
+.theory-notebook .smartart-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+    padding: 20px 24px 25px;
+}
+
+.theory-notebook .smartart-option {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 14px;
+    border: 1px solid #e4e0e9;
+    border-radius: 15px;
+    background: #fff;
+    text-align: left;
+    cursor: pointer;
+    transition: transform .16s ease, box-shadow .16s ease,
+                border-color .16s ease, background .16s ease;
+}
+
+.theory-notebook .smartart-option:hover {
+    transform: translateY(-2px);
+    border-color: #cfc6df;
+    background: #fbfaff;
+    box-shadow: 0 10px 24px rgba(67,57,91,.09);
+}
+
+.theory-notebook .smartart-option strong {
+    color: #403a4c;
+    font-size: .9rem;
+}
+
+.theory-notebook .smartart-option small {
+    color: #8a8590;
+    font-size: .76rem;
+}
+
+.theory-notebook .smartart-preview {
+    min-height: 78px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 8px;
+    box-sizing: border-box;
+    border-radius: 11px;
+    background: #f7f5fb;
+    border: 1px solid #ebe7f1;
+}
+
+.theory-notebook .smartart-preview i,
+.theory-notebook .smartart-preview b {
+    display: grid;
+    place-items: center;
+    min-width: 31px;
+    height: 31px;
+    padding: 0 7px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #dcd6e8;
+    color: #655a88;
+    font-size: .72rem;
+    font-style: normal;
+    font-weight: 750;
+    box-shadow: 0 2px 7px rgba(70,60,92,.06);
+}
+
+.theory-notebook .cycle-preview {
+    border-radius: 50%;
+}
+
+.theory-notebook .hierarchy-preview {
+    flex-wrap: wrap;
+    max-width: 100%;
+}
+
+.theory-notebook .hierarchy-preview i {
+    flex-basis: 100%;
+}
+
+.theory-notebook .hierarchy-preview b {
+    min-width: 60px;
+}
+
+.theory-notebook .comparison-preview i:nth-child(2) {
+    background: #7568a8;
+    border-color: #7568a8;
+    color: #fff;
+}
+
+/* ---------- TABLE MODAL ---------- */
+
+.theory-notebook .theory-table-modal {
+    width: min(560px, calc(100vw - 32px));
+}
+
+.theory-notebook .table-size-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    padding: 24px;
+}
+
+.theory-notebook .table-size-field {
+    padding: 15px;
+    border: 1px solid #e6e2eb;
+    border-radius: 14px;
+    background: #faf9fc;
+}
+
+.theory-notebook .table-size-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #514b5c;
+    font-size: .8rem;
+    font-weight: 750;
+}
+
+.theory-notebook .table-size-field input {
+    width: 100%;
+    height: 43px;
+    box-sizing: border-box;
+    padding: 0 11px;
+    border: 1px solid #dcd7e4;
+    border-radius: 9px;
+    background: #fff;
+    color: #393441;
+    font: inherit;
+    outline: none;
+}
+
+.theory-notebook .table-size-field input:focus {
+    border-color: #bdb3d8;
+    box-shadow: 0 0 0 3px rgba(117,104,168,.10);
+}
+
+.theory-notebook .table-size-field small {
+    display: block;
+    margin-top: 6px;
+    color: #918b97;
+    font-size: .7rem;
+}
+
+.theory-notebook .theory-table-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    padding: 0 24px 24px;
+}
+
+.theory-notebook .theory-secondary-btn,
+.theory-notebook .theory-primary-btn {
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 10px;
+    font: inherit;
+    font-size: .82rem;
+    font-weight: 750;
+    cursor: pointer;
+}
+
+.theory-notebook .theory-secondary-btn {
+    border: 1px solid #ddd8e5;
+    background: #fff;
+    color: #655f6d;
+}
+
+.theory-notebook .theory-secondary-btn:hover {
+    background: #f7f5f9;
+}
+
+.theory-notebook .theory-primary-btn {
+    border: 1px solid #7568a8;
+    background: #7568a8;
+    color: #fff;
+    box-shadow: 0 6px 15px rgba(117,104,168,.20);
+}
+
+.theory-notebook .theory-primary-btn:hover {
+    background: #665a98;
+}
+
+/* ---------- SMARTART DELETE CONTROL ---------- */
+
+.theory-notebook .orion-smartart {
+    position: relative;
+}
+
+.theory-notebook .orion-smartart-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 3;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 1px solid #e1dce8;
+    border-radius: 8px;
+    background: rgba(255,255,255,.96);
+    color: #77717f;
+    font: 700 20px/28px Arial, sans-serif;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 3px 9px rgba(55,45,70,.08);
+    transition: background .16s ease, color .16s ease,
+                border-color .16s ease, transform .16s ease;
+}
+
+.theory-notebook .orion-smartart-delete:hover {
+    background: #fff1f1;
+    border-color: #e8caca;
+    color: #b65d5d;
+    transform: scale(1.04);
+}
+
+.theory-notebook .orion-smartart-delete:focus-visible {
+    outline: 3px solid rgba(117,104,168,.16);
+    outline-offset: 1px;
+}
+
+.theory-notebook .orion-smartart-title {
+    padding-right: 42px;
+}
+
+/* ---------- SMARTART INSERTED INTO EDITOR ---------- */
+
+.theory-notebook .orion-smartart {
+    margin: 22px 0;
+    padding: 17px;
+    border: 1px solid #e1dceb;
+    border-radius: 15px;
+    background: #faf9fd;
+    box-shadow: 0 6px 18px rgba(70,60,92,.05);
+}
+
+.theory-notebook .orion-smartart-title {
+    margin-bottom: 13px;
+    color: #51466f;
+    font-size: 1rem;
+    font-weight: 800;
+    text-align: center;
+}
+
+.theory-notebook .orion-smartart-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 11px;
+}
+
+.theory-notebook .orion-smartart-box {
+    min-width: 105px;
+    padding: 11px 13px;
+    box-sizing: border-box;
+    border: 1px solid #d9d2e7;
+    border-radius: 11px;
+    background: #fff;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(65,55,88,.07);
+}
+
+.theory-notebook .orion-smartart-box strong,
+.theory-notebook .orion-smartart-box span {
+    display: block;
+}
+
+.theory-notebook .orion-smartart-box strong {
+    color: #51466f;
+    font-size: .8rem;
+}
+
+.theory-notebook .orion-smartart-box span {
+    margin-top: 3px;
+    color: #88828f;
+    font-size: .7rem;
+}
+
+.theory-notebook .orion-smartart-children {
+    display: flex;
+    justify-content: center;
+    gap: 11px;
+    width: 100%;
+    margin-top: 3px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 900px) {
+    .theory-notebook {
+        padding-inline: 12px;
+    }
+
+    .theory-notebook .theory-toolbar {
+        position: relative;
+    }
+
+    .theory-notebook .theory-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .theory-notebook .smartart-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .theory-notebook {
+        padding: 12px 8px 30px;
+    }
+
+    .theory-notebook .workspace-intro {
+        padding: 17px;
+        border-radius: 16px;
+    }
+
+    .theory-notebook .workspace-icon {
+        width: 46px;
+        height: 46px;
+        flex-basis: 46px;
+        font-size: 22px;
+    }
+
+    .theory-notebook .workspace-intro p {
+        font-size: .82rem;
+    }
+
+    .theory-notebook .theory-editor-card {
+        border-radius: 16px;
+    }
+
+    .theory-notebook .theory-rich-editor {
+        min-height: 430px;
+        padding: 30px 18px;
+    }
+
+    .theory-notebook .theory-toolbar {
+        gap: 5px;
+        padding: 9px;
+    }
+
+    .theory-notebook .theory-toolbar button,
+    .theory-notebook .theory-toolbar select,
+    .theory-notebook .theory-toolbar label {
+        height: 34px;
+    }
+
+    .theory-notebook .theory-toolbar select:first-child {
+        min-width: 125px;
+    }
+
+    .theory-notebook .table-size-form {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    .theory-notebook .theory-modal-header {
+        padding: 19px;
+    }
+
+    .theory-notebook .smartart-grid {
+        padding: 16px;
+    }
+
+    .theory-notebook .theory-table-actions {
+        padding-inline: 18px;
+        padding-bottom: 18px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .theory-notebook *,
+    .theory-notebook *::before,
+    .theory-notebook *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+        animation: none !important;
+    }
+}
+</style>
+
+
+
     <!-- =====================================================
          THEORY NOTES INTRO
          ===================================================== -->
@@ -11,16 +970,12 @@
         </span>
 
         <div>
-
-            <h2>
-                Theory Notes
-            </h2>
+            <h2>Theory Notes</h2>
 
             <p>
-                Write like Word or PowerPoint: headings, lists,
-                tables, callouts and charts.
+                Create polished notes with powerful formatting,
+                tables, diagrams, callouts and SmartArt.
             </p>
-
         </div>
 
     </div>
@@ -30,96 +985,731 @@
          RICH TEXT EDITOR
          ===================================================== -->
 
-    <section class="rich-editor-card">
+    <section class="rich-editor-card theory-editor-card">
+
+        <!-- EDITOR TOOLBAR -->
 
         <div
-            class="rich-toolbar"
+            class="rich-toolbar theory-toolbar"
             data-editor="theoryEditor"
         >
+
+            <!-- FONT FAMILY -->
+
+            <select
+                class="theory-font-select"
+                id="theoryFontFamily"
+                title="Font Family"
+            >
+
+                <option value="">Font</option>
+
+                <option value="Arial">
+                    Arial
+                </option>
+
+                <option value="Verdana">
+                    Verdana
+                </option>
+
+                <option value="Tahoma">
+                    Tahoma
+                </option>
+
+                <option value="Trebuchet MS">
+                    Trebuchet MS
+                </option>
+
+                <option value="Georgia">
+                    Georgia
+                </option>
+
+                <option value="Times New Roman">
+                    Times New Roman
+                </option>
+
+                <option value="Garamond">
+                    Garamond
+                </option>
+
+                <option value="Courier New">
+                    Courier New
+                </option>
+
+                <option value="Lucida Console">
+                    Lucida Console
+                </option>
+
+                <option value="Impact">
+                    Impact
+                </option>
+
+                <option value="Comic Sans MS">
+                    Comic Sans MS
+                </option>
+
+                <option value="Segoe UI">
+                    Segoe UI
+                </option>
+
+                <option value="Calibri">
+                    Calibri
+                </option>
+
+                <option value="Cambria">
+                    Cambria
+                </option>
+
+                <option value="Helvetica">
+                    Helvetica
+                </option>
+
+                <option value="Palatino">
+                    Palatino
+                </option>
+
+                <option value="Book Antiqua">Book Antiqua</option>
+                <option value="Baskerville">Baskerville</option>
+                <option value="Bodoni MT">Bodoni MT</option>
+                <option value="Century Schoolbook">Century Schoolbook</option>
+                <option value="Bookman Old Style">Bookman Old Style</option>
+                <option value="Constantia">Constantia</option>
+                <option value="Corbel">Corbel</option>
+                <option value="Candara">Candara</option>
+                <option value="Franklin Gothic Medium">Franklin Gothic Medium</option>
+                <option value="Gill Sans">Gill Sans</option>
+                <option value="Century Gothic">Century Gothic</option>
+                <option value="Arial Black">Arial Black</option>
+                <option value="Segoe Print">Segoe Print</option>
+                <option value="Segoe Script">Segoe Script</option>
+                <option value="Bradley Hand ITC">Bradley Hand ITC</option>
+                <option value="Brush Script MT">Brush Script MT</option>
+                <option value="Monotype Corsiva">Monotype Corsiva</option>
+                <option value="Copperplate">Copperplate</option>
+                <option value="Rockwell">Rockwell</option>
+                <option value="Rockwell Extra Bold">Rockwell Extra Bold</option>
+                <option value="Consolas">Consolas</option>
+                <option value="Monaco">Monaco</option>
+                <option value="Menlo">Menlo</option>
+                <option value="DejaVu Sans">DejaVu Sans</option>
+                <option value="DejaVu Serif">DejaVu Serif</option>
+                <option value="Liberation Sans">Liberation Sans</option>
+                <option value="Liberation Serif">Liberation Serif</option>
+                <option value="Noto Sans">Noto Sans</option>
+                <option value="Noto Serif">Noto Serif</option>
+                <option value="Noto Sans Devanagari">Noto Sans Devanagari</option>
+                <option value="Noto Serif Devanagari">Noto Serif Devanagari</option>
+                <option value="Noto Sans Tamil">Noto Sans Tamil</option>
+                <option value="Noto Serif Tamil">Noto Serif Tamil</option>
+                <option value="Noto Sans Telugu">Noto Sans Telugu</option>
+                <option value="Noto Serif Telugu">Noto Serif Telugu</option>
+                <option value="Noto Sans Malayalam">Noto Sans Malayalam</option>
+                <option value="Noto Serif Malayalam">Noto Serif Malayalam</option>
+                <option value="Noto Sans Bengali">Noto Sans Bengali</option>
+                <option value="Noto Serif Bengali">Noto Serif Bengali</option>
+                <option value="Noto Sans Kannada">Noto Sans Kannada</option>
+                <option value="Noto Serif Kannada">Noto Serif Kannada</option>
+                <option value="Noto Sans Gujarati">Noto Sans Gujarati</option>
+                <option value="Noto Serif Gujarati">Noto Serif Gujarati</option>
+                <option value="Noto Sans Gurmukhi">Noto Sans Gurmukhi</option>
+                <option value="Noto Serif Gurmukhi">Noto Serif Gurmukhi</option>
+                <option value="Noto Sans Thai">Noto Sans Thai</option>
+                <option value="Noto Serif Thai">Noto Serif Thai</option>
+                <option value="Noto Sans Arabic">Noto Sans Arabic</option>
+                <option value="Noto Serif Arabic">Noto Serif Arabic</option>
+                <option value="Noto Sans Hebrew">Noto Sans Hebrew</option>
+                <option value="Noto Serif Hebrew">Noto Serif Hebrew</option>
+                <option value="Noto Sans Japanese">Noto Sans Japanese</option>
+                <option value="Noto Serif Japanese">Noto Serif Japanese</option>
+                <option value="Noto Sans Korean">Noto Sans Korean</option>
+                <option value="Noto Serif Korean">Noto Serif Korean</option>
+
+            </select>
+
+
+            <!-- FONT SIZE -->
+
+            <select
+                class="theory-font-size"
+                id="theoryFontSize"
+                title="Font Size"
+            >
+
+                <option value="">Size</option>
+
+                <option value="1">10</option>
+                <option value="2">12</option>
+                <option value="3">14</option>
+                <option value="4">16</option>
+                <option value="5">18</option>
+                <option value="6">24</option>
+                <option value="7">32</option>
+
+            </select>
+
+
+            <span class="toolbar-divider"></span>
+
+
+            <!-- BASIC FORMATTING -->
 
             <button
                 type="button"
                 data-cmd="bold"
+                title="Bold"
             >
                 <b>B</b>
             </button>
 
+
             <button
                 type="button"
                 data-cmd="italic"
+                title="Italic"
             >
                 <i>I</i>
             </button>
 
+
             <button
                 type="button"
                 data-cmd="underline"
+                title="Underline"
             >
                 <u>U</u>
             </button>
 
+
+            <button
+                type="button"
+                data-cmd="strikeThrough"
+                title="Strikethrough"
+            >
+                <s>S</s>
+            </button>
+
+
+            <span class="toolbar-divider"></span>
+
+
+            <!-- TEXT COLOR -->
+
+            <label
+                class="theory-color-tool"
+                title="Text Color"
+            >
+
+                <span>
+                    A
+                </span>
+
+                <input
+                    type="color"
+                    id="theoryTextColor"
+                    value="#373342"
+                >
+
+            </label>
+
+
+            <!-- HIGHLIGHT -->
+
+            <label
+                class="theory-color-tool theory-highlight-tool"
+                title="Highlight"
+            >
+
+                <span>
+                    H
+                </span>
+
+                <input
+                    type="color"
+                    id="theoryHighlightColor"
+                    value="#fff2a8"
+                >
+
+            </label>
+
+
+            <span class="toolbar-divider"></span>
+
+
+            <!-- LISTS -->
+
             <button
                 type="button"
                 data-cmd="insertUnorderedList"
+                title="Bullet List"
             >
                 • List
             </button>
 
+
             <button
                 type="button"
                 data-cmd="insertOrderedList"
+                title="Numbered List"
             >
                 1. List
             </button>
+
+
+            <span class="toolbar-divider"></span>
+
+
+            <!-- HEADINGS -->
+
+            <button
+                type="button"
+                data-cmd="formatBlock"
+                data-value="h1"
+                title="Heading 1"
+            >
+                H1
+            </button>
+
 
             <button
                 type="button"
                 data-cmd="formatBlock"
                 data-value="h2"
+                title="Heading 2"
             >
                 H2
             </button>
+
+
+            <button
+                type="button"
+                data-cmd="formatBlock"
+                data-value="h3"
+                title="Heading 3"
+            >
+                H3
+            </button>
+
 
             <button
                 type="button"
                 data-cmd="formatBlock"
                 data-value="blockquote"
+                title="Callout"
             >
                 ❝
             </button>
 
+
+            <span class="toolbar-divider"></span>
+
+
+            <!-- ALIGNMENT -->
+
             <button
                 type="button"
                 data-cmd="justifyLeft"
+                title="Align Left"
             >
-                Left
+                ⬅
             </button>
+
 
             <button
                 type="button"
                 data-cmd="justifyCenter"
+                title="Center"
             >
-                Center
+                ↔
             </button>
+
 
             <button
                 type="button"
                 data-cmd="justifyRight"
+                title="Align Right"
             >
-                Right
+                ➡
+            </button>
+
+
+            <button
+                type="button"
+                data-cmd="justifyFull"
+                title="Justify"
+            >
+                ☷
+            </button>
+
+
+            <span class="toolbar-divider"></span>
+
+
+            <!-- UNDO / REDO -->
+
+            <button
+                type="button"
+                data-cmd="undo"
+                title="Undo"
+            >
+                ↶
+            </button>
+
+
+            <button
+                type="button"
+                data-cmd="redo"
+                title="Redo"
+            >
+                ↷
+            </button>
+
+
+            <span class="toolbar-divider"></span>
+
+
+            <!-- SMARTART -->
+
+            <button
+                type="button"
+                class="smartart-open-btn"
+                id="openTheorySmartArt"
+            >
+                🧩 SmartArt
+            </button>
+
+
+            <!-- TABLE -->
+
+            <button
+                type="button"
+                class="theory-table-open-btn"
+                id="openTheoryTableCreator"
+            >
+                ▦ Table
             </button>
 
         </div>
 
 
+        <!-- EDITOR -->
+
         <div
             id="theoryEditor"
-            class="rich-editor"
+            class="rich-editor theory-rich-editor"
             contenteditable="true"
             data-note-field="rich_content"
         >{{ page_data.fields.rich_content|safe }}</div>
 
     </section>
+
+
+
+    <!-- =====================================================
+         SMARTART PANEL
+         ===================================================== -->
+
+    <div
+        class="theory-modal"
+        id="theorySmartArtModal"
+        hidden
+    >
+
+        <div class="theory-modal-overlay"></div>
+
+        <div class="theory-modal-card">
+
+            <div class="theory-modal-header">
+
+                <div>
+
+                    <span class="theory-modal-kicker">
+                        VISUAL TOOL
+                    </span>
+
+                    <h3>
+                        SmartArt
+                    </h3>
+
+                    <p>
+                        Choose a visual structure for your notes.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="theory-modal-close"
+                    data-close-theory-modal
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="smartart-grid">
+
+
+                <!-- PROCESS -->
+
+                <button
+                    type="button"
+                    class="smartart-option"
+                    data-smartart="process"
+                >
+
+                    <span class="smartart-preview process-preview">
+
+                        <i>1</i>
+                        <i>2</i>
+                        <i>3</i>
+
+                    </span>
+
+                    <strong>
+                        Process
+                    </strong>
+
+                    <small>
+                        Show steps in sequence
+                    </small>
+
+                </button>
+
+
+                <!-- CYCLE -->
+
+                <button
+                    type="button"
+                    class="smartart-option"
+                    data-smartart="cycle"
+                >
+
+                    <span class="smartart-preview cycle-preview">
+
+                        <i>1</i>
+                        <i>2</i>
+                        <i>3</i>
+                        <i>4</i>
+
+                    </span>
+
+                    <strong>
+                        Cycle
+                    </strong>
+
+                    <small>
+                        Show repeating stages
+                    </small>
+
+                </button>
+
+
+                <!-- HIERARCHY -->
+
+                <button
+                    type="button"
+                    class="smartart-option"
+                    data-smartart="hierarchy"
+                >
+
+                    <span class="smartart-preview hierarchy-preview">
+
+                        <i>Main</i>
+                        <b>Sub</b>
+                        <b>Sub</b>
+
+                    </span>
+
+                    <strong>
+                        Hierarchy
+                    </strong>
+
+                    <small>
+                        Show levels and relationships
+                    </small>
+
+                </button>
+
+
+                <!-- STEPS -->
+
+                <button
+                    type="button"
+                    class="smartart-option"
+                    data-smartart="steps"
+                >
+
+                    <span class="smartart-preview steps-preview">
+
+                        <i>1</i>
+                        <i>2</i>
+                        <i>3</i>
+
+                    </span>
+
+                    <strong>
+                        Steps
+                    </strong>
+
+                    <small>
+                        Create a numbered sequence
+                    </small>
+
+                </button>
+
+
+                <!-- COMPARISON -->
+
+                <button
+                    type="button"
+                    class="smartart-option"
+                    data-smartart="comparison"
+                >
+
+                    <span class="smartart-preview comparison-preview">
+
+                        <i>A</i>
+                        <i>VS</i>
+                        <i>B</i>
+
+                    </span>
+
+                    <strong>
+                        Comparison
+                    </strong>
+
+                    <small>
+                        Compare two concepts
+                    </small>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         TABLE CREATOR
+         ===================================================== -->
+
+    <div
+        class="theory-modal"
+        id="theoryTableModal"
+        hidden
+    >
+
+        <div class="theory-modal-overlay"></div>
+
+        <div class="theory-modal-card theory-table-modal">
+
+            <div class="theory-modal-header">
+
+                <div>
+
+                    <span class="theory-modal-kicker">
+                        TABLE BUILDER
+                    </span>
+
+                    <h3>
+                        Create Comparison Table
+                    </h3>
+
+                    <p>
+                        Tell ORION how many rows and columns
+                        you need.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="theory-modal-close"
+                    data-close-theory-modal
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="table-size-form">
+
+                <div class="table-size-field">
+
+                    <label for="theoryTableRows">
+                        Rows
+                    </label>
+
+                    <input
+                        type="number"
+                        id="theoryTableRows"
+                        min="1"
+                        max="30"
+                        value="3"
+                    >
+
+                    <small>
+                        1–30 rows
+                    </small>
+
+                </div>
+
+
+                <div class="table-size-field">
+
+                    <label for="theoryTableColumns">
+                        Columns
+                    </label>
+
+                    <input
+                        type="number"
+                        id="theoryTableColumns"
+                        min="1"
+                        max="15"
+                        value="3"
+                    >
+
+                    <small>
+                        1–15 columns
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="theory-table-actions">
+
+                <button
+                    type="button"
+                    class="theory-secondary-btn"
+                    data-close-theory-modal
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="theory-primary-btn"
+                    id="createTheoryTable"
+                >
+                    Create Table
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
 
 
     <!-- =====================================================
@@ -128,7 +1718,8 @@
 
     <div class="theory-grid">
 
-        <!-- Definition -->
+
+        <!-- DEFINITION -->
 
         <section class="special-card">
 
@@ -142,15 +1733,18 @@
 
             </div>
 
+
             <textarea
                 data-note-field="definition"
                 class="special-textarea"
+                placeholder="Write important definitions..."
             >{{ page_data.fields.definition or '' }}</textarea>
 
         </section>
 
 
-        <!-- Key Concepts -->
+
+        <!-- KEY CONCEPTS -->
 
         <section class="special-card">
 
@@ -164,9 +1758,11 @@
 
             </div>
 
+
             <textarea
                 data-note-field="concepts"
                 class="special-textarea"
+                placeholder="Write the main concepts you need to remember..."
             >{{ page_data.fields.concepts or '' }}</textarea>
 
         </section>
@@ -174,11 +1770,12 @@
     </div>
 
 
+
     <!-- =====================================================
          COMPARISON / DATA TABLE
          ===================================================== -->
 
-    <section class="special-card">
+    <section class="special-card theory-table-section">
 
         <div class="special-card-header">
 
@@ -188,13 +1785,37 @@
                 Comparison / Data Table
             </strong>
 
+
             <button
                 type="button"
                 class="mini-action"
                 id="addTheoryRow"
             >
-                + Row
+                + Add Row
             </button>
+
+
+            <button
+                type="button"
+                class="mini-action"
+                id="openTheoryTableCreatorSecondary"
+            >
+                ▦ New Table
+            </button>
+
+        </div>
+
+
+        <div class="table-builder-hint">
+
+            <span>
+                💡
+            </span>
+
+            <span>
+                Click <strong>New Table</strong> to choose exactly
+                how many rows and columns you need.
+            </span>
 
         </div>
 
@@ -215,76 +1836,6 @@
     </section>
 
 
-    <!-- =====================================================
-         GRAPHICAL DATA
-         ===================================================== -->
-
-    <section class="special-card theory-chart-card">
-
-        <div class="special-card-header">
-
-            📈
-
-            <strong>
-                Graphical Data
-            </strong>
-
-
-            <select id="theoryChartType">
-
-                <option value="bar">
-                    Bar
-                </option>
-
-                <option value="line">
-                    Line
-                </option>
-
-                <option value="pie">
-                    Pie
-                </option>
-
-                <option value="doughnut">
-                    Doughnut
-                </option>
-
-                <option value="radar">
-                    Radar
-                </option>
-
-            </select>
-
-
-            <button
-                type="button"
-                class="mini-action"
-                id="renderTheoryChart"
-            >
-                Render Chart
-            </button>
-
-        </div>
-
-
-        <div class="chart-builder">
-
-            <input
-                id="chartLabels"
-                placeholder="Labels: Unit 1, Unit 2, Unit 3"
-            >
-
-            <input
-                id="chartValues"
-                placeholder="Values: 30, 50, 20"
-            >
-
-        </div>
-
-
-        <canvas id="theoryChart"></canvas>
-
-    </section>
-
 
     <!-- =====================================================
          WARNINGS & POSSIBLE QUESTIONS
@@ -292,7 +1843,8 @@
 
     <div class="theory-grid">
 
-        <!-- Don't Forget -->
+
+        <!-- DON'T FORGET -->
 
         <section class="special-card warning-card">
 
@@ -306,15 +1858,18 @@
 
             </div>
 
+
             <textarea
                 data-note-field="dont_forget"
                 class="special-textarea"
+                placeholder="Write formulas, exceptions, reminders or important warnings..."
             >{{ page_data.fields.dont_forget or '' }}</textarea>
 
         </section>
 
 
-        <!-- Possible Questions -->
+
+        <!-- POSSIBLE QUESTIONS -->
 
         <section class="special-card question-card">
 
@@ -328,14 +1883,17 @@
 
             </div>
 
+
             <textarea
                 data-note-field="questions"
                 class="special-textarea"
+                placeholder="Write questions that could appear in an exam..."
             >{{ page_data.fields.questions or '' }}</textarea>
 
         </section>
 
     </div>
+
 
 
     <!-- =====================================================
@@ -354,11 +1912,923 @@
 
         </div>
 
+
         <textarea
             data-note-field="summary"
             class="special-textarea"
+            placeholder="Summarise the topic in your own words..."
         >{{ page_data.fields.summary or '' }}</textarea>
 
     </section>
+
+
+
+    <!-- =====================================================
+         THEORY NOTEBOOK FUNCTIONALITY
+         ===================================================== -->
+
+    <script>
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const editor =
+                document.getElementById(
+                    "theoryEditor"
+                );
+
+            if (!editor) {
+                return;
+            }
+
+
+            /* =================================================
+               BASIC COMMAND HANDLER
+               ================================================= */
+
+            document
+                .querySelectorAll(
+                    '.theory-toolbar button[data-cmd]'
+                )
+                .forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+                                editor.focus();
+
+                                const command =
+                                    button.dataset.cmd;
+
+                                const value =
+                                    button.dataset.value
+                                    || null;
+
+                                document.execCommand(
+                                    command,
+                                    false,
+                                    value
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            /* =================================================
+               FONT FAMILY
+               ================================================= */
+
+            const fontFamily =
+                document.getElementById(
+                    "theoryFontFamily"
+                );
+
+            if (fontFamily) {
+
+                fontFamily.addEventListener(
+                    "change",
+                    function () {
+
+                        if (!this.value) {
+                            return;
+                        }
+
+                        editor.focus();
+
+                        document.execCommand(
+                            "fontName",
+                            false,
+                            this.value
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               FONT SIZE
+               ================================================= */
+
+            const fontSize =
+                document.getElementById(
+                    "theoryFontSize"
+                );
+
+            if (fontSize) {
+
+                fontSize.addEventListener(
+                    "change",
+                    function () {
+
+                        if (!this.value) {
+                            return;
+                        }
+
+                        editor.focus();
+
+                        document.execCommand(
+                            "fontSize",
+                            false,
+                            this.value
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               TEXT COLOR
+               ================================================= */
+
+            const textColor =
+                document.getElementById(
+                    "theoryTextColor"
+                );
+
+            if (textColor) {
+
+                textColor.addEventListener(
+                    "input",
+                    function () {
+
+                        editor.focus();
+
+                        document.execCommand(
+                            "foreColor",
+                            false,
+                            this.value
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               HIGHLIGHT
+               ================================================= */
+
+            const highlightColor =
+                document.getElementById(
+                    "theoryHighlightColor"
+                );
+
+            if (highlightColor) {
+
+                highlightColor.addEventListener(
+                    "input",
+                    function () {
+
+                        editor.focus();
+
+                        document.execCommand(
+                            "hiliteColor",
+                            false,
+                            this.value
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               MODAL HELPERS
+               ================================================= */
+
+            function openModal(modal) {
+
+                if (!modal) {
+                    return;
+                }
+
+                modal.hidden = false;
+
+                document.body.classList.add(
+                    "theory-modal-open"
+                );
+
+            }
+
+
+            function closeModal(modal) {
+
+                if (!modal) {
+                    return;
+                }
+
+                modal.hidden = true;
+
+                document.body.classList.remove(
+                    "theory-modal-open"
+                );
+
+            }
+
+
+            document
+                .querySelectorAll(
+                    "[data-close-theory-modal]"
+                )
+                .forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+                                const modal =
+                                    button.closest(
+                                        ".theory-modal"
+                                    );
+
+                                closeModal(modal);
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    ".theory-modal-overlay"
+                )
+                .forEach(
+                    function (overlay) {
+
+                        overlay.addEventListener(
+                            "click",
+                            function () {
+
+                                closeModal(
+                                    overlay.closest(
+                                        ".theory-modal"
+                                    )
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            /* =================================================
+               SMARTART MODAL
+               ================================================= */
+
+            const smartArtModal =
+                document.getElementById(
+                    "theorySmartArtModal"
+                );
+
+            const smartArtButton =
+                document.getElementById(
+                    "openTheorySmartArt"
+                );
+
+
+            if (smartArtButton) {
+
+                smartArtButton.addEventListener(
+                    "click",
+                    function () {
+
+                        openModal(
+                            smartArtModal
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               SMARTART INSERTION
+               ================================================= */
+
+            document
+                .querySelectorAll(
+                    "[data-smartart]"
+                )
+                .forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "click",
+                            function () {
+
+                                const type =
+                                    button.dataset.smartart;
+
+                                insertSmartArt(
+                                    type
+                                );
+
+                                closeModal(
+                                    smartArtModal
+                                );
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            function createSmartArtBox(
+                title,
+                subtitle
+            ) {
+
+                const box =
+                    document.createElement(
+                        "div"
+                    );
+
+                box.className =
+                    "orion-smartart-box";
+
+                box.contentEditable =
+                    "true";
+
+                box.innerHTML =
+                    "<strong>" +
+                    title +
+                    "</strong>" +
+                    "<span>" +
+                    subtitle +
+                    "</span>";
+
+                return box;
+
+            }
+
+
+            function insertSmartArt(type) {
+
+                editor.focus();
+
+                const wrapper =
+                    document.createElement(
+                        "div"
+                    );
+
+                wrapper.className =
+                    "orion-smartart " +
+                    "smartart-" +
+                    type;
+
+                wrapper.contentEditable =
+                    "false";
+
+
+                const smartArtDelete =
+                    document.createElement(
+                        "button"
+                    );
+
+                smartArtDelete.type = "button";
+                smartArtDelete.className = "orion-smartart-delete";
+                smartArtDelete.title = "Delete SmartArt";
+                smartArtDelete.setAttribute("aria-label", "Delete SmartArt");
+                smartArtDelete.innerHTML = "×";
+
+                smartArtDelete.addEventListener(
+                    "click",
+                    function (event) {
+                        event.preventDefault();
+                        event.stopPropagation();
+
+                        if (
+                            window.confirm(
+                                "Delete this SmartArt diagram?"
+                            )
+                        ) {
+                            wrapper.remove();
+                        }
+                    }
+                );
+
+                const title =
+                    document.createElement(
+                        "div"
+                    );
+
+                title.className =
+                    "orion-smartart-title";
+
+                title.contentEditable =
+                    "true";
+
+                title.innerText =
+                    "SmartArt Diagram";
+
+
+                const content =
+                    document.createElement(
+                        "div"
+                    );
+
+                content.className =
+                    "orion-smartart-content";
+
+
+                if (
+                    type === "process"
+                    || type === "steps"
+                ) {
+
+                    for (
+                        let i = 1;
+                        i <= 4;
+                        i++
+                    ) {
+
+                        content.appendChild(
+                            createSmartArtBox(
+                                "Step " + i,
+                                "Add information"
+                            )
+                        );
+
+                    }
+
+                }
+
+
+                else if (
+                    type === "cycle"
+                ) {
+
+                    for (
+                        let i = 1;
+                        i <= 4;
+                        i++
+                    ) {
+
+                        content.appendChild(
+                            createSmartArtBox(
+                                "Stage " + i,
+                                "Add information"
+                            )
+                        );
+
+                    }
+
+                }
+
+
+                else if (
+                    type === "hierarchy"
+                ) {
+
+                    const main =
+                        createSmartArtBox(
+                            "Main Concept",
+                            "Central idea"
+                        );
+
+                    const childOne =
+                        createSmartArtBox(
+                            "Sub Concept",
+                            "Supporting idea"
+                        );
+
+                    const childTwo =
+                        createSmartArtBox(
+                            "Sub Concept",
+                            "Supporting idea"
+                        );
+
+                    content.appendChild(
+                        main
+                    );
+
+                    const children =
+                        document.createElement(
+                            "div"
+                        );
+
+                    children.className =
+                        "orion-smartart-children";
+
+                    children.appendChild(
+                        childOne
+                    );
+
+                    children.appendChild(
+                        childTwo
+                    );
+
+                    content.appendChild(
+                        children
+                    );
+
+                }
+
+
+                else if (
+                    type === "comparison"
+                ) {
+
+                    content.appendChild(
+                        createSmartArtBox(
+                            "Concept A",
+                            "First idea"
+                        )
+                    );
+
+                    content.appendChild(
+                        createSmartArtBox(
+                            "VS",
+                            "Compare"
+                        )
+                    );
+
+                    content.appendChild(
+                        createSmartArtBox(
+                            "Concept B",
+                            "Second idea"
+                        )
+                    );
+
+                }
+
+
+                wrapper.appendChild(
+                    smartArtDelete
+                );
+
+                wrapper.appendChild(
+                    title
+                );
+
+                wrapper.appendChild(
+                    content
+                );
+
+
+                const paragraph =
+                    document.createElement(
+                        "p"
+                    );
+
+                paragraph.innerHTML =
+                    "<br>";
+
+                editor.appendChild(
+                    wrapper
+                );
+
+                editor.appendChild(
+                    paragraph
+                );
+
+                editor.focus();
+
+            }
+
+
+            /* =================================================
+               TABLE CREATOR
+               ================================================= */
+
+            const tableModal =
+                document.getElementById(
+                    "theoryTableModal"
+                );
+
+            const openTable =
+                document.getElementById(
+                    "openTheoryTableCreator"
+                );
+
+            const secondaryTable =
+                document.getElementById(
+                    "openTheoryTableCreatorSecondary"
+                );
+
+
+            function openTableCreator() {
+
+                openModal(
+                    tableModal
+                );
+
+            }
+
+
+            if (openTable) {
+
+                openTable.addEventListener(
+                    "click",
+                    openTableCreator
+                );
+
+            }
+
+
+            if (secondaryTable) {
+
+                secondaryTable.addEventListener(
+                    "click",
+                    openTableCreator
+                );
+
+            }
+
+
+            /* =================================================
+               CREATE TABLE
+               ================================================= */
+
+            const createTable =
+                document.getElementById(
+                    "createTheoryTable"
+                );
+
+
+            if (createTable) {
+
+                createTable.addEventListener(
+                    "click",
+                    function () {
+
+                        const rows =
+                            Math.max(
+                                1,
+                                Math.min(
+                                    30,
+                                    parseInt(
+                                        document.getElementById(
+                                            "theoryTableRows"
+                                        ).value
+                                    ) || 1
+                                )
+                            );
+
+
+                        const columns =
+                            Math.max(
+                                1,
+                                Math.min(
+                                    15,
+                                    parseInt(
+                                        document.getElementById(
+                                            "theoryTableColumns"
+                                        ).value
+                                    ) || 1
+                                )
+                            );
+
+
+                        buildTheoryTable(
+                            rows,
+                            columns
+                        );
+
+
+                        closeModal(
+                            tableModal
+                        );
+
+                    }
+                );
+
+            }
+
+
+            function buildTheoryTable(
+                rows,
+                columns
+            ) {
+
+                const table =
+                    document.getElementById(
+                        "theoryTable"
+                    );
+
+                if (!table) {
+                    return;
+                }
+
+
+                const tbody =
+                    table.querySelector(
+                        "tbody"
+                    );
+
+
+                tbody.innerHTML = "";
+
+
+                for (
+                    let r = 0;
+                    r < rows;
+                    r++
+                ) {
+
+                    const tr =
+                        document.createElement(
+                            "tr"
+                        );
+
+
+                    for (
+                        let c = 0;
+                        c < columns;
+                        c++
+                    ) {
+
+                        const td =
+                            document.createElement(
+                                "td"
+                            );
+
+
+                        const input =
+                            document.createElement(
+                                "input"
+                            );
+
+                        input.type =
+                            "text";
+
+                        input.placeholder =
+                            r === 0
+                                ? "Header"
+                                : "Write here...";
+
+
+                        td.appendChild(
+                            input
+                        );
+
+                        tr.appendChild(
+                            td
+                        );
+
+                    }
+
+
+                    tbody.appendChild(
+                        tr
+                    );
+
+                }
+
+            }
+
+
+            /* =================================================
+               EXISTING + ROW
+               ================================================= */
+
+            const addRow =
+                document.getElementById(
+                    "addTheoryRow"
+                );
+
+
+            if (addRow) {
+
+                addRow.addEventListener(
+                    "click",
+                    function () {
+
+                        const table =
+                            document.getElementById(
+                                "theoryTable"
+                            );
+
+                        const tbody =
+                            table
+                                ? table.querySelector(
+                                    "tbody"
+                                )
+                                : null;
+
+                        if (!tbody) {
+                            return;
+                        }
+
+
+                        const firstRow =
+                            tbody.querySelector(
+                                "tr"
+                            );
+
+
+                        if (!firstRow) {
+
+                            openTableCreator();
+
+                            return;
+
+                        }
+
+
+                        const columnCount =
+                            firstRow.children.length;
+
+
+                        const tr =
+                            document.createElement(
+                                "tr"
+                            );
+
+
+                        for (
+                            let c = 0;
+                            c < columnCount;
+                            c++
+                        ) {
+
+                            const td =
+                                document.createElement(
+                                    "td"
+                                );
+
+
+                            const input =
+                                document.createElement(
+                                    "input"
+                                );
+
+                            input.type =
+                                "text";
+
+                            input.placeholder =
+                                "Write here...";
+
+
+                            td.appendChild(
+                                input
+                            );
+
+                            tr.appendChild(
+                                td
+                            );
+
+                        }
+
+
+                        tbody.appendChild(
+                            tr
+                        );
+
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               INITIAL TABLE
+               ================================================= */
+
+            const theoryTable =
+                document.getElementById(
+                    "theoryTable"
+                );
+
+
+            if (
+                theoryTable
+                && theoryTable
+                    .querySelector(
+                        "tbody"
+                    )
+                    .children.length === 0
+            ) {
+
+                buildTheoryTable(
+                    3,
+                    3
+                );
+
+            }
+
+        }
+
+    );
+
+    </script>
 
 </div>
