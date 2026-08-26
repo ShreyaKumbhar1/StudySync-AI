@@ -1,660 +1,1941 @@
+<style>
+
+/* =========================================================
+   MATHEMATICS FORMULA LIBRARY — SCROLL FIX
+   ========================================================= */
+
+/* Main formula library */
+.mathematics-notebook .formula-library-list {
+    max-height: 680px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 6px;
+    scrollbar-width: thin;
+}
+
+/* Chrome / Edge scrollbar */
+.mathematics-notebook .formula-library-list::-webkit-scrollbar,
+.mathematics-notebook .formula-subgroups::-webkit-scrollbar,
+.mathematics-notebook .formula-items::-webkit-scrollbar {
+    width: 7px;
+}
+
+.mathematics-notebook .formula-library-list::-webkit-scrollbar-track,
+.mathematics-notebook .formula-subgroups::-webkit-scrollbar-track,
+.mathematics-notebook .formula-items::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.mathematics-notebook .formula-library-list::-webkit-scrollbar-thumb,
+.mathematics-notebook .formula-subgroups::-webkit-scrollbar-thumb,
+.mathematics-notebook .formula-items::-webkit-scrollbar-thumb {
+    background: rgba(120, 100, 150, 0.28);
+    border-radius: 20px;
+}
+
+.mathematics-notebook .formula-library-list::-webkit-scrollbar-thumb:hover,
+.mathematics-notebook .formula-subgroups::-webkit-scrollbar-thumb:hover,
+.mathematics-notebook .formula-items::-webkit-scrollbar-thumb:hover {
+    background: rgba(120, 100, 150, 0.45);
+}
+
+
+/* =========================================================
+   STEP-BY-STEP NUMBERING
+   Numbers stay INSIDE each step box
+   ========================================================= */
+
+.mathematics-notebook .math-steps {
+    counter-reset: math-step;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/*
+   Every generated step automatically receives
+   the next number.
+*/
+.mathematics-notebook .math-step {
+    counter-increment: math-step;
+    position: relative;
+    box-sizing: border-box;
+}
+
+/*
+   Number badge inside the step box.
+*/
+.mathematics-notebook .math-step::before {
+    content: counter(math-step);
+
+    position: absolute;
+    top: 14px;
+    left: 14px;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(120, 100, 150, 0.12);
+    border: 1px solid rgba(120, 100, 150, 0.20);
+
+    color: #625472;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    z-index: 3;
+
+    box-sizing: border-box;
+}
+
+/*
+   Give the actual step content enough room so
+   the number never overlaps the writing area.
+*/
+.mathematics-notebook .math-step textarea,
+.mathematics-notebook .math-step input,
+.mathematics-notebook .math-step .step-content,
+.mathematics-notebook .math-step .math-step-content {
+    padding-left: 58px;
+}
+
+/*
+   If the existing JavaScript already creates a
+   separate number element, hide it so we don't
+   get duplicate numbering.
+*/
+.mathematics-notebook .math-step .step-number,
+.mathematics-notebook .math-step .math-step-number {
+    display: none !important;
+}
+
+
+/* =========================================================
+   MAIN CATEGORY
+   ========================================================= */
+
+.mathematics-notebook .formula-group {
+    display: block;
+    width: 100%;
+}
+
+/*
+   When a category opens, don't let it make the entire
+   notebook ridiculously tall.
+*/
+.mathematics-notebook .formula-group[open] > .formula-subgroups {
+    max-height: 430px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+
+/* =========================================================
+   SUBCATEGORY
+   ========================================================= */
+
+.mathematics-notebook .formula-subgroup {
+    display: block;
+    width: 100%;
+}
+
+.mathematics-notebook .formula-subgroup[open] > .formula-items {
+    max-height: 260px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+}
+
+
+/* =========================================================
+   MAKE SUMMARIES CLICKABLE
+   ========================================================= */
+
+.mathematics-notebook .formula-group > summary,
+.mathematics-notebook .formula-subgroup > summary {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    z-index: 2;
+}
+
+.mathematics-notebook .formula-group > summary:hover,
+.mathematics-notebook .formula-subgroup > summary:hover {
+    opacity: 0.82;
+}
+
+
+/* =========================================================
+   IMPORTANT:
+   DON'T LET ANY EXISTING CSS BLOCK DETAILS FROM OPENING
+   ========================================================= */
+
+.mathematics-notebook .formula-group,
+.mathematics-notebook .formula-subgroup {
+    overflow: visible;
+}
+
+.mathematics-notebook .formula-group summary,
+.mathematics-notebook .formula-subgroup summary {
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   FORMULA ITEMS
+   ========================================================= */
+
+.mathematics-notebook .formula-items {
+    box-sizing: border-box;
+}
+
+.mathematics-notebook .formula-item {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   SMOOTH SCROLLING
+   ========================================================= */
+
+.mathematics-notebook .formula-library-list,
+.mathematics-notebook .formula-subgroups,
+.mathematics-notebook .formula-items {
+    scroll-behavior: smooth;
+}
+
+
+/* =========================================================
+   REMOVE CATEGORY COUNTS
+   ========================================================= */
+
+.mathematics-notebook .formula-group > summary small {
+    display: none !important;
+}
+
+
+/* =========================================================
+   KEEP THE ARROW VISIBLE
+   ========================================================= */
+
+.mathematics-notebook .formula-arrow {
+    display: inline-block;
+    transition: transform 0.2s ease;
+}
+
+.mathematics-notebook .formula-group[open] > summary .formula-arrow {
+    transform: rotate(90deg);
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .mathematics-notebook .formula-library-list {
+        max-height: 550px;
+    }
+
+    .mathematics-notebook .formula-group[open] > .formula-subgroups {
+        max-height: 350px;
+    }
+
+    .mathematics-notebook .formula-subgroup[open] > .formula-items {
+        max-height: 220px;
+    }
+
+    /*
+       Slightly smaller step badge on mobile.
+    */
+    .mathematics-notebook .math-step::before {
+        width: 27px;
+        height: 27px;
+
+        top: 12px;
+        left: 12px;
+
+        font-size: 12px;
+    }
+
+    .mathematics-notebook .math-step textarea,
+    .mathematics-notebook .math-step input,
+    .mathematics-notebook .math-step .step-content,
+    .mathematics-notebook .math-step .math-step-content {
+        padding-left: 50px;
+    }
+
+}
+
+</style>
+
+
 <div class="special-notebook mathematics-notebook">
 
     <!-- =====================================================
-         MATHEMATICS WORKSPACE INTRO
+         MATHEMATICS HEADER
          ===================================================== -->
 
-    <div class="workspace-intro math-workspace-intro">
+    <div class="math-header">
 
-        <div class="workspace-icon math-icon">
-            ∑
-        </div>
+        <div class="math-header-left">
 
-        <div class="workspace-intro-content">
+            <div class="math-logo">
+                ∑
+            </div>
 
-            <span class="math-eyebrow">
-                MATHEMATICS NOTEBOOK
-            </span>
-
-            <h2>
-                Mathematics Workspace
-            </h2>
-
-            <p>
-                Explore formulas, solve problems, work through calculations,
-                and keep every mathematical idea organized in one place.
-            </p>
+            <div class="math-title">
+                <h2>Mathematics</h2>
+                <span>Think • Calculate • Solve</span>
+            </div>
 
         </div>
 
-        <div class="math-symbols" aria-hidden="true">
+        <div class="math-header-symbols">
             <span>π</span>
-            <span>√x</span>
             <span>∫</span>
+            <span>√</span>
             <span>∞</span>
+            <span>Σ</span>
         </div>
 
     </div>
 
 
     <!-- =====================================================
-         ADVANCED CALCULATOR
+         MAIN MATHEMATICS WORKSPACE
          ===================================================== -->
 
-    <section class="math-calculator-card special-card">
-
-        <div class="special-card-header math-section-header">
-
-            <div class="section-title-group">
-
-                <span class="section-icon calculator-icon">
-                    🧠
-                </span>
-
-                <div>
-                    <strong>
-                        Advanced Calculator
-                    </strong>
-
-                    <small>
-                        Scientific calculations & calculus
-                    </small>
-                </div>
-
-            </div>
-
-            <span class="math-badge">
-                SMART
-            </span>
-
-        </div>
+    <div class="math-workspace">
 
 
-        <!-- Calculator Display -->
+        <!-- =================================================
+             LEFT COLUMN
+             ================================================= -->
 
-        <div class="calculator-display">
-
-            <div class="calculator-input-wrapper">
-
-                <span class="input-prefix">
-                    fx
-                </span>
-
-                <input
-                    id="mathExpression"
-                    placeholder="e.g. sin(pi/4) + 5^2 / 3"
-                    autocomplete="off"
-                >
-
-            </div>
-
-            <button
-                type="button"
-                id="calculateMath"
-                class="calculate-button"
-                aria-label="Calculate"
-            >
-                =
-            </button>
-
-        </div>
+        <main class="math-main-column">
 
 
-        <!-- Calculator Result -->
+            <!-- FORMULA -->
 
-        <div
-            id="calculatorResult"
-            class="calculator-result"
-        >
-            <span class="result-label">
-                RESULT
-            </span>
+            <section class="math-panel formula-panel">
 
-            <span class="result-value">
-                Ready
-            </span>
-        </div>
+                <div class="math-panel-header">
 
+                    <div class="math-section-title">
 
-        <!-- Calculator Actions -->
+                        <span class="math-section-icon">
+                            ƒ
+                        </span>
 
-        <div class="calculator-tools-label">
-            <span>QUICK FUNCTIONS</span>
-        </div>
+                        <strong>Formula</strong>
 
-        <div class="calculator-actions">
-
-            <button
-                type="button"
-                data-math="sin(x)"
-                title="Sine"
-            >
-                <span>sin</span>
-            </button>
-
-            <button
-                type="button"
-                data-math="cos(x)"
-                title="Cosine"
-            >
-                <span>cos</span>
-            </button>
-
-            <button
-                type="button"
-                data-math="tan(x)"
-                title="Tangent"
-            >
-                <span>tan</span>
-            </button>
-
-            <button
-                type="button"
-                data-math="sqrt(x)"
-                title="Square root"
-            >
-                <span>√</span>
-            </button>
-
-            <button
-                type="button"
-                data-math="log(x)"
-                title="Logarithm"
-            >
-                <span>log</span>
-            </button>
-
-            <button
-                type="button"
-                data-math="ln(x)"
-                title="Natural logarithm"
-            >
-                <span>ln</span>
-            </button>
-
-            <button
-                type="button"
-                data-math="x^2"
-                title="Square"
-            >
-                <span>x²</span>
-            </button>
-
-            <button
-                type="button"
-                data-math="pi"
-                title="Pi"
-            >
-                <span>π</span>
-            </button>
-
-            <button
-                type="button"
-                data-math="e"
-                title="Euler's number"
-            >
-                <span>e</span>
-            </button>
-
-        </div>
-
-
-        <!-- Calculus -->
-
-        <div class="calculus-panel">
-
-            <div class="calculus-heading">
-
-                <div>
-                    <span class="calculus-symbol">
-                        ∫
-                    </span>
-
-                    <div>
-                        <strong>Calculus Tools</strong>
-
-                        <small>
-                            Differentiate or integrate an expression
-                        </small>
                     </div>
-                </div>
-
-            </div>
-
-
-            <div class="calculus-row">
-
-                <div class="calculus-expression">
-
-                    <span class="field-label">
-                        EXPRESSION
-                    </span>
-
-                    <input
-                        id="calculusExpression"
-                        placeholder="e.g. x^2 + sin(x)"
-                    >
 
                 </div>
 
+                <textarea
+                    data-note-field="formula"
+                    class="math-writing-area formula-writing-area"
+                    placeholder="Write the formula here..."
+                >{{ page_data.formula }}</textarea>
 
-                <div class="calculus-variable">
+            </section>
 
-                    <span class="field-label">
-                        VARIABLE
-                    </span>
 
-                    <input
-                        id="calculusVariable"
-                        value="x"
-                        maxlength="3"
-                    >
+            <!-- PROBLEM -->
+
+            <section class="math-panel problem-panel">
+
+                <div class="math-panel-header">
+
+                    <div class="math-section-title">
+
+                        <span class="math-section-icon">
+                            ?
+                        </span>
+
+                        <strong>Problem</strong>
+
+                    </div>
 
                 </div>
 
+                <textarea
+                    data-note-field="content"
+                    class="math-writing-area problem-area"
+                    placeholder="Write the mathematical problem here..."
+                >{{ page_data.content }}</textarea>
 
-                <button
-                    type="button"
-                    id="differentiateMath"
-                    class="calculus-action"
-                >
-                    <span>d/dx</span>
-                    <small>Differentiate</small>
-                </button>
+            </section>
 
 
-                <button
-                    type="button"
-                    id="integrateMath"
-                    class="calculus-action integration-action"
-                >
-                    <span>∫</span>
-                    <small>Integrate</small>
-                </button>
+            <!-- STEP-BY-STEP WORKING -->
 
-            </div>
+            <section class="math-panel working-panel">
 
-        </div>
+                <div class="math-panel-header working-header">
 
-    </section>
+                    <div class="math-section-title">
 
+                        <span class="math-section-icon">
+                            ≡
+                        </span>
 
+                        <strong>Step-by-Step Working</strong>
 
-    <!-- =====================================================
-         FORMULA
-         ===================================================== -->
-
-    <section class="special-card formula-card">
-
-        <div class="special-card-header math-section-header">
-
-            <div class="section-title-group">
-
-                <span class="section-icon formula-icon">
-                    📐
-                </span>
-
-                <div>
-                    <strong>
-                        Formula
-                    </strong>
-
-                    <small>
-                        Write down the formula you need
-                    </small>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="math-editor-wrapper">
-
-            <div class="editor-line-marker">
-                ∑
-            </div>
-
-            <textarea
-                data-note-field="formula"
-                class="formula-input"
-                placeholder="Write your formula here..."
-            >{{ page_data.formula }}</textarea>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         PROBLEM
-         ===================================================== -->
-
-    <section class="special-card problem-card">
-
-        <div class="special-card-header math-section-header">
-
-            <div class="section-title-group">
-
-                <span class="section-icon problem-icon">
-                    ?
-                </span>
-
-                <div>
-                    <strong>
-                        Problem
-                    </strong>
-
-                    <small>
-                        Describe the problem you're solving
-                    </small>
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="math-editor-wrapper problem-editor">
-
-            <div class="editor-line-marker">
-                01
-            </div>
-
-            <textarea
-                data-note-field="content"
-                class="math-problem-input"
-                placeholder="Write the mathematical problem here..."
-            >{{ page_data.content }}</textarea>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         STEP-BY-STEP WORKING
-         ===================================================== -->
-
-    <section class="special-card working-card">
-
-        <div class="special-card-header math-section-header">
-
-            <div class="section-title-group">
-
-                <span class="section-icon working-icon">
-                    ✎
-                </span>
-
-                <div>
-                    <strong>
-                        Step-by-Step Working
-                    </strong>
-
-                    <small>
-                        Break the solution into clear steps
-                    </small>
-                </div>
-
-            </div>
-
-
-            <button
-                type="button"
-                class="mini-action"
-                id="addMathStep"
-            >
-                <span>+</span>
-                Step
-            </button>
-
-        </div>
-
-
-        <div
-            class="math-steps"
-            id="mathSteps"
-        ></div>
-
-
-        <div class="steps-empty-state">
-
-            <span class="empty-step-symbol">
-                →
-            </span>
-
-            <div>
-                <strong>
-                    Start working through the problem
-                </strong>
-
-                <p>
-                    Add your first step and build the solution one stage at a time.
-                </p>
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         FINAL ANSWER
-         ===================================================== -->
-
-    <section class="answer-card">
-
-        <div class="special-card-header math-section-header">
-
-            <div class="section-title-group">
-
-                <span class="section-icon answer-icon">
-                    ✓
-                </span>
-
-                <div>
-                    <strong>
-                        Final Answer
-                    </strong>
-
-                    <small>
-                        Record the result of your solution
-                    </small>
-                </div>
-
-            </div>
-
-            <span class="answer-status">
-                SOLUTION
-            </span>
-
-        </div>
-
-
-        <div class="answer-editor">
-
-            <div class="answer-symbol">
-                ∴
-            </div>
-
-            <textarea
-                data-note-field="final_answer"
-                placeholder="Write your final answer here..."
-            >{{ page_data.final_answer }}</textarea>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         FORMULA LIBRARY
-         ===================================================== -->
-
-    <section class="formula-library special-card">
-
-        <div class="special-card-header math-section-header">
-
-            <div class="section-title-group">
-
-                <span class="section-icon library-icon">
-                    π
-                </span>
-
-                <div>
-                    <strong>
-                        Formula Library
-                    </strong>
-
-                    <small>
-                        Quick access to essential formulas
-                    </small>
-                </div>
-
-            </div>
-
-            <span class="library-count">
-                6 CATEGORIES
-            </span>
-
-        </div>
-
-
-        <div class="formula-library-intro">
-
-            <span>
-                ✦
-            </span>
-
-            <p>
-                Select a category to explore useful formulas.
-                Click any formula to quickly use it in your workspace.
-            </p>
-
-        </div>
-
-
-        <div class="formula-tabs">
-
-            {% for key, formulas in {
-
-                'Algebra': [
-                    '(a+b)^2=a^2+2ab+b^2',
-                    'a^2-b^2=(a-b)(a+b)',
-                    'x=(-b±√(b²-4ac))/(2a)'
-                ],
-
-                'Geometry': [
-                    'Area of circle=πr²',
-                    'Area of triangle=½bh',
-                    'Sphere volume=4πr³/3'
-                ],
-
-                'Differentiation': [
-                    'd(x^n)/dx = nx^(n-1)',
-                    'd(sin x)/dx = cos x',
-                    'd(cos x)/dx = -sin x'
-                ],
-
-                'Integration': [
-                    '∫x^n dx=x^(n+1)/(n+1)+C',
-                    '∫sin x dx=-cos x+C',
-                    '∫cos x dx=sin x+C'
-                ],
-
-                'Trigonometry': [
-                    'sin²x+cos²x=1',
-                    '1+tan²x=sec²x',
-                    'sin(2x)=2sin x cos x'
-                ],
-
-                'Statistics': [
-                    'Mean=Σx/n',
-                    'Variance=Σ(x-μ)²/n',
-                    'σ=√variance'
-                ]
-
-            }.items() %}
-
-
-            <!-- Formula Category -->
-
-            <details>
-
-                <summary>
-
-                    <span class="formula-category-symbol">
-
-                        {% if key == 'Algebra' %}
-                            ∑
-                        {% elif key == 'Geometry' %}
-                            △
-                        {% elif key == 'Differentiation' %}
-                            d
-                        {% elif key == 'Integration' %}
-                            ∫
-                        {% elif key == 'Trigonometry' %}
-                            θ
-                        {% elif key == 'Statistics' %}
-                            σ
-                        {% endif %}
-
-                    </span>
-
-                    <span class="formula-category-name">
-                        {{ key }}
-                    </span>
-
-                    <span class="formula-category-count">
-                        {{ formulas|length }}
-                    </span>
-
-                    <span class="formula-chevron">
-                        ›
-                    </span>
-
-                </summary>
-
-
-                <div class="formula-list">
-
-                    {% for f in formulas %}
+                    </div>
 
                     <button
                         type="button"
-                        class="formula-item"
-                        data-formula="{{ f }}"
+                        class="math-add-button"
+                        id="addMathStep"
                     >
-
-                        <span class="formula-item-symbol">
-                            ≈
-                        </span>
-
-                        <span class="formula-text">
-                            {{ f }}
-                        </span>
-
-                        <span class="formula-copy-icon">
-                            +
-                        </span>
-
+                        + Step
                     </button>
-
-                    {% endfor %}
 
                 </div>
 
-            </details>
+                <div
+                    class="math-steps"
+                    id="mathSteps"
+                ></div>
+
+            </section>
 
 
-            {% endfor %}
+            <!-- FINAL ANSWER -->
 
-        </div>
+            <section class="math-panel final-panel">
 
-    </section>
+                <div class="math-panel-header">
+
+                    <div class="math-section-title">
+
+                        <span class="math-section-icon">
+                            ✓
+                        </span>
+
+                        <strong>Final Answer</strong>
+
+                    </div>
+
+                </div>
+
+                <textarea
+                    data-note-field="final_answer"
+                    class="math-writing-area final-answer-area"
+                    placeholder="Write the final answer..."
+                >{{ page_data.final_answer }}</textarea>
+
+            </section>
+
+
+        </main>
+
+
+        <!-- =================================================
+             RIGHT COLUMN
+             ================================================= -->
+
+        <aside class="math-side-column">
+
+
+            <!-- =================================================
+                 ADVANCED CALCULATOR
+                 ================================================= -->
+
+            <section class="math-panel calculator-panel">
+
+                <div class="math-panel-header">
+
+                    <div class="math-section-title">
+
+                        <span class="math-section-icon">
+                            =
+                        </span>
+
+                        <strong>Advanced Calculator</strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="math-display">
+
+                    <input
+                        id="mathExpression"
+                        type="text"
+                        autocomplete="off"
+                        placeholder="Enter an expression"
+                    >
+
+                    <button
+                        type="button"
+                        id="calculateMath"
+                        class="math-equals"
+                    >
+                        =
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="calculatorResult"
+                    class="math-result"
+                >
+
+                    <span class="result-label">
+                        Result
+                    </span>
+
+                    <span class="result-value">
+                        Ready
+                    </span>
+
+                </div>
+
+
+                <div class="math-keypad">
+
+                    <button type="button" data-math="7">7</button>
+                    <button type="button" data-math="8">8</button>
+                    <button type="button" data-math="9">9</button>
+
+                    <button type="button" data-math="/">÷</button>
+                    <button type="button" data-math="(">(</button>
+                    <button type="button" data-math=")">)</button>
+
+                    <button type="button" data-math="4">4</button>
+                    <button type="button" data-math="5">5</button>
+                    <button type="button" data-math="6">6</button>
+
+                    <button type="button" data-math="*">×</button>
+                    <button type="button" data-math="^">^</button>
+                    <button type="button" data-math="sqrt(">√</button>
+
+                    <button type="button" data-math="1">1</button>
+                    <button type="button" data-math="2">2</button>
+                    <button type="button" data-math="3">3</button>
+
+                    <button type="button" data-math="-">−</button>
+                    <button type="button" data-math="pi">π</button>
+                    <button type="button" data-math="e">e</button>
+
+                    <button type="button" data-math="0">0</button>
+                    <button type="button" data-math=".">.</button>
+                    <button type="button" data-math="+">+</button>
+
+                    <button type="button" data-math="sin(">sin</button>
+                    <button type="button" data-math="cos(">cos</button>
+                    <button type="button" data-math="tan(">tan</button>
+
+                    <button type="button" data-math="log(">log</button>
+                    <button type="button" data-math="ln(">ln</button>
+                    <button type="button" data-math="x^2">x²</button>
+
+                </div>
+
+
+                <!-- CALCULUS -->
+
+                <div class="calculus-tools">
+
+                    <div class="tool-input">
+
+                        <label for="calculusExpression">
+                            Calculus Expression
+                        </label>
+
+                        <input
+                            id="calculusExpression"
+                            type="text"
+                            placeholder="e.g. x^2 + sin(x)"
+                        >
+
+                    </div>
+
+
+                    <div class="variable-input">
+
+                        <label for="calculusVariable">
+                            Variable
+                        </label>
+
+                        <input
+                            id="calculusVariable"
+                            type="text"
+                            value="x"
+                            maxlength="3"
+                            aria-label="Variable"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="button"
+                        id="differentiateMath"
+                        class="calculus-button"
+                    >
+                        d/dx
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="integrateMath"
+                        class="calculus-button"
+                    >
+                        ∫ dx
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 FORMULA LIBRARY
+                 ================================================= -->
+
+            <section class="math-panel library-panel">
+
+                <div class="math-panel-header library-header">
+
+                    <div class="math-section-title">
+
+                        <span class="math-section-icon">
+                            Σ
+                        </span>
+
+                        <strong>Formula Library</strong>
+
+                    </div>
+
+                    <span class="formula-library-hint">
+                        Quick Reference
+                    </span>
+
+                </div>
+
+
+                <div class="formula-library-list">
+
+
+                    <!-- =================================================
+                         ALGEBRA
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Algebra</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>
+                                    Identities
+                                </summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="(a+b)^2 = a^2 + 2ab + b^2">
+                                        <span class="formula-text">
+                                            (a+b)² = a² + 2ab + b²
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="(a-b)^2 = a^2 - 2ab + b^2">
+                                        <span class="formula-text">
+                                            (a−b)² = a² − 2ab + b²
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="a^2-b^2 = (a-b)(a+b)">
+                                        <span class="formula-text">
+                                            a² − b² = (a−b)(a+b)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="(a+b)^3 = a^3 + 3a^2b + 3ab^2 + b^3">
+                                        <span class="formula-text">
+                                            (a+b)³ = a³ + 3a²b + 3ab² + b³
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="(a-b)^3 = a^3 - 3a^2b + 3ab^2 - b^3">
+                                        <span class="formula-text">
+                                            (a−b)³ = a³ − 3a²b + 3ab² − b³
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="a^3+b^3 = (a+b)(a^2-ab+b^2)">
+                                        <span class="formula-text">
+                                            a³+b³ = (a+b)(a²−ab+b²)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="a^3-b^3 = (a-b)(a^2+ab+b^2)">
+                                        <span class="formula-text">
+                                            a³−b³ = (a−b)(a²+ab+b²)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+
+                            <details class="formula-subgroup">
+
+                                <summary>
+                                    Equations
+                                </summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="x = -b/(2a)">
+                                        <span class="formula-text">
+                                            Vertex: x = −b/2a
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="x = (-b ± sqrt(b^2-4ac))/(2a)">
+                                        <span class="formula-text">
+                                            Quadratic Formula
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="D = b^2 - 4ac">
+                                        <span class="formula-text">
+                                            Discriminant: D = b² − 4ac
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="m = (y2-y1)/(x2-x1)">
+                                        <span class="formula-text">
+                                            Slope: m = (y₂−y₁)/(x₂−x₁)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+
+                            <details class="formula-subgroup">
+
+                                <summary>
+                                    Logarithms & Exponents
+                                </summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="a^m * a^n = a^(m+n)">
+                                        <span class="formula-text">
+                                            aᵐ · aⁿ = aᵐ⁺ⁿ
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="a^m / a^n = a^(m-n)">
+                                        <span class="formula-text">
+                                            aᵐ / aⁿ = aᵐ⁻ⁿ
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="(a^m)^n = a^(mn)">
+                                        <span class="formula-text">
+                                            (aᵐ)ⁿ = aᵐⁿ
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="log(ab)=log(a)+log(b)">
+                                        <span class="formula-text">
+                                            log(ab) = log a + log b
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="log(a/b)=log(a)-log(b)">
+                                        <span class="formula-text">
+                                            log(a/b) = log a − log b
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="log(a^n)=n log(a)">
+                                        <span class="formula-text">
+                                            log(aⁿ) = n log(a)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         TRIGONOMETRY
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Trigonometry</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>Basic Identities</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="sin^2(x)+cos^2(x)=1">
+                                        <span class="formula-text">
+                                            sin²x + cos²x = 1
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="1+tan^2(x)=sec^2(x)">
+                                        <span class="formula-text">
+                                            1 + tan²x = sec²x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="1+cot^2(x)=csc^2(x)">
+                                        <span class="formula-text">
+                                            1 + cot²x = csc²x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="tan(x)=sin(x)/cos(x)">
+                                        <span class="formula-text">
+                                            tan x = sin x / cos x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="cot(x)=cos(x)/sin(x)">
+                                        <span class="formula-text">
+                                            cot x = cos x / sin x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+
+                            <details class="formula-subgroup">
+
+                                <summary>Compound Angles</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="sin(A+B)=sin(A)cos(B)+cos(A)sin(B)">
+                                        <span class="formula-text">
+                                            sin(A+B)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="sin(A-B)=sin(A)cos(B)-cos(A)sin(B)">
+                                        <span class="formula-text">
+                                            sin(A−B)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="cos(A+B)=cos(A)cos(B)-sin(A)sin(B)">
+                                        <span class="formula-text">
+                                            cos(A+B)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="cos(A-B)=cos(A)cos(B)+sin(A)sin(B)">
+                                        <span class="formula-text">
+                                            cos(A−B)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="tan(A+B)=(tan(A)+tan(B))/(1-tan(A)tan(B))">
+                                        <span class="formula-text">
+                                            tan(A+B)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+
+                            <details class="formula-subgroup">
+
+                                <summary>Multiple Angles</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="sin(2x)=2sin(x)cos(x)">
+                                        <span class="formula-text">
+                                            sin 2x = 2sin x cos x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="cos(2x)=cos^2(x)-sin^2(x)">
+                                        <span class="formula-text">
+                                            cos 2x = cos²x − sin²x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="cos(2x)=2cos^2(x)-1">
+                                        <span class="formula-text">
+                                            cos 2x = 2cos²x − 1
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="cos(2x)=1-2sin^2(x)">
+                                        <span class="formula-text">
+                                            cos 2x = 1 − 2sin²x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="sin(2x)=2tan(x)/(1+tan^2(x))">
+                                        <span class="formula-text">
+                                            sin 2x in tan x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         GEOMETRY
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Geometry</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>2D Shapes</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Rectangle area = l*w">
+                                        <span class="formula-text">
+                                            Rectangle: A = l × w
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Rectangle perimeter = 2(l+w)">
+                                        <span class="formula-text">
+                                            Rectangle: P = 2(l+w)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Square area = a^2">
+                                        <span class="formula-text">
+                                            Square: A = a²
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Triangle area = 1/2*b*h">
+                                        <span class="formula-text">
+                                            Triangle: A = ½bh
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Circle area = pi*r^2">
+                                        <span class="formula-text">
+                                            Circle: A = πr²
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Circle circumference = 2*pi*r">
+                                        <span class="formula-text">
+                                            Circle: C = 2πr
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Trapezium area = 1/2*(a+b)*h">
+                                        <span class="formula-text">
+                                            Trapezium: A = ½(a+b)h
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+
+                            <details class="formula-subgroup">
+
+                                <summary>3D Shapes</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Cube volume = a^3">
+                                        <span class="formula-text">
+                                            Cube: V = a³
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Cuboid volume = l*w*h">
+                                        <span class="formula-text">
+                                            Cuboid: V = lwh
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Cylinder volume = pi*r^2*h">
+                                        <span class="formula-text">
+                                            Cylinder: V = πr²h
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Cylinder curved surface area = 2*pi*r*h">
+                                        <span class="formula-text">
+                                            Cylinder: CSA = 2πrh
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Sphere volume = 4*pi*r^3/3">
+                                        <span class="formula-text">
+                                            Sphere: V = 4πr³/3
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Sphere surface area = 4*pi*r^2">
+                                        <span class="formula-text">
+                                            Sphere: A = 4πr²
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Cone volume = pi*r^2*h/3">
+                                        <span class="formula-text">
+                                            Cone: V = πr²h/3
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+
+                            <details class="formula-subgroup">
+
+                                <summary>Coordinate Geometry</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Distance = sqrt((x2-x1)^2+(y2-y1)^2)">
+                                        <span class="formula-text">
+                                            Distance Formula
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Midpoint = ((x1+x2)/2,(y1+y2)/2)">
+                                        <span class="formula-text">
+                                            Midpoint Formula
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="y-y1=m(x-x1)">
+                                        <span class="formula-text">
+                                            Point-Slope Form
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="y=mx+c">
+                                        <span class="formula-text">
+                                            Slope-Intercept Form
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         DIFFERENTIATION
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Differentiation</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>Basic Derivatives</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="d(x^n)/dx = n*x^(n-1)">
+                                        <span class="formula-text">
+                                            d(xⁿ)/dx = nxⁿ⁻¹
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="d(c)/dx = 0">
+                                        <span class="formula-text">
+                                            d(c)/dx = 0
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="d(e^x)/dx = e^x">
+                                        <span class="formula-text">
+                                            d(eˣ)/dx = eˣ
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="d(ln(x))/dx = 1/x">
+                                        <span class="formula-text">
+                                            d(ln x)/dx = 1/x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="d(sin(x))/dx = cos(x)">
+                                        <span class="formula-text">
+                                            d(sin x)/dx = cos x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="d(cos(x))/dx = -sin(x)">
+                                        <span class="formula-text">
+                                            d(cos x)/dx = −sin x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="d(tan(x))/dx = sec^2(x)">
+                                        <span class="formula-text">
+                                            d(tan x)/dx = sec²x
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+
+                            <details class="formula-subgroup">
+
+                                <summary>Rules</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="d(fg)/dx = f'g + fg'">
+                                        <span class="formula-text">
+                                            Product Rule
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="d(f/g)/dx = (f'g-fg')/g^2">
+                                        <span class="formula-text">
+                                            Quotient Rule
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="d(f(g(x)))/dx = f'(g(x))*g'(x)">
+                                        <span class="formula-text">
+                                            Chain Rule
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         INTEGRATION
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Integration</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>Basic Integrals</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="integral x^n dx = x^(n+1)/(n+1)+C">
+                                        <span class="formula-text">
+                                            ∫xⁿ dx = xⁿ⁺¹/(n+1)+C
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="integral 1/x dx = ln|x|+C">
+                                        <span class="formula-text">
+                                            ∫1/x dx = ln|x| + C
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="integral e^x dx = e^x+C">
+                                        <span class="formula-text">
+                                            ∫eˣ dx = eˣ + C
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="integral sin(x) dx = -cos(x)+C">
+                                        <span class="formula-text">
+                                            ∫sin x dx = −cos x + C
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="integral cos(x) dx = sin(x)+C">
+                                        <span class="formula-text">
+                                            ∫cos x dx = sin x + C
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+
+                            <details class="formula-subgroup">
+
+                                <summary>Methods</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="integral u dv = uv - integral v du">
+                                        <span class="formula-text">
+                                            Integration by Parts
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="u=g(x), du=g'(x)dx">
+                                        <span class="formula-text">
+                                            Substitution
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         LIMITS
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Limits</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>Standard Limits</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="lim(x->0) sin(x)/x = 1">
+                                        <span class="formula-text">
+                                            lim x→0 sinx/x = 1
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="lim(x->0) tan(x)/x = 1">
+                                        <span class="formula-text">
+                                            lim x→0 tanx/x = 1
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="lim(x->0) (1-cos(x))/x^2 = 1/2">
+                                        <span class="formula-text">
+                                            lim x→0 (1−cosx)/x² = 1/2
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="lim(x->infinity) 1/x = 0">
+                                        <span class="formula-text">
+                                            lim x→∞ 1/x = 0
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         SEQUENCES & SERIES
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Sequences & Series</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>Arithmetic Progression</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="a_n = a+(n-1)d">
+                                        <span class="formula-text">
+                                            aₙ = a + (n−1)d
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="S_n = n/2[2a+(n-1)d]">
+                                        <span class="formula-text">
+                                            Sₙ = n/2[2a+(n−1)d]
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="S_n = n/2(a+l)">
+                                        <span class="formula-text">
+                                            Sₙ = n/2(a+l)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+
+                            <details class="formula-subgroup">
+
+                                <summary>Geometric Progression</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="a_n = ar^(n-1)">
+                                        <span class="formula-text">
+                                            aₙ = arⁿ⁻¹
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="S_n = a(r^n-1)/(r-1)">
+                                        <span class="formula-text">
+                                            Sₙ = a(rⁿ−1)/(r−1)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="S_infinity = a/(1-r)">
+                                        <span class="formula-text">
+                                            S∞ = a/(1−r)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         STATISTICS
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Statistics</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>Central Tendency</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Mean = sum(x)/n">
+                                        <span class="formula-text">
+                                            Mean = Σx/n
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Weighted Mean = sum(wx)/sum(w)">
+                                        <span class="formula-text">
+                                            Weighted Mean = Σwx/Σw
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Mode = most frequent value">
+                                        <span class="formula-text">
+                                            Mode = most frequent value
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+
+                            <details class="formula-subgroup">
+
+                                <summary>Variance & Standard Deviation</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="Variance = sum((x-mu)^2)/n">
+                                        <span class="formula-text">
+                                            Variance = Σ(x−μ)²/n
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="sigma = sqrt(variance)">
+                                        <span class="formula-text">
+                                            σ = √variance
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="CV = sigma/mu * 100">
+                                        <span class="formula-text">
+                                            CV = σ/μ × 100
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         MATRICES
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Matrices</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>2 × 2 Matrix</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="det(A)=ad-bc">
+                                        <span class="formula-text">
+                                            det(A) = ad − bc
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="A^-1 = 1/(ad-bc)[[d,-b],[-c,a]]">
+                                        <span class="formula-text">
+                                            Inverse of 2×2 matrix
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="A*A^-1=I">
+                                        <span class="formula-text">
+                                            AA⁻¹ = I
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         VECTORS
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Vectors</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>Basic Vector Formulas</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="|a|=sqrt(a1^2+a2^2+a3^2)">
+                                        <span class="formula-text">
+                                            |a| = √(a₁²+a₂²+a₃²)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="a.b=|a||b|cos(theta)">
+                                        <span class="formula-text">
+                                            a·b = |a||b|cosθ
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="|a x b|=|a||b|sin(theta)">
+                                        <span class="formula-text">
+                                            |a×b| = |a||b|sinθ
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         PERMUTATIONS & COMBINATIONS
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Permutations & Combinations</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>Counting</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="n! = n(n-1)(n-2)...1">
+                                        <span class="formula-text">
+                                            n! = n(n−1)(n−2)…1
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="nPr = n!/(n-r)!">
+                                        <span class="formula-text">
+                                            nPr = n!/(n−r)!
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="nCr = n!/(r!(n-r)!)">
+                                        <span class="formula-text">
+                                            nCr = n!/[r!(n−r)!]
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="nCr=nC(n-r)">
+                                        <span class="formula-text">
+                                            nCr = nC(n−r)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         PROBABILITY
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Probability</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>Basic Probability</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="P(A)=favourable outcomes/total outcomes">
+                                        <span class="formula-text">
+                                            P(A) = favourable / total
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="P(A')=1-P(A)">
+                                        <span class="formula-text">
+                                            P(A′) = 1 − P(A)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="P(A union B)=P(A)+P(B)-P(A intersection B)">
+                                        <span class="formula-text">
+                                            P(A∪B) = P(A)+P(B)−P(A∩B)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="P(A intersection B)=P(A)P(B|A)">
+                                        <span class="formula-text">
+                                            P(A∩B) = P(A)P(B|A)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="P(A|B)=P(A intersection B)/P(B)">
+                                        <span class="formula-text">
+                                            P(A|B) = P(A∩B)/P(B)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                    <!-- =================================================
+                         COMPLEX NUMBERS
+                         ================================================= -->
+
+                    <details class="formula-group">
+
+                        <summary>
+                            <span>Complex Numbers</span>
+                            <span class="formula-arrow">›</span>
+                        </summary>
+
+                        <div class="formula-subgroups">
+
+                            <details class="formula-subgroup">
+
+                                <summary>Basic Forms</summary>
+
+                                <div class="formula-items">
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="z=a+ib">
+                                        <span class="formula-text">
+                                            z = a + ib
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="i^2=-1">
+                                        <span class="formula-text">
+                                            i² = −1
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="|z|=sqrt(a^2+b^2)">
+                                        <span class="formula-text">
+                                            |z| = √(a²+b²)
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                    <button type="button" class="formula-item"
+                                        data-formula="z*conjugate(z)=|z|^2">
+                                        <span class="formula-text">
+                                            z z̄ = |z|²
+                                        </span>
+                                        <span class="formula-copy">+</span>
+                                    </button>
+
+                                </div>
+
+                            </details>
+
+                        </div>
+
+                    </details>
+
+
+                </div>
+
+            </section>
+
+        </aside>
+
+    </div>
 
 </div>

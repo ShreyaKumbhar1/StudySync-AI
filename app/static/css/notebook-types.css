@@ -2677,3 +2677,809 @@
         margin-left: 0;
     }
 }
+/* ==========================================================
+   ORION — MATHEMATICS NOTEBOOK
+   CLEAN GLASS WORKSPACE
+   ========================================================== */
+
+
+/* ==========================================================
+   MAIN NOTEBOOK
+   ========================================================== */
+
+.mathematics-notebook {
+    --math-primary: #7666b8;
+    --math-primary-soft: rgba(118, 102, 184, 0.10);
+    --math-primary-border: rgba(118, 102, 184, 0.18);
+
+    --math-blue: #668fca;
+    --math-blue-soft: rgba(102, 143, 202, 0.09);
+
+    --math-text: #51495d;
+    --math-muted: #8c8495;
+
+    --math-border: rgba(135, 122, 170, 0.15);
+    --math-glass: rgba(255, 255, 255, 0.42);
+
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding: 10px 0 40px;
+
+    color: var(--math-text);
+}
+
+
+/* ==========================================================
+   WORKSPACE HEADER
+   ========================================================== */
+
+.mathematics-notebook .workspace-intro {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 18px;
+
+    padding: 18px 20px;
+
+    border: 1px solid var(--math-border);
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(118, 102, 184, 0.075),
+            rgba(102, 143, 202, 0.055)
+        );
+
+    box-shadow:
+        0 10px 30px rgba(91, 77, 120, 0.055);
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+
+.mathematics-notebook .workspace-intro h2 {
+    margin: 0;
+
+    color: #51465f;
+
+    font-size: 21px;
+    font-weight: 650;
+
+    letter-spacing: -0.3px;
+}
+
+
+.mathematics-notebook .workspace-intro p {
+    margin: 5px 0 0;
+
+    color: var(--math-muted);
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* Hide the old decorative workspace icon */
+
+.mathematics-notebook .workspace-icon {
+    display: none !important;
+}
+
+
+/* ==========================================================
+   ALL MATH CARDS
+   ========================================================== */
+
+.mathematics-notebook .special-card,
+.mathematics-notebook .answer-card {
+
+    position: relative;
+
+    margin-bottom: 14px;
+
+    padding: 17px;
+
+    border:
+        1px solid
+        var(--math-border);
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.50),
+            rgba(247, 243, 252, 0.31)
+        );
+
+    box-shadow:
+        0 8px 26px rgba(87, 74, 112, 0.045);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.mathematics-notebook .special-card:hover,
+.mathematics-notebook .answer-card:hover {
+
+    border-color:
+        rgba(118, 102, 184, 0.23);
+
+    box-shadow:
+        0 12px 30px rgba(87, 74, 112, 0.065);
+}
+
+
+/* ==========================================================
+   SECTION HEADERS
+   ========================================================== */
+
+.mathematics-notebook .special-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    min-height: 26px;
+
+    margin-bottom: 13px;
+
+    color: #5d5369;
+
+    font-size: 12px;
+
+    letter-spacing: 0.1px;
+}
+
+
+/* Remove all decorative header symbols */
+
+.mathematics-notebook .special-card-header > span:first-child,
+.mathematics-notebook .special-card-header > i:first-child,
+.mathematics-notebook .special-card-header > .icon:first-child {
+    display: none !important;
+}
+
+
+.mathematics-notebook .special-card-header strong {
+
+    color: #5d5369;
+
+    font-size: 12px;
+
+    font-weight: 650;
+}
+
+
+/* ==========================================================
+   CALCULATOR CARD
+   ========================================================== */
+
+.mathematics-notebook .math-calculator-card {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(118, 102, 184, 0.075),
+            rgba(102, 143, 202, 0.065)
+        );
+
+    border-color:
+        rgba(118, 102, 184, 0.18);
+}
+
+
+/* ==========================================================
+   CALCULATOR DISPLAY
+   ========================================================== */
+
+.mathematics-notebook .calculator-display {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        52px;
+
+    gap: 8px;
+
+    width: 100%;
+}
+
+
+.mathematics-notebook .calculator-display input {
+
+    width: 100%;
+
+    min-height: 50px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(118, 102, 184, 0.16);
+
+    border-radius: 12px;
+
+    padding: 0 15px;
+
+    outline: none;
+
+    background:
+        rgba(255, 255, 255, 0.48);
+
+    color: #51495d;
+
+    font-size: 14px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.mathematics-notebook .calculator-display input:focus {
+
+    border-color:
+        rgba(118, 102, 184, 0.38);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(118, 102, 184, 0.07);
+}
+
+
+.mathematics-notebook .math-equals-button {
+
+    min-height: 50px;
+
+    border: 0;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(118, 102, 184, 0.82),
+            rgba(102, 143, 202, 0.82)
+        );
+
+    color: white;
+
+    font-size: 19px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(91, 78, 139, 0.16);
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.mathematics-notebook .math-equals-button:hover {
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 22px rgba(91, 78, 139, 0.22);
+}
+
+
+/* ==========================================================
+   CALCULATOR RESULT
+   ========================================================== */
+
+.mathematics-notebook .calculator-result {
+
+    margin-top: 9px;
+
+    min-height: 40px;
+
+    display: flex;
+
+    align-items: center;
+
+    box-sizing: border-box;
+
+    padding: 9px 12px;
+
+    border:
+        1px solid
+        rgba(102, 143, 202, 0.13);
+
+    border-radius: 10px;
+
+    background:
+        rgba(102, 143, 202, 0.055);
+
+    color: #6b6275;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 12px;
+
+    overflow-x: auto;
+}
+
+
+/* ==========================================================
+   CALCULATOR BUTTONS
+   ========================================================== */
+
+.mathematics-notebook .calculator-actions {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(9, minmax(0, 1fr));
+
+    gap: 6px;
+
+    margin-top: 10px;
+}
+
+
+.mathematics-notebook .calculator-actions button {
+
+    min-height: 32px;
+
+    border:
+        1px solid
+        rgba(118, 102, 184, 0.13);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255, 255, 255, 0.40);
+
+    color: #70667d;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+.mathematics-notebook .calculator-actions button:hover {
+
+    background:
+        rgba(118, 102, 184, 0.09);
+
+    border-color:
+        rgba(118, 102, 184, 0.23);
+
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================================
+   CALCULUS
+   ========================================================== */
+
+.mathematics-notebook .calculus-row {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        55px
+        70px
+        50px;
+
+    gap: 7px;
+
+    margin-top: 12px;
+}
+
+
+.mathematics-notebook .calculus-row input {
+
+    width: 100%;
+
+    min-height: 39px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(118, 102, 184, 0.13);
+
+    border-radius: 10px;
+
+    padding: 0 11px;
+
+    outline: none;
+
+    background:
+        rgba(255, 255, 255, 0.38);
+
+    color: #5b5265;
+
+    font-size: 10px;
+}
+
+
+.mathematics-notebook .calculus-row input:focus {
+
+    border-color:
+        rgba(118, 102, 184, 0.32);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(118, 102, 184, 0.055);
+}
+
+
+.mathematics-notebook .calculus-row button {
+
+    min-height: 39px;
+
+    border:
+        1px solid
+        rgba(118, 102, 184, 0.14);
+
+    border-radius: 10px;
+
+    background:
+        rgba(118, 102, 184, 0.075);
+
+    color: #685d78;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+.mathematics-notebook .calculus-row button:hover {
+
+    background:
+        rgba(118, 102, 184, 0.13);
+
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================================
+   TEXT AREAS
+   ========================================================== */
+
+.mathematics-notebook textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    resize: vertical;
+
+    outline: none;
+
+    border:
+        1px solid
+        rgba(118, 102, 184, 0.12);
+
+    border-radius: 12px;
+
+    padding: 13px;
+
+    background:
+        rgba(255, 255, 255, 0.38);
+
+    color: #51495d;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.mathematics-notebook textarea:focus {
+
+    border-color:
+        rgba(118, 102, 184, 0.32);
+
+    background:
+        rgba(255, 255, 255, 0.52);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(118, 102, 184, 0.055);
+}
+
+
+/* ==========================================================
+   FORMULA
+   ========================================================== */
+
+.mathematics-notebook .formula-input {
+
+    min-height: 95px;
+
+    font-family:
+        "Cambria Math",
+        "STIX Two Math",
+        Georgia,
+        serif;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+
+    background:
+        rgba(118, 102, 184, 0.035);
+}
+
+
+/* ==========================================================
+   PROBLEM
+   ========================================================== */
+
+.mathematics-notebook .math-problem-input {
+
+    min-height: 150px;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+/* ==========================================================
+   STEP-BY-STEP WORKING
+   ========================================================== */
+
+.mathematics-notebook .working-card {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(118, 102, 184, 0.045),
+            rgba(102, 143, 202, 0.04)
+        );
+}
+
+
+.mathematics-notebook .working-header {
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+
+.mathematics-notebook .mini-action {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 29px;
+
+    padding: 0 11px;
+
+    border:
+        1px solid
+        rgba(118, 102, 184, 0.18);
+
+    border-radius: 9px;
+
+    background:
+        rgba(118, 102, 184, 0.075);
+
+    color: #6d6080;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease;
+}
+
+
+.mathematics-notebook .mini-action:hover {
+    background:
+        rgba(118, 102, 184, 0.13);
+
+    border-color:
+        rgba(118, 102, 184, 0.27);
+
+    transform: translateY(-1px);
+}
+
+
+/* ==========================================================
+   STEP LIST
+   ========================================================== */
+
+.mathematics-notebook .math-steps {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    counter-reset: math-step;
+}
+
+
+/* Individual step */
+
+.mathematics-notebook .math-steps > * {
+
+    position: relative;
+
+    counter-increment: math-step;
+
+    border:
+        1px solid
+        rgba(118, 102, 184, 0.13);
+
+    border-radius: 13px;
+
+    background:
+        rgba(255, 255, 255, 0.34);
+
+    transition:
+        border-color 0.18s ease,
+        background 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.mathematics-notebook .math-steps > *:hover {
+
+    border-color:
+        rgba(118, 102, 184, 0.23);
+
+    background:
+        rgba(255, 255, 255, 0.46);
+
+    box-shadow:
+        0 6px 18px
+        rgba(88, 75, 112, 0.045);
+}
+
+
+/* ==========================================================
+   IMPORTANT:
+   Do NOT create another number with ::before.
+   The existing HTML/JS step number is used.
+   ========================================================== */
+
+.mathematics-notebook .math-steps > *::before {
+
+    content: none !important;
+
+    display: none !important;
+}
+
+
+/* ==========================================================
+   STEP INPUTS
+   ========================================================== */
+
+.mathematics-notebook .math-steps input,
+.mathematics-notebook .math-steps textarea {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border: 0 !important;
+
+    border-radius: 13px;
+
+    outline: none;
+
+    padding:
+        13px 42px 13px 48px;
+
+    background:
+        transparent;
+
+    color: #51495d;
+
+    font-family:
+        "Cambria Math",
+        "STIX Two Math",
+        Georgia,
+        serif;
+
+    font-size: 14px;
+
+    line-height: 1.75;
+
+    box-shadow: none !important;
+}
+
+
+.mathematics-notebook .math-steps textarea {
+
+    min-height: 72px;
+
+    resize: vertical;
+}
+
+
+.mathematics-notebook .math-steps input {
+
+    min-height: 50px;
+}
+
+
+/* ==========================================================
+   STEP CONTROLS
+   ========================================================== */
+
+.mathematics-notebook .math-steps button {
+
+    border:
+        1px solid
+        rgba(118, 102, 184, 0.12);
+
+    border-radius: 8px;
+
+    background:
+        rgba(118, 102, 184, 0.055);
+
+    color:
+        #7a6f87;
+
+    cursor: pointer;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease;
+}
+
+
+.mathematics-notebook .math-steps button:hover {
+
+    background:
+        rgba(118, 102, 184, 0.12);
+
+    color:
+        #625671;
+}

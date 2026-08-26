@@ -1,0 +1,1973 @@
+/* ==========================================================
+   ORION
+   MATHEMATICS NOTEBOOK
+   Light Glassy Purple / Blue
+   Calculator + Formula Library Sidebar
+   ========================================================== */
+
+
+/* ==========================================================
+   ROOT
+   ========================================================== */
+
+.mathematics-notebook {
+
+    --math-ink: #433b4c;
+    --math-muted: #918895;
+
+    --math-purple: #8d78c5;
+    --math-purple-dark: #6f5aa0;
+
+    --math-blue: #769fc2;
+    --math-blue-dark: #5e85aa;
+
+    --math-purple-bg: rgba(141,120,197,.08);
+    --math-blue-bg: rgba(118,159,194,.08);
+
+    --math-border: rgba(121,101,166,.14);
+
+    width: 100%;
+    max-width: 1180px;
+
+    margin: 0 auto;
+
+    color: var(--math-ink);
+
+    box-sizing: border-box;
+}
+
+
+.mathematics-notebook *,
+.mathematics-notebook *::before,
+.mathematics-notebook *::after {
+    box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
+.mathematics-notebook .math-header {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 78px;
+
+    padding: 14px 18px;
+
+    margin-bottom: 16px;
+
+    border:
+        1px solid
+        rgba(141,120,197,.16);
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(141,120,197,.12),
+            rgba(118,159,194,.08),
+            rgba(255,255,255,.42)
+        );
+
+    box-shadow:
+        0 12px 35px
+        rgba(80,65,115,.06);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+}
+
+
+.mathematics-notebook .math-header-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+}
+
+
+/* ==========================================================
+   LOGO
+   ========================================================== */
+
+.mathematics-notebook .math-logo {
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 48px;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(141,120,197,.20),
+            rgba(118,159,194,.16)
+        );
+
+    border:
+        1px solid
+        rgba(141,120,197,.20);
+
+    color: #705c9f;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 25px;
+
+    box-shadow:
+        0 7px 20px
+        rgba(89,70,130,.08);
+}
+
+
+/* ==========================================================
+   TITLE
+   ========================================================== */
+
+.mathematics-notebook .math-title h2 {
+
+    margin: 0;
+
+    color: #40384a;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    letter-spacing: -.02em;
+}
+
+
+.mathematics-notebook .math-title span {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color: #9a909e;
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+
+/* ==========================================================
+   DECORATIVE SYMBOLS
+   ========================================================== */
+
+.mathematics-notebook .math-header-symbols {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+}
+
+
+.mathematics-notebook .math-header-symbols span {
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border:
+        1px solid
+        rgba(141,120,197,.10);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,.27);
+
+    color:
+        rgba(111,90,160,.56);
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 12px;
+}
+
+
+/* ==========================================================
+   MAIN WORKSPACE
+   ========================================================== */
+
+.mathematics-notebook .math-workspace {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.45fr)
+        minmax(340px, .72fr);
+
+    gap: 16px;
+
+    align-items: start;
+}
+
+
+/* ==========================================================
+   COLUMNS
+   ========================================================== */
+
+.mathematics-notebook .math-main-column,
+.mathematics-notebook .math-side-column {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 16px;
+
+    min-width: 0;
+}
+
+
+.mathematics-notebook .math-main-column > *,
+.mathematics-notebook .math-side-column > * {
+    margin: 0;
+}
+
+
+/* ==========================================================
+   COMMON PANEL
+   ========================================================== */
+
+.mathematics-notebook .math-panel {
+
+    position: relative;
+
+    min-width: 0;
+
+    padding: 17px;
+
+    border:
+        1px solid
+        var(--math-border);
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,255,255,.48),
+            rgba(141,120,197,.045),
+            rgba(118,159,194,.035)
+        );
+
+    box-shadow:
+        0 10px 30px
+        rgba(67,52,101,.055);
+
+    backdrop-filter: blur(17px);
+    -webkit-backdrop-filter: blur(17px);
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        transform .2s ease;
+}
+
+
+.mathematics-notebook .math-panel:hover {
+
+    border-color:
+        rgba(121,101,166,.20);
+
+    box-shadow:
+        0 13px 34px
+        rgba(67,52,101,.07);
+}
+
+
+/* ==========================================================
+   PANEL HEADER
+   ========================================================== */
+
+.mathematics-notebook .math-panel-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    min-height: 28px;
+
+    margin-bottom: 12px;
+}
+
+
+.mathematics-notebook .math-section-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    min-width: 0;
+}
+
+
+.mathematics-notebook .math-section-title strong {
+
+    color: #645a6c;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: .01em;
+}
+
+
+/* ==========================================================
+   SECTION ICON
+   ========================================================== */
+
+.mathematics-notebook .math-section-icon {
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 25px;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(141,120,197,.13),
+            rgba(118,159,194,.09)
+        );
+
+    color: #75649b;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================================
+   CALCULATOR
+   ========================================================== */
+
+.mathematics-notebook .calculator-panel {
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(118,159,194,.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            rgba(141,120,197,.07),
+            rgba(118,159,194,.05),
+            rgba(255,255,255,.50)
+        );
+}
+
+
+/* ==========================================================
+   DISPLAY
+   ========================================================== */
+
+.mathematics-notebook .math-display {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        55px;
+
+    gap: 7px;
+}
+
+
+/* ==========================================================
+   INPUTS
+   ========================================================== */
+
+.mathematics-notebook #mathExpression,
+.mathematics-notebook #calculusExpression,
+.mathematics-notebook #calculusVariable {
+
+    border:
+        1px solid
+        rgba(121,101,166,.13);
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.38);
+
+    color: #504657;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+
+.mathematics-notebook #mathExpression {
+
+    width: 100%;
+
+    height: 46px;
+
+    padding: 0 13px;
+
+    border-radius: 11px;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 14px;
+}
+
+
+.mathematics-notebook #mathExpression::placeholder,
+.mathematics-notebook #calculusExpression::placeholder {
+
+    color: #aaa1af;
+}
+
+
+/* ==========================================================
+   EQUALS
+   ========================================================== */
+
+.mathematics-notebook .math-equals {
+
+    height: 46px;
+
+    border:
+        1px solid
+        rgba(121,101,166,.18);
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(141,120,197,.20),
+            rgba(118,159,194,.15)
+        );
+
+    color: #6d589b;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform .18s ease,
+        background .18s ease;
+}
+
+
+.mathematics-notebook .math-equals:hover {
+
+    transform:
+        translateY(-1px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(141,120,197,.28),
+            rgba(118,159,194,.22)
+        );
+}
+
+
+/* ==========================================================
+   RESULT
+   ========================================================== */
+
+.mathematics-notebook .math-result {
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 43px;
+
+    margin-top: 8px;
+
+    padding: 8px 12px;
+
+    border:
+        1px solid
+        rgba(118,159,194,.12);
+
+    border-radius: 10px;
+
+    background:
+        rgba(255,255,255,.27);
+}
+
+
+.mathematics-notebook .result-label {
+
+    color: #a097a4;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .07em;
+}
+
+
+.mathematics-notebook .result-value {
+
+    color: #6b598f;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-align: right;
+}
+
+
+/* ==========================================================
+   CALCULATOR KEYPAD
+   ========================================================== */
+
+.mathematics-notebook .math-keypad {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6,minmax(0,1fr));
+
+    gap: 6px;
+
+    margin-top: 9px;
+}
+
+
+.mathematics-notebook .math-keypad button {
+
+    height: 35px;
+
+    padding: 0;
+
+    border:
+        1px solid
+        rgba(121,101,166,.10);
+
+    border-radius: 8px;
+
+    background:
+        rgba(255,255,255,.30);
+
+    color: #71647d;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform .16s ease,
+        background .16s ease,
+        border-color .16s ease;
+}
+
+
+.mathematics-notebook .math-keypad button:hover {
+
+    transform:
+        translateY(-1px);
+
+    border-color:
+        rgba(121,101,166,.20);
+
+    background:
+        rgba(141,120,197,.09);
+}
+
+
+/* ==========================================================
+   CALCULUS
+   ========================================================== */
+
+.mathematics-notebook .calculus-tools {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        58px
+        65px
+        58px;
+
+    gap: 7px;
+
+    align-items: end;
+
+    margin-top: 12px;
+
+    padding-top: 12px;
+
+    border-top:
+        1px solid
+        rgba(121,101,166,.08);
+}
+
+
+.mathematics-notebook .tool-input,
+.mathematics-notebook .variable-input {
+
+    min-width: 0;
+}
+
+
+.mathematics-notebook .tool-input label,
+.mathematics-notebook .variable-input label {
+
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #958b99;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .07em;
+}
+
+
+.mathematics-notebook #calculusExpression,
+.mathematics-notebook #calculusVariable {
+
+    width: 100%;
+
+    height: 37px;
+
+    padding: 0 9px;
+
+    border-radius: 9px;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 11px;
+}
+
+
+.mathematics-notebook .calculus-button {
+
+    height: 37px;
+
+    border:
+        1px solid
+        rgba(121,101,166,.13);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,.32);
+
+    color: #6c5b88;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform .16s ease,
+        background .16s ease;
+}
+
+
+.mathematics-notebook .calculus-button:hover {
+
+    transform:
+        translateY(-1px);
+
+    background:
+        rgba(141,120,197,.10);
+}
+
+
+/* ==========================================================
+   WRITING AREAS
+   ========================================================== */
+
+.mathematics-notebook .math-writing-area {
+
+    display: block;
+
+    width: 100%;
+
+    padding: 13px;
+
+    resize: vertical;
+
+    outline: none;
+
+    border:
+        1px solid
+        rgba(121,101,166,.11);
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.30);
+
+    color: #51485a;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+
+.mathematics-notebook .math-writing-area:focus,
+.mathematics-notebook #mathExpression:focus,
+.mathematics-notebook #calculusExpression:focus,
+.mathematics-notebook #calculusVariable:focus {
+
+    border-color:
+        rgba(121,101,166,.27);
+
+    background:
+        rgba(255,255,255,.42);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(141,120,197,.045);
+}
+
+
+.mathematics-notebook .math-writing-area::placeholder {
+
+    color: #aaa1af;
+}
+
+
+/* ==========================================================
+   FORMULA / PROBLEM / ANSWER
+   ========================================================== */
+
+.mathematics-notebook .problem-area {
+    min-height: 155px;
+}
+
+
+.mathematics-notebook .formula-writing-area {
+
+    min-height: 155px;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+.mathematics-notebook .final-answer-area {
+
+    min-height: 125px;
+
+    font-family:
+        "Cambria Math",
+        Georgia,
+        serif;
+
+    font-size: 14px;
+}
+
+
+/* ==========================================================
+   WORKING
+   ========================================================== */
+
+.mathematics-notebook .working-panel {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(141,120,197,.055),
+            rgba(118,159,194,.045),
+            rgba(255,255,255,.47)
+        );
+}
+
+
+.mathematics-notebook .working-header {
+
+    justify-content: space-between;
+}
+
+
+/* ==========================================================
+   ADD STEP
+   ========================================================== */
+
+.mathematics-notebook .math-add-button {
+
+    min-height: 29px;
+
+    padding: 0 11px;
+
+    border:
+        1px solid
+        rgba(121,101,166,.15);
+
+    border-radius: 8px;
+
+    background:
+        rgba(141,120,197,.07);
+
+    color: #705c9c;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform .16s ease,
+        background .16s ease;
+}
+
+
+.mathematics-notebook .math-add-button:hover {
+
+    transform:
+        translateY(-1px);
+
+    background:
+        rgba(141,120,197,.13);
+}
+
+
+/* ==========================================================
+   STEP LIST
+   ========================================================== */
+
+.mathematics-notebook .math-steps {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    min-height: 70px;
+}
+
+
+.mathematics-notebook .math-steps:empty::before {
+
+    content:
+        "Your working steps will appear here.";
+
+    display: block;
+
+    padding: 24px 12px;
+
+    border:
+        1px dashed
+        rgba(121,101,166,.14);
+
+    border-radius: 10px;
+
+    color: #aaa1af;
+
+    text-align: center;
+
+    font-size: 10px;
+}
+
+
+/* ==========================================================
+   FORMULA LIBRARY
+   ========================================================== */
+
+.mathematics-notebook .library-panel {
+
+    padding: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(141,120,197,.075),
+            rgba(118,159,194,.06),
+            rgba(255,255,255,.48)
+        );
+}
+
+
+.mathematics-notebook .library-header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 3;
+
+    padding-bottom: 10px;
+
+    margin-bottom: 8px;
+
+    border-bottom:
+        1px solid
+        rgba(121,101,166,.08);
+}
+
+
+.mathematics-notebook .formula-library-hint {
+
+    color: #aaa0ad;
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .06em;
+}
+
+
+.mathematics-notebook .formula-library-list {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    max-height: 700px;
+
+    overflow-y: auto;
+
+    padding-right: 3px;
+}
+
+
+.mathematics-notebook .formula-library-list::-webkit-scrollbar {
+
+    width: 5px;
+}
+
+
+.mathematics-notebook .formula-library-list::-webkit-scrollbar-track {
+
+    background: transparent;
+}
+
+
+.mathematics-notebook .formula-library-list::-webkit-scrollbar-thumb {
+
+    border-radius: 10px;
+
+    background:
+        rgba(121,101,166,.18);
+}
+
+
+/* ==========================================================
+   MAIN FORMULA CATEGORY
+   ========================================================== */
+
+.mathematics-notebook .formula-group {
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(121,101,166,.10);
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.25);
+
+    transition:
+        border-color .18s ease,
+        background .18s ease;
+}
+
+
+.mathematics-notebook .formula-group:hover {
+
+    border-color:
+        rgba(121,101,166,.17);
+
+    background:
+        rgba(255,255,255,.31);
+}
+
+
+.mathematics-notebook .formula-group > summary {
+
+    min-height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 0 11px;
+
+    cursor: pointer;
+
+    list-style: none;
+
+    color: #665b70;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.mathematics-notebook .formula-group > summary::-webkit-details-marker {
+
+    display: none;
+}
+
+
+.mathematics-notebook .formula-group > summary span:first-child {
+
+    flex: 1;
+}
+
+
+.mathematics-notebook .formula-group > summary small {
+
+    padding: 3px 6px;
+
+    border-radius: 6px;
+
+    background:
+        rgba(141,120,197,.07);
+
+    color: #a096a7;
+
+    font-size: 7px;
+
+    font-weight: 700;
+}
+
+
+.mathematics-notebook .formula-arrow {
+
+    color: #a399a8;
+
+    font-size: 17px;
+
+    line-height: 1;
+
+    transition:
+        transform .2s ease;
+}
+
+
+.mathematics-notebook .formula-group[open] > summary {
+
+    color: #6d5a92;
+
+    background:
+        rgba(141,120,197,.055);
+}
+
+
+.mathematics-notebook .formula-group[open] > summary .formula-arrow {
+
+    transform:
+        rotate(90deg);
+}
+
+
+/* ==========================================================
+   SUB-CATEGORIES
+   ========================================================== */
+
+.mathematics-notebook .formula-subgroups {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+    padding: 0 6px 6px;
+}
+
+
+.mathematics-notebook .formula-subgroup {
+
+    overflow: hidden;
+
+    border:
+        1px solid
+        rgba(121,101,166,.07);
+
+    border-radius: 8px;
+
+    background:
+        rgba(255,255,255,.20);
+}
+
+
+.mathematics-notebook .formula-subgroup > summary {
+
+    min-height: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0 9px;
+
+    cursor: pointer;
+
+    list-style: none;
+
+    color: #766b7c;
+
+    font-size: 9px;
+
+    font-weight: 650;
+}
+
+
+.mathematics-notebook .formula-subgroup > summary::-webkit-details-marker {
+
+    display: none;
+}
+
+
+.mathematics-notebook .formula-subgroup > summary::before {
+
+    content: "+";
+
+    width: 16px;
+
+    color: #aaa0ad;
+
+    font-size: 12px;
+
+    font-weight: 400;
+}
+
+
+.mathematics-notebook .formula-subgroup[open] > summary {
+
+    color: #6e5b91;
+}
+
+
+.mathematics-notebook .formula-subgroup[open] > summary::before {
+
+    content: "−";
+
+    color: #8d78c5;
+}
+
+
+/* ==========================================================
+   FORMULA ITEMS
+   ========================================================== */
+
+.mathematics-notebook .formula-items {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+    padding: 0 5px 5px;
+}
+
+
+.mathematics-notebook .formula-item {
+
+    width: 100%;
+
+    min-height: 32px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 5px 7px;
+
+    border:
+        1px solid
+        rgba(121,101,166,.06);
+
+    border-radius: 7px;
+
+    background:
+        rgba(255,255,255,.22);
+
+    color: #695d73;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        transform .15s ease,
+        background .15s ease,
+        border-color .15s ease;
+}
+
+
+.mathematics-notebook .formula-item:hover {
+
+    transform:
+        translateX(2px);
+
+    border-color:
+        rgba(121,101,166,.15);
+
+    background:
+        rgba(141,120,197,.08);
+}
+
+
+.mathematics-notebook .formula-text {
+
+    flex: 1;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    font-family:
+        "Cambria Math",
+        "STIX Two Math",
+        Georgia,
+        serif;
+
+    font-size: 9px;
+
+    line-height: 1.4;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+}
+
+
+.mathematics-notebook .formula-copy {
+
+    width: 17px;
+    height: 17px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 17px;
+
+    border-radius: 5px;
+
+    background:
+        rgba(141,120,197,.06);
+
+    color: #aaa0af;
+
+    font-size: 11px;
+}
+
+
+/* ==========================================================
+   SPECIAL PANELS
+   ========================================================== */
+
+.mathematics-notebook .formula-panel {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(141,120,197,.055),
+            rgba(255,255,255,.49)
+        );
+}
+
+
+.mathematics-notebook .problem-panel {
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(118,159,194,.055),
+            rgba(255,255,255,.49)
+        );
+}
+
+
+.mathematics-notebook .final-panel {
+
+    border-color:
+        rgba(118,159,194,.16);
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(118,159,194,.10),
+            transparent 36%
+        ),
+        linear-gradient(
+            135deg,
+            rgba(118,159,194,.055),
+            rgba(141,120,197,.055),
+            rgba(255,255,255,.49)
+        );
+}
+
+
+/* ==========================================================
+   FOCUS STATES
+   ========================================================== */
+
+.mathematics-notebook button:focus-visible,
+.mathematics-notebook input:focus-visible,
+.mathematics-notebook textarea:focus-visible,
+.mathematics-notebook summary:focus-visible {
+
+    outline:
+        2px solid
+        rgba(141,120,197,.25);
+
+    outline-offset: 2px;
+}
+
+
+/* ==========================================================
+   GENERAL SCROLLBAR
+   ========================================================== */
+
+.mathematics-notebook textarea::-webkit-scrollbar {
+
+    width: 6px;
+}
+
+
+.mathematics-notebook textarea::-webkit-scrollbar-track {
+
+    background: transparent;
+}
+
+
+.mathematics-notebook textarea::-webkit-scrollbar-thumb {
+
+    border-radius: 10px;
+
+    background:
+        rgba(121,101,166,.20);
+}
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 1050px) {
+
+    .mathematics-notebook .math-workspace {
+
+        grid-template-columns:
+            minmax(0,1.25fr)
+            minmax(300px,.75fr);
+    }
+
+    .mathematics-notebook .math-keypad {
+
+        grid-template-columns:
+            repeat(6,minmax(0,1fr));
+    }
+
+}
+
+
+@media (max-width: 900px) {
+
+    .mathematics-notebook .math-workspace {
+
+        grid-template-columns: 1fr;
+    }
+
+    .mathematics-notebook .math-side-column {
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        align-items: start;
+    }
+
+    .mathematics-notebook .library-panel {
+
+        grid-column:
+            1 / -1;
+    }
+
+    .mathematics-notebook .formula-library-list {
+
+        max-height: 600px;
+    }
+
+}
+
+
+/* ==========================================================
+   MOBILE
+   ========================================================== */
+
+@media (max-width: 650px) {
+
+    .mathematics-notebook .math-header {
+
+        min-height: 68px;
+
+        padding: 11px 13px;
+
+        border-radius: 16px;
+    }
+
+
+    .mathematics-notebook .math-logo {
+
+        width: 42px;
+        height: 42px;
+
+        flex-basis: 42px;
+
+        font-size: 22px;
+    }
+
+
+    .mathematics-notebook .math-title h2 {
+
+        font-size: 17px;
+    }
+
+
+    .mathematics-notebook .math-header-symbols {
+
+        display: none;
+    }
+
+
+    .mathematics-notebook .math-workspace {
+
+        display: flex;
+
+        flex-direction: column;
+    }
+
+
+    .mathematics-notebook .math-main-column,
+    .mathematics-notebook .math-side-column {
+
+        width: 100%;
+    }
+
+
+    .mathematics-notebook .math-side-column {
+
+        display: flex;
+    }
+
+
+    .mathematics-notebook .math-panel {
+
+        padding: 14px;
+
+        border-radius: 15px;
+    }
+
+
+    .mathematics-notebook .math-display {
+
+        grid-template-columns:
+            minmax(0,1fr)
+            48px;
+    }
+
+
+    .mathematics-notebook .math-keypad {
+
+        grid-template-columns:
+            repeat(6,minmax(0,1fr));
+    }
+
+
+    .mathematics-notebook .calculus-tools {
+
+        grid-template-columns:
+            1fr 65px;
+    }
+
+
+    .mathematics-notebook .tool-input {
+
+        grid-column:
+            1 / -1;
+    }
+
+
+    .mathematics-notebook .formula-library-list {
+
+        max-height: none;
+    }
+
+}
+
+
+/* ==========================================================
+   SMALL PHONES
+   ========================================================== */
+
+@media (max-width: 430px) {
+
+    .mathematics-notebook .math-panel {
+
+        padding: 12px;
+    }
+
+
+    .mathematics-notebook .math-keypad {
+
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
+
+    .mathematics-notebook .calculus-tools {
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+
+    .mathematics-notebook .calculus-button {
+
+        width: 100%;
+    }
+
+
+    .mathematics-notebook .formula-text {
+
+        font-size: 8.5px;
+    }
+
+
+    .mathematics-notebook .formula-group > summary {
+
+        min-height: 40px;
+    }
+
+
+    .mathematics-notebook .formula-library-hint {
+
+        display: none;
+    }
+
+}
+/* =========================================================
+   ORION MATHEMATICS — FORMULA LIBRARY FINAL SCROLL FIX
+   Add this at the VERY BOTTOM of mathematics.css
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   FORMULA LIBRARY — OUTER SCROLL
+   --------------------------------------------------------- */
+
+.mathematics-notebook .library-panel {
+    overflow: hidden !important;
+}
+
+.mathematics-notebook .formula-library-list {
+    display: block !important;
+
+    max-height: 680px !important;
+
+    height: auto !important;
+
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+
+    box-sizing: border-box !important;
+
+    padding-right: 8px !important;
+
+    min-height: 0 !important;
+
+    scrollbar-width: thin !important;
+}
+
+
+/* ---------------------------------------------------------
+   CATEGORY
+   --------------------------------------------------------- */
+
+.mathematics-notebook .formula-group {
+    display: block !important;
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    max-height: none !important;
+
+    overflow: visible !important;
+
+    box-sizing: border-box !important;
+
+    margin-bottom: 6px !important;
+}
+
+
+/* OPEN CATEGORY */
+
+.mathematics-notebook .formula-group[open] {
+    overflow: visible !important;
+}
+
+
+/* ---------------------------------------------------------
+   CATEGORY CONTENT
+   --------------------------------------------------------- */
+
+.mathematics-notebook .formula-group > .formula-subgroups {
+    display: block !important;
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    max-height: none !important;
+
+    overflow: visible !important;
+
+    box-sizing: border-box !important;
+
+    padding-right: 0 !important;
+}
+
+
+/*
+   IMPORTANT:
+   Do NOT create another scroll box here.
+
+   The main formula-library-list handles
+   the scrolling for the entire library.
+*/
+
+
+/* ---------------------------------------------------------
+   SUBCATEGORY
+   --------------------------------------------------------- */
+
+.mathematics-notebook .formula-subgroup {
+    display: block !important;
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    max-height: none !important;
+
+    overflow: visible !important;
+
+    box-sizing: border-box !important;
+
+    margin-bottom: 4px !important;
+}
+
+
+/* OPEN SUBCATEGORY */
+
+.mathematics-notebook .formula-subgroup[open] {
+    overflow: visible !important;
+}
+
+
+/* ---------------------------------------------------------
+   SUBCATEGORY CONTENT
+   --------------------------------------------------------- */
+
+.mathematics-notebook .formula-subgroup > .formula-items {
+    display: block !important;
+
+    width: 100% !important;
+
+    height: auto !important;
+
+    max-height: none !important;
+
+    overflow: visible !important;
+
+    box-sizing: border-box !important;
+
+    padding-right: 0 !important;
+}
+
+
+/* ---------------------------------------------------------
+   SUMMARIES — MAKE THEM FULLY CLICKABLE
+   --------------------------------------------------------- */
+
+.mathematics-notebook .formula-group > summary,
+.mathematics-notebook .formula-subgroup > summary {
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: space-between !important;
+
+    width: 100% !important;
+
+    box-sizing: border-box !important;
+
+    cursor: pointer !important;
+
+    pointer-events: auto !important;
+
+    position: relative !important;
+
+    z-index: 10 !important;
+
+    user-select: none !important;
+}
+
+
+/* Remove any accidental overlay */
+
+.mathematics-notebook .formula-group > summary::before,
+.mathematics-notebook .formula-group > summary::after,
+.mathematics-notebook .formula-subgroup > summary::before,
+.mathematics-notebook .formula-subgroup > summary::after {
+    pointer-events: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   REMOVE CATEGORY COUNTERS
+   --------------------------------------------------------- */
+
+.mathematics-notebook .formula-group > summary small,
+.mathematics-notebook .formula-group > summary .formula-count,
+.mathematics-notebook .formula-group > summary .formula-number,
+.mathematics-notebook .formula-group > summary .count,
+.mathematics-notebook .formula-group > summary [class*="count"] {
+    display: none !important;
+}
+
+
+/* ---------------------------------------------------------
+   FORMULA ITEMS
+   --------------------------------------------------------- */
+
+.mathematics-notebook .formula-item {
+
+    width: 100% !important;
+
+    min-width: 0 !important;
+
+    box-sizing: border-box !important;
+
+    overflow: hidden !important;
+}
+
+
+/* ---------------------------------------------------------
+   SCROLLBAR
+   --------------------------------------------------------- */
+
+.mathematics-notebook .formula-library-list::-webkit-scrollbar {
+    width: 7px !important;
+}
+
+.mathematics-notebook .formula-library-list::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.mathematics-notebook .formula-library-list::-webkit-scrollbar-thumb {
+    background: rgba(120, 100, 150, 0.30) !important;
+
+    border-radius: 20px !important;
+}
+
+.mathematics-notebook .formula-library-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(120, 100, 150, 0.48) !important;
+}
+
+
+/* ---------------------------------------------------------
+   KEEP SCROLLBAR AVAILABLE WHEN LOTS OF FORMULAS OPEN
+   --------------------------------------------------------- */
+
+.mathematics-notebook .formula-library-list {
+    overscroll-behavior: contain !important;
+
+    -webkit-overflow-scrolling: touch !important;
+
+    scroll-behavior: smooth !important;
+}
+
+
+/* ---------------------------------------------------------
+   IMPORTANT FLEX FIX
+   --------------------------------------------------------- */
+
+.mathematics-notebook .math-side-column {
+    min-height: 0 !important;
+}
+
+.mathematics-notebook .library-panel {
+    min-height: 0 !important;
+}
+
+
+/* ---------------------------------------------------------
+   DESKTOP
+   --------------------------------------------------------- */
+
+@media (min-width: 901px) {
+
+    .mathematics-notebook .formula-library-list {
+        max-height: 680px !important;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   TABLET
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+    .mathematics-notebook .formula-library-list {
+        max-height: 550px !important;
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+
+    .mathematics-notebook .formula-library-list {
+        max-height: 500px !important;
+
+        padding-right: 5px !important;
+    }
+
+    .mathematics-notebook .formula-group > summary,
+    .mathematics-notebook .formula-subgroup > summary {
+        min-height: 42px !important;
+    }
+
+}
