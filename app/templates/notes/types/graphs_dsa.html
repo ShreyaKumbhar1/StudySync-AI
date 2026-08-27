@@ -1,4 +1,8 @@
 <div class="special-notebook graph-notebook">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/graphs-dsa.css') }}"
+    >
 
     <!-- =====================================================
          GRAPHS & DSA INTRO
@@ -41,46 +45,133 @@
             </strong>
 
 
-            <!-- Structure Type -->
-
             <select id="structureType">
 
-                <option value="graph">
-                    Graph
-                </option>
+                <optgroup label="Graphs">
 
-                <option value="tree">
-                    Tree
-                </option>
+                    <option value="graph">
+                        Undirected Graph
+                    </option>
 
-                <option value="linked-list">
-                    Linked List
-                </option>
+                    <option value="directed-graph">
+                        Directed Graph
+                    </option>
 
-                <option value="stack">
-                    Stack
-                </option>
+                    <option value="weighted-graph">
+                        Weighted Graph
+                    </option>
 
-                <option value="queue">
-                    Queue
-                </option>
+                    <option value="directed-weighted-graph">
+                        Directed Weighted Graph
+                    </option>
 
-                <option value="heap">
-                    Heap
-                </option>
+                    <option value="dag">
+                        Directed Acyclic Graph
+                    </option>
 
-                <option value="array">
-                    Array
-                </option>
+                    <option value="adjacency-list">
+                        Adjacency List
+                    </option>
 
-                <option value="matrix">
-                    Matrix
-                </option>
+                    <option value="adjacency-matrix">
+                        Adjacency Matrix
+                    </option>
+
+                </optgroup>
+
+
+                <optgroup label="Trees">
+
+                    <option value="tree">
+                        Tree
+                    </option>
+
+                    <option value="binary-tree">
+                        Binary Tree
+                    </option>
+
+                    <option value="bst">
+                        Binary Search Tree
+                    </option>
+
+                    <option value="avl">
+                        AVL Tree
+                    </option>
+
+                    <option value="heap">
+                        Heap
+                    </option>
+
+                    <option value="segment-tree">
+                        Segment Tree
+                    </option>
+
+                    <option value="fenwick-tree">
+                        Fenwick Tree
+                    </option>
+
+                </optgroup>
+
+
+                <optgroup label="Linear Structures">
+
+                    <option value="array">
+                        Array
+                    </option>
+
+                    <option value="matrix">
+                        Matrix
+                    </option>
+
+                    <option value="sparse-matrix">
+                        Sparse Matrix
+                    </option>
+
+                    <option value="linked-list">
+                        Singly Linked List
+                    </option>
+
+                    <option value="doubly-linked-list">
+                        Doubly Linked List
+                    </option>
+
+                    <option value="circular-linked-list">
+                        Circular Linked List
+                    </option>
+
+                    <option value="stack">
+                        Stack
+                    </option>
+
+                    <option value="queue">
+                        Queue
+                    </option>
+
+                    <option value="deque">
+                        Deque
+                    </option>
+
+                </optgroup>
+
+
+                <optgroup label="Advanced Structures">
+
+                    <option value="hash-table">
+                        Hash Table
+                    </option>
+
+                    <option value="trie">
+                        Trie
+                    </option>
+
+                    <option value="disjoint-set">
+                        Disjoint Set / Union-Find
+                    </option>
+
+                </optgroup>
 
             </select>
 
-
-            <!-- Graph Tools -->
 
             <div class="graph-tools">
 
@@ -92,6 +183,7 @@
                     Select
                 </button>
 
+
                 <button
                     type="button"
                     class="graph-tool"
@@ -100,6 +192,7 @@
                     + Node
                 </button>
 
+
                 <button
                     type="button"
                     class="graph-tool"
@@ -107,6 +200,7 @@
                 >
                     Edge
                 </button>
+
 
                 <button
                     type="button"
@@ -121,12 +215,156 @@
         </div>
 
 
-        <!-- Graph Canvas -->
+        <!-- =================================================
+             STRUCTURE INPUT
+             ================================================= -->
+
+        <div
+            class="graph-setup"
+            id="graphSetup"
+            hidden
+        >
+
+            <div class="setup-heading">
+
+                <strong>
+                    Build your structure
+                </strong>
+
+                <span>
+                    Enter nodes and edges to generate the structure.
+                </span>
+
+            </div>
+
+
+            <div class="setup-grid">
+
+                <div class="setup-field">
+
+                    <label>
+                        Nodes
+                    </label>
+
+                    <input
+                        id="nodeInput"
+                        type="text"
+                        placeholder="A, B, C, D, E"
+                    >
+
+                </div>
+
+
+                <div class="setup-field">
+
+                    <label>
+                        Edges
+                    </label>
+
+                    <textarea
+                        id="edgeInput"
+                        placeholder="A-B, B-C, A-D, C-E"
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="setup-options">
+
+                <label
+                    class="setup-check"
+                    id="directedOption"
+                >
+
+                    <input
+                        type="checkbox"
+                        id="directedToggle"
+                    >
+
+                    Directed
+
+                </label>
+
+
+                <label
+                    class="setup-check"
+                    id="weightedOption"
+                >
+
+                    <input
+                        type="checkbox"
+                        id="weightedToggle"
+                    >
+
+                    Weighted
+
+                </label>
+
+            </div>
+
+
+            <div class="setup-actions">
+
+                <button
+                    type="button"
+                    class="graph-action"
+                    id="closeGraphSetup"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    class="build-graph-btn"
+                    id="buildGraph"
+                >
+                    Build Structure
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             GRAPH CANVAS
+             ================================================= -->
 
         <div
             class="graph-canvas"
             id="graphCanvas"
         >
+
+            <svg
+                class="graph-svg"
+                id="graphSvg"
+            >
+
+                <defs>
+
+                    <marker
+                        id="graphArrow"
+                        markerWidth="8"
+                        markerHeight="8"
+                        refX="7"
+                        refY="4"
+                        orient="auto"
+                    >
+
+                        <path
+                            d="M0,0 L8,4 L0,8 z"
+                            fill="#9b91ad"
+                        ></path>
+
+                    </marker>
+
+                </defs>
+
+            </svg>
+
 
             <div class="graph-placeholder">
 
@@ -147,6 +385,21 @@
 
         </div>
 
+
+        <div class="graph-status">
+
+            <span>
+                Nodes:
+                <strong id="nodeCount">0</strong>
+            </span>
+
+            <span>
+                Edges:
+                <strong id="edgeCount">0</strong>
+            </span>
+
+        </div>
+
     </section>
 
 
@@ -155,9 +408,6 @@
          ===================================================== -->
 
     <div class="dsa-grid">
-
-
-        <!-- Algorithm -->
 
         <section class="special-card">
 
@@ -174,12 +424,11 @@
             <textarea
                 data-note-field="algorithm"
                 class="special-textarea"
+                placeholder="Write the algorithm or pseudocode here..."
             >{{ page_data.fields.algorithm or '' }}</textarea>
 
         </section>
 
-
-        <!-- Trace / Traversal -->
 
         <section class="special-card">
 
@@ -196,6 +445,7 @@
             <textarea
                 data-note-field="traversal"
                 class="special-textarea"
+                placeholder="Record BFS, DFS, traversal order or step-by-step reasoning..."
             >{{ page_data.fields.traversal or '' }}</textarea>
 
         </section>
@@ -216,6 +466,7 @@
             <strong>
                 Algorithm Trace Table
             </strong>
+
 
             <button
                 type="button"
@@ -275,9 +526,6 @@
 
     <div class="complexity-grid">
 
-
-        <!-- Time Complexity -->
-
         <div class="complexity-card">
 
             <span>
@@ -296,8 +544,6 @@
 
         </div>
 
-
-        <!-- Space Complexity -->
 
         <div class="complexity-card">
 
@@ -322,44 +568,459 @@
 
     <!-- =====================================================
          ALGORITHM FLOWCHART
+         CODING & LOGIC DESIGNER
          ===================================================== -->
 
     <section class="special-card">
 
         <div class="special-card-header">
 
-            🔀
+            <div class="coding-card-title">
 
-            <strong>
-                Algorithm Flowchart
-            </strong>
+                <span>
+                    🔀
+                </span>
 
-            <button
-                type="button"
-                class="mini-action"
-                id="renderDsaFlowchart"
-            >
-                Render
-            </button>
+                <strong>
+                    Algorithm Flowchart
+                </strong>
+
+            </div>
+
+
+            <div class="coding-editor-actions">
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="flowchartUndo"
+                >
+                    ↶ Undo
+                </button>
+
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="flowchartAutoLayout"
+                >
+                    ✦ Auto Layout
+                </button>
+
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="flowchartClear"
+                >
+                    Clear
+                </button>
+
+            </div>
 
         </div>
 
 
+        <div class="coding-flowchart-workspace">
+
+
+            <!-- SHAPE LIBRARY -->
+
+            <aside class="flowchart-shape-library">
+
+                <div class="flowchart-panel-title">
+                    Shapes
+                </div>
+
+
+                <button
+                    type="button"
+                    class="flow-shape-tool"
+                    data-flow-shape="start"
+                >
+
+                    <span class="flow-shape-preview">
+                        ●
+                    </span>
+
+                    Start / End
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="flow-shape-tool"
+                    data-flow-shape="process"
+                >
+
+                    <span class="flow-shape-preview">
+                        ▭
+                    </span>
+
+                    Process
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="flow-shape-tool"
+                    data-flow-shape="decision"
+                >
+
+                    <span class="flow-shape-preview">
+                        ◇
+                    </span>
+
+                    Decision
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="flow-shape-tool"
+                    data-flow-shape="io"
+                >
+
+                    <span class="flow-shape-preview">
+                        ▱
+                    </span>
+
+                    Input / Output
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="flow-shape-tool"
+                    data-flow-shape="document"
+                >
+
+                    <span class="flow-shape-preview">
+                        ▤
+                    </span>
+
+                    Document
+
+                </button>
+
+
+                <div class="flowchart-library-divider"></div>
+
+
+                <button
+                    type="button"
+                    class="flow-special-tool active"
+                    id="flowSelectTool"
+                >
+                    ↖ Select
+                </button>
+
+
+                <button
+                    type="button"
+                    class="flow-special-tool"
+                    id="flowConnectTool"
+                >
+                    ↗ Connect
+                </button>
+
+
+                <label class="flow-option">
+
+                    <input
+                        type="checkbox"
+                        id="flowSnapGrid"
+                        checked
+                    >
+
+                    Snap to grid
+
+                </label>
+
+
+                <label class="flow-option">
+
+                    <span>
+                        Connector
+                    </span>
+
+                    <select id="flowConnectorStyle">
+
+                        <option value="elbow">
+                            Elbow
+                        </option>
+
+                        <option value="straight">
+                            Straight
+                        </option>
+
+                        <option value="curved">
+                            Curved
+                        </option>
+
+                    </select>
+
+                </label>
+
+            </aside>
+
+
+            <!-- FLOWCHART CANVAS -->
+
+            <div class="flowchart-canvas-area">
+
+                <div
+                    class="coding-flowchart-canvas"
+                    id="codingFlowchartCanvas"
+                >
+
+                    <svg
+                        class="flowchart-connectors"
+                        id="codingFlowchartSvg"
+                    >
+
+                        <defs>
+
+                            <marker
+                                id="codingArrow"
+                                markerWidth="9"
+                                markerHeight="9"
+                                refX="7"
+                                refY="4"
+                                orient="auto"
+                            >
+
+                                <path
+                                    d="M0,0 L8,4 L0,8 Z"
+                                    fill="currentColor"
+                                ></path>
+
+                            </marker>
+
+                        </defs>
+
+                    </svg>
+
+
+                    <div
+                        class="flowchart-empty-state"
+                        id="codingFlowchartEmpty"
+                    >
+
+                        <span>
+                            🔀
+                        </span>
+
+                        <strong>
+                            Start designing your algorithm
+                        </strong>
+
+                        <small>
+                            Choose a shape from the left or use a
+                            template below.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="flowchart-template-bar">
+
+                    <span>
+                        Templates
+                    </span>
+
+
+                    <button
+                        type="button"
+                        class="flow-template"
+                        data-flow-template="linear"
+                    >
+                        Linear Algorithm
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="flow-template"
+                        data-flow-template="decision"
+                    >
+                        If / Else
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="flow-template"
+                        data-flow-template="loop"
+                    >
+                        Loop
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- INSPECTOR -->
+
+            <aside class="flowchart-inspector">
+
+                <div class="flowchart-panel-title">
+                    Inspector
+                </div>
+
+
+                <div
+                    class="flow-inspector-empty"
+                    id="flowInspectorEmpty"
+                >
+                    Select a shape to edit it.
+                </div>
+
+
+                <div
+                    id="flowInspector"
+                    class="flow-inspector-content"
+                    hidden
+                >
+
+                    <label>
+
+                        Shape
+
+                        <select id="flowNodeType">
+
+                            <option value="start">
+                                Start / End
+                            </option>
+
+                            <option value="process">
+                                Process
+                            </option>
+
+                            <option value="decision">
+                                Decision
+                            </option>
+
+                            <option value="io">
+                                Input / Output
+                            </option>
+
+                            <option value="document">
+                                Document
+                            </option>
+
+                        </select>
+
+                    </label>
+
+
+                    <label>
+
+                        Text
+
+                        <textarea
+                            id="flowNodeText"
+                            rows="4"
+                        ></textarea>
+
+                    </label>
+
+
+                    <div class="flow-inspector-actions">
+
+                        <button
+                            type="button"
+                            class="mini-action"
+                            id="flowApplyNode"
+                        >
+                            Apply
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="mini-action danger-mini"
+                            id="flowDeleteNode"
+                        >
+                            Delete
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="mini-action"
+                            id="flowDuplicateNode"
+                        >
+                            Duplicate
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+
+        <!-- VISUAL STATE -->
+
         <textarea
-            data-note-field="flowchart"
-            id="dsaFlowchartSource"
-            class="flowchart-source"
-            placeholder="graph TD
-A[Start] --> B[Choose algorithm]
-B --> C[Process]
-C --> D[End]"
-        >{{ page_data.flowchart }}</textarea>
+            id="codingFlowchartVisualData"
+            data-note-field="flowchart_visual"
+            hidden
+        >{{ page_data.flowchart_visual or '{"nodes":[],"edges":[]}' }}</textarea>
 
 
-        <div
-            class="mermaid-preview"
-            id="dsaFlowchartPreview"
-        ></div>
+        <!-- ADVANCED MERMAID -->
+
+        <details class="flowchart-source-panel">
+
+            <summary>
+                Advanced Mermaid source
+            </summary>
+
+
+            <div class="flowchart-source-inner">
+
+                <textarea
+                    data-note-field="flowchart"
+                    id="codingFlowchartSource"
+                    class="flowchart-source"
+                    placeholder="flowchart TD
+A([Start]) --> B[Process input]
+B --> C{Condition?}
+C -->|Yes| D[Process A]
+C -->|No| E[Process B]
+D --> F([End])
+E --> F"
+                >{{ page_data.flowchart or '' }}</textarea>
+
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="renderCodingFlowchart"
+                >
+                    Render Mermaid Preview
+                </button>
+
+
+                <div
+                    class="mermaid-preview"
+                    id="codingFlowchartPreview"
+                ></div>
+
+            </div>
+
+        </details>
 
     </section>
 
@@ -368,7 +1029,10 @@ C --> D[End]"
          EXPLANATION
          ===================================================== -->
 
-    <section class="special-card">
+    <section
+        class="special-card"
+        style="margin-top: 28px;"
+    >
 
         <div class="special-card-header">
 
@@ -384,8 +1048,14 @@ C --> D[End]"
         <textarea
             data-note-field="content"
             class="special-textarea"
+            placeholder="Explain the concept in your own words..."
         >{{ page_data.content }}</textarea>
 
     </section>
+
+
+    <script
+        src="{{ url_for('static', filename='js/graph-notebook.js') }}"
+    ></script>
 
 </div>

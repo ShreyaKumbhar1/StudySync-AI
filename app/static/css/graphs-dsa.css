@@ -1,0 +1,1413 @@
+/* ============================================================
+   STUDYSYNC AI — GRAPHS & DSA NOTEBOOK
+   Notebook-scoped stylesheet.
+   NOTHING HERE IS GLOBAL.
+   ============================================================ */
+
+.graph-notebook {
+    --dsa-purple: #8b5cf6;
+    --dsa-purple-dark: #6d42d8;
+    --dsa-purple-soft: rgba(139, 92, 246, 0.10);
+    --dsa-border: rgba(139, 92, 246, 0.16);
+    --dsa-border-strong: rgba(139, 92, 246, 0.28);
+    --dsa-text: #292338;
+    --dsa-muted: #827b91;
+    --dsa-surface: #ffffff;
+    --dsa-surface-soft: #faf9fc;
+    --dsa-grid: rgba(139, 92, 246, 0.075);
+
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   INTRO
+   ============================================================ */
+
+.graph-notebook .workspace-intro {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.graph-notebook .workspace-icon {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(139, 92, 246, .16),
+            rgba(139, 92, 246, .06)
+        );
+
+    border: 1px solid var(--dsa-border);
+
+    font-size: 23px;
+}
+
+.graph-notebook .workspace-intro h2 {
+    margin: 0;
+    color: var(--dsa-text);
+    font-size: 22px;
+    font-weight: 750;
+    letter-spacing: -.025em;
+}
+
+.graph-notebook .workspace-intro p {
+    margin: 5px 0 0;
+    color: var(--dsa-muted);
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+
+.graph-notebook .special-card {
+    position: relative;
+
+    background: var(--dsa-surface);
+
+    border: 1px solid var(--dsa-border);
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 2px 7px rgba(45, 31, 75, .025),
+        0 8px 26px rgba(45, 31, 75, .035);
+
+    overflow: hidden;
+
+    transition:
+        border-color .18s ease,
+        box-shadow .18s ease;
+}
+
+.graph-notebook .special-card:hover {
+    border-color: var(--dsa-border-strong);
+
+    box-shadow:
+        0 3px 10px rgba(45, 31, 75, .035),
+        0 12px 30px rgba(45, 31, 75, .055);
+}
+
+.graph-notebook .special-card-header {
+    min-height: 54px;
+
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 12px 16px;
+
+    border-bottom: 1px solid rgba(139, 92, 246, .10);
+
+    color: var(--dsa-text);
+}
+
+.graph-notebook .special-card-header strong {
+    font-size: 14px;
+    font-weight: 720;
+}
+
+.graph-notebook .special-card-header select {
+    margin-left: auto;
+}
+
+
+/* ============================================================
+   GRAPH BUILDER
+   ============================================================ */
+
+.graph-notebook .graph-canvas-card {
+    margin-bottom: 18px;
+}
+
+.graph-notebook #structureType {
+    margin-left: auto;
+
+    height: 34px;
+
+    padding: 0 32px 0 11px;
+
+    border-radius: 9px;
+
+    border: 1px solid var(--dsa-border);
+
+    background: #fff;
+
+    color: var(--dsa-text);
+
+    font-size: 12px;
+
+    outline: none;
+}
+
+.graph-notebook #structureType:focus {
+    border-color: var(--dsa-purple);
+    box-shadow: 0 0 0 3px var(--dsa-purple-soft);
+}
+
+.graph-notebook .graph-tools {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 8px;
+}
+
+.graph-notebook .graph-tool {
+    height: 32px;
+
+    padding: 0 10px;
+
+    border-radius: 8px;
+
+    border: 1px solid transparent;
+
+    background: transparent;
+
+    color: var(--dsa-muted);
+
+    font-size: 11px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        background .15s ease,
+        color .15s ease,
+        border-color .15s ease;
+}
+
+.graph-notebook .graph-tool:hover {
+    background: var(--dsa-purple-soft);
+    color: var(--dsa-purple-dark);
+}
+
+.graph-notebook .graph-tool.active {
+    background: var(--dsa-purple-soft);
+    border-color: var(--dsa-border);
+    color: var(--dsa-purple-dark);
+}
+
+
+/* ============================================================
+   GRAPH SETUP
+   ============================================================ */
+
+.graph-notebook .graph-setup {
+    padding: 17px;
+
+    border-bottom: 1px solid var(--dsa-border);
+
+    background:
+        linear-gradient(
+            180deg,
+            #fcfbfe,
+            #fff
+        );
+}
+
+.graph-notebook .setup-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+
+    margin-bottom: 13px;
+}
+
+.graph-notebook .setup-heading strong {
+    color: var(--dsa-text);
+    font-size: 13px;
+}
+
+.graph-notebook .setup-heading span {
+    color: var(--dsa-muted);
+    font-size: 11px;
+}
+
+.graph-notebook .setup-grid {
+    display: grid;
+    grid-template-columns: .9fr 1.5fr;
+    gap: 12px;
+}
+
+.graph-notebook .setup-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.graph-notebook .setup-field label {
+    color: var(--dsa-muted);
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.graph-notebook .setup-field input,
+.graph-notebook .setup-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    border: 1px solid var(--dsa-border);
+
+    border-radius: 9px;
+
+    padding: 9px 10px;
+
+    background: #fff;
+
+    color: var(--dsa-text);
+
+    font: inherit;
+    font-size: 12px;
+
+    outline: none;
+
+    resize: vertical;
+}
+
+.graph-notebook .setup-field textarea {
+    min-height: 74px;
+}
+
+.graph-notebook .setup-field input:focus,
+.graph-notebook .setup-field textarea:focus {
+    border-color: var(--dsa-purple);
+
+    box-shadow:
+        0 0 0 3px var(--dsa-purple-soft);
+}
+
+.graph-notebook .setup-options {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.graph-notebook .setup-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    color: var(--dsa-muted);
+
+    font-size: 11px;
+}
+
+.graph-notebook .setup-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+
+    margin-top: 12px;
+}
+
+.graph-notebook .graph-action,
+.graph-notebook .build-graph-btn {
+    height: 34px;
+
+    padding: 0 13px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.graph-notebook .graph-action {
+    border: 1px solid var(--dsa-border);
+    background: #fff;
+    color: var(--dsa-muted);
+}
+
+.graph-notebook .build-graph-btn {
+    border: 1px solid var(--dsa-purple);
+    background: var(--dsa-purple);
+    color: #fff;
+}
+
+
+/* ============================================================
+   GRAPH CANVAS
+   ============================================================ */
+
+.graph-notebook .graph-canvas {
+    position: relative;
+
+    min-height: 390px;
+
+    overflow: hidden;
+
+    background-color: #fff;
+
+    background-image:
+        linear-gradient(
+            var(--dsa-grid) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            var(--dsa-grid) 1px,
+            transparent 1px
+        );
+
+    background-size: 24px 24px;
+}
+
+.graph-notebook .graph-placeholder {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 7px;
+
+    pointer-events: none;
+
+    color: var(--dsa-muted);
+
+    text-align: center;
+}
+
+.graph-notebook .graph-placeholder span {
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: var(--dsa-purple-soft);
+
+    color: var(--dsa-purple);
+
+    font-size: 21px;
+}
+
+.graph-notebook .graph-placeholder strong {
+    color: var(--dsa-text);
+    font-size: 12px;
+}
+
+.graph-notebook .graph-placeholder small {
+    max-width: 300px;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.graph-notebook .graph-node {
+    position: absolute;
+
+    z-index: 4;
+
+    min-width: 40px;
+    height: 40px;
+
+    padding: 0 11px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    border-radius: 50%;
+
+    background: #fff;
+
+    border: 2px solid var(--dsa-purple);
+
+    color: var(--dsa-text);
+
+    font-size: 12px;
+    font-weight: 700;
+
+    box-shadow:
+        0 4px 12px rgba(91, 62, 130, .12);
+
+    cursor: grab;
+
+    user-select: none;
+}
+
+.graph-notebook .graph-node:active {
+    cursor: grabbing;
+}
+
+.graph-notebook .graph-node.selected {
+    background: var(--dsa-purple);
+    color: #fff;
+
+    box-shadow:
+        0 0 0 4px var(--dsa-purple-soft),
+        0 5px 16px rgba(91, 62, 130, .18);
+}
+
+.graph-notebook .graph-edge-line {
+    position: absolute;
+
+    z-index: 1;
+
+    height: 2px;
+
+    transform-origin: 0 50%;
+
+    background: #aaa2b4;
+
+    pointer-events: none;
+}
+
+.graph-notebook .graph-edge-line[data-directed="true"]::after {
+    content: "";
+
+    position: absolute;
+
+    right: -1px;
+    top: -4px;
+
+    width: 0;
+    height: 0;
+
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 8px solid #9b91ad;
+}
+
+.graph-notebook .graph-edge-label {
+    position: absolute;
+
+    z-index: 3;
+
+    transform: translate(-50%, -50%);
+
+    padding: 2px 5px;
+
+    border-radius: 5px;
+
+    background: #fff;
+
+    border: 1px solid var(--dsa-border);
+
+    color: var(--dsa-muted);
+
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.graph-notebook .graph-status {
+    min-height: 38px;
+
+    display: flex;
+    align-items: center;
+    gap: 17px;
+
+    padding: 0 15px;
+
+    border-top: 1px solid var(--dsa-border);
+
+    color: var(--dsa-muted);
+
+    font-size: 10px;
+}
+
+.graph-notebook .graph-status strong {
+    color: var(--dsa-text);
+}
+
+
+/* ============================================================
+   ALGORITHM / TRAVERSAL
+   ============================================================ */
+
+.graph-notebook .dsa-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+
+    margin-bottom: 18px;
+}
+
+.graph-notebook .special-textarea {
+    display: block;
+
+    width: 100%;
+    min-height: 180px;
+
+    box-sizing: border-box;
+
+    padding: 14px 16px;
+
+    border: 0;
+
+    outline: none;
+
+    resize: vertical;
+
+    background: transparent;
+
+    color: var(--dsa-text);
+
+    font: inherit;
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.graph-notebook .special-textarea::placeholder {
+    color: #aaa4b0;
+}
+
+
+/* ============================================================
+   TRACE TABLE
+   ============================================================ */
+
+.graph-notebook .data-table-wrap {
+    overflow-x: auto;
+}
+
+.graph-notebook .editable-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 11px;
+}
+
+.graph-notebook .editable-table th {
+    padding: 10px 12px;
+
+    background: var(--dsa-surface-soft);
+
+    border-bottom: 1px solid var(--dsa-border);
+
+    color: var(--dsa-muted);
+
+    text-align: left;
+
+    font-weight: 700;
+}
+
+.graph-notebook .editable-table td {
+    padding: 0;
+
+    border-bottom: 1px solid rgba(139, 92, 246, .08);
+}
+
+.graph-notebook .editable-table input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 10px 12px;
+
+    border: 0;
+
+    outline: none;
+
+    background: transparent;
+
+    color: var(--dsa-text);
+
+    font: inherit;
+}
+
+
+/* ============================================================
+   COMPLEXITY
+   ============================================================ */
+
+.graph-notebook .complexity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+
+    margin: 18px 0;
+}
+
+.graph-notebook .complexity-card {
+    display: grid;
+
+    grid-template-columns: 38px 1fr;
+    grid-template-rows: auto auto;
+
+    column-gap: 10px;
+
+    padding: 15px 16px;
+
+    border-radius: 14px;
+
+    background: var(--dsa-surface);
+
+    border: 1px solid var(--dsa-border);
+}
+
+.graph-notebook .complexity-card > span {
+    grid-row: 1 / span 2;
+
+    width: 34px;
+    height: 34px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 10px;
+
+    background: var(--dsa-purple-soft);
+
+    color: var(--dsa-purple);
+
+    font-size: 15px;
+}
+
+.graph-notebook .complexity-card label {
+    color: var(--dsa-muted);
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.graph-notebook .complexity-card input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 3px;
+
+    padding: 3px 0;
+
+    border: 0;
+    outline: none;
+
+    background: transparent;
+
+    color: var(--dsa-text);
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   FLOWCHART — CODING & LOGIC STYLE
+   ============================================================ */
+
+.graph-notebook .coding-flowchart-workspace {
+    display: grid;
+
+    grid-template-columns: 165px minmax(0, 1fr) 185px;
+
+    min-height: 510px;
+
+    background: #fbfafc;
+
+    border-top: 1px solid var(--dsa-border);
+}
+
+
+/* Shape library + inspector */
+
+.graph-notebook .flowchart-shape-library,
+.graph-notebook .flowchart-inspector {
+    padding: 14px;
+
+    background: #fff;
+
+    border-color: var(--dsa-border);
+}
+
+.graph-notebook .flowchart-shape-library {
+    border-right: 1px solid var(--dsa-border);
+}
+
+.graph-notebook .flowchart-inspector {
+    border-left: 1px solid var(--dsa-border);
+}
+
+.graph-notebook .flowchart-panel-title {
+    margin-bottom: 10px;
+
+    color: var(--dsa-text);
+
+    font-size: 11px;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+}
+
+.graph-notebook .flow-shape-tool {
+    width: 100%;
+
+    min-height: 38px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    margin-bottom: 5px;
+
+    padding: 6px 8px;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: var(--dsa-text);
+
+    font-size: 10px;
+    font-weight: 600;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.graph-notebook .flow-shape-tool:hover {
+    background: var(--dsa-purple-soft);
+    border-color: var(--dsa-border);
+}
+
+.graph-notebook .flow-shape-preview {
+    width: 27px;
+    height: 27px;
+
+    display: grid;
+    place-items: center;
+
+    border: 1px solid var(--dsa-border-strong);
+
+    border-radius: 6px;
+
+    background: #fff;
+
+    color: var(--dsa-purple);
+
+    font-size: 13px;
+}
+
+.graph-notebook .flowchart-library-divider {
+    height: 1px;
+
+    margin: 12px 0;
+
+    background: var(--dsa-border);
+}
+
+.graph-notebook .flow-special-tool {
+    width: 100%;
+
+    margin-bottom: 5px;
+
+    padding: 8px;
+
+    border: 1px solid transparent;
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: var(--dsa-muted);
+
+    font-size: 10px;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.graph-notebook .flow-special-tool:hover,
+.graph-notebook .flow-special-tool.active {
+    background: var(--dsa-purple-soft);
+
+    border-color: var(--dsa-border);
+
+    color: var(--dsa-purple-dark);
+}
+
+.graph-notebook .flow-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-top: 10px;
+
+    color: var(--dsa-muted);
+
+    font-size: 9px;
+}
+
+.graph-notebook .flow-option select {
+    width: 100%;
+
+    margin-top: 5px;
+
+    padding: 5px;
+
+    border: 1px solid var(--dsa-border);
+    border-radius: 6px;
+
+    font-size: 9px;
+}
+
+
+/* Flow canvas */
+
+.graph-notebook .flowchart-canvas-area {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.graph-notebook .coding-flowchart-canvas {
+    position: relative;
+
+    flex: 1;
+
+    min-height: 450px;
+
+    overflow: auto;
+
+    background-color: #fff;
+
+    background-image:
+        linear-gradient(
+            var(--dsa-grid) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            var(--dsa-grid) 1px,
+            transparent 1px
+        );
+
+    background-size: 20px 20px;
+}
+
+.graph-notebook .flowchart-connectors {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 900px;
+    min-height: 600px;
+
+    overflow: visible;
+
+    color: #9c93a8;
+
+    pointer-events: none;
+}
+
+.graph-notebook .flow-connector {
+    fill: none;
+
+    stroke: currentColor;
+
+    stroke-width: 1.7;
+
+    pointer-events: stroke;
+
+    cursor: pointer;
+}
+
+.graph-notebook .flow-connector:hover {
+    stroke: var(--dsa-purple);
+
+    stroke-width: 2.5;
+}
+
+.graph-notebook .flow-connector-label {
+    fill: var(--dsa-muted);
+
+    font-size: 10px;
+    font-weight: 650;
+
+    text-anchor: middle;
+}
+
+
+/* Flow nodes */
+
+.graph-notebook .flow-node {
+    position: absolute;
+
+    z-index: 3;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 10px;
+
+    box-sizing: border-box;
+
+    background: #fff;
+
+    border: 1.5px solid var(--dsa-border-strong);
+
+    color: var(--dsa-text);
+
+    font-size: 11px;
+    font-weight: 650;
+
+    text-align: center;
+
+    box-shadow:
+        0 3px 10px rgba(47, 34, 69, .07);
+
+    cursor: grab;
+
+    user-select: none;
+
+    transition:
+        border-color .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+}
+
+.graph-notebook .flow-node:active {
+    cursor: grabbing;
+}
+
+.graph-notebook .flow-node.selected {
+    border-color: var(--dsa-purple);
+
+    box-shadow:
+        0 0 0 3px var(--dsa-purple-soft),
+        0 5px 16px rgba(82, 55, 120, .12);
+}
+
+.graph-notebook .flow-node-start {
+    border-radius: 999px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff,
+            #faf8ff
+        );
+}
+
+.graph-notebook .flow-node-process {
+    border-radius: 7px;
+}
+
+.graph-notebook .flow-node-decision {
+    border-radius: 0;
+
+    transform: rotate(0deg);
+
+    clip-path: polygon(
+        50% 0%,
+        100% 50%,
+        50% 100%,
+        0% 50%
+    );
+
+    border-color: var(--dsa-purple);
+
+    background: #faf8ff;
+}
+
+.graph-notebook .flow-node-io {
+    border-radius: 4px;
+
+    transform: skewX(-8deg);
+}
+
+.graph-notebook .flow-node-document {
+    border-radius: 5px;
+
+    border-bottom-width: 4px;
+}
+
+
+/* Empty state */
+
+.graph-notebook .flowchart-empty-state {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    color: var(--dsa-muted);
+
+    pointer-events: none;
+}
+
+.graph-notebook .flowchart-empty-state > span {
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: var(--dsa-purple-soft);
+
+    color: var(--dsa-purple);
+
+    font-size: 20px;
+}
+
+.graph-notebook .flowchart-empty-state strong {
+    color: var(--dsa-text);
+    font-size: 12px;
+}
+
+.graph-notebook .flowchart-empty-state small {
+    font-size: 10px;
+}
+
+
+/* Templates */
+
+.graph-notebook .flowchart-template-bar {
+    min-height: 43px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 9px;
+
+    border-top: 1px solid var(--dsa-border);
+
+    background: #fff;
+}
+
+.graph-notebook .flowchart-template-bar > span {
+    margin-right: 3px;
+
+    color: var(--dsa-muted);
+
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.graph-notebook .flow-template {
+    padding: 6px 8px;
+
+    border: 1px solid var(--dsa-border);
+
+    border-radius: 7px;
+
+    background: #fff;
+
+    color: var(--dsa-muted);
+
+    font-size: 9px;
+
+    cursor: pointer;
+}
+
+.graph-notebook .flow-template:hover {
+    border-color: var(--dsa-purple);
+
+    color: var(--dsa-purple-dark);
+
+    background: var(--dsa-purple-soft);
+}
+
+
+/* Inspector */
+
+.graph-notebook .flow-inspector-empty {
+    color: var(--dsa-muted);
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+.graph-notebook .flow-inspector-content label {
+    display: block;
+
+    margin-bottom: 12px;
+
+    color: var(--dsa-muted);
+
+    font-size: 9px;
+    font-weight: 650;
+}
+
+.graph-notebook .flow-inspector-content input,
+.graph-notebook .flow-inspector-content select,
+.graph-notebook .flow-inspector-content textarea {
+    display: block;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    margin-top: 5px;
+
+    padding: 7px;
+
+    border: 1px solid var(--dsa-border);
+
+    border-radius: 7px;
+
+    background: #fff;
+
+    color: var(--dsa-text);
+
+    font: inherit;
+    font-size: 10px;
+
+    outline: none;
+}
+
+.graph-notebook .flow-inspector-content textarea {
+    resize: vertical;
+}
+
+.graph-notebook .flow-inspector-content input:focus,
+.graph-notebook .flow-inspector-content select:focus,
+.graph-notebook .flow-inspector-content textarea:focus {
+    border-color: var(--dsa-purple);
+
+    box-shadow:
+        0 0 0 3px var(--dsa-purple-soft);
+}
+
+.graph-notebook .flow-inspector-actions {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 5px;
+}
+
+
+/* ============================================================
+   FLOWCHART SOURCE
+   ============================================================ */
+
+.graph-notebook .flowchart-source-panel {
+    border-top: 1px solid var(--dsa-border);
+}
+
+.graph-notebook .flowchart-source-panel summary {
+    padding: 10px 14px;
+
+    color: var(--dsa-muted);
+
+    font-size: 10px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.graph-notebook .flowchart-source-inner {
+    padding: 0 14px 14px;
+}
+
+.graph-notebook .flowchart-source {
+    width: 100%;
+
+    min-height: 120px;
+
+    box-sizing: border-box;
+
+    padding: 11px;
+
+    resize: vertical;
+
+    border: 1px solid var(--dsa-border);
+
+    border-radius: 8px;
+
+    background: #fcfbfe;
+
+    color: var(--dsa-text);
+
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+
+    outline: none;
+}
+
+.graph-notebook .flowchart-source:focus {
+    border-color: var(--dsa-purple);
+
+    box-shadow:
+        0 0 0 3px var(--dsa-purple-soft);
+}
+
+.graph-notebook .mermaid-preview {
+    margin-top: 12px;
+
+    padding: 14px;
+
+    min-height: 30px;
+
+    overflow: auto;
+
+    border: 1px solid var(--dsa-border);
+
+    border-radius: 9px;
+
+    background: #fff;
+}
+
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.graph-notebook .mini-action {
+    height: 30px;
+
+    margin-left: auto;
+
+    padding: 0 9px;
+
+    border: 1px solid var(--dsa-border);
+
+    border-radius: 7px;
+
+    background: #fff;
+
+    color: var(--dsa-muted);
+
+    font-size: 10px;
+    font-weight: 650;
+
+    cursor: pointer;
+}
+
+.graph-notebook .mini-action:hover {
+    border-color: var(--dsa-purple);
+
+    background: var(--dsa-purple-soft);
+
+    color: var(--dsa-purple-dark);
+}
+
+.graph-notebook .danger-mini:hover {
+    border-color: rgba(220, 70, 70, .25);
+
+    background: rgba(220, 70, 70, .07);
+
+    color: #b83f3f;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 1000px) {
+
+    .graph-notebook .coding-flowchart-workspace {
+        grid-template-columns: 145px minmax(0, 1fr);
+    }
+
+    .graph-notebook .flowchart-inspector {
+        display: none;
+    }
+}
+
+
+@media (max-width: 720px) {
+
+    .graph-notebook .special-card-header {
+        flex-wrap: wrap;
+    }
+
+    .graph-notebook #structureType {
+        margin-left: 0;
+    }
+
+    .graph-notebook .graph-tools {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .graph-notebook .setup-grid,
+    .graph-notebook .dsa-grid,
+    .graph-notebook .complexity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .graph-notebook .coding-flowchart-workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .graph-notebook .flowchart-shape-library {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 5px;
+
+        border-right: 0;
+
+        border-bottom: 1px solid var(--dsa-border);
+    }
+
+    .graph-notebook .flowchart-panel-title {
+        width: 100%;
+    }
+
+    .graph-notebook .flow-shape-tool {
+        width: auto;
+        margin: 0;
+    }
+
+    .graph-notebook .flow-special-tool,
+    .graph-notebook .flow-option {
+        width: auto;
+    }
+}
+/* =========================================================
+   NOTEBOOK IMAGES → EXPLANATION GAP
+   ========================================================= */
+
+.graph-notebook section.special-card:last-of-type {
+    margin-top: 28px !important;
+}
