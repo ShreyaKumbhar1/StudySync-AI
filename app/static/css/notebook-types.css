@@ -3483,3 +3483,1885 @@
     color:
         #625671;
 }
+/* ==========================================================
+   ORION — PROJECT & RESEARCH NOTEBOOK
+   Alignment + Aesthetic Upgrade
+   ========================================================== */
+
+
+/* ==========================================================
+   PROJECT NOTEBOOK BASE
+   ========================================================== */
+
+.project-notebook {
+    width: 100%;
+    box-sizing: border-box;
+
+    color: #433b4d;
+}
+
+
+/* ==========================================================
+   INTRO
+   ========================================================== */
+
+.project-notebook .workspace-intro {
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 22px;
+    padding: 2px 4px;
+}
+
+
+.project-notebook .workspace-intro .workspace-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 15px;
+
+    font-size: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(155, 141, 221, .28),
+            rgba(155, 141, 221, .10)
+        );
+
+    border:
+        1px solid
+        rgba(155, 141, 221, .30);
+
+    box-shadow:
+        0 8px 20px
+        rgba(100, 80, 150, .10);
+}
+
+
+.project-notebook .workspace-intro h2 {
+    margin: 0 0 4px;
+
+    color: #40384a;
+
+    font-size: 22px;
+    line-height: 1.25;
+
+    font-weight: 700;
+}
+
+
+.project-notebook .workspace-intro p {
+    margin: 0;
+
+    color: #82788d;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* ==========================================================
+   MAIN PROJECT GRID
+   ========================================================== */
+
+.project-notebook .project-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 16px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    align-items: stretch;
+}
+
+
+/* ==========================================================
+   PROJECT CARDS
+   ========================================================== */
+
+.project-notebook .project-grid > .special-card {
+
+    width: 100%;
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 18px;
+
+    min-height: 205px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.56),
+            rgba(155,141,221,.065)
+        );
+
+    border:
+        1px solid
+        rgba(155,141,221,.24);
+
+    box-shadow:
+        0 10px 28px
+        rgba(72,58,110,.065);
+
+    backdrop-filter: blur(16px);
+
+    overflow: hidden;
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+
+.project-notebook .project-grid > .special-card:hover {
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        rgba(155,141,221,.38);
+
+    box-shadow:
+        0 15px 34px
+        rgba(72,58,110,.10);
+}
+
+
+/* ==========================================================
+   FULL-WIDTH CARDS
+   ========================================================== */
+
+.project-notebook .project-grid > .special-card.full-width {
+
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    min-height: 0;
+}
+
+
+/* ==========================================================
+   CARD HEADERS
+   ========================================================== */
+
+.project-notebook .special-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    width: 100%;
+
+    min-height: 34px;
+
+    margin-bottom: 12px;
+
+    box-sizing: border-box;
+
+    color: #51475d;
+
+    font-size: 12px;
+
+    line-height: 1.3;
+}
+
+
+.project-notebook .special-card-header strong {
+
+    color: #4c4357;
+
+    font-size: 12px;
+
+    font-weight: 650;
+
+    letter-spacing: .1px;
+}
+
+
+/* ==========================================================
+   HEADER ICONS
+   ========================================================== */
+
+.project-notebook .special-card-header > span,
+.project-notebook .special-card-header > .card-icon {
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 31px;
+    height: 31px;
+
+    flex: 0 0 31px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(155,141,221,.11);
+
+    border:
+        1px solid
+        rgba(155,141,221,.18);
+
+    font-size: 15px;
+}
+
+
+/* ==========================================================
+   TEXT AREAS
+   ========================================================== */
+
+.project-notebook .special-textarea {
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 130px;
+
+    flex: 1;
+
+    box-sizing: border-box;
+
+    resize: vertical;
+
+    padding: 13px 14px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.15);
+
+    border-radius: 13px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.40);
+
+    color: #554c5f;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+
+    box-shadow:
+        inset 0 1px 2px
+        rgba(80,65,110,.025);
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+
+.project-notebook .special-textarea::placeholder {
+
+    color:
+        rgba(105,95,117,.48);
+}
+
+
+.project-notebook .special-textarea:focus {
+
+    border-color:
+        rgba(145,126,255,.38);
+
+    background:
+        rgba(255,255,255,.52);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(145,126,255,.07);
+}
+
+
+/* ==========================================================
+   OBJECTIVE
+   ========================================================== */
+
+.project-notebook .project-grid > .special-card:nth-child(1) {
+
+    min-height: 235px;
+}
+
+
+/* ==========================================================
+   IDEAS
+   ========================================================== */
+
+.project-notebook .project-grid > .special-card:nth-child(2) {
+
+    min-height: 235px;
+}
+
+
+/* ==========================================================
+   RESEARCH NOTES
+   ========================================================== */
+
+.project-notebook .project-grid > .special-card:nth-child(3) {
+
+    min-height: 235px;
+}
+
+
+/* ==========================================================
+   PROBLEMS / RISKS
+   ========================================================== */
+
+.project-notebook .project-grid > .special-card:nth-child(4) {
+
+    min-height: 235px;
+}
+
+
+/* ==========================================================
+   ROADMAP & MILESTONES
+   ========================================================== */
+
+.project-notebook .project-grid > .special-card:nth-child(5) {
+
+    min-height: 190px;
+}
+
+
+.project-notebook #addMilestone {
+
+    margin-left: auto;
+
+    flex-shrink: 0;
+}
+
+
+/* ==========================================================
+   MILESTONE AREA
+   ========================================================== */
+
+.project-notebook .milestone-list {
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   MAIN RESEARCH JOURNAL
+   ========================================================== */
+
+.project-notebook .project-main-editor {
+
+    min-height: 260px;
+
+    font-size: 12px;
+
+    line-height: 1.8;
+}
+
+
+/* ==========================================================
+   REFERENCES + EXPERIMENTS
+   ========================================================== */
+
+.project-notebook .project-grid > .special-card:nth-child(7),
+.project-notebook .project-grid > .special-card:nth-child(8) {
+
+    min-height: 220px;
+}
+
+
+/* ==========================================================
+   DECISION LOG
+   ========================================================== */
+
+.project-notebook .project-grid > .special-card:nth-child(9) {
+
+    min-height: 190px;
+}
+
+
+/* ==========================================================
+   CARD TEXTAREA SCROLLBAR
+   ========================================================== */
+
+.project-notebook .special-textarea::-webkit-scrollbar {
+
+    width: 7px;
+}
+
+
+.project-notebook .special-textarea::-webkit-scrollbar-track {
+
+    background:
+        transparent;
+}
+
+
+.project-notebook .special-textarea::-webkit-scrollbar-thumb {
+
+    border-radius: 10px;
+
+    background:
+        rgba(145,126,255,.18);
+}
+
+
+.project-notebook .special-textarea::-webkit-scrollbar-thumb:hover {
+
+    background:
+        rgba(145,126,255,.30);
+}
+
+
+/* ==========================================================
+   RESPONSIVE — TABLET
+   ========================================================== */
+
+@media (max-width: 900px) {
+
+    .project-notebook .project-grid {
+
+        grid-template-columns:
+            1fr;
+
+        gap: 14px;
+    }
+
+
+    .project-notebook .project-grid
+    > .special-card.full-width {
+
+        grid-column: auto;
+    }
+
+
+    .project-notebook .project-grid
+    > .special-card {
+
+        min-height: 190px;
+    }
+
+
+    .project-notebook .project-main-editor {
+
+        min-height: 230px;
+    }
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE — MOBILE
+   ========================================================== */
+
+@media (max-width: 600px) {
+
+    .project-notebook .workspace-intro {
+
+        align-items: flex-start;
+
+        gap: 11px;
+
+        margin-bottom: 17px;
+    }
+
+
+    .project-notebook
+    .workspace-intro
+    .workspace-icon {
+
+        width: 42px;
+        height: 42px;
+
+        border-radius: 13px;
+
+        font-size: 19px;
+    }
+
+
+    .project-notebook
+    .workspace-intro
+    h2 {
+
+        font-size: 19px;
+    }
+
+
+    .project-notebook
+    .workspace-intro
+    p {
+
+        font-size: 10px;
+    }
+
+
+    .project-notebook
+    .project-grid {
+
+        gap: 12px;
+    }
+
+
+    .project-notebook
+    .project-grid
+    > .special-card {
+
+        padding: 14px;
+
+        border-radius: 15px;
+    }
+
+
+    .project-notebook
+    .special-card-header {
+
+        margin-bottom: 10px;
+    }
+
+
+    .project-notebook
+    .special-textarea {
+
+        min-height: 120px;
+
+        padding: 11px 12px;
+    }
+
+
+    .project-notebook
+    .project-main-editor {
+
+        min-height: 210px;
+    }
+
+}
+/* ==========================================================
+   ORION — PROJECT & RESEARCH NOTEBOOK
+   PROFESSIONAL PROJECT WORKSPACE
+   ========================================================== */
+
+
+/* ==========================================================
+   PROJECT BASE
+   ========================================================== */
+
+.project-notebook {
+    width: 100%;
+    box-sizing: border-box;
+    color: #433b4d;
+}
+
+
+/* ==========================================================
+   INTRO
+   ========================================================== */
+
+.project-notebook .workspace-intro {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 22px;
+    padding: 2px 4px;
+}
+
+
+.project-notebook .workspace-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 48px;
+
+    border-radius: 15px;
+
+    font-size: 22px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(155,141,221,.28),
+            rgba(155,141,221,.08)
+        );
+
+    border:
+        1px solid
+        rgba(155,141,221,.28);
+
+    box-shadow:
+        0 8px 22px
+        rgba(90,72,130,.08);
+}
+
+
+.project-notebook .workspace-intro h2 {
+    margin: 0 0 4px;
+
+    color: #40384a;
+
+    font-size: 22px;
+    font-weight: 700;
+}
+
+
+.project-notebook .workspace-intro p {
+    margin: 0;
+
+    color: #82788d;
+
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+
+/* ==========================================================
+   COMMON CARD
+   ========================================================== */
+
+.project-notebook .special-card {
+    box-sizing: border-box;
+
+    width: 100%;
+    min-width: 0;
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.57),
+            rgba(155,141,221,.065)
+        );
+
+    border:
+        1px solid
+        rgba(155,141,221,.22);
+
+    box-shadow:
+        0 10px 28px
+        rgba(72,58,110,.06);
+
+    backdrop-filter: blur(16px);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        border-color .2s ease;
+}
+
+
+.project-notebook .special-card:hover {
+    transform: translateY(-2px);
+
+    border-color:
+        rgba(155,141,221,.34);
+
+    box-shadow:
+        0 15px 34px
+        rgba(72,58,110,.09);
+}
+
+
+/* ==========================================================
+   PROJECT OVERVIEW
+   ========================================================== */
+
+.project-overview-card {
+    margin-bottom: 16px;
+}
+
+
+.project-section-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    min-width: 0;
+}
+
+
+.project-section-title > div {
+    min-width: 0;
+}
+
+
+.project-section-title strong {
+    display: block;
+
+    color: #4c4357;
+
+    font-size: 12px;
+    font-weight: 650;
+}
+
+
+.project-section-title small {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #968d9f;
+
+    font-size: 9px;
+    line-height: 1.4;
+}
+
+
+.project-notebook .card-icon {
+    width: 31px;
+    height: 31px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 31px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(155,141,221,.11);
+
+    border:
+        1px solid
+        rgba(155,141,221,.18);
+
+    font-size: 15px;
+}
+
+
+.project-overview-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+
+.project-field {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+
+    min-width: 0;
+}
+
+
+.project-field-wide {
+    grid-column: 1 / -1;
+}
+
+
+.project-field > span {
+    color: #777080;
+
+    font-size: 9px;
+    font-weight: 650;
+
+    text-transform: uppercase;
+
+    letter-spacing: .55px;
+}
+
+
+.project-field input,
+.project-field select {
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    height: 38px;
+
+    padding:
+        0 11px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.16);
+
+    border-radius: 10px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.40);
+
+    color: #5b5265;
+
+    font: inherit;
+
+    font-size: 10px;
+
+    transition:
+        border-color .18s ease,
+        background .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.project-field input:focus,
+.project-field select:focus {
+    border-color:
+        rgba(145,126,255,.38);
+
+    background:
+        rgba(255,255,255,.56);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(145,126,255,.065);
+}
+
+
+/* ==========================================================
+   PROJECT GRID
+   ========================================================== */
+
+.project-notebook .project-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 16px;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    align-items: stretch;
+}
+
+
+.project-notebook .project-grid > .full-width {
+    grid-column: 1 / -1;
+}
+
+
+/* ==========================================================
+   CARD HEADERS
+   ========================================================== */
+
+.project-notebook .special-card-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    min-height: 34px;
+
+    margin-bottom: 12px;
+}
+
+
+.project-notebook .special-card-header > .mini-action {
+    margin-left: auto;
+}
+
+
+/* ==========================================================
+   TEXTAREAS
+   ========================================================== */
+
+.project-notebook .special-textarea {
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 145px;
+
+    box-sizing: border-box;
+
+    resize: vertical;
+
+    padding: 13px 14px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.15);
+
+    border-radius: 13px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.40);
+
+    color: #554c5f;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    line-height: 1.7;
+
+    transition:
+        border-color .18s ease,
+        background .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.project-notebook .special-textarea:focus {
+    border-color:
+        rgba(145,126,255,.38);
+
+    background:
+        rgba(255,255,255,.53);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(145,126,255,.065);
+}
+
+
+.project-notebook .special-textarea::placeholder {
+    color:
+        rgba(105,95,117,.45);
+}
+
+
+.project-main-editor {
+    min-height: 270px !important;
+}
+
+
+/* ==========================================================
+   PROGRESS
+   ========================================================== */
+
+.project-progress-area {
+    margin-bottom: 15px;
+
+    padding:
+        13px 14px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(145,126,255,.045);
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+}
+
+
+.project-progress-top {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+
+    color: #777080;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: .55px;
+}
+
+
+.project-progress-top strong {
+    color: #685982;
+
+    font-size: 12px;
+}
+
+
+.project-progress-track {
+    width: 100%;
+    height: 8px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(120,105,150,.09);
+}
+
+
+.project-progress-fill {
+    width: 0%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #a996df,
+            #8976c7
+        );
+
+    transition:
+        width .3s ease;
+}
+
+
+.project-progress-area > small {
+    display: block;
+
+    margin-top: 7px;
+
+    color: #968d9f;
+
+    font-size: 9px;
+}
+
+
+/* ==========================================================
+   MILESTONES
+   ========================================================== */
+
+.milestone-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.project-milestone {
+    display: grid;
+
+    grid-template-columns:
+        24px
+        minmax(0, 1fr)
+        145px
+        30px;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 10px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.13);
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.34);
+
+    transition:
+        background .18s ease,
+        border-color .18s ease;
+}
+
+
+.project-milestone:hover {
+    background:
+        rgba(255,255,255,.50);
+
+    border-color:
+        rgba(155,141,221,.24);
+}
+
+
+.milestone-check {
+    width: 15px;
+    height: 15px;
+
+    accent-color:
+        #9b8ddd;
+
+    cursor: pointer;
+}
+
+
+.milestone-title,
+.milestone-date {
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing: border-box;
+
+    height: 32px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    border-radius: 8px;
+
+    padding:
+        0 9px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.42);
+
+    color: #5b5265;
+
+    font: inherit;
+
+    font-size: 10px;
+}
+
+
+.milestone-title:focus,
+.milestone-date:focus {
+    border-color:
+        rgba(145,126,255,.35);
+}
+
+
+.project-milestone.completed .milestone-title {
+    text-decoration: line-through;
+
+    opacity: .58;
+}
+
+
+.project-remove-btn {
+    width: 28px;
+    height: 28px;
+
+    border: 0;
+
+    border-radius: 8px;
+
+    background:
+        rgba(214,132,165,.075);
+
+    color:
+        #9a7484;
+
+    cursor: pointer;
+
+    font-size: 15px;
+
+    transition:
+        background .18s ease,
+        transform .18s ease;
+}
+
+
+.project-remove-btn:hover {
+    background:
+        rgba(214,132,165,.14);
+
+    transform: scale(1.04);
+}
+
+
+/* ==========================================================
+   EMPTY STATES
+   ========================================================== */
+
+.project-empty-state {
+    min-height: 85px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    border:
+        1px dashed
+        rgba(155,141,221,.18);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.20);
+
+    color: #968d9f;
+
+    text-align: center;
+}
+
+
+.project-empty-state span {
+    font-size: 18px;
+}
+
+
+.project-empty-state p {
+    margin: 0;
+
+    font-size: 9px;
+}
+
+
+.project-empty-state.compact {
+    min-height: 105px;
+}
+
+
+/* ==========================================================
+   RESEARCH QUESTIONS
+   ========================================================== */
+
+.research-question-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.research-question-row {
+    display: grid;
+
+    grid-template-columns:
+        24px
+        minmax(0, 1fr)
+        30px;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 10px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.13);
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.34);
+}
+
+
+.research-question-row > input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+
+    accent-color:
+        #9b8ddd;
+}
+
+
+.research-question-input {
+    width: 100%;
+
+    height: 34px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    border-radius: 8px;
+
+    padding: 0 10px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.42);
+
+    color: #5b5265;
+
+    font: inherit;
+
+    font-size: 10px;
+}
+
+
+.research-question-row.completed
+.research-question-input {
+    text-decoration: line-through;
+    opacity: .55;
+}
+
+
+/* ==========================================================
+   SOURCES
+   ========================================================== */
+
+.research-source-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.research-source {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    padding: 11px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.14);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.30);
+}
+
+
+.research-source-top {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.5fr)
+        120px
+        30px;
+
+    gap: 7px;
+
+    align-items: center;
+}
+
+
+.source-title,
+.source-author,
+.source-year,
+.source-url {
+    width: 100%;
+
+    height: 32px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    border-radius: 8px;
+
+    padding: 0 9px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.42);
+
+    color: #5b5265;
+
+    font: inherit;
+
+    font-size: 9px;
+}
+
+
+.source-type {
+    width: 100%;
+
+    height: 32px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    border-radius: 8px;
+
+    padding: 0 7px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.42);
+
+    color: #6a6074;
+
+    font: inherit;
+
+    font-size: 9px;
+}
+
+
+.source-notes {
+    width: 100%;
+
+    min-height: 62px;
+
+    resize: vertical;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    border-radius: 8px;
+
+    padding: 8px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.38);
+
+    color: #5b5265;
+
+    font: inherit;
+
+    font-size: 9px;
+}
+
+
+/* ==========================================================
+   EXPERIMENTS
+   ========================================================== */
+
+.experiment-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.project-experiment {
+    padding: 11px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.14);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.30);
+}
+
+
+.experiment-header {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        30px;
+
+    gap: 7px;
+
+    margin-bottom: 7px;
+}
+
+
+.experiment-title {
+    width: 100%;
+
+    height: 32px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    border-radius: 8px;
+
+    padding: 0 9px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.42);
+
+    color: #5b5265;
+
+    font: inherit;
+
+    font-size: 10px;
+}
+
+
+.experiment-objective,
+.experiment-method,
+.experiment-result {
+    width: 100%;
+
+    min-height: 58px;
+
+    box-sizing: border-box;
+
+    resize: vertical;
+
+    margin-top: 7px;
+
+    padding: 8px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.38);
+
+    color: #5b5265;
+
+    font: inherit;
+
+    font-size: 9px;
+}
+
+
+/* ==========================================================
+   DECISION LOG
+   ========================================================== */
+
+.decision-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+}
+
+
+.project-decision {
+    padding: 12px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.14);
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.30);
+}
+
+
+.decision-header {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        135px
+        30px;
+
+    gap: 7px;
+
+    margin-bottom: 8px;
+}
+
+
+.decision-title,
+.decision-date {
+    width: 100%;
+
+    height: 33px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    border-radius: 8px;
+
+    padding: 0 9px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.42);
+
+    color: #5b5265;
+
+    font: inherit;
+
+    font-size: 10px;
+}
+
+
+.decision-reason,
+.decision-alternatives,
+.decision-final {
+    width: 100%;
+
+    min-height: 60px;
+
+    box-sizing: border-box;
+
+    resize: vertical;
+
+    margin-top: 7px;
+
+    padding: 9px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    border-radius: 8px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.38);
+
+    color: #5b5265;
+
+    font: inherit;
+
+    font-size: 9px;
+}
+
+
+/* ==========================================================
+   PROJECT LINKS
+   ========================================================== */
+
+.project-link-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+.project-link-row {
+    display: grid;
+
+    grid-template-columns:
+        30px
+        minmax(150px, .8fr)
+        minmax(0, 1.5fr)
+        30px;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.13);
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.34);
+}
+
+
+.project-link-icon {
+    width: 28px;
+    height: 28px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background:
+        rgba(155,141,221,.10);
+
+    font-size: 13px;
+}
+
+
+.project-link-name,
+.project-link-url {
+    width: 100%;
+
+    height: 33px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    border-radius: 8px;
+
+    padding: 0 9px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.42);
+
+    color: #5b5265;
+
+    font: inherit;
+
+    font-size: 9px;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 900px) {
+
+    .project-notebook .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .project-notebook
+    .project-grid
+    > .full-width {
+        grid-column: auto;
+    }
+
+
+    .project-overview-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .project-field-wide {
+        grid-column: auto;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .project-notebook .project-grid {
+        gap: 12px;
+    }
+
+
+    .project-notebook .special-card {
+        padding: 14px;
+        border-radius: 15px;
+    }
+
+
+    .project-milestone {
+        grid-template-columns:
+            24px
+            minmax(0, 1fr)
+            30px;
+    }
+
+
+    .milestone-date {
+        grid-column: 2;
+    }
+
+
+    .project-milestone
+    .project-remove-btn {
+        grid-column: 3;
+        grid-row: 1;
+    }
+
+
+    .research-source-top {
+        grid-template-columns:
+            minmax(0, 1fr)
+            30px;
+    }
+
+
+    .source-type {
+        grid-column: 1 / -1;
+    }
+
+
+    .decision-header {
+        grid-template-columns:
+            minmax(0, 1fr)
+            30px;
+    }
+
+
+    .decision-date {
+        grid-column: 1;
+    }
+
+
+    .project-link-row {
+        grid-template-columns:
+            30px
+            minmax(0, 1fr)
+            30px;
+    }
+
+
+    .project-link-url {
+        grid-column: 2;
+    }
+
+}

@@ -11,18 +11,148 @@
         </span>
 
         <div>
-
-            <h2>
-                Project & Research
-            </h2>
+            <h2>Project & Research</h2>
 
             <p>
-                Plan, research, experiment, reference and track progress.
+                Plan, research, experiment, document decisions
+                and track your project from idea to completion.
             </p>
-
         </div>
 
     </div>
+
+
+    <!-- =====================================================
+         PROJECT OVERVIEW
+         ===================================================== -->
+
+    <section class="special-card project-overview-card">
+
+        <div class="special-card-header">
+
+            <div class="project-section-title">
+                <span class="card-icon">📌</span>
+
+                <div>
+                    <strong>Project Overview</strong>
+
+                    <small>
+                        Keep the essential project information in one place.
+                    </small>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="project-overview-grid">
+
+            <label class="project-field">
+                <span>Project Name</span>
+
+                <input
+                    type="text"
+                    data-note-field="project_name"
+                    value="{{ page_data.fields.project_name or '' }}"
+                    placeholder="e.g. ORION Smart Academic Command Center"
+                >
+            </label>
+
+
+            <label class="project-field">
+                <span>Status</span>
+
+                <select
+                    data-note-field="project_status"
+                >
+                    <option value="Planning"
+                        {% if page_data.fields.project_status == 'Planning' %}selected{% endif %}>
+                        Planning
+                    </option>
+
+                    <option value="In Progress"
+                        {% if page_data.fields.project_status == 'In Progress' %}selected{% endif %}>
+                        In Progress
+                    </option>
+
+                    <option value="Testing"
+                        {% if page_data.fields.project_status == 'Testing' %}selected{% endif %}>
+                        Testing
+                    </option>
+
+                    <option value="Completed"
+                        {% if page_data.fields.project_status == 'Completed' %}selected{% endif %}>
+                        Completed
+                    </option>
+
+                    <option value="On Hold"
+                        {% if page_data.fields.project_status == 'On Hold' %}selected{% endif %}>
+                        On Hold
+                    </option>
+                </select>
+            </label>
+
+
+            <label class="project-field">
+                <span>Start Date</span>
+
+                <input
+                    type="date"
+                    data-note-field="project_start"
+                    value="{{ page_data.fields.project_start or '' }}"
+                >
+            </label>
+
+
+            <label class="project-field">
+                <span>Target Date</span>
+
+                <input
+                    type="date"
+                    data-note-field="project_target"
+                    value="{{ page_data.fields.project_target or '' }}"
+                >
+            </label>
+
+
+            <label class="project-field">
+                <span>Team Members</span>
+
+                <input
+                    type="text"
+                    data-note-field="project_team"
+                    value="{{ page_data.fields.project_team or '' }}"
+                    placeholder="Names separated by commas"
+                >
+            </label>
+
+
+            <label class="project-field">
+                <span>Supervisor / Mentor</span>
+
+                <input
+                    type="text"
+                    data-note-field="project_supervisor"
+                    value="{{ page_data.fields.project_supervisor or '' }}"
+                    placeholder="Supervisor or mentor name"
+                >
+            </label>
+
+
+            <label class="project-field project-field-wide">
+                <span>Tags</span>
+
+                <input
+                    type="text"
+                    data-note-field="project_tags"
+                    value="{{ page_data.fields.project_tags or '' }}"
+                    placeholder="AI, Flask, Research, ML..."
+                >
+            </label>
+
+        </div>
+
+    </section>
 
 
     <!-- =====================================================
@@ -32,105 +162,120 @@
     <div class="project-grid">
 
 
-        <!-- Objective -->
+        <!-- =================================================
+             OBJECTIVE
+             ================================================= -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-
-                🎯
+                <span class="card-icon">🎯</span>
 
                 <strong>
                     Objective
                 </strong>
-
             </div>
 
             <textarea
                 data-note-field="objective"
                 class="special-textarea"
+                placeholder="What are you trying to achieve?"
             >{{ page_data.fields.objective or '' }}</textarea>
 
         </section>
 
 
-        <!-- Ideas & Hypotheses -->
+        <!-- =================================================
+             IDEAS
+             ================================================= -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-
-                💡
+                <span class="card-icon">💡</span>
 
                 <strong>
                     Ideas & Hypotheses
                 </strong>
-
             </div>
 
             <textarea
                 data-note-field="ideas"
                 class="special-textarea"
+                placeholder="Capture ideas, assumptions and possible approaches..."
             >{{ page_data.fields.ideas or '' }}</textarea>
 
         </section>
 
 
-        <!-- Research Notes -->
+        <!-- =================================================
+             RESEARCH NOTES
+             ================================================= -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-
-                🔬
+                <span class="card-icon">🔬</span>
 
                 <strong>
                     Research Notes
                 </strong>
-
             </div>
 
             <textarea
                 data-note-field="research"
                 class="special-textarea"
+                placeholder="Important findings, concepts, observations..."
             >{{ page_data.fields.research or '' }}</textarea>
 
         </section>
 
 
-        <!-- Problems / Risks -->
+        <!-- =================================================
+             PROBLEMS / RISKS
+             ================================================= -->
 
         <section class="special-card">
 
             <div class="special-card-header">
-
-                🐛
+                <span class="card-icon">⚠️</span>
 
                 <strong>
                     Problems / Risks
                 </strong>
-
             </div>
 
             <textarea
                 data-note-field="problems"
                 class="special-textarea"
+                placeholder="Potential problems, blockers and risks..."
             >{{ page_data.fields.problems or '' }}</textarea>
 
         </section>
 
 
-        <!-- Roadmap & Milestones -->
+        <!-- =================================================
+             ROADMAP
+             ================================================= -->
 
-        <section class="special-card full-width">
+        <section class="special-card full-width project-roadmap-card">
 
             <div class="special-card-header">
 
-                🗺️
+                <div class="project-section-title">
+                    <span class="card-icon">🗺️</span>
 
-                <strong>
-                    Roadmap & Milestones
-                </strong>
+                    <div>
+                        <strong>
+                            Roadmap & Milestones
+                        </strong>
+
+                        <small>
+                            Track the major stages of your project.
+                        </small>
+                    </div>
+                </div>
+
 
                 <button
                     type="button"
@@ -143,25 +288,79 @@
             </div>
 
 
+            <div class="project-progress-area">
+
+                <div class="project-progress-top">
+
+                    <span>
+                        Project Progress
+                    </span>
+
+                    <strong id="projectProgressValue">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="project-progress-track">
+
+                    <div
+                        class="project-progress-fill"
+                        id="projectProgressFill"
+                    ></div>
+
+                </div>
+
+
+                <small id="projectProgressText">
+                    0 of 0 milestones completed
+                </small>
+
+            </div>
+
+
             <div
                 id="milestones"
                 class="milestone-list"
             ></div>
 
+
+            <div
+                id="milestoneEmpty"
+                class="project-empty-state"
+            >
+                <span>🗺️</span>
+
+                <p>
+                    Add milestones to build your project roadmap.
+                </p>
+            </div>
+
         </section>
 
 
-        <!-- Main Research Journal -->
+        <!-- =================================================
+             RESEARCH JOURNAL
+             ================================================= -->
 
         <section class="special-card full-width">
 
             <div class="special-card-header">
 
-                📝
+                <div class="project-section-title">
+                    <span class="card-icon">📝</span>
 
-                <strong>
-                    Main Research Journal
-                </strong>
+                    <div>
+                        <strong>
+                            Main Research Journal
+                        </strong>
+
+                        <small>
+                            Record your research journey as it develops.
+                        </small>
+                    </div>
+                </div>
 
             </div>
 
@@ -169,80 +368,1708 @@
             <textarea
                 data-note-field="content"
                 class="special-textarea project-main-editor"
+                placeholder="Write your research journal here..."
             >{{ page_data.content }}</textarea>
 
         </section>
 
 
-        <!-- References / Sources -->
+        <!-- =================================================
+             RESEARCH QUESTIONS
+             ================================================= -->
+
+        <section class="special-card full-width project-questions-card">
+
+            <div class="special-card-header">
+
+                <div class="project-section-title">
+                    <span class="card-icon">❓</span>
+
+                    <div>
+                        <strong>
+                            Research Questions
+                        </strong>
+
+                        <small>
+                            Define what you need to discover or prove.
+                        </small>
+                    </div>
+                </div>
+
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="addResearchQuestion"
+                >
+                    + Question
+                </button>
+
+            </div>
+
+
+            <div
+                id="researchQuestions"
+                class="research-question-list"
+            ></div>
+
+
+            <div
+                id="researchQuestionEmpty"
+                class="project-empty-state"
+            >
+                <span>❓</span>
+
+                <p>
+                    Add the questions your research needs to answer.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             REFERENCES / SOURCES
+             ================================================= -->
 
         <section class="special-card">
 
             <div class="special-card-header">
 
-                🔗
+                <div class="project-section-title">
+                    <span class="card-icon">📚</span>
 
-                <strong>
-                    References / Sources
-                </strong>
+                    <div>
+                        <strong>
+                            Research Sources
+                        </strong>
+
+                        <small>
+                            Store useful papers, websites and references.
+                        </small>
+                    </div>
+                </div>
+
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="addResearchSource"
+                >
+                    + Source
+                </button>
 
             </div>
 
 
-            <textarea
-                data-note-field="references"
-                class="special-textarea"
-            >{{ page_data.fields.references or '' }}</textarea>
+            <div
+                id="researchSources"
+                class="research-source-list"
+            ></div>
+
+
+            <div
+                id="researchSourceEmpty"
+                class="project-empty-state compact"
+            >
+                <span>📚</span>
+
+                <p>
+                    Add papers, books, websites or other references.
+                </p>
+            </div>
 
         </section>
 
 
-        <!-- Experiments & Results -->
+        <!-- =================================================
+             EXPERIMENTS
+             ================================================= -->
 
         <section class="special-card">
 
             <div class="special-card-header">
 
-                🧪
+                <div class="project-section-title">
+                    <span class="card-icon">🧪</span>
 
-                <strong>
-                    Experiments & Results
-                </strong>
+                    <div>
+                        <strong>
+                            Experiments & Results
+                        </strong>
+
+                        <small>
+                            Record what you tested and what happened.
+                        </small>
+                    </div>
+                </div>
+
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="addExperiment"
+                >
+                    + Experiment
+                </button>
 
             </div>
 
 
-            <textarea
-                data-note-field="experiments"
-                class="special-textarea"
-            >{{ page_data.fields.experiments or '' }}</textarea>
+            <div
+                id="experiments"
+                class="experiment-list"
+            ></div>
+
+
+            <div
+                id="experimentEmpty"
+                class="project-empty-state compact"
+            >
+                <span>🧪</span>
+
+                <p>
+                    Add an experiment to begin recording results.
+                </p>
+            </div>
 
         </section>
 
 
-        <!-- Decision Log -->
+        <!-- =================================================
+             DECISION LOG
+             ================================================= -->
 
         <section class="special-card full-width">
 
             <div class="special-card-header">
 
-                📊
+                <div class="project-section-title">
+                    <span class="card-icon">⚖️</span>
 
-                <strong>
-                    Decision Log
-                </strong>
+                    <div>
+                        <strong>
+                            Decision Log
+                        </strong>
+
+                        <small>
+                            Record important choices and why you made them.
+                        </small>
+                    </div>
+                </div>
+
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="addDecision"
+                >
+                    + Decision
+                </button>
 
             </div>
 
 
-            <textarea
-                data-note-field="decisions"
-                class="special-textarea"
-            >{{ page_data.fields.decisions or '' }}</textarea>
+            <div
+                id="decisionLog"
+                class="decision-list"
+            ></div>
+
+
+            <div
+                id="decisionEmpty"
+                class="project-empty-state"
+            >
+                <span>⚖️</span>
+
+                <p>
+                    Document important project decisions here.
+                </p>
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROJECT LINKS
+             ================================================= -->
+
+        <section class="special-card full-width">
+
+            <div class="special-card-header">
+
+                <div class="project-section-title">
+                    <span class="card-icon">🔗</span>
+
+                    <div>
+                        <strong>
+                            Project Links & Resources
+                        </strong>
+
+                        <small>
+                            Keep important project URLs together.
+                        </small>
+                    </div>
+                </div>
+
+
+                <button
+                    type="button"
+                    class="mini-action"
+                    id="addProjectLink"
+                >
+                    + Link
+                </button>
+
+            </div>
+
+
+            <div
+                id="projectLinks"
+                class="project-link-list"
+            ></div>
+
+
+            <div
+                id="projectLinkEmpty"
+                class="project-empty-state"
+            >
+                <span>🔗</span>
+
+                <p>
+                    Add GitHub, Drive, Figma, deployment or documentation links.
+                </p>
+            </div>
 
         </section>
 
 
     </div>
+
+
+    <!-- =====================================================
+         PROJECT NOTEBOOK ENGINE
+         ===================================================== -->
+
+    <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const root =
+            document.querySelector(".project-notebook");
+
+        if (!root) return;
+
+
+        const markChanged = () => {
+
+            if (
+                typeof window.ORION_MARK_CHANGED ===
+                "function"
+            ) {
+                window.ORION_MARK_CHANGED();
+            }
+
+        };
+
+
+        /* =================================================
+           GENERIC HELPERS
+           ================================================= */
+
+        function escapeText(value) {
+
+            return String(value || "");
+
+        }
+
+
+        function createButton(
+            className,
+            text,
+            title
+        ) {
+
+            const button =
+                document.createElement("button");
+
+            button.type = "button";
+
+            button.className =
+                className;
+
+            button.textContent =
+                text;
+
+            if (title) {
+                button.title = title;
+            }
+
+            return button;
+
+        }
+
+
+        function createInput(
+            className,
+            placeholder,
+            value = ""
+        ) {
+
+            const input =
+                document.createElement("input");
+
+            input.type = "text";
+
+            input.className =
+                className;
+
+            input.placeholder =
+                placeholder;
+
+            input.value =
+                escapeText(value);
+
+            input.addEventListener(
+                "input",
+                markChanged
+            );
+
+            return input;
+
+        }
+
+
+        function createTextarea(
+            className,
+            placeholder,
+            value = ""
+        ) {
+
+            const textarea =
+                document.createElement("textarea");
+
+            textarea.className =
+                className;
+
+            textarea.placeholder =
+                placeholder;
+
+            textarea.value =
+                escapeText(value);
+
+            textarea.addEventListener(
+                "input",
+                markChanged
+            );
+
+            return textarea;
+
+        }
+
+
+        /* =================================================
+           MILESTONES
+           ================================================= */
+
+        const milestones =
+            document.getElementById(
+                "milestones"
+            );
+
+        const milestoneEmpty =
+            document.getElementById(
+                "milestoneEmpty"
+            );
+
+        const progressValue =
+            document.getElementById(
+                "projectProgressValue"
+            );
+
+        const progressFill =
+            document.getElementById(
+                "projectProgressFill"
+            );
+
+        const progressText =
+            document.getElementById(
+                "projectProgressText"
+            );
+
+
+        function updateMilestoneProgress() {
+
+            if (!milestones) return;
+
+            const rows =
+                [
+                    ...milestones.querySelectorAll(
+                        ".project-milestone"
+                    )
+                ];
+
+            const total =
+                rows.length;
+
+            const completed =
+                rows.filter(
+                    row =>
+                        row.querySelector(
+                            ".milestone-check"
+                        )?.checked
+                ).length;
+
+
+            const percentage =
+                total
+                    ? Math.round(
+                        (completed / total) * 100
+                    )
+                    : 0;
+
+
+            if (progressValue) {
+
+                progressValue.textContent =
+                    `${percentage}%`;
+
+            }
+
+
+            if (progressFill) {
+
+                progressFill.style.width =
+                    `${percentage}%`;
+
+            }
+
+
+            if (progressText) {
+
+                progressText.textContent =
+                    `${completed} of ${total} milestones completed`;
+
+            }
+
+
+            if (milestoneEmpty) {
+
+                milestoneEmpty.style.display =
+                    total === 0
+                        ? "flex"
+                        : "none";
+
+            }
+
+        }
+
+
+        function createMilestone(
+            data = {}
+        ) {
+
+            if (!milestones) return;
+
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "project-milestone";
+
+
+            const checkbox =
+                document.createElement("input");
+
+            checkbox.type =
+                "checkbox";
+
+            checkbox.className =
+                "milestone-check";
+
+            checkbox.checked =
+                Boolean(data.done);
+
+
+            const title =
+                createInput(
+                    "milestone-title",
+                    "Milestone title",
+                    data.title
+                );
+
+
+            const date =
+                document.createElement("input");
+
+            date.type =
+                "date";
+
+            date.className =
+                "milestone-date";
+
+            date.value =
+                data.date || "";
+
+
+            const remove =
+                createButton(
+                    "project-remove-btn",
+                    "×",
+                    "Remove milestone"
+                );
+
+
+            checkbox.addEventListener(
+                "change",
+                () => {
+
+                    row.classList.toggle(
+                        "completed",
+                        checkbox.checked
+                    );
+
+                    updateMilestoneProgress();
+
+                    markChanged();
+
+                }
+            );
+
+
+            date.addEventListener(
+                "change",
+                markChanged
+            );
+
+
+            remove.addEventListener(
+                "click",
+                () => {
+
+                    row.remove();
+
+                    updateMilestoneProgress();
+
+                    markChanged();
+
+                }
+            );
+
+
+            row.append(
+                checkbox,
+                title,
+                date,
+                remove
+            );
+
+
+            milestones.appendChild(row);
+
+
+            row.classList.toggle(
+                "completed",
+                checkbox.checked
+            );
+
+
+            updateMilestoneProgress();
+
+        }
+
+
+        document
+            .getElementById("addMilestone")
+            ?.addEventListener(
+                "click",
+                () => {
+
+                    createMilestone();
+
+                    milestones
+                        ?.lastElementChild
+                        ?.querySelector(
+                            ".milestone-title"
+                        )
+                        ?.focus();
+
+                    markChanged();
+
+                }
+            );
+
+
+        /* =================================================
+           RESEARCH QUESTIONS
+           ================================================= */
+
+        const questionList =
+            document.getElementById(
+                "researchQuestions"
+            );
+
+        const questionEmpty =
+            document.getElementById(
+                "researchQuestionEmpty"
+            );
+
+
+        function updateQuestionEmpty() {
+
+            if (!questionList || !questionEmpty) {
+                return;
+            }
+
+            questionEmpty.style.display =
+                questionList.children.length
+                    ? "none"
+                    : "flex";
+
+        }
+
+
+        function createResearchQuestion(
+            data = {}
+        ) {
+
+            if (!questionList) return;
+
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "research-question-row";
+
+
+            const checkbox =
+                document.createElement("input");
+
+            checkbox.type =
+                "checkbox";
+
+            checkbox.checked =
+                Boolean(data.done);
+
+
+            const input =
+                createInput(
+                    "research-question-input",
+                    "What does your research need to answer?",
+                    data.text
+                );
+
+
+            const remove =
+                createButton(
+                    "project-remove-btn",
+                    "×",
+                    "Remove question"
+                );
+
+
+            checkbox.addEventListener(
+                "change",
+                () => {
+
+                    row.classList.toggle(
+                        "completed",
+                        checkbox.checked
+                    );
+
+                    markChanged();
+
+                }
+            );
+
+
+            remove.addEventListener(
+                "click",
+                () => {
+
+                    row.remove();
+
+                    updateQuestionEmpty();
+
+                    markChanged();
+
+                }
+            );
+
+
+            row.append(
+                checkbox,
+                input,
+                remove
+            );
+
+
+            questionList.appendChild(row);
+
+
+            row.classList.toggle(
+                "completed",
+                checkbox.checked
+            );
+
+
+            updateQuestionEmpty();
+
+        }
+
+
+        document
+            .getElementById(
+                "addResearchQuestion"
+            )
+            ?.addEventListener(
+                "click",
+                () => {
+
+                    createResearchQuestion();
+
+                    questionList
+                        ?.lastElementChild
+                        ?.querySelector(
+                            ".research-question-input"
+                        )
+                        ?.focus();
+
+                    markChanged();
+
+                }
+            );
+
+
+        /* =================================================
+           RESEARCH SOURCES
+           ================================================= */
+
+        const sourceList =
+            document.getElementById(
+                "researchSources"
+            );
+
+        const sourceEmpty =
+            document.getElementById(
+                "researchSourceEmpty"
+            );
+
+
+        function updateSourceEmpty() {
+
+            if (!sourceList || !sourceEmpty) {
+                return;
+            }
+
+            sourceEmpty.style.display =
+                sourceList.children.length
+                    ? "none"
+                    : "flex";
+
+        }
+
+
+        function createResearchSource(
+            data = {}
+        ) {
+
+            if (!sourceList) return;
+
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "research-source";
+
+
+            const top =
+                document.createElement("div");
+
+            top.className =
+                "research-source-top";
+
+
+            const title =
+                createInput(
+                    "source-title",
+                    "Source title",
+                    data.title
+                );
+
+
+            const type =
+                document.createElement("select");
+
+            type.className =
+                "source-type";
+
+
+            [
+                "Journal / Paper",
+                "Website",
+                "Book",
+                "Dataset",
+                "Video",
+                "Other"
+            ].forEach(optionText => {
+
+                const option =
+                    document.createElement("option");
+
+                option.value =
+                    optionText;
+
+                option.textContent =
+                    optionText;
+
+                if (
+                    data.type ===
+                    optionText
+                ) {
+                    option.selected =
+                        true;
+                }
+
+                type.appendChild(option);
+
+            });
+
+
+            const remove =
+                createButton(
+                    "project-remove-btn",
+                    "×",
+                    "Remove source"
+                );
+
+
+            const author =
+                createInput(
+                    "source-author",
+                    "Author",
+                    data.author
+                );
+
+
+            const year =
+                createInput(
+                    "source-year",
+                    "Year",
+                    data.year
+                );
+
+
+            const url =
+                createInput(
+                    "source-url",
+                    "URL",
+                    data.url
+                );
+
+
+            const notes =
+                createTextarea(
+                    "source-notes",
+                    "Why is this source useful?",
+                    data.notes
+                );
+
+
+            remove.addEventListener(
+                "click",
+                () => {
+
+                    card.remove();
+
+                    updateSourceEmpty();
+
+                    markChanged();
+
+                }
+            );
+
+
+            top.append(
+                title,
+                type,
+                remove
+            );
+
+
+            card.append(
+                top,
+                author,
+                year,
+                url,
+                notes
+            );
+
+
+            sourceList.appendChild(card);
+
+
+            updateSourceEmpty();
+
+        }
+
+
+        document
+            .getElementById(
+                "addResearchSource"
+            )
+            ?.addEventListener(
+                "click",
+                () => {
+
+                    createResearchSource();
+
+                    sourceList
+                        ?.lastElementChild
+                        ?.querySelector(
+                            ".source-title"
+                        )
+                        ?.focus();
+
+                    markChanged();
+
+                }
+            );
+
+
+        /* =================================================
+           EXPERIMENTS
+           ================================================= */
+
+        const experimentList =
+            document.getElementById(
+                "experiments"
+            );
+
+        const experimentEmpty =
+            document.getElementById(
+                "experimentEmpty"
+            );
+
+
+        function updateExperimentEmpty() {
+
+            if (!experimentList || !experimentEmpty) {
+                return;
+            }
+
+            experimentEmpty.style.display =
+                experimentList.children.length
+                    ? "none"
+                    : "flex";
+
+        }
+
+
+        function createExperiment(
+            data = {}
+        ) {
+
+            if (!experimentList) return;
+
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "project-experiment";
+
+
+            const header =
+                document.createElement("div");
+
+            header.className =
+                "experiment-header";
+
+
+            const title =
+                createInput(
+                    "experiment-title",
+                    "Experiment name",
+                    data.title
+                );
+
+
+            const remove =
+                createButton(
+                    "project-remove-btn",
+                    "×",
+                    "Remove experiment"
+                );
+
+
+            remove.addEventListener(
+                "click",
+                () => {
+
+                    card.remove();
+
+                    updateExperimentEmpty();
+
+                    markChanged();
+
+                }
+            );
+
+
+            header.append(
+                title,
+                remove
+            );
+
+
+            const objective =
+                createTextarea(
+                    "experiment-objective",
+                    "Objective / hypothesis",
+                    data.objective
+                );
+
+
+            const method =
+                createTextarea(
+                    "experiment-method",
+                    "Method / variables",
+                    data.method
+                );
+
+
+            const result =
+                createTextarea(
+                    "experiment-result",
+                    "Result / observation / conclusion",
+                    data.result
+                );
+
+
+            card.append(
+                header,
+                objective,
+                method,
+                result
+            );
+
+
+            experimentList.appendChild(card);
+
+
+            updateExperimentEmpty();
+
+        }
+
+
+        document
+            .getElementById(
+                "addExperiment"
+            )
+            ?.addEventListener(
+                "click",
+                () => {
+
+                    createExperiment();
+
+                    experimentList
+                        ?.lastElementChild
+                        ?.querySelector(
+                            ".experiment-title"
+                        )
+                        ?.focus();
+
+                    markChanged();
+
+                }
+            );
+
+
+        /* =================================================
+           DECISION LOG
+           ================================================= */
+
+        const decisionList =
+            document.getElementById(
+                "decisionLog"
+            );
+
+        const decisionEmpty =
+            document.getElementById(
+                "decisionEmpty"
+            );
+
+
+        function updateDecisionEmpty() {
+
+            if (!decisionList || !decisionEmpty) {
+                return;
+            }
+
+            decisionEmpty.style.display =
+                decisionList.children.length
+                    ? "none"
+                    : "flex";
+
+        }
+
+
+        function createDecision(
+            data = {}
+        ) {
+
+            if (!decisionList) return;
+
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "project-decision";
+
+
+            const header =
+                document.createElement("div");
+
+            header.className =
+                "decision-header";
+
+
+            const title =
+                createInput(
+                    "decision-title",
+                    "Decision",
+                    data.title
+                );
+
+
+            const date =
+                document.createElement("input");
+
+            date.type =
+                "date";
+
+            date.className =
+                "decision-date";
+
+            date.value =
+                data.date || "";
+
+
+            const remove =
+                createButton(
+                    "project-remove-btn",
+                    "×",
+                    "Remove decision"
+                );
+
+
+            remove.addEventListener(
+                "click",
+                () => {
+
+                    card.remove();
+
+                    updateDecisionEmpty();
+
+                    markChanged();
+
+                }
+            );
+
+
+            header.append(
+                title,
+                date,
+                remove
+            );
+
+
+            const reason =
+                createTextarea(
+                    "decision-reason",
+                    "Why did you make this decision?",
+                    data.reason
+                );
+
+
+            const alternatives =
+                createTextarea(
+                    "decision-alternatives",
+                    "Alternatives considered",
+                    data.alternatives
+                );
+
+
+            const finalChoice =
+                createTextarea(
+                    "decision-final",
+                    "Final choice / outcome",
+                    data.final
+                );
+
+
+            card.append(
+                header,
+                reason,
+                alternatives,
+                finalChoice
+            );
+
+
+            decisionList.appendChild(card);
+
+
+            updateDecisionEmpty();
+
+        }
+
+
+        document
+            .getElementById(
+                "addDecision"
+            )
+            ?.addEventListener(
+                "click",
+                () => {
+
+                    createDecision();
+
+                    decisionList
+                        ?.lastElementChild
+                        ?.querySelector(
+                            ".decision-title"
+                        )
+                        ?.focus();
+
+                    markChanged();
+
+                }
+            );
+
+
+        /* =================================================
+           PROJECT LINKS
+           ================================================= */
+
+        const linkList =
+            document.getElementById(
+                "projectLinks"
+            );
+
+        const linkEmpty =
+            document.getElementById(
+                "projectLinkEmpty"
+            );
+
+
+        function updateLinkEmpty() {
+
+            if (!linkList || !linkEmpty) {
+                return;
+            }
+
+            linkEmpty.style.display =
+                linkList.children.length
+                    ? "none"
+                    : "flex";
+
+        }
+
+
+        function createProjectLink(
+            data = {}
+        ) {
+
+            if (!linkList) return;
+
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "project-link-row";
+
+
+            const icon =
+                document.createElement("span");
+
+            icon.className =
+                "project-link-icon";
+
+            icon.textContent =
+                "🔗";
+
+
+            const name =
+                createInput(
+                    "project-link-name",
+                    "Resource name",
+                    data.name
+                );
+
+
+            const url =
+                createInput(
+                    "project-link-url",
+                    "https://...",
+                    data.url
+                );
+
+
+            const remove =
+                createButton(
+                    "project-remove-btn",
+                    "×",
+                    "Remove link"
+                );
+
+
+            remove.addEventListener(
+                "click",
+                () => {
+
+                    row.remove();
+
+                    updateLinkEmpty();
+
+                    markChanged();
+
+                }
+            );
+
+
+            row.append(
+                icon,
+                name,
+                url,
+                remove
+            );
+
+
+            linkList.appendChild(row);
+
+
+            updateLinkEmpty();
+
+        }
+
+
+        document
+            .getElementById(
+                "addProjectLink"
+            )
+            ?.addEventListener(
+                "click",
+                () => {
+
+                    createProjectLink();
+
+                    linkList
+                        ?.lastElementChild
+                        ?.querySelector(
+                            ".project-link-name"
+                        )
+                        ?.focus();
+
+                    markChanged();
+
+                }
+            );
+
+
+        /* =================================================
+           RESTORE SAVED PROJECT DATA
+           ================================================= */
+
+        const saved =
+            window.ORION_NOTE_STATE
+                ?.fields || {};
+
+
+        if (Array.isArray(saved.milestones)) {
+
+            saved.milestones.forEach(
+                createMilestone
+            );
+
+        }
+
+
+        if (Array.isArray(saved.research_questions)) {
+
+            saved.research_questions.forEach(
+                createResearchQuestion
+            );
+
+        }
+
+
+        if (Array.isArray(saved.research_sources)) {
+
+            saved.research_sources.forEach(
+                createResearchSource
+            );
+
+        }
+
+
+        if (Array.isArray(saved.experiments)) {
+
+            saved.experiments.forEach(
+                createExperiment
+            );
+
+        }
+
+
+        if (Array.isArray(saved.decisions)) {
+
+            saved.decisions.forEach(
+                createDecision
+            );
+
+        }
+
+
+        if (Array.isArray(saved.project_links)) {
+
+            saved.project_links.forEach(
+                createProjectLink
+            );
+
+        }
+
+
+        updateMilestoneProgress();
+        updateQuestionEmpty();
+        updateSourceEmpty();
+        updateExperimentEmpty();
+        updateDecisionEmpty();
+        updateLinkEmpty();
+
+
+        /* =================================================
+           SAVE DYNAMIC PROJECT DATA
+           ================================================= */
+
+        const form =
+            document.getElementById(
+                "notebookForm"
+            );
+
+
+        form?.addEventListener(
+            "submit",
+            () => {
+
+                if (!window.ORION_NOTE_STATE) {
+                    return;
+                }
+
+
+                /* MILESTONES */
+
+                window.ORION_NOTE_STATE
+                    .fields
+                    .milestones =
+                    [
+                        ...document.querySelectorAll(
+                            "#milestones .project-milestone"
+                        )
+                    ].map(row => ({
+
+                        done:
+                            row.querySelector(
+                                ".milestone-check"
+                            )?.checked || false,
+
+                        title:
+                            row.querySelector(
+                                ".milestone-title"
+                            )?.value || "",
+
+                        date:
+                            row.querySelector(
+                                ".milestone-date"
+                            )?.value || ""
+
+                    }));
+
+
+                /* RESEARCH QUESTIONS */
+
+                window.ORION_NOTE_STATE
+                    .fields
+                    .research_questions =
+                    [
+                        ...document.querySelectorAll(
+                            "#researchQuestions .research-question-row"
+                        )
+                    ].map(row => ({
+
+                        done:
+                            row.querySelector(
+                                "input[type='checkbox']"
+                            )?.checked || false,
+
+                        text:
+                            row.querySelector(
+                                ".research-question-input"
+                            )?.value || ""
+
+                    }));
+
+
+                /* SOURCES */
+
+                window.ORION_NOTE_STATE
+                    .fields
+                    .research_sources =
+                    [
+                        ...document.querySelectorAll(
+                            "#researchSources .research-source"
+                        )
+                    ].map(card => ({
+
+                        title:
+                            card.querySelector(
+                                ".source-title"
+                            )?.value || "",
+
+                        type:
+                            card.querySelector(
+                                ".source-type"
+                            )?.value || "",
+
+                        author:
+                            card.querySelector(
+                                ".source-author"
+                            )?.value || "",
+
+                        year:
+                            card.querySelector(
+                                ".source-year"
+                            )?.value || "",
+
+                        url:
+                            card.querySelector(
+                                ".source-url"
+                            )?.value || "",
+
+                        notes:
+                            card.querySelector(
+                                ".source-notes"
+                            )?.value || ""
+
+                    }));
+
+
+                /* EXPERIMENTS */
+
+                window.ORION_NOTE_STATE
+                    .fields
+                    .experiments =
+                    [
+                        ...document.querySelectorAll(
+                            "#experiments .project-experiment"
+                        )
+                    ].map(card => ({
+
+                        title:
+                            card.querySelector(
+                                ".experiment-title"
+                            )?.value || "",
+
+                        objective:
+                            card.querySelector(
+                                ".experiment-objective"
+                            )?.value || "",
+
+                        method:
+                            card.querySelector(
+                                ".experiment-method"
+                            )?.value || "",
+
+                        result:
+                            card.querySelector(
+                                ".experiment-result"
+                            )?.value || ""
+
+                    }));
+
+
+                /* DECISIONS */
+
+                window.ORION_NOTE_STATE
+                    .fields
+                    .decisions =
+                    [
+                        ...document.querySelectorAll(
+                            "#decisionLog .project-decision"
+                        )
+                    ].map(card => ({
+
+                        title:
+                            card.querySelector(
+                                ".decision-title"
+                            )?.value || "",
+
+                        date:
+                            card.querySelector(
+                                ".decision-date"
+                            )?.value || "",
+
+                        reason:
+                            card.querySelector(
+                                ".decision-reason"
+                            )?.value || "",
+
+                        alternatives:
+                            card.querySelector(
+                                ".decision-alternatives"
+                            )?.value || "",
+
+                        final:
+                            card.querySelector(
+                                ".decision-final"
+                            )?.value || ""
+
+                    }));
+
+
+                /* PROJECT LINKS */
+
+                window.ORION_NOTE_STATE
+                    .fields
+                    .project_links =
+                    [
+                        ...document.querySelectorAll(
+                            "#projectLinks .project-link-row"
+                        )
+                    ].map(row => ({
+
+                        name:
+                            row.querySelector(
+                                ".project-link-name"
+                            )?.value || "",
+
+                        url:
+                            row.querySelector(
+                                ".project-link-url"
+                            )?.value || ""
+
+                    }));
+
+            }
+        );
+
+    });
+
+    </script>
 
 </div>

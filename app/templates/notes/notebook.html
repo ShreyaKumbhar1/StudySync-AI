@@ -19,11 +19,20 @@
 >
 {% endif %}
 
+{% if notebook.notebook_type == 'project' %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/project-notebook.css') }}"
+>
+{% endif %}
+
+
 <!-- Mermaid — Flowcharts -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
 
 <!-- Chart.js — Graphs / Charts -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+
 
 <!-- Mathematics libraries -->
 {% if notebook.notebook_type == 'mathematics' %}
@@ -39,6 +48,7 @@
 {% endif %}
 
 {% endblock %}
+
 
 
 {% block content %}
@@ -143,6 +153,7 @@
     </header>
 
 
+
     <!-- =====================================================
          NOTEBOOK LAYOUT
          ===================================================== -->
@@ -190,6 +201,7 @@
             </div>
 
 
+
             <!-- =================================================
                  PAGE LIST
                  ================================================= -->
@@ -228,6 +240,7 @@
             </div>
 
 
+
             <!-- =================================================
                  SIDEBAR FOOTER
                  ================================================= -->
@@ -237,6 +250,7 @@
             </div>
 
         </aside>
+
 
 
         <!-- =================================================
@@ -297,6 +311,7 @@
                     </form>
 
 
+
                     <!-- Insert Image -->
 
                     <button
@@ -318,6 +333,7 @@
                 </div>
 
             </div>
+
 
 
             <!-- =================================================
@@ -347,6 +363,7 @@
                 >
 
 
+
                 <!-- =================================================
                      PAGE TITLE
                      ================================================= -->
@@ -363,6 +380,7 @@
                     >
 
                 </div>
+
 
 
                 <!-- =================================================
@@ -419,6 +437,7 @@
                     {% endif %}
 
 
+
                     <!-- =================================================
                          SHARED IMAGE SECTION
                          ================================================= -->
@@ -427,7 +446,9 @@
 
                         <div class="special-card-header">
 
-                            <span>🖼️</span>
+                            <span>
+                                🖼️
+                            </span>
 
                             <strong>
                                 Notebook Images & Handwritten Notes
@@ -436,9 +457,11 @@
                         </div>
 
                         <p class="helper-text">
+
                             Add screenshots, diagrams, scanned
                             handwritten pages or any image.
                             They are saved with this page.
+
                         </p>
 
                         <div
@@ -449,6 +472,7 @@
                     </section>
 
                 </div>
+
 
 
                 <!-- =================================================
@@ -477,6 +501,7 @@
             </form>
 
 
+
             <!-- =================================================
                  DELETE PAGE FORM
                  ================================================= -->
@@ -491,6 +516,7 @@
                 ) }}"
                 hidden
             ></form>
+
 
 
             <!-- =================================================
@@ -565,6 +591,7 @@
                     </div>
 
 
+
                     <!-- Icon -->
 
                     <label class="panel-label">
@@ -578,6 +605,7 @@
                         >
 
                     </label>
+
 
 
                     <!-- Description -->
@@ -594,6 +622,7 @@
                     </label>
 
 
+
                     <button
                         class="save-page-btn"
                         type="submit"
@@ -604,6 +633,7 @@
                 </form>
 
             </section>
+
 
 
             <!-- =================================================
@@ -632,13 +662,17 @@
                 </div>
 
 
+
                 {% if notebook.share and notebook.share.token %}
 
 
                     <p class="helper-text">
+
                         Turn sharing on when you are ready
                         to use this notebook with Study Meet.
+
                     </p>
+
 
 
                     <form
@@ -671,6 +705,7 @@
                     </form>
 
 
+
                     {% if notebook.share.enabled %}
 
                     <div class="share-link-box">
@@ -686,7 +721,9 @@
                     {% endif %}
 
 
+
                 {% else %}
+
 
 
                     <form
@@ -719,9 +756,11 @@
                     </form>
 
 
+
                 {% endif %}
 
             </section>
+
 
 
             {% else %}
@@ -757,6 +796,7 @@
 </section>
 
 
+
 <!-- =========================================================
      NOTEBOOK JAVASCRIPT
      ========================================================= -->
@@ -764,6 +804,7 @@
 <script
     src="{{ url_for('static', filename='js/notebook.js') }}"
 ></script>
+
 
 
 <!-- =========================================================
@@ -776,10 +817,18 @@
     src="{{ url_for('static', filename='js/coding-notebook.js') }}"
 ></script>
 
+
 {% elif notebook.notebook_type == 'general' %}
 
 <script
     src="{{ url_for('static', filename='js/general-notebook.js') }}"
+></script>
+
+
+{% elif notebook.notebook_type == 'project' %}
+
+<script
+    src="{{ url_for('static', filename='js/project-notebook.js') }}"
 ></script>
 
 {% endif %}
