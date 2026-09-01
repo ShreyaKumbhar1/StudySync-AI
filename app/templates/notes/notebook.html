@@ -12,6 +12,13 @@
     href="{{ url_for('static', filename='css/notebook-types.css') }}"
 >
 
+{% if notebook.notebook_type == 'general' %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/general-notebook.css') }}"
+>
+{% endif %}
+
 <!-- Mermaid — Flowcharts -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
 
@@ -41,6 +48,7 @@
     data-notebook-type="{{ notebook.notebook_type }}"
     data-notebook-color="{{ notebook.color or '#9b8ddd' }}"
 >
+
 
     <!-- =====================================================
          NOTEBOOK HEADER
@@ -759,7 +767,7 @@
 
 
 <!-- =========================================================
-     CODING NOTEBOOK JAVASCRIPT
+     NOTEBOOK-TYPE JAVASCRIPT
      ========================================================= -->
 
 {% if notebook.notebook_type == 'coding' %}

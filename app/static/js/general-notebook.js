@@ -1,172 +1,138 @@
 /* =========================================================
-   ORION GENERAL NOTEBOOK
-   Fonts • Dynamic Tables • Functional Checklists
+   ORION — GENERAL NOTEBOOK ENGINE
+   Fonts / Checklist / Dynamic Tables
    ========================================================= */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const editor = document.getElementById('generalEditor');
+    const root =
+        document.querySelector(".general-notebook");
 
-    if (!editor) return;
+    if (!root) return;
 
 
-    /* =====================================================
-       HELPERS
-       ===================================================== */
+    const editor =
+        document.getElementById("generalEditor");
+
+    const checklist =
+        document.getElementById("checklist");
+
+    const checklistEmpty =
+        document.getElementById("checklistEmpty");
+
+    const checklistCount =
+        document.getElementById("checklistCount");
+
+    const table =
+        document.getElementById("generalTable");
+
+    const tableEmpty =
+        document.getElementById("tableEmpty");
+
+    const builder =
+        document.getElementById("tableBuilder");
+
 
     const markChanged = () => {
 
-        if (typeof window.ORION_MARK_CHANGED === 'function') {
+        if (typeof window.ORION_MARK_CHANGED === "function") {
             window.ORION_MARK_CHANGED();
         }
-    };
 
-
-    const saveSelection = () => {
-
-        const selection = window.getSelection();
-
-        if (!selection || selection.rangeCount === 0) {
-            return null;
-        }
-
-        return selection.getRangeAt(0);
-    };
-
-
-    const restoreSelection = range => {
-
-        if (!range) return;
-
-        const selection = window.getSelection();
-
-        selection.removeAllRanges();
-        selection.addRange(range);
-    };
-
-
-    const runCommand = (command, value = null) => {
-
-        editor.focus();
-
-        document.execCommand(
-            command,
-            false,
-            value
-        );
-
-        markChanged();
     };
 
 
     /* =====================================================
-       FONT FAMILY
+       RICH TEXT
        ===================================================== */
 
-    const fontSelect =
-        document.getElementById('generalFontFamily');
+    const toolbar =
+        root.querySelector(".rich-toolbar");
 
 
-    if (fontSelect) {
+    if (toolbar && editor) {
 
-        fontSelect.addEventListener(
-            'change',
-            () => {
+        const font =
+            toolbar.querySelector(".general-font-family");
 
-                runCommand(
-                    'fontName',
-                    fontSelect.value
-                );
+        const size =
+            toolbar.querySelector(".general-font-size");
 
-            }
-        );
+        const textColor =
+            toolbar.querySelector(".general-text-color");
 
-
-        Array.from(fontSelect.options).forEach(
-            option => {
-
-                option.style.fontFamily =
-                    `"${option.value}", sans-serif`;
-
-            }
-        );
-
-    }
+        const highlightColor =
+            toolbar.querySelector(
+                ".general-highlight-color"
+            );
 
 
+        font?.addEventListener("change", () => {
 
-    /* =====================================================
-       FONT SIZE
-       ===================================================== */
+            editor.focus();
 
-    const fontSize =
-        document.getElementById('generalFontSize');
+            document.execCommand(
+                "fontName",
+                false,
+                font.value
+            );
 
+            markChanged();
 
-    if (fontSize) {
-
-        fontSize.addEventListener(
-            'change',
-            () => {
-
-                runCommand(
-                    'fontSize',
-                    fontSize.value
-                );
-
-            }
-        );
-
-    }
+        });
 
 
+        size?.addEventListener("change", () => {
 
-    /* =====================================================
-       TEXT COLOR
-       ===================================================== */
+            editor.focus();
 
-    const textColor =
-        document.getElementById('generalTextColor');
-
-
-    if (textColor) {
-
-        textColor.addEventListener(
-            'input',
-            () => {
-
-                runCommand(
-                    'foreColor',
-                    textColor.value
-                );
-
-            }
-        );
-
-    }
+            document.execCommand(
+                "fontSize",
+                false,
+                "7"
+            );
 
 
+            editor
+                .querySelectorAll('font[size="7"]')
+                .forEach(el => {
 
-    /* =====================================================
-       HIGHLIGHT COLOR
-       ===================================================== */
+                    el.removeAttribute("size");
 
-    const highlightColor =
-        document.getElementById(
-            'generalHighlightColor'
-        );
+                    el.style.fontSize =
+                        `${size.value}px`;
+
+                });
 
 
-    if (highlightColor) {
+            markChanged();
 
-        highlightColor.addEventListener(
-            'input',
+        });
+
+
+        textColor?.addEventListener("input", () => {
+
+            editor.focus();
+
+            document.execCommand(
+                "foreColor",
+                false,
+                textColor.value
+            );
+
+            markChanged();
+
+        });
+
+
+        highlightColor?.addEventListener(
+            "input",
             () => {
 
                 editor.focus();
 
                 document.execCommand(
-                    'hiliteColor',
+                    "hiliteColor",
                     false,
                     highlightColor.value
                 );
@@ -176,125 +142,52 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         );
 
+
+        toolbar
+            .querySelectorAll("button")
+            .forEach(button => {
+
+                button.addEventListener(
+                    "mousedown",
+                    event => {
+
+                        event.preventDefault();
+
+                    }
+                );
+
+            });
+
     }
-
-
-
-    /* =====================================================
-       HEADINGS / BASIC TOOLBAR
-       ===================================================== */
-
-    document
-        .querySelectorAll(
-            '.general-rich-toolbar button'
-        )
-        .forEach(button => {
-
-            button.addEventListener(
-                'click',
-                () => {
-
-                    const command =
-                        button.dataset.cmd;
-
-                    if (!command) return;
-
-
-                    editor.focus();
-
-
-                    if (command === 'createLink') {
-
-                        const url =
-                            prompt(
-                                'Enter the URL:'
-                            );
-
-                        if (!url) return;
-
-
-                        document.execCommand(
-                            'createLink',
-                            false,
-                            url
-                        );
-
-                    }
-
-                    else if (
-                        command === 'formatBlock'
-                    ) {
-
-                        document.execCommand(
-                            'formatBlock',
-                            false,
-                            button.dataset.value
-                        );
-
-                    }
-
-                    else {
-
-                        document.execCommand(
-                            command,
-                            false,
-                            null
-                        );
-
-                    }
-
-
-                    markChanged();
-
-                }
-            );
-
-        });
-
 
 
     /* =====================================================
        CHECKLIST
        ===================================================== */
 
-    const checklist =
-        document.getElementById('checklist');
-
-    const addChecklist =
-        document.getElementById('addChecklist');
-
-    const checklistProgress =
-        document.getElementById(
-            'checklistProgress'
-        );
-
-    const checklistEmpty =
-        document.getElementById(
-            'checklistEmpty'
-        );
-
-
-    function updateChecklistProgress() {
+    function updateChecklistStatus() {
 
         if (!checklist) return;
 
-
         const rows =
-            checklist.querySelectorAll(
-                '.check-row'
-            );
+            [...checklist.querySelectorAll(".check-row")];
 
+        const total =
+            rows.length;
 
         const completed =
-            checklist.querySelectorAll(
-                '.check-row input[type="checkbox"]:checked'
+            rows.filter(
+                row =>
+                    row.querySelector(
+                        'input[type="checkbox"]'
+                    )?.checked
             ).length;
 
 
-        if (checklistProgress) {
+        if (checklistCount) {
 
-            checklistProgress.textContent =
-                `${completed} / ${rows.length}`;
+            checklistCount.textContent =
+                `${completed} / ${total}`;
 
         }
 
@@ -302,177 +195,271 @@ document.addEventListener('DOMContentLoaded', () => {
         if (checklistEmpty) {
 
             checklistEmpty.style.display =
-                rows.length === 0
-                    ? 'flex'
-                    : 'none';
+                total === 0
+                    ? "flex"
+                    : "none";
 
         }
-
-
-        rows.forEach(row => {
-
-            const checkbox =
-                row.querySelector(
-                    'input[type="checkbox"]'
-                );
-
-
-            row.classList.toggle(
-                'completed',
-                checkbox?.checked || false
-            );
-
-        });
 
     }
 
 
-    function createChecklistItem(
-        text = 'New task',
-        done = false
-    ) {
+    /* =====================================================
+       REMOVE OLD "NEW TASK" PLACEHOLDERS
+
+       This removes the unwanted automatic row that was
+       appearing underneath the new empty task.
+       ===================================================== */
+
+    function removeNewTaskPlaceholders() {
 
         if (!checklist) return;
 
+        checklist
+            .querySelectorAll(".check-row")
+            .forEach(row => {
+
+                const text =
+                    row
+                        .querySelector(".check-text")
+                        ?.innerText
+                        ?.trim();
+
+                if (
+                    text &&
+                    text.toLowerCase() === "new task"
+                ) {
+
+                    row.remove();
+
+                }
+
+            });
+
+    }
+
+
+    /* =====================================================
+       CREATE CHECKLIST ITEM
+       ===================================================== */
+
+    function createChecklistItem(
+        text = "",
+        done = false
+    ) {
+
+        if (!checklist) return null;
+
 
         const row =
-            document.createElement('div');
-
+            document.createElement("div");
 
         row.className =
-            'check-row';
+            "check-row";
 
 
-        row.innerHTML = `
+        /* CHECKBOX */
 
-            <input
-                type="checkbox"
-                class="check-item-box"
-                ${done ? 'checked' : ''}
-            >
+        const checkbox =
+            document.createElement("input");
 
-            <span
-                class="check-item-text"
-                contenteditable="true"
-                spellcheck="true"
-            ></span>
+        checkbox.type =
+            "checkbox";
 
-            <button
-                type="button"
-                class="check-delete"
-                title="Delete task"
-                aria-label="Delete task"
-            >
-                ×
-            </button>
+        checkbox.checked =
+            Boolean(done);
 
-        `;
 
+        /* TASK FIELD */
 
         const textElement =
-            row.querySelector(
-                '.check-item-text'
-            );
+            document.createElement("span");
 
+        textElement.className =
+            "check-text";
+
+        textElement.contentEditable =
+            "true";
+
+        textElement.spellcheck =
+            true;
 
         textElement.textContent =
             text;
 
 
-        const checkbox =
-            row.querySelector(
-                '.check-item-box'
-            );
-
+        /* DELETE */
 
         const deleteButton =
-            row.querySelector(
-                '.check-delete'
-            );
+            document.createElement("button");
+
+        deleteButton.type =
+            "button";
+
+        deleteButton.className =
+            "check-delete";
+
+        deleteButton.textContent =
+            "×";
+
+        deleteButton.title =
+            "Remove task";
 
 
-        checkbox.addEventListener(
-            'change',
-            () => {
-
-                row.classList.toggle(
-                    'completed',
-                    checkbox.checked
-                );
-
-                updateChecklistProgress();
-
-                markChanged();
-
-            }
-        );
-
-
-        textElement.addEventListener(
-            'input',
-            markChanged
-        );
-
-
-        textElement.addEventListener(
-            'keydown',
-            event => {
-
-                if (
-                    event.key === 'Enter'
-                ) {
-
-                    event.preventDefault();
-
-                    createChecklistItem(
-                        '',
-                        false
-                    );
-
-                }
-
-            }
-        );
-
-
-        deleteButton.addEventListener(
-            'click',
-            () => {
-
-                row.remove();
-
-                updateChecklistProgress();
-
-                markChanged();
-
-            }
+        row.append(
+            checkbox,
+            textElement,
+            deleteButton
         );
 
 
         checklist.appendChild(row);
 
 
-        updateChecklistProgress();
+        /* CHECK / UNCHECK */
+
+        checkbox.addEventListener(
+            "change",
+            () => {
+
+                row.classList.toggle(
+                    "completed",
+                    checkbox.checked
+                );
+
+                updateChecklistStatus();
+
+                markChanged();
+
+            }
+        );
 
 
-        if (text === '') {
+        /* TYPE TASK */
 
-            textElement.focus();
+        textElement.addEventListener(
+            "input",
+            () => {
 
-        }
+                markChanged();
+
+            }
+        );
+
+
+        /* DELETE */
+
+        deleteButton.addEventListener(
+            "click",
+            () => {
+
+                row.remove();
+
+                updateChecklistStatus();
+
+                markChanged();
+
+            }
+        );
+
+
+        row.classList.toggle(
+            "completed",
+            checkbox.checked
+        );
+
+
+        updateChecklistStatus();
+
+
+        return textElement;
 
     }
 
 
+    /* =====================================================
+       ADD CHECKLIST ITEM
+
+       ONE CLICK = ONE EMPTY TASK ONLY
+       ===================================================== */
+
+    const addChecklist =
+        document.getElementById("addChecklist");
+
+
     if (addChecklist) {
 
-        addChecklist.addEventListener(
-            'click',
-            () => {
+        /*
+         * Replace the button so old click handlers from
+         * other scripts cannot create another "New task".
+         */
 
-                createChecklistItem();
+        const cleanButton =
+            addChecklist.cloneNode(true);
 
-                markChanged();
+        addChecklist.replaceWith(cleanButton);
+
+
+        cleanButton.addEventListener(
+            "click",
+            event => {
+
+                event.preventDefault();
+
+                /*
+                 * Stop any other checklist handler from
+                 * responding to this click.
+                 */
+
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+
+
+                /*
+                 * Remove the unwanted "New task" row
+                 * before creating our task.
+                 */
+
+                removeNewTaskPlaceholders();
+
+
+                /*
+                 * Create EXACTLY ONE empty task.
+                 */
+
+                const task =
+                    createChecklistItem(
+                        "",
+                        false
+                    );
+
+
+                /*
+                 * Focus the empty task immediately.
+                 */
+
+                if (task) {
+
+                    task.focus();
+
+                    const range =
+                        document.createRange();
+
+                    range.selectNodeContents(task);
+
+                    range.collapse(false);
+
+                    const selection =
+                        window.getSelection();
+
+                    selection.removeAllRanges();
+
+                    selection.addRange(range);
+
+                }
+
+
+                updateChecklistStatus();
 
             }
         );
@@ -480,9 +467,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-
     /* =====================================================
-       RESTORE CHECKLIST FROM SAVED STATE
+       RESTORE SAVED CHECKLIST
        ===================================================== */
 
     const savedChecklist =
@@ -492,14 +478,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     if (
-        Array.isArray(savedChecklist) &&
-        savedChecklist.length
+        Array.isArray(savedChecklist)
+        && savedChecklist.length
     ) {
 
         savedChecklist.forEach(item => {
 
+            const savedText =
+                typeof item.text === "string"
+                    ? item.text.trim()
+                    : "";
+
+
+            /*
+             * Do NOT restore empty placeholders or
+             * the old "New task" placeholder.
+             */
+
+            if (!savedText) return;
+
+            if (
+                savedText.toLowerCase() ===
+                "new task"
+            ) {
+                return;
+            }
+
+
             createChecklistItem(
-                item.text || '',
+                savedText,
                 Boolean(item.done)
             );
 
@@ -508,132 +515,58 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    /*
+     * Clean up any old placeholder that may already
+     * have been inserted by another script.
+     */
+
+    removeNewTaskPlaceholders();
+
+    updateChecklistStatus();
+
 
     /* =====================================================
        QUICK TABLE
        ===================================================== */
 
-    const table =
-        document.getElementById(
-            'generalTable'
-        );
+    function clearTable() {
 
+        if (!table) return;
 
-    const tbody =
-        table?.querySelector('tbody');
-
-
-    const createTableButton =
-        document.getElementById(
-            'createGeneralTable'
-        );
-
-
-    const tableBuilder =
-        document.getElementById(
-            'tableBuilder'
-        );
-
-
-    const generateTable =
-        document.getElementById(
-            'generateGeneralTable'
-        );
-
-
-    const cancelTable =
-        document.getElementById(
-            'cancelTableBuilder'
-        );
-
-
-    const tableRows =
-        document.getElementById(
-            'tableRows'
-        );
-
-
-    const tableColumns =
-        document.getElementById(
-            'tableColumns'
-        );
-
-
-    const tableActions =
-        document.getElementById(
-            'generalTableActions'
-        );
-
-
-    const tableEmpty =
-        document.getElementById(
-            'tableEmpty'
-        );
-
-
-
-    function createCell(
-        value = ''
-    ) {
-
-        const cell =
-            document.createElement('td');
-
-
-        cell.contentEditable =
-            'true';
-
-
-        cell.spellcheck =
-            true;
-
-
-        cell.textContent =
-            value;
-
-
-        cell.addEventListener(
-            'input',
-            markChanged
-        );
-
-
-        return cell;
+        table
+            .querySelector("tbody")
+            .innerHTML = "";
 
     }
-
 
 
     function createTable(
         rows,
         columns,
-        existingData = null
+        savedData = null
     ) {
 
-        if (!tbody) return;
+        if (!table) return;
 
 
         rows =
             Math.max(
                 1,
-                Math.min(
-                    30,
-                    Number(rows) || 1
-                )
+                Math.min(30, Number(rows) || 1)
             );
-
 
         columns =
             Math.max(
                 1,
-                Math.min(
-                    15,
-                    Number(columns) || 1
-                )
+                Math.min(15, Number(columns) || 1)
             );
 
 
-        tbody.innerHTML = '';
+        clearTable();
+
+
+        const tbody =
+            table.querySelector("tbody");
 
 
         for (
@@ -643,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ) {
 
             const tr =
-                document.createElement('tr');
+                document.createElement("tr");
 
 
             for (
@@ -652,14 +585,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 c++
             ) {
 
-                const value =
-                    existingData?.[r]?.[c] ||
-                    '';
+                const td =
+                    document.createElement("td");
 
 
-                tr.appendChild(
-                    createCell(value)
+                td.contentEditable =
+                    "true";
+
+
+                if (
+                    savedData
+                    && savedData[r]
+                    && savedData[r][c] !== undefined
+                ) {
+
+                    td.textContent =
+                        savedData[r][c];
+
+                }
+
+
+                td.addEventListener(
+                    "input",
+                    markChanged
                 );
+
+
+                tr.appendChild(td);
 
             }
 
@@ -669,14 +621,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
-        if (tableActions) {
-            tableActions.hidden = false;
-        }
-
-
         if (tableEmpty) {
+
             tableEmpty.style.display =
-                'none';
+                "none";
+
         }
 
 
@@ -685,316 +634,123 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-
-    function getTableSize() {
-
-        const rows =
-            tbody?.querySelectorAll(
-                'tr'
-            ).length || 0;
-
-
-        const columns =
-            tbody?.querySelector(
-                'tr'
-            )?.cells.length || 0;
-
-
-        return {
-            rows,
-            columns
-        };
-
-    }
-
-
-
-    if (createTableButton) {
-
-        createTableButton.addEventListener(
-            'click',
-            () => {
-
-                if (tableBuilder) {
-
-                    tableBuilder.hidden =
-                        !tableBuilder.hidden;
-
-                }
-
-            }
-        );
-
-    }
-
-
-
-    if (cancelTable) {
-
-        cancelTable.addEventListener(
-            'click',
-            () => {
-
-                tableBuilder.hidden =
-                    true;
-
-            }
-        );
-
-    }
-
-
-
-    if (generateTable) {
-
-        generateTable.addEventListener(
-            'click',
-            () => {
-
-                createTable(
-                    tableRows?.value,
-                    tableColumns?.value
-                );
-
-
-                tableBuilder.hidden =
-                    true;
-
-            }
-        );
-
-    }
-
-
-
     /* =====================================================
-       ADD ROW
+       OPEN TABLE BUILDER
        ===================================================== */
 
     document
-        .getElementById('addGeneralRow')
+        .getElementById("openTableBuilder")
         ?.addEventListener(
-            'click',
+            "click",
             () => {
 
-                if (!tbody) return;
+                if (!builder) return;
 
+                builder.hidden =
+                    false;
 
-                const size =
-                    getTableSize();
-
-
-                if (
-                    size.columns === 0
-                ) {
-
-                    createTable(1, 1);
-
-                    return;
-
-                }
-
-
-                const tr =
-                    document.createElement('tr');
-
-
-                for (
-                    let i = 0;
-                    i < size.columns;
-                    i++
-                ) {
-
-                    tr.appendChild(
-                        createCell()
-                    );
-
-                }
-
-
-                tbody.appendChild(tr);
-
-                markChanged();
+                document
+                    .getElementById("tableRows")
+                    ?.focus();
 
             }
         );
 
 
-
     /* =====================================================
-       ADD COLUMN
+       CANCEL TABLE BUILDER
        ===================================================== */
 
     document
-        .getElementById(
-            'addGeneralColumn'
-        )
+        .getElementById("cancelTableBuilder")
         ?.addEventListener(
-            'click',
+            "click",
             () => {
 
-                if (!tbody) return;
+                if (builder) {
 
-
-                const size =
-                    getTableSize();
-
-
-                if (size.rows === 0) {
-
-                    createTable(1, 1);
-
-                    return;
+                    builder.hidden =
+                        true;
 
                 }
-
-
-                tbody
-                    .querySelectorAll('tr')
-                    .forEach(row => {
-
-                        row.appendChild(
-                            createCell()
-                        );
-
-                    });
-
-
-                markChanged();
 
             }
         );
 
 
-
     /* =====================================================
-       DELETE ROW
+       CREATE TABLE
        ===================================================== */
 
     document
-        .getElementById(
-            'deleteGeneralRow'
-        )
+        .getElementById("createGeneralTable")
         ?.addEventListener(
-            'click',
+            "click",
             () => {
-
-                if (!tbody) return;
-
 
                 const rows =
-                    tbody.querySelectorAll(
-                        'tr'
+                    Number(
+                        document
+                            .getElementById(
+                                "tableRows"
+                            )?.value
                     );
-
-
-                if (!rows.length) return;
-
-
-                rows[rows.length - 1]
-                    .remove();
-
-
-                if (!tbody.querySelector('tr')) {
-
-                    if (tableActions) {
-                        tableActions.hidden =
-                            true;
-                    }
-
-                    if (tableEmpty) {
-                        tableEmpty.style.display =
-                            'block';
-                    }
-
-                }
-
-
-                markChanged();
-
-            }
-        );
-
-
-
-    /* =====================================================
-       DELETE COLUMN
-       ===================================================== */
-
-    document
-        .getElementById(
-            'deleteGeneralColumn'
-        )
-        ?.addEventListener(
-            'click',
-            () => {
-
-                if (!tbody) return;
-
-
-                const rows =
-                    tbody.querySelectorAll(
-                        'tr'
-                    );
-
-
-                if (!rows.length) return;
 
 
                 const columns =
-                    rows[0].cells.length;
+                    Number(
+                        document
+                            .getElementById(
+                                "tableColumns"
+                            )?.value
+                    );
 
 
-                if (columns <= 1) {
+                if (
+                    !rows ||
+                    !columns ||
+                    rows < 1 ||
+                    columns < 1
+                ) {
 
-                    rows.forEach(row => {
+                    alert(
+                        "Please enter a valid number of rows and columns."
+                    );
 
-                        row.deleteCell(0);
-
-                    });
-
-                }
-
-                else {
-
-                    rows.forEach(row => {
-
-                        row.deleteCell(
-                            columns - 1
-                        );
-
-                    });
+                    return;
 
                 }
 
 
                 if (
-                    !tbody.querySelector(
-                        'tr'
-                    )?.cells.length
+                    rows > 30 ||
+                    columns > 15
                 ) {
 
-                    tbody.innerHTML = '';
+                    alert(
+                        "Please keep the table within 30 rows and 15 columns."
+                    );
 
-
-                    if (tableActions) {
-                        tableActions.hidden =
-                            true;
-                    }
-
-                    if (tableEmpty) {
-                        tableEmpty.style.display =
-                            'block';
-                    }
+                    return;
 
                 }
 
 
-                markChanged();
+                createTable(
+                    rows,
+                    columns
+                );
+
+
+                if (builder) {
+
+                    builder.hidden =
+                        true;
+
+                }
 
             }
         );
-
 
 
     /* =====================================================
@@ -1006,13 +762,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     if (
-        Array.isArray(savedTable) &&
-        savedTable.length
+        Array.isArray(savedTable)
+        && savedTable.length
     ) {
 
-        const columns =
+        const savedRows =
+            savedTable.length;
+
+
+        const savedColumns =
             Math.max(
-                1,
                 ...savedTable.map(
                     row => row.length
                 )
@@ -1020,75 +779,91 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         createTable(
-            savedTable.length,
-            columns,
+            savedRows,
+            savedColumns,
             savedTable
         );
 
+    } else {
 
-        /*
-           Restoring data should not mark the
-           notebook as changed.
-        */
+        if (tableEmpty) {
+
+            tableEmpty.style.display =
+                "flex";
+
+        }
 
     }
 
 
-
     /* =====================================================
-       EDITOR SHORTCUTS
+       UPDATE STATE BEFORE SUBMIT
        ===================================================== */
 
-    editor.addEventListener(
-        'keydown',
-        event => {
+    const form =
+        document.getElementById("notebookForm");
 
-            if (
-                (event.ctrlKey ||
-                 event.metaKey) &&
-                event.key === 'b'
-            ) {
 
-                event.preventDefault();
+    form?.addEventListener(
+        "submit",
+        () => {
 
-                runCommand('bold');
+            if (!window.ORION_NOTE_STATE) return;
+
+
+            /* CHECKLIST */
+
+            if (checklist) {
+
+                window.ORION_NOTE_STATE
+                    .fields
+                    .checklist =
+                    [
+                        ...checklist
+                            .querySelectorAll(
+                                ".check-row"
+                            )
+                    ].map(row => ({
+
+                        done:
+                            row.querySelector(
+                                'input[type="checkbox"]'
+                            )?.checked || false,
+
+                        text:
+                            row.querySelector(
+                                ".check-text"
+                            )?.innerText
+                            ?.trim() || ""
+
+                    }));
 
             }
 
 
-            if (
-                (event.ctrlKey ||
-                 event.metaKey) &&
-                event.key === 'i'
-            ) {
+            /* TABLE */
 
-                event.preventDefault();
+            if (table) {
 
-                runCommand('italic');
-
-            }
-
-
-            if (
-                (event.ctrlKey ||
-                 event.metaKey) &&
-                event.key === 'u'
-            ) {
-
-                event.preventDefault();
-
-                runCommand('underline');
+                window.ORION_NOTE_STATE.table =
+                    [
+                        ...table
+                            .querySelectorAll(
+                                "tbody tr"
+                            )
+                    ].map(row =>
+                        [
+                            ...row.cells
+                        ].map(
+                            cell =>
+                                cell.innerText
+                        )
+                    );
 
             }
 
         }
     );
 
-
-    /* =====================================================
-       INITIAL STATE
-       ===================================================== */
-
-    updateChecklistProgress();
 
 });
