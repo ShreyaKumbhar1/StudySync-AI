@@ -1,0 +1,1478 @@
+/* ==========================================================
+   ORION — GENERAL NOTEBOOK
+   Clean Glassy Purple / Blue
+   Layout + Typography + Controls
+   ========================================================== */
+
+
+/* ==========================================================
+   FONT LIBRARY
+   ========================================================== */
+
+@import url(
+    'https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@400;500;600;700&family=DM+Mono:wght@400;500;700&family=DM+Sans:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Lato:wght@400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Lora:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Nunito:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&family=Patrick+Hand&family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Raleway:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Roboto+Mono:wght@400;500;700&family=Source+Code+Pro:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Space+Grotesk:wght@400;500;600;700&display=swap'
+);
+
+
+/* ==========================================================
+   GENERAL NOTEBOOK ROOT
+   ========================================================== */
+
+.general-notebook {
+
+    width: 100%;
+    max-width: 100%;
+
+    box-sizing: border-box;
+
+    color: #393442;
+
+    --gn-primary: #8875df;
+    --gn-primary-dark: #705bc8;
+
+    --gn-text: #393442;
+    --gn-muted: #81798d;
+
+    --gn-border: rgba(143, 123, 234, .18);
+
+    --gn-surface:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.66),
+            rgba(245,242,253,.48)
+        );
+
+    --gn-soft:
+        rgba(143,123,234,.075);
+
+    --gn-shadow:
+        0 10px 30px rgba(78,65,120,.065);
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   INTRO
+   ========================================================== */
+
+.general-notebook .workspace-intro {
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 0 0 18px;
+
+    padding: 17px 20px;
+
+    box-sizing: border-box;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(143,123,234,.10),
+            rgba(120,153,220,.06)
+        );
+
+    border:
+        1px solid
+        rgba(143,123,234,.15);
+
+    box-shadow:
+        0 8px 24px
+        rgba(82,68,125,.045);
+}
+
+
+.general-notebook .workspace-icon {
+
+    width: 45px;
+    height: 45px;
+
+    min-width: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(143,123,234,.18),
+            rgba(120,153,220,.12)
+        );
+
+    border:
+        1px solid
+        rgba(143,123,234,.20);
+
+    font-size: 21px;
+}
+
+
+.general-notebook .workspace-intro h2 {
+
+    margin: 0 0 3px;
+
+    color: #373240;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    letter-spacing: -.4px;
+
+    line-height: 1.2;
+}
+
+
+.general-notebook .workspace-intro p {
+
+    margin: 0;
+
+    color: #81798d;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 11px;
+
+    line-height: 1.55;
+}
+
+
+/* ==========================================================
+   RICH EDITOR CARD
+   ========================================================== */
+
+.general-notebook .rich-editor-card {
+
+    width: 100%;
+
+    margin: 0 0 20px;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background:
+        var(--gn-surface);
+
+    border:
+        1px solid
+        var(--gn-border);
+
+    box-shadow:
+        var(--gn-shadow);
+
+    backdrop-filter:
+        blur(16px);
+
+    -webkit-backdrop-filter:
+        blur(16px);
+}
+
+
+/* ==========================================================
+   TOOLBAR
+   ========================================================== */
+
+.general-notebook .rich-toolbar {
+
+    width: 100%;
+
+    min-height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 6px;
+
+    padding: 9px 12px;
+
+    box-sizing: border-box;
+
+    background:
+        rgba(249,247,255,.72);
+
+    border-bottom:
+        1px solid
+        rgba(143,123,234,.12);
+}
+
+
+/* ==========================================================
+   TOOLBAR SELECTS
+   ========================================================== */
+
+.general-notebook .rich-toolbar select {
+
+    height: 34px;
+
+    box-sizing: border-box;
+
+    padding: 0 9px;
+
+    border:
+        1px solid
+        rgba(135,120,190,.20);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,.72);
+
+    color: #5d5668;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    outline: none;
+
+    cursor: pointer;
+}
+
+
+.general-notebook .rich-toolbar select:hover {
+
+    border-color:
+        rgba(135,120,190,.34);
+}
+
+
+.general-notebook .rich-toolbar select:focus {
+
+    border-color:
+        rgba(136,117,223,.45);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(136,117,223,.08);
+}
+
+
+/* Font family */
+
+.general-notebook .rich-toolbar .font-select,
+.general-notebook .rich-toolbar .general-font-select {
+
+    width: 145px;
+
+    min-width: 145px;
+}
+
+
+/* Font size */
+
+.general-notebook .rich-toolbar .font-size-select,
+.general-notebook .rich-toolbar .general-font-size {
+
+    width: 65px;
+
+    min-width: 65px;
+}
+
+
+/* ==========================================================
+   COLOR INPUTS
+   ========================================================== */
+
+.general-notebook .rich-toolbar input[type="color"] {
+
+    width: 34px;
+    height: 34px;
+
+    padding: 3px;
+
+    border:
+        1px solid
+        rgba(135,120,190,.20);
+
+    border-radius: 9px;
+
+    background:
+        rgba(255,255,255,.72);
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   TOOLBAR BUTTONS
+   ========================================================== */
+
+.general-notebook .rich-toolbar button {
+
+    width: auto;
+    min-width: 36px;
+
+    height: 34px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 auto;
+
+    padding: 0 11px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(135,120,190,.18) !important;
+
+    border-radius: 9px !important;
+
+    background:
+        rgba(255,255,255,.66) !important;
+
+    color:
+        #5d5668 !important;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    box-shadow: none !important;
+
+    transition:
+        .18s ease;
+}
+
+
+.general-notebook .rich-toolbar button:hover {
+
+    background:
+        rgba(143,123,234,.10) !important;
+
+    border-color:
+        rgba(136,117,223,.32) !important;
+
+    color:
+        var(--gn-primary-dark) !important;
+
+    transform:
+        translateY(-1px);
+}
+
+
+.general-notebook .rich-toolbar button:active {
+
+    transform:
+        translateY(0);
+}
+
+
+/* ==========================================================
+   EDITOR
+   ========================================================== */
+
+.general-notebook .rich-editor {
+
+    width: 100%;
+
+    min-height: 260px;
+
+    box-sizing: border-box;
+
+    padding: 25px 28px;
+
+    outline: none;
+
+    background:
+        rgba(255,255,255,.30);
+
+    color:
+        var(--gn-text);
+
+    font-family:
+        "Source Serif 4",
+        Georgia,
+        serif;
+
+    font-size: 16px;
+
+    line-height: 1.85;
+
+    overflow-wrap: anywhere;
+}
+
+
+.general-notebook .rich-editor:focus {
+
+    background:
+        rgba(255,255,255,.44);
+}
+
+
+/* Placeholder */
+
+.general-notebook .rich-editor:empty::before {
+
+    content:
+        "Start writing your thoughts...";
+
+    color:
+        #aaa3b2;
+
+    font-family:
+        "Source Serif 4",
+        Georgia,
+        serif;
+
+    font-style: italic;
+
+    pointer-events: none;
+}
+
+
+/* ==========================================================
+   RICH TEXT
+   ========================================================== */
+
+.general-notebook .rich-editor h1,
+.general-notebook .rich-editor h2,
+.general-notebook .rich-editor h3,
+.general-notebook .rich-editor h4 {
+
+    margin-top: 18px;
+    margin-bottom: 10px;
+
+    color:
+        #383240;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.25;
+}
+
+
+.general-notebook .rich-editor h1 {
+    font-size: 30px;
+}
+
+
+.general-notebook .rich-editor h2 {
+    font-size: 25px;
+}
+
+
+.general-notebook .rich-editor h3 {
+    font-size: 21px;
+}
+
+
+.general-notebook .rich-editor h4 {
+    font-size: 18px;
+}
+
+
+.general-notebook .rich-editor p {
+
+    margin:
+        0 0 12px;
+}
+
+
+.general-notebook .rich-editor blockquote {
+
+    margin:
+        18px 0;
+
+    padding:
+        14px 18px;
+
+    border-left:
+        4px solid
+        var(--gn-primary);
+
+    border-radius:
+        0 11px 11px 0;
+
+    background:
+        rgba(143,123,234,.075);
+
+    color:
+        #665d70;
+
+    font-style:
+        italic;
+}
+
+
+.general-notebook .rich-editor a {
+
+    color:
+        #705ec2;
+
+    text-decoration:
+        none;
+
+    border-bottom:
+        1px solid
+        rgba(112,94,194,.35);
+}
+
+
+.general-notebook .rich-editor code {
+
+    padding:
+        2px 5px;
+
+    border-radius:
+        5px;
+
+    background:
+        rgba(70,61,91,.07);
+
+    color:
+        #6950a8;
+
+    font-family:
+        "DM Mono",
+        monospace;
+
+    font-size:
+        .88em;
+}
+
+
+/* ==========================================================
+   FEATURES
+   ========================================================== */
+
+/*
+   IMPORTANT:
+   The HTML uses .special-card.
+   The previous stylesheet incorrectly targeted
+   .general-feature-card.
+*/
+
+.general-notebook .general-feature-grid {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(0, 1fr);
+
+    gap: 18px;
+
+    margin: 0 0 18px;
+
+    align-items: stretch;
+}
+
+
+/* ==========================================================
+   SPECIAL CARD
+   ========================================================== */
+
+.general-notebook .special-card {
+
+    min-width: 0;
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.68),
+            rgba(244,241,252,.50)
+        ) !important;
+
+    border:
+        1px solid
+        rgba(143,123,234,.17) !important;
+
+    box-shadow:
+        0 9px 25px
+        rgba(78,65,120,.055) !important;
+
+    backdrop-filter:
+        blur(15px);
+
+    -webkit-backdrop-filter:
+        blur(15px);
+}
+
+
+/* ==========================================================
+   CARD HEADER
+   ========================================================== */
+
+.general-notebook .special-card-header {
+
+    width: 100%;
+
+    min-height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding:
+        11px 14px;
+
+    box-sizing: border-box;
+
+    border-bottom:
+        1px solid
+        rgba(143,123,234,.11);
+
+    background:
+        rgba(255,255,255,.22);
+
+    color:
+        #484150;
+}
+
+
+/* Icon immediately before title */
+
+.general-notebook .special-card-header > strong {
+
+    flex: 1 1 auto;
+
+    min-width: 0;
+
+    color:
+        #443d4d;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.3;
+}
+
+
+/* ==========================================================
+   ACTION BUTTONS
+   ========================================================== */
+
+.general-notebook .mini-action {
+
+    width: auto;
+
+    min-width: 0;
+
+    height: 30px;
+
+    flex: 0 0 auto;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding:
+        0 10px;
+
+    border:
+        1px solid
+        rgba(136,117,223,.22) !important;
+
+    border-radius:
+        8px !important;
+
+    background:
+        rgba(143,123,234,.07) !important;
+
+    color:
+        #715fae !important;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size:
+        10px;
+
+    font-weight:
+        600;
+
+    cursor:
+        pointer;
+
+    box-shadow:
+        none !important;
+}
+
+
+.general-notebook .mini-action:hover {
+
+    background:
+        rgba(143,123,234,.13) !important;
+
+    border-color:
+        rgba(136,117,223,.34) !important;
+
+    transform:
+        translateY(-1px);
+}
+
+
+/* ==========================================================
+   CHECKLIST
+   ========================================================== */
+
+.general-notebook #checklist {
+
+    width: 100%;
+
+    min-height: 125px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    padding:
+        12px 14px 15px;
+
+    box-sizing: border-box;
+}
+
+
+/* Checklist row */
+
+.general-notebook #checklist > * {
+
+    width: 100%;
+
+    min-height: 37px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding:
+        7px 9px;
+
+    box-sizing: border-box;
+
+    border-radius:
+        9px;
+
+    background:
+        rgba(255,255,255,.40);
+
+    border:
+        1px solid
+        rgba(143,123,234,.10);
+
+    color:
+        #57505f;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size:
+        11px;
+}
+
+
+/* Inputs inside checklist */
+
+.general-notebook #checklist input[type="checkbox"] {
+
+    width: 17px;
+    height: 17px;
+
+    min-width: 17px;
+
+    margin: 0;
+
+    accent-color:
+        var(--gn-primary);
+
+    cursor:
+        pointer;
+}
+
+
+/* Text inputs */
+
+.general-notebook #checklist input[type="text"],
+.general-notebook #checklist input:not([type]) {
+
+    flex: 1 1 auto;
+
+    min-width: 0;
+
+    height: 29px;
+
+    padding:
+        0 8px;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(143,123,234,.13);
+
+    border-radius:
+        7px;
+
+    background:
+        rgba(255,255,255,.58);
+
+    color:
+        #4d4655;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size:
+        10px;
+
+    outline:
+        none;
+}
+
+
+.general-notebook #checklist input[type="text"]:focus,
+.general-notebook #checklist input:not([type]):focus {
+
+    border-color:
+        rgba(136,117,223,.35);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(136,117,223,.06);
+}
+
+
+/* Completed checklist item */
+
+.general-notebook #checklist
+input[type="checkbox"]:checked + * {
+
+    text-decoration:
+        line-through;
+
+    opacity:
+        .65;
+}
+
+
+/* ==========================================================
+   QUICK TABLE
+   ========================================================== */
+
+.general-notebook .data-table-wrap {
+
+    width: 100%;
+
+    padding:
+        12px 14px 15px;
+
+    box-sizing: border-box;
+
+    overflow-x:
+        auto;
+}
+
+
+/* Table */
+
+.general-notebook .editable-table {
+
+    width: 100%;
+
+    min-width: 100%;
+
+    border-collapse:
+        separate;
+
+    border-spacing:
+        0;
+
+    table-layout:
+        fixed;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        rgba(143,123,234,.14);
+
+    border-radius:
+        11px;
+
+    background:
+        rgba(255,255,255,.38);
+}
+
+
+/* Cells */
+
+.general-notebook .editable-table td,
+.general-notebook .editable-table th {
+
+    height:
+        39px;
+
+    padding:
+        7px 9px;
+
+    box-sizing:
+        border-box;
+
+    border-right:
+        1px solid
+        rgba(143,123,234,.09);
+
+    border-bottom:
+        1px solid
+        rgba(143,123,234,.09);
+
+    color:
+        #5b5364;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size:
+        10px;
+
+    line-height:
+        1.4;
+
+    text-align:
+        left;
+
+    vertical-align:
+        middle;
+}
+
+
+.general-notebook .editable-table tr:last-child td {
+
+    border-bottom:
+        0;
+}
+
+
+.general-notebook .editable-table td:last-child,
+.general-notebook .editable-table th:last-child {
+
+    border-right:
+        0;
+}
+
+
+/* Inputs inside table */
+
+.general-notebook .editable-table input,
+.general-notebook .editable-table textarea {
+
+    width: 100%;
+
+    min-width: 0;
+
+    box-sizing:
+        border-box;
+
+    padding:
+        6px 7px;
+
+    border:
+        1px solid
+        rgba(143,123,234,.12);
+
+    border-radius:
+        6px;
+
+    background:
+        rgba(255,255,255,.58);
+
+    color:
+        #4c4554;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size:
+        10px;
+
+    outline:
+        none;
+
+    resize:
+        none;
+}
+
+
+.general-notebook .editable-table input:focus,
+.general-notebook .editable-table textarea:focus {
+
+    border-color:
+        rgba(136,117,223,.34);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(136,117,223,.06);
+}
+
+
+/* ==========================================================
+   TABLE BUILDER / SIZE CONTROLS
+   ========================================================== */
+
+.general-notebook .table-builder {
+
+    width: 100%;
+
+    padding:
+        12px 14px;
+
+    box-sizing:
+        border-box;
+
+    border-top:
+        1px solid
+        rgba(143,123,234,.10);
+
+    background:
+        rgba(255,255,255,.18);
+}
+
+
+.general-notebook .table-builder-controls {
+
+    display:
+        flex;
+
+    align-items:
+        flex-end;
+
+    gap:
+        9px;
+
+    flex-wrap:
+        wrap;
+}
+
+
+.general-notebook .table-builder-controls label {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        4px;
+
+    color:
+        #81798d;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size:
+        9px;
+
+    font-weight:
+        600;
+}
+
+
+.general-notebook .table-builder-controls input {
+
+    width:
+        65px;
+
+    height:
+        31px;
+
+    padding:
+        0 8px;
+
+    box-sizing:
+        border-box;
+
+    border:
+        1px solid
+        rgba(143,123,234,.16);
+
+    border-radius:
+        8px;
+
+    background:
+        rgba(255,255,255,.68);
+
+    color:
+        #514a59;
+
+    font-family:
+        "DM Sans",
+        sans-serif;
+
+    font-size:
+        10px;
+
+    outline:
+        none;
+}
+
+
+.general-notebook .table-builder-controls input:focus {
+
+    border-color:
+        rgba(136,117,223,.38);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(136,117,223,.06);
+}
+
+
+/* ==========================================================
+   IDEAS / QUESTIONS / REMINDERS
+   ========================================================== */
+
+.general-notebook > .special-card:last-child {
+
+    width: 100%;
+
+    margin:
+        0;
+
+    box-sizing:
+        border-box;
+}
+
+
+.general-notebook .general-editor-area {
+
+    width: 100%;
+
+    min-height: 155px;
+
+    display: block;
+
+    padding:
+        20px 22px;
+
+    box-sizing: border-box;
+
+    resize:
+        vertical;
+
+    border:
+        0;
+
+    outline:
+        none;
+
+    background:
+        rgba(255,255,255,.28);
+
+    color:
+        #4b4453;
+
+    font-family:
+        "Source Serif 4",
+        Georgia,
+        serif;
+
+    font-size:
+        14px;
+
+    line-height:
+        1.8;
+}
+
+
+.general-notebook .general-editor-area:focus {
+
+    background:
+        rgba(255,255,255,.40);
+}
+
+
+.general-notebook .general-editor-area::placeholder {
+
+    color:
+        #aaa3b2;
+
+    font-style:
+        italic;
+}
+
+
+/* ==========================================================
+   OPTIONAL MEDIA / IMAGE CARD
+   ========================================================== */
+
+.general-notebook .shared-media-card,
+.general-notebook .general-media-card {
+
+    width: 100%;
+
+    margin-top:
+        18px;
+
+    box-sizing: border-box;
+
+    border-radius:
+        17px;
+}
+
+
+/* ==========================================================
+   FONT CLASSES
+   Useful for JS font switching
+   ========================================================== */
+
+.general-notebook .font-arial {
+    font-family: Arial, sans-serif !important;
+}
+
+.general-notebook .font-inter {
+    font-family: "Inter", sans-serif !important;
+}
+
+.general-notebook .font-poppins {
+    font-family: "Poppins", sans-serif !important;
+}
+
+.general-notebook .font-montserrat {
+    font-family: "Montserrat", sans-serif !important;
+}
+
+.general-notebook .font-lato {
+    font-family: "Lato", sans-serif !important;
+}
+
+.general-notebook .font-nunito {
+    font-family: "Nunito", sans-serif !important;
+}
+
+.general-notebook .font-outfit {
+    font-family: "Outfit", sans-serif !important;
+}
+
+.general-notebook .font-quicksand {
+    font-family: "Quicksand", sans-serif !important;
+}
+
+.general-notebook .font-raleway {
+    font-family: "Raleway", sans-serif !important;
+}
+
+.general-notebook .font-playfair {
+    font-family: "Playfair Display", serif !important;
+}
+
+.general-notebook .font-lora {
+    font-family: "Lora", serif !important;
+}
+
+.general-notebook .font-merriweather {
+    font-family: "Merriweather", serif !important;
+}
+
+.general-notebook .font-cormorant {
+    font-family: "Cormorant Garamond", serif !important;
+}
+
+.general-notebook .font-caveat {
+    font-family: "Caveat", cursive !important;
+}
+
+.general-notebook .font-dancing {
+    font-family: "Dancing Script", cursive !important;
+}
+
+.general-notebook .font-patrick {
+    font-family: "Patrick Hand", cursive !important;
+}
+
+.general-notebook .font-roboto {
+    font-family: "Roboto", sans-serif !important;
+}
+
+.general-notebook .font-open-sans {
+    font-family: "Open Sans", sans-serif !important;
+}
+
+.general-notebook .font-source-code {
+    font-family: "Source Code Pro", monospace !important;
+}
+
+.general-notebook .font-roboto-mono {
+    font-family: "Roboto Mono", monospace !important;
+}
+
+.general-notebook .font-dm-mono {
+    font-family: "DM Mono", monospace !important;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+   ========================================================== */
+
+@media (max-width: 900px) {
+
+    .general-notebook .general-feature-grid {
+
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .general-notebook .workspace-intro {
+
+        padding:
+            14px 15px;
+    }
+
+
+    .general-notebook .workspace-icon {
+
+        width:
+            40px;
+
+        height:
+            40px;
+
+        min-width:
+            40px;
+
+        font-size:
+            19px;
+    }
+
+
+    .general-notebook .workspace-intro h2 {
+
+        font-size:
+            18px;
+    }
+
+
+    .general-notebook .rich-toolbar {
+
+        padding:
+            8px;
+
+        gap:
+            5px;
+    }
+
+
+    .general-notebook .rich-toolbar .font-select,
+    .general-notebook .rich-toolbar .general-font-select {
+
+        width:
+            135px;
+
+        min-width:
+            135px;
+    }
+
+
+    .general-notebook .rich-editor {
+
+        min-height:
+            220px;
+
+        padding:
+            20px 17px;
+    }
+
+
+    .general-notebook .special-card-header {
+
+        padding:
+            10px 11px;
+    }
+
+
+    .general-notebook .general-editor-area {
+
+        min-height:
+            135px;
+
+        padding:
+            17px;
+    }
+
+}

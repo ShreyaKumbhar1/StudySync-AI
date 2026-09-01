@@ -11,16 +11,12 @@
         </span>
 
         <div>
-
-            <h2>
-                Freeform Notes
-            </h2>
+            <h2>Freeform Notes</h2>
 
             <p>
-                A flexible workspace with rich writing,
-                checklists, tables, callouts and embeds.
+                A flexible workspace for writing, organizing,
+                checking off tasks and building quick tables.
             </p>
-
         </div>
 
     </div>
@@ -33,13 +29,206 @@
     <section class="rich-editor-card">
 
         <div
-            class="rich-toolbar"
+            class="rich-toolbar general-rich-toolbar"
             data-editor="generalEditor"
         >
+
+            <!-- FONT FAMILY -->
+
+            <select
+                id="generalFontFamily"
+                class="general-font-select"
+                title="Font family"
+            >
+
+                <optgroup label="Classic">
+
+                    <option value="Arial" selected>
+                        Arial
+                    </option>
+
+                    <option value="Helvetica">
+                        Helvetica
+                    </option>
+
+                    <option value="Georgia">
+                        Georgia
+                    </option>
+
+                    <option value="Times New Roman">
+                        Times New Roman
+                    </option>
+
+                    <option value="Garamond">
+                        Garamond
+                    </option>
+
+                    <option value="Trebuchet MS">
+                        Trebuchet MS
+                    </option>
+
+                    <option value="Verdana">
+                        Verdana
+                    </option>
+
+                    <option value="Tahoma">
+                        Tahoma
+                    </option>
+
+                </optgroup>
+
+
+                <optgroup label="Modern">
+
+                    <option value="Poppins">
+                        Poppins
+                    </option>
+
+                    <option value="Montserrat">
+                        Montserrat
+                    </option>
+
+                    <option value="Roboto">
+                        Roboto
+                    </option>
+
+                    <option value="Open Sans">
+                        Open Sans
+                    </option>
+
+                    <option value="Lato">
+                        Lato
+                    </option>
+
+                    <option value="Raleway">
+                        Raleway
+                    </option>
+
+                    <option value="Nunito">
+                        Nunito
+                    </option>
+
+                    <option value="Inter">
+                        Inter
+                    </option>
+
+                    <option value="Quicksand">
+                        Quicksand
+                    </option>
+
+                    <option value="Outfit">
+                        Outfit
+                    </option>
+
+                </optgroup>
+
+
+                <optgroup label="Elegant">
+
+                    <option value="Playfair Display">
+                        Playfair Display
+                    </option>
+
+                    <option value="Merriweather">
+                        Merriweather
+                    </option>
+
+                    <option value="Lora">
+                        Lora
+                    </option>
+
+                    <option value="Libre Baskerville">
+                        Libre Baskerville
+                    </option>
+
+                    <option value="Cormorant Garamond">
+                        Cormorant Garamond
+                    </option>
+
+                    <option value="DM Serif Display">
+                        DM Serif Display
+                    </option>
+
+                </optgroup>
+
+
+                <optgroup label="Handwritten">
+
+                    <option value="Caveat">
+                        Caveat
+                    </option>
+
+                    <option value="Dancing Script">
+                        Dancing Script
+                    </option>
+
+                    <option value="Pacifico">
+                        Pacifico
+                    </option>
+
+                    <option value="Satisfy">
+                        Satisfy
+                    </option>
+
+                    <option value="Patrick Hand">
+                        Patrick Hand
+                    </option>
+
+                </optgroup>
+
+
+                <optgroup label="Monospace">
+
+                    <option value="Courier New">
+                        Courier New
+                    </option>
+
+                    <option value="Consolas">
+                        Consolas
+                    </option>
+
+                    <option value="Roboto Mono">
+                        Roboto Mono
+                    </option>
+
+                    <option value="Source Code Pro">
+                        Source Code Pro
+                    </option>
+
+                    <option value="Fira Code">
+                        Fira Code
+                    </option>
+
+                </optgroup>
+
+            </select>
+
+
+            <!-- FONT SIZE -->
+
+            <select
+                id="generalFontSize"
+                class="general-font-size"
+                title="Font size"
+            >
+
+                <option value="1">10</option>
+                <option value="2">12</option>
+                <option value="3" selected>14</option>
+                <option value="4">16</option>
+                <option value="5">18</option>
+                <option value="6">24</option>
+                <option value="7">32</option>
+
+            </select>
+
+
+            <!-- BASIC FORMATTING -->
 
             <button
                 type="button"
                 data-cmd="bold"
+                title="Bold"
             >
                 <b>B</b>
             </button>
@@ -47,6 +236,7 @@
             <button
                 type="button"
                 data-cmd="italic"
+                title="Italic"
             >
                 <i>I</i>
             </button>
@@ -54,13 +244,52 @@
             <button
                 type="button"
                 data-cmd="underline"
+                title="Underline"
             >
                 <u>U</u>
             </button>
 
+
+            <!-- TEXT COLOR -->
+
+            <label
+                class="general-color-tool"
+                title="Text color"
+            >
+                A
+
+                <input
+                    type="color"
+                    id="generalTextColor"
+                    value="#302d38"
+                >
+
+            </label>
+
+
+            <!-- HIGHLIGHT -->
+
+            <label
+                class="general-color-tool highlight-tool"
+                title="Highlight"
+            >
+                ✦
+
+                <input
+                    type="color"
+                    id="generalHighlightColor"
+                    value="#fff1a8"
+                >
+
+            </label>
+
+
+            <!-- LISTS -->
+
             <button
                 type="button"
                 data-cmd="insertUnorderedList"
+                title="Bullet list"
             >
                 • List
             </button>
@@ -68,9 +297,13 @@
             <button
                 type="button"
                 data-cmd="insertOrderedList"
+                title="Numbered list"
             >
                 1. List
             </button>
+
+
+            <!-- HEADINGS -->
 
             <button
                 type="button"
@@ -83,10 +316,21 @@
             <button
                 type="button"
                 data-cmd="formatBlock"
+                data-value="h3"
+            >
+                H3
+            </button>
+
+            <button
+                type="button"
+                data-cmd="formatBlock"
                 data-value="blockquote"
             >
                 Callout
             </button>
+
+
+            <!-- LINK -->
 
             <button
                 type="button"
@@ -108,6 +352,7 @@
     </section>
 
 
+
     <!-- =====================================================
          GENERAL FEATURES
          ===================================================== -->
@@ -115,17 +360,26 @@
     <div class="general-feature-grid">
 
 
-        <!-- Checklist -->
+        <!-- =================================================
+             CHECKLIST
+             ================================================= -->
 
-        <section class="special-card">
+        <section class="special-card general-checklist-card">
 
             <div class="special-card-header">
 
-                ☑️
+                <span>☑️</span>
 
                 <strong>
                     Checklist
                 </strong>
+
+                <span
+                    id="checklistProgress"
+                    class="checklist-progress"
+                >
+                    0 / 0
+                </span>
 
                 <button
                     type="button"
@@ -138,18 +392,35 @@
             </div>
 
 
-            <div id="checklist"></div>
+            <div
+                id="checklist"
+                class="general-checklist"
+            ></div>
+
+
+            <div
+                id="checklistEmpty"
+                class="checklist-empty"
+            >
+                <span>✓</span>
+                <p>
+                    Add tasks you want to complete.
+                </p>
+            </div>
 
         </section>
 
 
-        <!-- Quick Table -->
 
-        <section class="special-card">
+        <!-- =================================================
+             QUICK TABLE
+             ================================================= -->
+
+        <section class="special-card general-table-card">
 
             <div class="special-card-header">
 
-                📋
+                <span>📋</span>
 
                 <strong>
                     Quick Table
@@ -158,9 +429,115 @@
                 <button
                     type="button"
                     class="mini-action"
+                    id="createGeneralTable"
+                >
+                    + Create Table
+                </button>
+
+            </div>
+
+
+            <!-- TABLE SETUP -->
+
+            <div
+                id="tableBuilder"
+                class="table-builder"
+                hidden
+            >
+
+                <div class="table-builder-title">
+                    Create your table
+                </div>
+
+                <div class="table-builder-controls">
+
+                    <label>
+                        Rows
+
+                        <input
+                            type="number"
+                            id="tableRows"
+                            min="1"
+                            max="30"
+                            value="3"
+                        >
+
+                    </label>
+
+
+                    <label>
+                        Columns
+
+                        <input
+                            type="number"
+                            id="tableColumns"
+                            min="1"
+                            max="15"
+                            value="3"
+                        >
+
+                    </label>
+
+
+                    <button
+                        type="button"
+                        class="mini-action table-generate-btn"
+                        id="generateGeneralTable"
+                    >
+                        Create
+                    </button>
+
+                    <button
+                        type="button"
+                        class="table-cancel-btn"
+                        id="cancelTableBuilder"
+                    >
+                        Cancel
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- TABLE ACTIONS -->
+
+            <div
+                class="table-actions"
+                id="generalTableActions"
+                hidden
+            >
+
+                <button
+                    type="button"
+                    class="table-action-btn"
                     id="addGeneralRow"
                 >
                     + Row
+                </button>
+
+                <button
+                    type="button"
+                    class="table-action-btn"
+                    id="addGeneralColumn"
+                >
+                    + Column
+                </button>
+
+                <button
+                    type="button"
+                    class="table-action-btn danger"
+                    id="deleteGeneralRow"
+                >
+                    − Row
+                </button>
+
+                <button
+                    type="button"
+                    class="table-action-btn danger"
+                    id="deleteGeneralColumn"
+                >
+                    − Column
                 </button>
 
             </div>
@@ -172,16 +549,24 @@
                     class="editable-table"
                     id="generalTable"
                 >
-
                     <tbody></tbody>
-
                 </table>
 
+            </div>
+
+
+            <div
+                id="tableEmpty"
+                class="table-empty"
+            >
+                Create a table and choose exactly how many
+                rows and columns you need.
             </div>
 
         </section>
 
     </div>
+
 
 
     <!-- =====================================================
@@ -208,5 +593,6 @@
         >{{ page_data.content }}</textarea>
 
     </section>
+
 
 </div>

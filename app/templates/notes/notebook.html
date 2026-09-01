@@ -768,6 +768,12 @@
     src="{{ url_for('static', filename='js/coding-notebook.js') }}"
 ></script>
 
+{% elif notebook.notebook_type == 'general' %}
+
+<script
+    src="{{ url_for('static', filename='js/general-notebook.js') }}"
+></script>
+
 {% endif %}
 
 {% endblock %}
