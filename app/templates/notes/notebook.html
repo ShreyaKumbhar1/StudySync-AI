@@ -2,6 +2,11 @@
 
 {% block head %}
 
+<!-- =========================================================
+     SHARED NOTEBOOK STYLES
+     ========================================================= -->
+
+
 <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/notebook.css') }}"
@@ -12,7 +17,19 @@
     href="{{ url_for('static', filename='css/notebook-types.css') }}"
 >
 
+{% if notebook.notebook_type == 'flashcards' %}
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/flashcards-notebook.css') }}"
+>
+{% endif %}
+
+<!-- =========================================================
+     NOTEBOOK-TYPE STYLES
+     ========================================================= -->
+
 {% if notebook.notebook_type == 'general' %}
+
 <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/general-notebook.css') }}"
@@ -20,36 +37,445 @@
 {% endif %}
 
 {% if notebook.notebook_type == 'project' %}
+
 <link
     rel="stylesheet"
     href="{{ url_for('static', filename='css/project-notebook.css') }}"
 >
 {% endif %}
 
+{% if notebook.notebook_type == 'flashcards' %}
 
-<!-- Mermaid — Flowcharts -->
-<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/flashcards-notebook.css') }}"
+>
 
-<!-- Chart.js — Graphs / Charts -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js"></script>
+{% endif %}
+
+<!-- =========================================================
+     FLASHCARDS & REVISION
+     Scoped styling — affects ONLY flashcard notebooks
+     ========================================================= -->
+
+{% if notebook.notebook_type == 'flashcards' %}
+
+<style>
+
+    /* =====================================================
+       FLASHCARDS NOTEBOOK
+       ===================================================== */
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .specialized-workspace {
+        width: 100%;
+        max-width: 1050px;
+        margin: 0 auto;
+    }
 
 
-<!-- Mathematics libraries -->
+    /* =====================================================
+       INTRO
+       ===================================================== */
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .workspace-intro {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+
+        width: 100%;
+        margin: 4px 0 26px;
+        padding: 22px 24px;
+
+        border-radius: 20px;
+
+        background:
+            linear-gradient(
+                135deg,
+                rgba(155, 141, 221, 0.16),
+                rgba(126, 167, 216, 0.12)
+            );
+
+        border: 1px solid rgba(155, 141, 221, 0.20);
+
+        box-shadow:
+            0 8px 24px rgba(80, 65, 120, 0.06);
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .workspace-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 56px;
+        height: 56px;
+
+        flex-shrink: 0;
+
+        border-radius: 16px;
+
+        background: rgba(155, 141, 221, 0.16);
+
+        font-size: 27px;
+
+        box-shadow:
+            inset 0 0 0 1px rgba(155, 141, 221, 0.12);
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .workspace-intro h2 {
+        margin: 0 0 5px;
+
+        font-size: 22px;
+        font-weight: 700;
+
+        letter-spacing: -0.02em;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .workspace-intro p {
+        margin: 0;
+
+        font-size: 14px;
+        line-height: 1.5;
+
+        opacity: 0.68;
+    }
+
+
+    /* =====================================================
+       CARDS
+       ===================================================== */
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .special-card {
+        width: 100%;
+        margin-bottom: 22px;
+
+        padding: 24px;
+
+        border-radius: 20px;
+
+        background: rgba(255, 255, 255, 0.56);
+
+        border: 1px solid rgba(155, 141, 221, 0.16);
+
+        box-shadow:
+            0 8px 25px rgba(80, 65, 120, 0.055);
+
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+
+
+    /* =====================================================
+       FLASHCARD BUILDER
+       ===================================================== */
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder {
+        display: grid;
+
+        grid-template-columns:
+            minmax(0, 1.25fr)
+            minmax(0, 1fr);
+
+        gap: 16px;
+
+        width: 100%;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder input,
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder textarea,
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder select {
+        width: 100%;
+
+        box-sizing: border-box;
+
+        border: 1px solid rgba(120, 105, 165, 0.18);
+
+        border-radius: 14px;
+
+        background: rgba(255, 255, 255, 0.72);
+
+        color: inherit;
+
+        font: inherit;
+
+        outline: none;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease,
+            transform 0.2s ease;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder input {
+        min-height: 50px;
+
+        padding: 0 15px;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder textarea {
+        min-height: 150px;
+
+        padding: 14px 15px;
+
+        resize: vertical;
+
+        line-height: 1.55;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder select {
+        min-height: 50px;
+
+        padding: 0 14px;
+
+        cursor: pointer;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder input::placeholder,
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder textarea::placeholder {
+        opacity: 0.52;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder input:focus,
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder textarea:focus,
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder select:focus {
+        border-color: rgba(155, 141, 221, 0.52);
+
+        background: rgba(255, 255, 255, 0.88);
+
+        box-shadow:
+            0 0 0 4px rgba(155, 141, 221, 0.09);
+    }
+
+
+    /* =====================================================
+       FRONT / BACK EMPHASIS
+       ===================================================== */
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder input[data-note-field="front"] {
+        grid-column: 1;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder textarea[data-note-field="back"] {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder input[data-note-field="hint"] {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .flashcard-builder select[data-note-field="difficulty"] {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: start;
+    }
+
+
+    /* =====================================================
+       REVISION NOTES HEADER
+       ===================================================== */
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .special-card-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        margin-bottom: 16px;
+
+        font-size: 15px;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .special-card-header span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 34px;
+        height: 34px;
+
+        border-radius: 10px;
+
+        background: rgba(155, 141, 221, 0.12);
+
+        font-size: 17px;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .special-card-header strong {
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+
+    /* =====================================================
+       REVISION TEXTAREA
+       ===================================================== */
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .special-textarea {
+        width: 100%;
+        min-height: 220px;
+
+        box-sizing: border-box;
+
+        padding: 16px;
+
+        border: 1px solid rgba(120, 105, 165, 0.18);
+
+        border-radius: 15px;
+
+        background: rgba(255, 255, 255, 0.68);
+
+        color: inherit;
+
+        font: inherit;
+
+        line-height: 1.65;
+
+        resize: vertical;
+
+        outline: none;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease,
+            background 0.2s ease;
+    }
+
+
+    .notebook-page[data-notebook-type="flashcards"]
+    .special-textarea:focus {
+        border-color: rgba(155, 141, 221, 0.52);
+
+        background: rgba(255, 255, 255, 0.88);
+
+        box-shadow:
+            0 0 0 4px rgba(155, 141, 221, 0.09);
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+       ===================================================== */
+
+    @media (max-width: 760px) {
+
+        .notebook-page[data-notebook-type="flashcards"]
+        .workspace-intro {
+            padding: 18px;
+        }
+
+
+        .notebook-page[data-notebook-type="flashcards"]
+        .special-card {
+            padding: 18px;
+        }
+
+
+        .notebook-page[data-notebook-type="flashcards"]
+        .flashcard-builder {
+            grid-template-columns: 1fr;
+        }
+
+
+        .notebook-page[data-notebook-type="flashcards"]
+        .flashcard-builder input[data-note-field="front"],
+        .notebook-page[data-notebook-type="flashcards"]
+        .flashcard-builder textarea[data-note-field="back"],
+        .notebook-page[data-notebook-type="flashcards"]
+        .flashcard-builder input[data-note-field="hint"],
+        .notebook-page[data-notebook-type="flashcards"]
+        .flashcard-builder select[data-note-field="difficulty"] {
+            grid-column: 1;
+            grid-row: auto;
+        }
+
+    }
+
+</style>
+
+{% endif %}
+
+<!-- =========================================================
+     MERMAID — FLOWCHARTS
+     ========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js">
+</script>
+
+<!-- =========================================================
+     CHART.JS — GRAPHS / CHARTS
+     ========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.9/dist/chart.umd.min.js">
+</script>
+
+<!-- =========================================================
+     MATHEMATICS LIBRARIES
+     ========================================================= -->
+
 {% if notebook.notebook_type == 'mathematics' %}
 
-<script src="https://cdn.jsdelivr.net/npm/mathjs@14.0.1/lib/browser/math.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/mathjs@14.0.1/lib/browser/math.js">
+</script>
 
-<script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/nerdamer.core.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/nerdamer.core.js">
+</script>
 
-<script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Algebra.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Algebra.js">
+</script>
 
-<script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Calculus.js"></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/Calculus.js">
+</script>
 
 {% endif %}
 
 {% endblock %}
-
-
 
 {% block content %}
 
@@ -59,753 +485,716 @@
     data-notebook-color="{{ notebook.color or '#9b8ddd' }}"
 >
 
+```
+<!-- =====================================================
+     NOTEBOOK HEADER
+     ===================================================== -->
 
-    <!-- =====================================================
-         NOTEBOOK HEADER
-         ===================================================== -->
+<header class="notebook-header">
 
-    <header class="notebook-header">
+    <div class="notebook-header-left">
 
-        <div class="notebook-header-left">
+        <a
+            href="{{ url_for('notes.notes_page') }}"
+            class="notebook-back"
+            aria-label="Back to notebooks"
+        >
+            ←
+        </a>
 
-            <a
-                href="{{ url_for('notes.notes_page') }}"
-                class="notebook-back"
-                aria-label="Back to notebooks"
-            >
-                ←
-            </a>
+        <div class="notebook-header-icon">
+            {{ notebook.icon }}
+        </div>
 
-            <div class="notebook-header-icon">
-                {{ notebook.icon }}
-            </div>
+        <div class="notebook-header-info">
 
-            <div class="notebook-header-info">
+            <span class="notebook-header-type">
+                {{ type_template.name }}
+            </span>
 
-                <span class="notebook-header-type">
-                    {{ type_template.name }}
+            <h1>
+                {{ notebook.title }}
+            </h1>
+
+            {% if notebook.subject %}
+                <span class="notebook-header-subject">
+                    {{ notebook.subject }}
                 </span>
-
-                <h1>
-                    {{ notebook.title }}
-                </h1>
-
-                {% if notebook.subject %}
-                    <span class="notebook-header-subject">
-                        {{ notebook.subject }}
-                    </span>
-                {% endif %}
-
-            </div>
+            {% endif %}
 
         </div>
 
+    </div>
 
-        <!-- =================================================
-             HEADER ACTIONS
-             ================================================= -->
 
-        <div class="notebook-header-actions">
+    <!-- =================================================
+         HEADER ACTIONS
+         ================================================= -->
 
-            <span
-                class="save-status"
-                id="saveStatus"
-            >
-                ● Saved
-            </span>
+    <div class="notebook-header-actions">
+
+        <span
+            class="save-status"
+            id="saveStatus"
+        >
+            ● Saved
+        </span>
+
+        <button
+            type="button"
+            class="notebook-header-btn"
+            id="openNotebookSettings"
+        >
+            🎨 Customize
+        </button>
+
+        <button
+            type="button"
+            class="notebook-header-btn"
+            id="openShareSettings"
+        >
+            🔗 Share
+        </button>
+
+        <form
+            method="POST"
+            action="{{ url_for(
+                'notes.delete_notebook',
+                notebook_id=notebook.id
+            ) }}"
+            onsubmit="return confirm('Delete this entire notebook?');"
+        >
 
             <button
-                type="button"
-                class="notebook-header-btn"
-                id="openNotebookSettings"
+                type="submit"
+                class="notebook-delete-btn"
             >
-                🎨 Customize
+                Delete
             </button>
 
-            <button
-                type="button"
-                class="notebook-header-btn"
-                id="openShareSettings"
-            >
-                🔗 Share
-            </button>
+        </form>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     NOTEBOOK LAYOUT
+     ===================================================== -->
+
+<div class="notebook-layout">
+
+
+    <!-- =================================================
+         SIDEBAR
+         ================================================= -->
+
+    <aside class="notebook-sidebar">
+
+        <div class="sidebar-heading">
+
+            <div class="sidebar-heading-title">
+                Pages
+            </div>
 
             <form
                 method="POST"
                 action="{{ url_for(
-                    'notes.delete_notebook',
+                    'notes.create_page',
                     notebook_id=notebook.id
                 ) }}"
-                onsubmit="return confirm('Delete this entire notebook?');"
             >
+
+                <input
+                    type="hidden"
+                    name="title"
+                    value="Untitled Page"
+                >
 
                 <button
                     type="submit"
-                    class="notebook-delete-btn"
+                    class="new-page-btn"
+                    title="New page"
+                    aria-label="Create new page"
                 >
-                    Delete
+                    +
                 </button>
 
             </form>
 
         </div>
 
-    </header>
 
+        <!-- =================================================
+             PAGE LIST
+             ================================================= -->
 
+        <div class="page-list">
 
-    <!-- =====================================================
-         NOTEBOOK LAYOUT
-         ===================================================== -->
+            {% for page in pages %}
 
-    <div class="notebook-layout">
+            <a
+                href="{{ url_for(
+                    'notes.open_notebook',
+                    notebook_id=notebook.id,
+                    page=page.id
+                ) }}"
+                class="page-item {% if selected_page and selected_page.id == page.id %}active{% endif %}"
+            >
+
+                <span class="page-item-icon">
+
+                    {% if page.pinned %}
+                        📌
+                    {% else %}
+                        ◇
+                    {% endif %}
+
+                </span>
+
+                <span class="page-item-title">
+                    {{ page.title }}
+                </span>
+
+            </a>
+
+            {% endfor %}
+
+        </div>
 
 
         <!-- =================================================
-             SIDEBAR
+             SIDEBAR FOOTER
              ================================================= -->
 
-        <aside class="notebook-sidebar">
+        <div class="sidebar-bottom">
+            {{ pages|length }} pages
+        </div>
 
-            <div class="sidebar-heading">
+    </aside>
 
-                <div class="sidebar-heading-title">
-                    Pages
-                </div>
+
+    <!-- =================================================
+         MAIN WORKSPACE
+         ================================================= -->
+
+    <main class="notebook-workspace">
+
+        {% if selected_page %}
+
+
+        <!-- =================================================
+             WORKSPACE TOPBAR
+             ================================================= -->
+
+        <div class="workspace-topbar">
+
+            <div class="workspace-page-info">
+
+                <span class="workspace-page-label">
+                    PAGE
+                </span>
+
+                <span class="workspace-page-number">
+                    {{ selected_page.position + 1 }}
+                </span>
+
+            </div>
+
+
+            <div class="workspace-tools">
+
+                <!-- Pin Page -->
 
                 <form
                     method="POST"
                     action="{{ url_for(
-                        'notes.create_page',
+                        'notes.toggle_pin',
+                        notebook_id=notebook.id,
+                        page_id=selected_page.id
+                    ) }}"
+                >
+
+                    <button
+                        type="submit"
+                        class="workspace-tool-btn"
+                    >
+
+                        {% if selected_page.pinned %}
+                            📌 Pinned
+                        {% else %}
+                            📍 Pin
+                        {% endif %}
+
+                    </button>
+
+                </form>
+
+
+                <!-- Insert Image -->
+
+                <button
+                    type="button"
+                    class="workspace-tool-btn"
+                    id="insertImageBtn"
+                >
+                    🖼 Image
+                </button>
+
+                <input
+                    type="file"
+                    id="noteImageInput"
+                    accept="image/*"
+                    multiple
+                    hidden
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             NOTEBOOK EDITOR
+             ================================================= -->
+
+        <form
+            method="POST"
+            action="{{ url_for(
+                'notes.save_page',
+                notebook_id=notebook.id,
+                page_id=selected_page.id
+            ) }}"
+            class="notebook-editor-form"
+            id="notebookForm"
+        >
+
+            <!-- =================================================
+                 HIDDEN PAGE DATA
+                 ================================================= -->
+
+            <input
+                type="hidden"
+                name="page_data"
+                id="pageDataInput"
+            >
+
+
+            <!-- =================================================
+                 PAGE TITLE
+                 ================================================= -->
+
+            <div class="page-title-area">
+
+                <input
+                    type="text"
+                    name="title"
+                    value="{{ selected_page.title }}"
+                    class="page-title-input"
+                    maxlength="200"
+                    placeholder="Page title..."
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 SPECIALIZED NOTEBOOK CONTENT
+                 ================================================= -->
+
+            <div class="specialized-workspace">
+
+                {% if notebook.notebook_type == 'coding' %}
+
+                    {% include 'notes/types/coding.html' %}
+
+
+                {% elif notebook.notebook_type == 'theory' %}
+
+                    {% include 'notes/types/theory.html' %}
+
+
+                {% elif notebook.notebook_type == 'mathematics' %}
+
+                    {% include 'notes/types/mathematics.html' %}
+
+
+                {% elif notebook.notebook_type == 'graphs_dsa' %}
+
+                    {% include 'notes/types/graphs_dsa.html' %}
+
+
+                {% elif notebook.notebook_type == 'project' %}
+
+                    {% include 'notes/types/project.html' %}
+
+
+                {% elif notebook.notebook_type == 'flashcards' %}
+
+                    {% include 'notes/types/flashcards.html' %}
+
+
+                {% elif notebook.notebook_type == 'lab' %}
+
+                    {% include 'notes/types/lab.html' %}
+
+
+                {% elif notebook.notebook_type == 'exam' %}
+
+                    {% include 'notes/types/exam.html' %}
+
+
+                {% else %}
+
+                    {% include 'notes/types/general.html' %}
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     SHARED IMAGE SECTION
+                     ================================================= -->
+
+                <section class="shared-media-card">
+
+                    <div class="special-card-header">
+
+                        <span>
+                            🖼️
+                        </span>
+
+                        <strong>
+                            Notebook Images & Handwritten Notes
+                        </strong>
+
+                    </div>
+
+                    <p class="helper-text">
+                        Add screenshots, diagrams, scanned
+                        handwritten pages or any image.
+                        They are saved with this page.
+                    </p>
+
+                    <div
+                        id="imageGallery"
+                        class="note-image-gallery"
+                    ></div>
+
+                </section>
+
+            </div>
+
+
+            <!-- =================================================
+                 EDITOR ACTIONS
+                 ================================================= -->
+
+            <div class="editor-actions">
+
+                <button
+                    type="button"
+                    class="delete-page-btn"
+                    id="deletePageButton"
+                >
+                    Delete Page
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-page-btn"
+                >
+                    Save Changes
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <!-- =================================================
+             DELETE PAGE FORM
+             ================================================= -->
+
+        <form
+            id="deletePageForm"
+            method="POST"
+            action="{{ url_for(
+                'notes.delete_page',
+                notebook_id=notebook.id,
+                page_id=selected_page.id
+            ) }}"
+            hidden
+        ></form>
+
+
+        <!-- =================================================
+             NOTEBOOK SETTINGS PANEL
+             ================================================= -->
+
+        <section
+            class="notebook-settings-panel"
+            id="notebookSettingsPanel"
+            hidden
+        >
+
+            <div class="panel-header">
+
+                <h3>
+                    Notebook appearance
+                </h3>
+
+                <button
+                    type="button"
+                    class="panel-close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <form
+                method="POST"
+                action="{{ url_for(
+                    'notes.update_notebook_settings',
+                    notebook_id=notebook.id
+                ) }}"
+            >
+
+                <!-- Color Palette -->
+
+                <div class="color-palette">
+
+                    {% for c in [
+                        '#9b8ddd',
+                        '#7ea7d8',
+                        '#86b99a',
+                        '#d79bba',
+                        '#d6a86b',
+                        '#8fa4a7',
+                        '#b28bd8',
+                        '#e68d8d'
+                    ] %}
+
+                    <label class="color-choice">
+
+                        <input
+                            type="radio"
+                            name="color"
+                            value="{{ c }}"
+                            {% if (notebook.color or '#9b8ddd') == c %}
+                                checked
+                            {% endif %}
+                        >
+
+                        <span
+                            style="--choice-color: {{ c }}"
+                        ></span>
+
+                    </label>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- Icon -->
+
+                <label class="panel-label">
+
+                    Icon
+
+                    <input
+                        name="icon"
+                        value="{{ notebook.icon }}"
+                        maxlength="10"
+                    >
+
+                </label>
+
+
+                <!-- Description -->
+
+                <label class="panel-label">
+
+                    Description
+
+                    <textarea
+                        name="description"
+                        rows="3"
+                    >{{ notebook.description or '' }}</textarea>
+
+                </label>
+
+
+                <button
+                    class="save-page-btn"
+                    type="submit"
+                >
+                    Save Appearance
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- =================================================
+             SHARE SETTINGS PANEL
+             ================================================= -->
+
+        <section
+            class="notebook-settings-panel"
+            id="shareSettingsPanel"
+            hidden
+        >
+
+            <div class="panel-header">
+
+                <h3>
+                    Sharing
+                </h3>
+
+                <button
+                    type="button"
+                    class="panel-close"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            {% if notebook.share and notebook.share.token %}
+
+                <p class="helper-text">
+                    Turn sharing on when you are ready
+                    to use this notebook with Study Meet.
+                </p>
+
+
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'notes.toggle_share',
                         notebook_id=notebook.id
                     ) }}"
                 >
 
                     <input
                         type="hidden"
-                        name="title"
-                        value="Untitled Page"
+                        name="enabled"
+                        value="1"
                     >
-
-                    <button
-                        type="submit"
-                        class="new-page-btn"
-                        title="New page"
-                        aria-label="Create new page"
-                    >
-                        +
-                    </button>
-
-                </form>
-
-            </div>
-
-
-
-            <!-- =================================================
-                 PAGE LIST
-                 ================================================= -->
-
-            <div class="page-list">
-
-                {% for page in pages %}
-
-                <a
-                    href="{{ url_for(
-                        'notes.open_notebook',
-                        notebook_id=notebook.id,
-                        page=page.id
-                    ) }}"
-                    class="page-item {% if selected_page and selected_page.id == page.id %}active{% endif %}"
-                >
-
-                    <span class="page-item-icon">
-
-                        {% if page.pinned %}
-                            📌
-                        {% else %}
-                            ◇
-                        {% endif %}
-
-                    </span>
-
-                    <span class="page-item-title">
-                        {{ page.title }}
-                    </span>
-
-                </a>
-
-                {% endfor %}
-
-            </div>
-
-
-
-            <!-- =================================================
-                 SIDEBAR FOOTER
-                 ================================================= -->
-
-            <div class="sidebar-bottom">
-                {{ pages|length }} pages
-            </div>
-
-        </aside>
-
-
-
-        <!-- =================================================
-             MAIN WORKSPACE
-             ================================================= -->
-
-        <main class="notebook-workspace">
-
-            {% if selected_page %}
-
-
-            <!-- =================================================
-                 WORKSPACE TOPBAR
-                 ================================================= -->
-
-            <div class="workspace-topbar">
-
-                <div class="workspace-page-info">
-
-                    <span class="workspace-page-label">
-                        PAGE
-                    </span>
-
-                    <span class="workspace-page-number">
-                        {{ selected_page.position + 1 }}
-                    </span>
-
-                </div>
-
-
-                <div class="workspace-tools">
-
-
-                    <!-- Pin Page -->
-
-                    <form
-                        method="POST"
-                        action="{{ url_for(
-                            'notes.toggle_pin',
-                            notebook_id=notebook.id,
-                            page_id=selected_page.id
-                        ) }}"
-                    >
-
-                        <button
-                            type="submit"
-                            class="workspace-tool-btn"
-                        >
-
-                            {% if selected_page.pinned %}
-                                📌 Pinned
-                            {% else %}
-                                📍 Pin
-                            {% endif %}
-
-                        </button>
-
-                    </form>
-
-
-
-                    <!-- Insert Image -->
-
-                    <button
-                        type="button"
-                        class="workspace-tool-btn"
-                        id="insertImageBtn"
-                    >
-                        🖼 Image
-                    </button>
 
                     <input
-                        type="file"
-                        id="noteImageInput"
-                        accept="image/*"
-                        multiple
-                        hidden
+                        type="hidden"
+                        name="permission"
+                        value="view"
                     >
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================================
-                 NOTEBOOK EDITOR
-                 ================================================= -->
-
-            <form
-                method="POST"
-                action="{{ url_for(
-                    'notes.save_page',
-                    notebook_id=notebook.id,
-                    page_id=selected_page.id
-                ) }}"
-                class="notebook-editor-form"
-                id="notebookForm"
-            >
-
-
-                <!-- =================================================
-                     HIDDEN PAGE DATA
-                     ================================================= -->
-
-                <input
-                    type="hidden"
-                    name="page_data"
-                    id="pageDataInput"
-                >
-
-
-
-                <!-- =================================================
-                     PAGE TITLE
-                     ================================================= -->
-
-                <div class="page-title-area">
-
-                    <input
-                        type="text"
-                        name="title"
-                        value="{{ selected_page.title }}"
-                        class="page-title-input"
-                        maxlength="200"
-                        placeholder="Page title..."
-                    >
-
-                </div>
-
-
-
-                <!-- =================================================
-                     SPECIALIZED NOTEBOOK CONTENT
-                     ================================================= -->
-
-                <div class="specialized-workspace">
-
-
-                    {% if notebook.notebook_type == 'coding' %}
-
-                        {% include 'notes/types/coding.html' %}
-
-
-                    {% elif notebook.notebook_type == 'theory' %}
-
-                        {% include 'notes/types/theory.html' %}
-
-
-                    {% elif notebook.notebook_type == 'mathematics' %}
-
-                        {% include 'notes/types/mathematics.html' %}
-
-
-                    {% elif notebook.notebook_type == 'graphs_dsa' %}
-
-                        {% include 'notes/types/graphs_dsa.html' %}
-
-
-                    {% elif notebook.notebook_type == 'project' %}
-
-                        {% include 'notes/types/project.html' %}
-
-
-                    {% elif notebook.notebook_type == 'flashcards' %}
-
-                        {% include 'notes/types/flashcards.html' %}
-
-
-                    {% elif notebook.notebook_type == 'lab' %}
-
-                        {% include 'notes/types/lab.html' %}
-
-
-                    {% elif notebook.notebook_type == 'exam' %}
-
-                        {% include 'notes/types/exam.html' %}
-
-
-                    {% else %}
-
-                        {% include 'notes/types/general.html' %}
-
-                    {% endif %}
-
-
-
-                    <!-- =================================================
-                         SHARED IMAGE SECTION
-                         ================================================= -->
-
-                    <section class="shared-media-card">
-
-                        <div class="special-card-header">
-
-                            <span>
-                                🖼️
-                            </span>
-
-                            <strong>
-                                Notebook Images & Handwritten Notes
-                            </strong>
-
-                        </div>
-
-                        <p class="helper-text">
-
-                            Add screenshots, diagrams, scanned
-                            handwritten pages or any image.
-                            They are saved with this page.
-
-                        </p>
-
-                        <div
-                            id="imageGallery"
-                            class="note-image-gallery"
-                        ></div>
-
-                    </section>
-
-                </div>
-
-
-
-                <!-- =================================================
-                     EDITOR ACTIONS
-                     ================================================= -->
-
-                <div class="editor-actions">
-
-                    <button
-                        type="button"
-                        class="delete-page-btn"
-                        id="deletePageButton"
-                    >
-                        Delete Page
-                    </button>
-
-                    <button
-                        type="submit"
-                        class="save-page-btn"
-                    >
-                        Save Changes
-                    </button>
-
-                </div>
-
-            </form>
-
-
-
-            <!-- =================================================
-                 DELETE PAGE FORM
-                 ================================================= -->
-
-            <form
-                id="deletePageForm"
-                method="POST"
-                action="{{ url_for(
-                    'notes.delete_page',
-                    notebook_id=notebook.id,
-                    page_id=selected_page.id
-                ) }}"
-                hidden
-            ></form>
-
-
-
-            <!-- =================================================
-                 NOTEBOOK SETTINGS PANEL
-                 ================================================= -->
-
-            <section
-                class="notebook-settings-panel"
-                id="notebookSettingsPanel"
-                hidden
-            >
-
-                <div class="panel-header">
-
-                    <h3>
-                        Notebook appearance
-                    </h3>
-
-                    <button
-                        type="button"
-                        class="panel-close"
-                    >
-                        ×
-                    </button>
-
-                </div>
-
-
-                <form
-                    method="POST"
-                    action="{{ url_for(
-                        'notes.update_notebook_settings',
-                        notebook_id=notebook.id
-                    ) }}"
-                >
-
-
-                    <!-- Color Palette -->
-
-                    <div class="color-palette">
-
-                        {% for c in [
-                            '#9b8ddd',
-                            '#7ea7d8',
-                            '#86b99a',
-                            '#d79bba',
-                            '#d6a86b',
-                            '#8fa4a7',
-                            '#b28bd8',
-                            '#e68d8d'
-                        ] %}
-
-                        <label class="color-choice">
-
-                            <input
-                                type="radio"
-                                name="color"
-                                value="{{ c }}"
-                                {% if (notebook.color or '#9b8ddd') == c %}
-                                    checked
-                                {% endif %}
-                            >
-
-                            <span
-                                style="--choice-color: {{ c }}"
-                            ></span>
-
-                        </label>
-
-                        {% endfor %}
-
-                    </div>
-
-
-
-                    <!-- Icon -->
-
-                    <label class="panel-label">
-
-                        Icon
-
-                        <input
-                            name="icon"
-                            value="{{ notebook.icon }}"
-                            maxlength="10"
-                        >
-
-                    </label>
-
-
-
-                    <!-- Description -->
-
-                    <label class="panel-label">
-
-                        Description
-
-                        <textarea
-                            name="description"
-                            rows="3"
-                        >{{ notebook.description or '' }}</textarea>
-
-                    </label>
-
-
 
                     <button
                         class="save-page-btn"
                         type="submit"
                     >
-                        Save Appearance
+                        Enable Share Link
                     </button>
 
                 </form>
 
-            </section>
 
+                {% if notebook.share.enabled %}
 
+                <div class="share-link-box">
 
-            <!-- =================================================
-                 SHARE SETTINGS PANEL
-                 ================================================= -->
-
-            <section
-                class="notebook-settings-panel"
-                id="shareSettingsPanel"
-                hidden
-            >
-
-                <div class="panel-header">
-
-                    <h3>
-                        Sharing
-                    </h3>
-
-                    <button
-                        type="button"
-                        class="panel-close"
-                    >
-                        ×
-                    </button>
+                    {{ url_for(
+                        'notes.shared_notebook',
+                        token=notebook.share.token,
+                        _external=True
+                    ) }}
 
                 </div>
-
-
-
-                {% if notebook.share and notebook.share.token %}
-
-
-                    <p class="helper-text">
-
-                        Turn sharing on when you are ready
-                        to use this notebook with Study Meet.
-
-                    </p>
-
-
-
-                    <form
-                        method="POST"
-                        action="{{ url_for(
-                            'notes.toggle_share',
-                            notebook_id=notebook.id
-                        ) }}"
-                    >
-
-                        <input
-                            type="hidden"
-                            name="enabled"
-                            value="1"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="permission"
-                            value="view"
-                        >
-
-                        <button
-                            class="save-page-btn"
-                            type="submit"
-                        >
-                            Enable Share Link
-                        </button>
-
-                    </form>
-
-
-
-                    {% if notebook.share.enabled %}
-
-                    <div class="share-link-box">
-
-                        {{ url_for(
-                            'notes.shared_notebook',
-                            token=notebook.share.token,
-                            _external=True
-                        ) }}
-
-                    </div>
-
-                    {% endif %}
-
-
-
-                {% else %}
-
-
-
-                    <form
-                        method="POST"
-                        action="{{ url_for(
-                            'notes.toggle_share',
-                            notebook_id=notebook.id
-                        ) }}"
-                    >
-
-                        <input
-                            type="hidden"
-                            name="enabled"
-                            value="1"
-                        >
-
-                        <input
-                            type="hidden"
-                            name="permission"
-                            value="view"
-                        >
-
-                        <button
-                            class="save-page-btn"
-                            type="submit"
-                        >
-                            Create Share Link
-                        </button>
-
-                    </form>
-
-
 
                 {% endif %}
-
-            </section>
-
 
 
             {% else %}
 
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'notes.toggle_share',
+                        notebook_id=notebook.id
+                    ) }}"
+                >
 
-            <!-- =================================================
-                 NO PAGE STATE
-                 ================================================= -->
+                    <input
+                        type="hidden"
+                        name="enabled"
+                        value="1"
+                    >
 
-            <div class="no-page-state">
+                    <input
+                        type="hidden"
+                        name="permission"
+                        value="view"
+                    >
 
-                <div>
-                    📖
-                </div>
+                    <button
+                        class="save-page-btn"
+                        type="submit"
+                    >
+                        Create Share Link
+                    </button>
 
-                <h2>
-                    Your notebook is ready.
-                </h2>
-
-                <p>
-                    Create a page to start writing.
-                </p>
-
-            </div>
-
+                </form>
 
             {% endif %}
 
-        </main>
+        </section>
 
-    </div>
+
+        {% else %}
+
+
+        <!-- =================================================
+             NO PAGE STATE
+             ================================================= -->
+
+        <div class="no-page-state">
+
+            <div>
+                📖
+            </div>
+
+            <h2>
+                Your notebook is ready.
+            </h2>
+
+            <p>
+                Create a page to start writing.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+    </main>
+
+</div>
+```
 
 </section>
-
-
 
 <!-- =========================================================
      NOTEBOOK JAVASCRIPT
      ========================================================= -->
 
 <script
-    src="{{ url_for('static', filename='js/notebook.js') }}"
-></script>
-
-
+    src="{{ url_for('static', filename='js/notebook.js') }}">
+</script>
 
 <!-- =========================================================
      NOTEBOOK-TYPE JAVASCRIPT
@@ -814,21 +1203,25 @@
 {% if notebook.notebook_type == 'coding' %}
 
 <script
-    src="{{ url_for('static', filename='js/coding-notebook.js') }}"
-></script>
-
+    src="{{ url_for('static', filename='js/coding-notebook.js') }}">
+</script>
 
 {% elif notebook.notebook_type == 'general' %}
 
 <script
-    src="{{ url_for('static', filename='js/general-notebook.js') }}"
-></script>
-
+    src="{{ url_for('static', filename='js/general-notebook.js') }}">
+</script>
 
 {% elif notebook.notebook_type == 'project' %}
 
 <script
-    src="{{ url_for('static', filename='js/project-notebook.js') }}"
+    src="{{ url_for('static', filename='js/project-notebook.js') }}">
+</script>
+
+{% elif notebook.notebook_type == 'flashcards' %}
+
+<script
+    src="{{ url_for('static', filename='js/flashcards-notebook.js') }}"
 ></script>
 
 {% endif %}

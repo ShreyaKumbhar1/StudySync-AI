@@ -1,70 +1,95 @@
-<div class="special-notebook">
+<div class="special-notebook flashcards-notebook">
 
     <!-- =====================================================
-         FLASHCARDS INTRO
+         FLASHCARDS HEADER
          ===================================================== -->
 
-    <div class="workspace-intro">
+    <div class="flashcards-hero">
 
-        <span class="workspace-icon">
+        <div class="flashcards-hero-icon">
             🗂️
-        </span>
+        </div>
 
-        <div>
+        <div class="flashcards-hero-content">
+
+            <span class="flashcards-eyebrow">
+                ACTIVE RECALL WORKSPACE
+            </span>
 
             <h2>
                 Flashcards & Revision
             </h2>
 
             <p>
-                Active recall cards for fast revision.
+                Build a card, test yourself, and strengthen your memory.
             </p>
 
+        </div>
+
+        <div class="flashcards-session-badge">
+            <span class="session-dot"></span>
+            Revision Mode
         </div>
 
     </div>
 
 
     <!-- =====================================================
-         FLASHCARD BUILDER
+         SESSION STATS
          ===================================================== -->
 
-    <section class="special-card">
+    <section class="flashcard-stats">
 
-        <div class="flashcard-builder">
+        <div class="flash-stat">
+            <span class="flash-stat-icon">🃏</span>
 
-            <input
-                data-note-field="front"
-                placeholder="Question / concept"
-            >
+            <div>
+                <small>Cards Reviewed</small>
+                <strong id="cardsReviewed">0</strong>
+            </div>
+        </div>
 
-            <textarea
-                data-note-field="back"
-                placeholder="Answer / explanation"
-            ></textarea>
 
-            <input
-                data-note-field="hint"
-                placeholder="Hint"
-            >
+        <div class="flash-stat">
+            <span class="flash-stat-icon">🎯</span>
 
-            <select
-                data-note-field="difficulty"
-            >
+            <div>
+                <small>Confidence</small>
+                <strong id="confidenceScore">—</strong>
+            </div>
+        </div>
 
-                <option>
-                    Easy
-                </option>
 
-                <option selected>
-                    Medium
-                </option>
+        <div class="flash-stat">
+            <span class="flash-stat-icon">🔥</span>
 
-                <option>
-                    Hard
-                </option>
+            <div>
+                <small>Streak</small>
+                <strong id="reviewStreak">0</strong>
+            </div>
+        </div>
 
-            </select>
+
+        <div class="flash-stat mastery-stat">
+
+            <div class="mastery-stat-top">
+
+                <small>Mastery</small>
+
+                <strong id="masteryPercent">
+                    0%
+                </strong>
+
+            </div>
+
+            <div class="mastery-track">
+
+                <div
+                    class="mastery-fill"
+                    id="masteryFill"
+                ></div>
+
+            </div>
 
         </div>
 
@@ -72,26 +97,2731 @@
 
 
     <!-- =====================================================
+         MAIN FLASHCARD AREA
+         ===================================================== -->
+
+    <div class="flashcards-main-grid">
+
+
+        <!-- =================================================
+             BUILDER
+             ================================================= -->
+
+        <section class="special-card flashcard-builder-card">
+
+            <div class="flashcard-section-header">
+
+                <div class="flashcard-section-title">
+
+                    <span class="section-icon">
+                        ✨
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Build Your Flashcard
+                        </h3>
+
+                        <p>
+                            Add the information you want to remember.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="flashcard-form-grid">
+
+
+                <!-- QUESTION -->
+
+                <div class="flash-field full-width">
+
+                    <label>
+                        Question / Concept
+                    </label>
+
+                    <input
+                        type="text"
+                        data-note-field="front"
+                        id="flashFront"
+                        placeholder="What do you want to remember?"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <!-- ANSWER -->
+
+                <div class="flash-field full-width">
+
+                    <label>
+                        Answer / Explanation
+                    </label>
+
+                    <textarea
+                        data-note-field="back"
+                        id="flashBack"
+                        rows="5"
+                        placeholder="Write the answer or explanation..."
+                    ></textarea>
+
+                </div>
+
+
+                <!-- HINT -->
+
+                <div class="flash-field">
+
+                    <label>
+                        💡 Hint
+                    </label>
+
+                    <input
+                        type="text"
+                        data-note-field="hint"
+                        id="flashHint"
+                        placeholder="Optional clue..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <!-- DIFFICULTY -->
+
+                <div class="flash-field">
+
+                    <label>
+                        🎯 Difficulty
+                    </label>
+
+                    <select
+                        data-note-field="difficulty"
+                        id="flashDifficulty"
+                    >
+
+                        <option value="Easy">
+                            Easy
+                        </option>
+
+                        <option value="Medium" selected>
+                            Medium
+                        </option>
+
+                        <option value="Hard">
+                            Hard
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- TOPIC -->
+
+                <div class="flash-field">
+
+                    <label>
+                        📚 Topic
+                    </label>
+
+                    <input
+                        type="text"
+                        data-note-field="topic"
+                        id="flashTopic"
+                        placeholder="e.g. Operating Systems"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <!-- TAGS -->
+
+                <div class="flash-field">
+
+                    <label>
+                        🏷️ Tags
+                    </label>
+
+                    <input
+                        type="text"
+                        data-note-field="tags"
+                        id="flashTags"
+                        placeholder="e.g. exam, important, unit-3"
+                        autocomplete="off"
+                    >
+
+                </div>
+
+
+                <!-- MEMORY HOOK -->
+
+                <div class="flash-field full-width">
+
+                    <label>
+                        🧠 Memory Hook
+                    </label>
+
+                    <input
+                        type="text"
+                        data-note-field="memory_hook"
+                        id="flashMemoryHook"
+                        placeholder="Mnemonic, analogy or shortcut that helps you remember..."
+                        autocomplete="off"
+                    >
+
+                </div>
+
+            </div>
+
+            <div class="flashcard-save-row">
+                <span class="flashcard-limit" id="flashcardLimit">0 / 10 questions saved</span>
+                <button type="button" class="save-flashcard-btn" id="saveFlashcardBtn">＋ Save Question</button>
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INTERACTIVE RECALL STUDIO
+             ================================================= -->
+
+        <section class="special-card flashcard-preview-card">
+
+            <div class="flashcard-section-header">
+                <div class="flashcard-section-title">
+                    <span class="section-icon preview-icon">🧠</span>
+                    <div>
+                        <h3>Interactive Recall Studio</h3>
+                        <p>Preview, practice and score the card before saving it.</p>
+                    </div>
+                </div>
+
+                <div class="recall-header-tools">
+                    <span class="preview-status" id="previewStatus">READY</span>
+                    <span class="recall-timer" id="recallTimer">20s</span>
+                </div>
+            </div>
+
+            <div class="recall-toolbar">
+                <button type="button" class="recall-tool active" id="draftPreviewBtn">✨ Current Draft</button>
+                <button type="button" class="recall-tool" id="savedPreviewBtn">🗃 Saved Cards</button>
+                <button type="button" class="recall-tool" id="randomPreviewBtn">🔀 Random</button>
+            </div>
+
+            <div class="recall-card-meta" id="recallCardMeta">
+                <span id="previewCardCounter">Draft card</span>
+                <span id="previewDifficulty">Medium</span>
+            </div>
+
+            <div class="flashcard-preview" id="flashcardPreview">
+                <div class="flashcard-preview-inner">
+
+                    <div class="flashcard-face flashcard-front-face" id="flashcardFrontFace">
+                        <span class="preview-label">QUESTION</span>
+                        <div class="preview-question" id="previewQuestion">Your question will appear here.</div>
+                        <div class="preview-topic" id="previewTopic">Add a topic to your card</div>
+                        <div class="preview-bottom">
+                            <span id="previewInstruction">Start recall and try to answer from memory.</span>
+                        </div>
+                    </div>
+
+                    <div class="flashcard-face flashcard-back-face" id="flashcardBackFace">
+                        <span class="preview-label">ANSWER</span>
+                        <div class="preview-answer" id="previewAnswer">Your answer will appear here.</div>
+                        <div class="preview-memory" id="previewMemory"></div>
+                        <div class="preview-answer-note" id="previewAnswerNote">Compare this with what you remembered.</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="flashcard-controls">
+                <button type="button" class="flash-control secondary" id="showHintBtn">💡 Show Hint</button>
+                <button type="button" class="flash-control secondary" id="startRecallBtn">▶ Start Recall</button>
+                <button type="button" class="flash-control primary" id="revealAnswerBtn">👁 Reveal Answer</button>
+            </div>
+
+            <div class="flash-hint-box" id="flashHintBox" hidden>
+                <span>💡</span>
+                <div>
+                    <strong>Hint</strong>
+                    <p id="previewHint">Add a hint to this card.</p>
+                </div>
+            </div>
+
+            <div class="recall-result" id="recallResult" hidden>
+                <div>
+                    <strong>How did your recall go?</strong>
+                    <span>Choose honestly — this helps you identify weak cards.</span>
+                </div>
+                <div class="recall-result-actions">
+                    <button type="button" class="recall-result-btn need-practice" id="needPracticeBtn">🔁 Need Practice</button>
+                    <button type="button" class="recall-result-btn knew-it" id="knewItBtn">✓ I Knew It</button>
+                </div>
+            </div>
+
+            <div class="saved-preview-nav" id="savedPreviewNav" hidden>
+                <button type="button" class="preview-nav-btn" id="previousSavedBtn">← Previous</button>
+                <span id="savedPreviewPosition">1 / 1</span>
+                <button type="button" class="preview-nav-btn" id="nextSavedBtn">Next →</button>
+            </div>
+
+            <div class="flashcard-bottom-actions">
+                <button type="button" class="text-action" id="resetCardBtn">↺ Reset</button>
+                <div class="preview-secondary-actions">
+                    <button type="button" class="text-action" id="loadSavedBtn" hidden>✎ Load into Editor</button>
+                    <button type="button" class="mastered-btn" id="masteredBtn">✓ Mark as Mastered</button>
+                </div>
+            </div>
+
+        </section>
+
+
+
+    </div>
+
+
+    <!-- =====================================================
+         SAVED QUESTIONS / QUIZ
+         ===================================================== -->
+
+    <section class="special-card saved-flashcards-card">
+
+        <div class="flashcard-section-header">
+            <div class="flashcard-section-title">
+                <span class="section-icon">🗃️</span>
+                <div>
+                    <h3>Saved Questions</h3>
+                    <p>These questions belong only to this page.</p>
+                </div>
+            </div>
+
+            <button type="button" class="start-quiz-btn" id="startQuizBtn">▶ Start Quiz</button>
+        </div>
+
+        <div class="saved-flashcards-meta">
+            <span id="savedCardsCount">0 / 10 saved</span>
+            <span>Maximum 10 questions per page</span>
+        </div>
+
+        <div class="saved-flashcards-list" id="savedFlashcardsList">
+            <div class="empty-flashcards" id="emptyFlashcards">
+                <span>📝</span>
+                <strong>No questions saved yet</strong>
+                <small>Add your first question above.</small>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =====================================================
+         QUIZ MODAL
+         ===================================================== -->
+
+    <div class="flashcard-quiz-overlay" id="flashcardQuizOverlay" hidden>
+        <div class="flashcard-quiz-modal" role="dialog" aria-modal="true" aria-labelledby="quizTitle">
+
+            <div class="quiz-modal-header">
+                <div>
+                    <span class="quiz-eyebrow">ACTIVE RECALL</span>
+                    <h3 id="quizTitle">Page Quiz</h3>
+                    <p id="quizProgress">Question 1 of 1</p>
+                </div>
+                <button type="button" class="quiz-close-btn" id="closeQuizBtn" aria-label="Close quiz">×</button>
+            </div>
+
+            <div class="quiz-progress-track">
+                <div id="quizProgressFill"></div>
+            </div>
+
+            <div class="quiz-card-face" id="quizCardFace">
+                <span class="quiz-card-label">QUESTION</span>
+                <div class="quiz-question" id="quizQuestion"></div>
+                <div class="quiz-topic" id="quizTopic"></div>
+
+                <div class="quiz-answer" id="quizAnswer" hidden></div>
+                <div class="quiz-hint" id="quizHint" hidden></div>
+            </div>
+
+            <div class="quiz-actions">
+                <button type="button" class="quiz-secondary-btn" id="quizHintBtn">💡 Hint</button>
+                <button type="button" class="quiz-primary-btn" id="quizRevealBtn">👁 Reveal Answer</button>
+            </div>
+
+            <div class="quiz-rating" id="quizRating" hidden>
+                <span>How well did you remember it?</span>
+                <div>
+                    <button type="button" data-quiz-rating="Again">Again</button>
+                    <button type="button" data-quiz-rating="Hard">Hard</button>
+                    <button type="button" data-quiz-rating="Good">Good</button>
+                    <button type="button" data-quiz-rating="Easy">Easy</button>
+                </div>
+            </div>
+
+            <div class="quiz-footer">
+                <span id="quizScore">0 correct</span>
+                <button type="button" class="quiz-next-btn" id="quizNextBtn" hidden>Next →</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =====================================================
          REVISION NOTES
          ===================================================== -->
 
-    <section class="special-card">
+    <section class="special-card revision-notes-card">
 
-        <div class="special-card-header">
+        <div class="flashcard-section-header">
 
-            🧠
+            <div class="flashcard-section-title">
 
-            <strong>
-                Revision Notes
-            </strong>
+                <span class="section-icon">
+                    🧠
+                </span>
+
+                <div>
+
+                    <h3>
+                        Revision Notes
+                    </h3>
+
+                    <p>
+                        Capture important points, shortcuts and mistakes.
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
+
         <textarea
             data-note-field="content"
-            class="special-textarea"
+            class="special-textarea revision-textarea"
+            id="revisionNotes"
+            placeholder="Write important points, shortcuts, examples, mistakes to avoid..."
         >{{ page_data.content }}</textarea>
+
+
+        <!-- QUICK REVISION CHECKLIST -->
+
+        <div class="quick-revision">
+
+            <div class="quick-revision-header">
+
+                <strong>
+                    ⚡ Quick Revision Checklist
+                </strong>
+
+                <span>
+                    Before leaving this page
+                </span>
+
+            </div>
+
+
+            <label class="revision-check">
+
+                <input
+                    type="checkbox"
+                    data-note-field="understood"
+                    id="understoodCheck"
+                >
+
+                <span>
+                    I understand the concept
+                </span>
+
+            </label>
+
+
+            <label class="revision-check">
+
+                <input
+                    type="checkbox"
+                    data-note-field="can_explain"
+                    id="explainCheck"
+                >
+
+                <span>
+                    I can explain it without notes
+                </span>
+
+            </label>
+
+
+            <label class="revision-check">
+
+                <input
+                    type="checkbox"
+                    data-note-field="can_apply"
+                    id="applyCheck"
+                >
+
+                <span>
+                    I can apply it to a problem
+                </span>
+
+            </label>
+
+        </div>
 
     </section>
 
+
+    <!-- =====================================================
+         KEYBOARD SHORTCUTS
+         ===================================================== -->
+
+    <div class="flashcard-shortcuts">
+
+        <span>
+            ⌨️ Shortcuts
+        </span>
+
+        <kbd>Space</kbd>
+        <small>Reveal</small>
+
+        <kbd>H</kbd>
+        <small>Hint</small>
+
+        <kbd>R</kbd>
+        <small>Reset</small>
+
+    </div>
+
 </div>
+
+
+<!-- =========================================================
+     FLASHCARD NOTEBOOK STYLES
+     ========================================================= -->
+
+<style>
+
+.flashcards-notebook {
+    width: 100%;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.flashcards-hero {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 22px 24px;
+    margin-bottom: 18px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(155,141,221,.12),
+            rgba(255,255,255,.58)
+        );
+
+    border:
+        1px solid
+        rgba(155,141,221,.18);
+
+    box-shadow:
+        0 12px 32px
+        rgba(80,68,110,.07);
+}
+
+
+.flashcards-hero-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background:
+        rgba(155,141,221,.15);
+
+    font-size: 25px;
+}
+
+
+.flashcards-hero-content {
+    flex: 1;
+}
+
+
+.flashcards-eyebrow {
+    display: block;
+
+    margin-bottom: 4px;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 1.4px;
+
+    color: #9488b0;
+}
+
+
+.flashcards-hero h2 {
+    margin: 0;
+
+    color: #3f394a;
+
+    font-size: 22px;
+}
+
+
+.flashcards-hero p {
+    margin: 5px 0 0;
+
+    color: #9891a2;
+
+    font-size: 12px;
+}
+
+
+.flashcards-session-badge {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 8px 12px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.55);
+
+    border:
+        1px solid
+        rgba(155,141,221,.16);
+
+    color: #74698d;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+.session-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #8dbf9d;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(141,191,157,.12);
+}
+
+
+/* =========================================================
+   STATS
+   ========================================================= */
+
+.flashcard-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0,1fr));
+
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+
+.flash-stat {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    min-height: 70px;
+
+    padding: 13px 15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,.52);
+
+    border:
+        1px solid
+        rgba(155,141,221,.13);
+}
+
+
+.flash-stat-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        rgba(155,141,221,.10);
+
+    font-size: 15px;
+}
+
+
+.flash-stat small {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: #a29baa;
+
+    font-size: 9px;
+}
+
+
+.flash-stat strong {
+    color: #51495e;
+
+    font-size: 17px;
+}
+
+
+.mastery-stat {
+    display: block;
+}
+
+
+.mastery-stat-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 9px;
+}
+
+
+.mastery-stat-top small {
+    margin: 0;
+}
+
+
+.mastery-stat-top strong {
+    font-size: 14px;
+}
+
+
+.mastery-track {
+    width: 100%;
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background:
+        rgba(155,141,221,.10);
+}
+
+
+.mastery-fill {
+    width: 0;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            #9b8ddd,
+            #8dbf9d
+        );
+
+    transition:
+        width .35s ease;
+}
+
+
+/* =========================================================
+   MAIN GRID
+   ========================================================= */
+
+.flashcards-main-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        minmax(0,1fr);
+
+    gap: 18px;
+
+    align-items: start;
+}
+
+
+.flashcard-builder-card,
+.flashcard-preview-card,
+.revision-notes-card {
+    padding: 22px;
+}
+
+
+.flashcard-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+
+.flashcard-section-title {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+
+.section-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        rgba(155,141,221,.11);
+
+    font-size: 15px;
+}
+
+
+.flashcard-section-title h3 {
+    margin: 0;
+
+    color: #4b4356;
+
+    font-size: 15px;
+}
+
+
+.flashcard-section-title p {
+    margin: 3px 0 0;
+
+    color: #aaa3b0;
+
+    font-size: 10px;
+}
+
+
+.preview-icon {
+    background:
+        rgba(126,167,216,.12);
+}
+
+
+.preview-status {
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(155,141,221,.09);
+
+    color: #8a7eaa;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: .8px;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.flashcard-form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+    gap: 15px;
+}
+
+
+.flash-field {
+    min-width: 0;
+}
+
+
+.flash-field.full-width {
+    grid-column: 1 / -1;
+}
+
+
+.flash-field label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #655d6e;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+.flash-field input,
+.flash-field textarea,
+.flash-field select {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    border:
+        1px solid
+        rgba(155,141,221,.16);
+
+    border-radius: 11px;
+
+    background:
+        rgba(255,255,255,.58);
+
+    color: #4e4757;
+
+    padding: 11px 12px;
+
+    font-family: inherit;
+    font-size: 11px;
+
+    outline: none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+
+.flash-field textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+
+.flash-field input::placeholder,
+.flash-field textarea::placeholder {
+    color: #c1bac7;
+}
+
+
+.flash-field input:focus,
+.flash-field textarea:focus,
+.flash-field select:focus {
+    border-color:
+        rgba(155,141,221,.45);
+
+    background:
+        rgba(255,255,255,.78);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(155,141,221,.08);
+}
+
+
+/* =========================================================
+   PREVIEW CARD
+   ========================================================= */
+
+.flashcard-preview {
+    position: relative;
+
+    min-height: 250px;
+
+    perspective: 1000px;
+}
+
+
+.flashcard-preview-inner {
+    position: relative;
+
+    width: 100%;
+    min-height: 250px;
+}
+
+
+.flashcard-face {
+    min-height: 250px;
+
+    box-sizing: border-box;
+
+    padding: 27px;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.84),
+            rgba(246,243,250,.72)
+        );
+
+    border:
+        1px solid
+        rgba(155,141,221,.18);
+
+    box-shadow:
+        inset 0 1px 0
+        rgba(255,255,255,.75),
+        0 10px 25px
+        rgba(86,73,113,.06);
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
+}
+
+
+.flashcard-back-face {
+    display: none;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(235,230,250,.78),
+            rgba(255,255,255,.84)
+        );
+}
+
+
+.flashcard-preview.revealed
+.flashcard-front-face {
+    display: none;
+}
+
+
+.flashcard-preview.revealed
+.flashcard-back-face {
+    display: flex;
+}
+
+
+.preview-label {
+    color: #9a8fb3;
+
+    font-size: 8px;
+    font-weight: 700;
+
+    letter-spacing: 1.3px;
+}
+
+
+.preview-question,
+.preview-answer {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 20px 10px;
+
+    color: #4d4655;
+
+    font-size: 19px;
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+.preview-answer {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+
+.preview-topic {
+    align-self: center;
+
+    padding: 5px 9px;
+
+    border-radius: 999px;
+
+    background:
+        rgba(155,141,221,.09);
+
+    color: #8d82a5;
+
+    font-size: 9px;
+}
+
+
+.preview-bottom {
+    text-align: center;
+
+    color: #b1aab8;
+
+    font-size: 9px;
+}
+
+
+.preview-memory {
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    background:
+        rgba(214,168,107,.10);
+
+    color: #8e7861;
+
+    font-size: 10px;
+}
+
+
+.flashcard-controls {
+    display: flex;
+    gap: 9px;
+
+    margin-top: 12px;
+}
+
+
+.flash-control {
+    flex: 1;
+
+    border: 0;
+
+    border-radius: 10px;
+
+    padding: 10px 12px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    transition:
+        transform .18s ease,
+        box-shadow .18s ease;
+}
+
+
+.flash-control:hover,
+.mastered-btn:hover,
+.confidence-btn:hover {
+    transform: translateY(-1px);
+}
+
+
+.flash-control.primary {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #9b8ddd,
+            #8879cb
+        );
+
+    box-shadow:
+        0 7px 16px
+        rgba(130,112,190,.18);
+}
+
+
+.flash-control.secondary {
+    color: #706580;
+
+    background:
+        rgba(155,141,221,.09);
+}
+
+
+.flash-hint-box {
+    display: flex;
+    gap: 9px;
+
+    margin-top: 11px;
+    padding: 11px 13px;
+
+    border-radius: 11px;
+
+    background:
+        rgba(214,168,107,.10);
+
+    border:
+        1px solid
+        rgba(214,168,107,.12);
+}
+
+
+.flash-hint-box strong {
+    color: #806c57;
+
+    font-size: 10px;
+}
+
+
+.flash-hint-box p {
+    margin: 3px 0 0;
+
+    color: #9b8976;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   CONFIDENCE
+   ========================================================= */
+
+.confidence-section {
+    margin-top: 18px;
+    padding-top: 16px;
+
+    border-top:
+        1px solid
+        rgba(155,141,221,.10);
+}
+
+
+.confidence-heading strong {
+    display: block;
+
+    color: #5c5465;
+
+    font-size: 10px;
+}
+
+
+.confidence-heading span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #aaa2b0;
+
+    font-size: 9px;
+}
+
+
+.confidence-buttons {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 7px;
+
+    margin-top: 10px;
+}
+
+
+.confidence-btn {
+    border:
+        1px solid
+        rgba(155,141,221,.11);
+
+    border-radius: 9px;
+
+    padding: 8px 5px;
+
+    cursor: pointer;
+
+    background:
+        rgba(255,255,255,.42);
+
+    color: #706879;
+
+    font-family: inherit;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    transition:
+        .18s ease;
+}
+
+
+.confidence-btn.active {
+    background:
+        rgba(155,141,221,.14);
+
+    border-color:
+        rgba(155,141,221,.30);
+
+    box-shadow:
+        0 4px 12px
+        rgba(100,85,140,.08);
+}
+
+
+.confidence-btn span {
+    display: block;
+
+    margin-bottom: 3px;
+}
+
+
+.flashcard-bottom-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 15px;
+}
+
+
+.text-action {
+    border: 0;
+    background: transparent;
+
+    color: #9990a2;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    font-size: 9px;
+}
+
+
+.mastered-btn {
+    border: 0;
+
+    border-radius: 9px;
+
+    padding: 9px 12px;
+
+    cursor: pointer;
+
+    background:
+        rgba(134,185,154,.12);
+
+    color: #6f9c7e;
+
+    font-family: inherit;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    transition:
+        transform .18s ease,
+        background .18s ease;
+}
+
+
+.mastered-btn.mastered {
+    background:
+        rgba(134,185,154,.24);
+
+    color: #507b5f;
+}
+
+
+/* =========================================================
+   REVISION NOTES
+   ========================================================= */
+
+.revision-notes-card {
+    margin-top: 18px;
+}
+
+
+.revision-textarea {
+    min-height: 170px;
+
+    box-sizing: border-box;
+
+    padding: 14px;
+
+    border-radius: 12px;
+
+    border:
+        1px solid
+        rgba(155,141,221,.15);
+
+    background:
+        rgba(255,255,255,.48);
+
+    color: #514958;
+
+    font-family: inherit;
+    font-size: 11px;
+
+    resize: vertical;
+
+    outline: none;
+}
+
+
+.revision-textarea:focus {
+    border-color:
+        rgba(155,141,221,.35);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(155,141,221,.07);
+}
+
+
+.quick-revision {
+    margin-top: 15px;
+
+    padding: 14px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(155,141,221,.055);
+
+    border:
+        1px solid
+        rgba(155,141,221,.10);
+}
+
+
+.quick-revision-header {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+}
+
+
+.quick-revision-header strong {
+    color: #62596d;
+
+    font-size: 10px;
+}
+
+
+.quick-revision-header span {
+    color: #aaa2af;
+
+    font-size: 8px;
+}
+
+
+.revision-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 6px 0;
+
+    color: #766d7b;
+
+    font-size: 10px;
+
+    cursor: pointer;
+}
+
+
+.revision-check input {
+    accent-color: #9b8ddd;
+}
+
+
+/* =========================================================
+   SHORTCUTS
+   ========================================================= */
+
+.flashcard-shortcuts {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 6px;
+
+    margin-top: 13px;
+
+    color: #aaa2b0;
+
+    font-size: 8px;
+}
+
+
+.flashcard-shortcuts span {
+    margin-right: 3px;
+
+    font-weight: 600;
+}
+
+
+.flashcard-shortcuts kbd {
+    min-width: 18px;
+
+    padding: 3px 5px;
+
+    text-align: center;
+
+    border-radius: 5px;
+
+    background:
+        rgba(155,141,221,.08);
+
+    border:
+        1px solid
+        rgba(155,141,221,.12);
+
+    color: #807692;
+
+    font-size: 8px;
+}
+
+
+.flashcard-shortcuts small {
+    margin-right: 5px;
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .flashcards-main-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flashcard-stats {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .flashcards-hero {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .flashcards-session-badge {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .flashcard-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flash-field.full-width {
+        grid-column: auto;
+    }
+
+    .confidence-buttons {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+
+/* =========================================================
+   FLASHCARD NOTEBOOK JAVASCRIPT
+   ========================================================= */
+
+
+/* =========================================================
+   SAVED QUESTIONS + QUIZ
+   ========================================================= */
+
+.flashcard-save-row {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px solid rgba(155,141,221,.10);
+}
+
+.flashcard-limit,
+.saved-flashcards-meta {
+    color:#9a92a3;
+    font-size:9px;
+}
+
+.save-flashcard-btn,
+.start-quiz-btn {
+    border:0;
+    border-radius:10px;
+    padding:10px 14px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:10px;
+    font-weight:700;
+}
+
+.save-flashcard-btn {
+    color:white;
+    background:linear-gradient(135deg,#9b8ddd,#8879cb);
+    box-shadow:0 7px 16px rgba(130,112,190,.14);
+}
+
+.save-flashcard-btn:disabled { opacity:.45; cursor:not-allowed; box-shadow:none; }
+
+.saved-flashcards-card { margin-top:18px; }
+
+.saved-flashcards-meta {
+    display:flex;
+    justify-content:space-between;
+    margin:-7px 0 12px 45px;
+}
+
+.start-quiz-btn {
+    color:#6e6280;
+    background:rgba(141,191,157,.14);
+    border:1px solid rgba(141,191,157,.18);
+}
+
+.start-quiz-btn:disabled { opacity:.45; cursor:not-allowed; }
+
+.saved-flashcards-list {
+    display:grid;
+    gap:8px;
+}
+
+.saved-flashcard-item {
+    display:grid;
+    grid-template-columns:34px minmax(0,1fr) auto;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:12px;
+    background:rgba(255,255,255,.48);
+    border:1px solid rgba(155,141,221,.10);
+}
+
+.saved-flashcard-number {
+    width:28px;height:28px;border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(155,141,221,.10); color:#81759a; font-size:9px; font-weight:700;
+}
+
+.saved-flashcard-question { color:#554d60; font-size:10px; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.saved-flashcard-topic { color:#a39aaa; font-size:8px; margin-top:3px; }
+
+.remove-saved-card {
+    width:28px;height:28px;border:0;border-radius:8px; cursor:pointer;
+    background:rgba(230,141,141,.09); color:#b77e7e; font-size:13px;
+}
+
+.empty-flashcards {
+    padding:22px; text-align:center; border:1px dashed rgba(155,141,221,.16);
+    border-radius:13px; color:#aaa2af;
+}
+.empty-flashcards span { display:block; font-size:20px; margin-bottom:6px; }
+.empty-flashcards strong { display:block; color:#716879; font-size:10px; }
+.empty-flashcards small { display:block; margin-top:4px; font-size:8px; }
+
+.flashcard-quiz-overlay {
+    position:fixed; inset:0; z-index:9999; display:flex; align-items:center; justify-content:center;
+    padding:24px; background:rgba(48,45,56,.28); backdrop-filter:blur(8px);
+}
+.flashcard-quiz-overlay[hidden] { display:none; }
+
+.flashcard-quiz-modal {
+    width:min(560px,100%); max-height:90vh; overflow:auto; padding:22px;
+    border-radius:22px; background:rgba(250,248,252,.97); border:1px solid rgba(155,141,221,.18);
+    box-shadow:0 25px 70px rgba(55,45,75,.20);
+}
+
+.quiz-modal-header { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; }
+.quiz-eyebrow { color:#978ab0; font-size:8px; font-weight:800; letter-spacing:1.4px; }
+.quiz-modal-header h3 { margin:4px 0 2px; color:#403948; font-size:18px; }
+.quiz-modal-header p { margin:0; color:#aaa2af; font-size:9px; }
+.quiz-close-btn { border:0; background:rgba(155,141,221,.08); color:#756b82; width:30px;height:30px;border-radius:9px; cursor:pointer; font-size:18px; }
+
+.quiz-progress-track { height:6px; border-radius:999px; background:rgba(155,141,221,.09); overflow:hidden; margin:15px 0; }
+.quiz-progress-track div { height:100%; width:0; background:linear-gradient(90deg,#9b8ddd,#8dbf9d); transition:width .25s ease; }
+
+.quiz-card-face { min-height:240px; padding:28px; border-radius:18px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; background:linear-gradient(145deg,rgba(255,255,255,.9),rgba(238,234,247,.78)); border:1px solid rgba(155,141,221,.16); }
+.quiz-card-label { color:#9a8fb3; font-size:8px; font-weight:800; letter-spacing:1.3px; }
+.quiz-question { margin:20px 0 12px; color:#4d4655; font-size:19px; font-weight:650; line-height:1.5; }
+.quiz-topic { padding:5px 9px; border-radius:999px; background:rgba(155,141,221,.09); color:#8d82a5; font-size:8px; }
+.quiz-answer { width:100%; box-sizing:border-box; margin-top:18px; padding:13px; border-radius:11px; background:rgba(141,191,157,.10); color:#5f7567; font-size:11px; line-height:1.55; }
+.quiz-hint { width:100%; box-sizing:border-box; margin-top:10px; padding:10px; border-radius:10px; background:rgba(214,168,107,.10); color:#8d7862; font-size:9px; }
+
+.quiz-actions { display:flex; gap:9px; margin-top:12px; }
+.quiz-secondary-btn,.quiz-primary-btn,.quiz-next-btn { flex:1; border:0; border-radius:10px; padding:11px 12px; cursor:pointer; font-family:inherit; font-size:10px; font-weight:700; }
+.quiz-secondary-btn { background:rgba(155,141,221,.09); color:#706580; }
+.quiz-primary-btn,.quiz-next-btn { color:white; background:linear-gradient(135deg,#9b8ddd,#8879cb); }
+
+.quiz-rating { margin-top:15px; padding-top:14px; border-top:1px solid rgba(155,141,221,.10); text-align:center; }
+.quiz-rating > span { display:block; color:#6d6575; font-size:9px; margin-bottom:8px; }
+.quiz-rating > div { display:grid; grid-template-columns:repeat(4,1fr); gap:7px; }
+.quiz-rating button { border:1px solid rgba(155,141,221,.11); border-radius:9px; padding:8px; cursor:pointer; background:rgba(255,255,255,.55); color:#706879; font:600 9px inherit; }
+.quiz-rating button.selected { background:rgba(155,141,221,.14); border-color:rgba(155,141,221,.30); }
+.quiz-footer { display:flex; justify-content:space-between; align-items:center; margin-top:13px; color:#9a92a3; font-size:9px; }
+.quiz-next-btn { flex:0 0 auto; padding:9px 13px; }
+
+@media (max-width:600px) {
+    .flashcard-save-row { align-items:stretch; flex-direction:column; }
+    .saved-flashcards-meta { margin-left:0; }
+    .saved-flashcard-item { grid-template-columns:30px minmax(0,1fr) 28px; }
+    .quiz-rating > div { grid-template-columns:repeat(2,1fr); }
+}
+
+
+
+/* =========================================================
+   INTERACTIVE RECALL STUDIO
+   ========================================================= */
+
+.recall-header-tools {
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.recall-timer {
+    min-width:42px;
+    padding:5px 8px;
+    text-align:center;
+    border-radius:999px;
+    background:rgba(141,191,157,.10);
+    border:1px solid rgba(141,191,157,.16);
+    color:#6f9c7e;
+    font-size:8px;
+    font-weight:700;
+}
+
+.recall-timer.running {
+    background:rgba(214,168,107,.12);
+    border-color:rgba(214,168,107,.18);
+    color:#8e7861;
+}
+
+.recall-timer.urgent {
+    background:rgba(204,115,115,.10);
+    border-color:rgba(204,115,115,.16);
+    color:#a36f6f;
+}
+
+.recall-toolbar {
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    margin-bottom:10px;
+}
+
+.recall-tool {
+    border:1px solid rgba(155,141,221,.12);
+    border-radius:9px;
+    padding:7px 10px;
+    background:rgba(255,255,255,.42);
+    color:#807692;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:9px;
+    font-weight:600;
+    transition:.18s ease;
+}
+
+.recall-tool:hover {
+    transform:translateY(-1px);
+    background:rgba(155,141,221,.08);
+}
+
+.recall-tool.active {
+    background:rgba(155,141,221,.13);
+    border-color:rgba(155,141,221,.27);
+    color:#75698f;
+}
+
+.recall-card-meta {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin:0 2px 8px;
+    color:#aaa2b0;
+    font-size:8px;
+}
+
+.recall-card-meta span:last-child {
+    padding:4px 7px;
+    border-radius:999px;
+    background:rgba(155,141,221,.07);
+    color:#8b80a3;
+    font-weight:700;
+}
+
+.preview-answer-note {
+    margin-top:10px;
+    text-align:center;
+    color:#aaa2b0;
+    font-size:9px;
+}
+
+.recall-result {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-top:11px;
+    padding:12px 13px;
+    border-radius:12px;
+    background:rgba(155,141,221,.055);
+    border:1px solid rgba(155,141,221,.10);
+}
+
+.recall-result strong,
+.recall-result span {
+    display:block;
+}
+
+.recall-result strong {
+    color:#62596d;
+    font-size:10px;
+}
+
+.recall-result span {
+    margin-top:3px;
+    color:#aaa2af;
+    font-size:8px;
+}
+
+.recall-result-actions {
+    display:flex;
+    gap:7px;
+}
+
+.recall-result-btn {
+    border:0;
+    border-radius:8px;
+    padding:8px 10px;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:9px;
+    font-weight:700;
+}
+
+.recall-result-btn.need-practice {
+    background:rgba(214,168,107,.11);
+    color:#8e7861;
+}
+
+.recall-result-btn.knew-it {
+    background:rgba(134,185,154,.13);
+    color:#638b70;
+}
+
+.saved-preview-nav {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    margin-top:11px;
+}
+
+.saved-preview-nav span {
+    min-width:50px;
+    text-align:center;
+    color:#91889b;
+    font-size:9px;
+    font-weight:700;
+}
+
+.preview-nav-btn {
+    border:1px solid rgba(155,141,221,.12);
+    border-radius:8px;
+    padding:7px 10px;
+    background:rgba(255,255,255,.44);
+    color:#807692;
+    cursor:pointer;
+    font-family:inherit;
+    font-size:9px;
+}
+
+.preview-secondary-actions {
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.text-action:disabled,
+.preview-nav-btn:disabled,
+.recall-tool:disabled {
+    opacity:.45;
+    cursor:not-allowed;
+    transform:none;
+}
+
+@media (max-width:700px) {
+    .recall-result {
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .recall-result-actions {
+        width:100%;
+    }
+
+    .recall-result-btn {
+        flex:1;
+    }
+}
+</style>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const state = window.ORION_NOTE_STATE || window.ORION_PAGE_DATA || {
+        version: 2,
+        fields: {},
+        images: [],
+        flashcards: []
+    };
+
+    state.fields = state.fields || {};
+    state.images = state.images || [];
+    state.flashcards = Array.isArray(state.flashcards) ? state.flashcards.slice(0, 10) : [];
+
+    state.flashcards = state.flashcards.map(card => ({
+        id: card.id || Date.now() + Math.random(),
+        front: card.front || '',
+        back: card.back || '',
+        hint: card.hint || '',
+        topic: card.topic || '',
+        tags: card.tags || '',
+        memory_hook: card.memory_hook || '',
+        difficulty: card.difficulty || 'Medium',
+        mastered: !!card.mastered,
+        reviews: Number(card.reviews) || 0,
+        correct: Number(card.correct) || 0,
+        incorrect: Number(card.incorrect) || 0
+    }));
+
+    window.ORION_NOTE_STATE = state;
+
+    const front = document.getElementById('flashFront');
+    const back = document.getElementById('flashBack');
+    const hint = document.getElementById('flashHint');
+    const topic = document.getElementById('flashTopic');
+    const memory = document.getElementById('flashMemoryHook');
+    const difficulty = document.getElementById('flashDifficulty');
+    const tags = document.getElementById('flashTags');
+
+    const preview = document.getElementById('flashcardPreview');
+    const previewQuestion = document.getElementById('previewQuestion');
+    const previewAnswer = document.getElementById('previewAnswer');
+    const previewHint = document.getElementById('previewHint');
+    const previewTopic = document.getElementById('previewTopic');
+    const previewMemory = document.getElementById('previewMemory');
+    const previewStatus = document.getElementById('previewStatus');
+    const previewDifficulty = document.getElementById('previewDifficulty');
+    const previewCardCounter = document.getElementById('previewCardCounter');
+    const previewInstruction = document.getElementById('previewInstruction');
+    const previewAnswerNote = document.getElementById('previewAnswerNote');
+
+    const hintBox = document.getElementById('flashHintBox');
+    const revealBtn = document.getElementById('revealAnswerBtn');
+    const hintBtn = document.getElementById('showHintBtn');
+    const startRecallBtn = document.getElementById('startRecallBtn');
+    const resetBtn = document.getElementById('resetCardBtn');
+    const masteredBtn = document.getElementById('masteredBtn');
+
+    const recallTimer = document.getElementById('recallTimer');
+    const recallResult = document.getElementById('recallResult');
+    const needPracticeBtn = document.getElementById('needPracticeBtn');
+    const knewItBtn = document.getElementById('knewItBtn');
+
+    const draftPreviewBtn = document.getElementById('draftPreviewBtn');
+    const savedPreviewBtn = document.getElementById('savedPreviewBtn');
+    const randomPreviewBtn = document.getElementById('randomPreviewBtn');
+
+    const savedPreviewNav = document.getElementById('savedPreviewNav');
+    const previousSavedBtn = document.getElementById('previousSavedBtn');
+    const nextSavedBtn = document.getElementById('nextSavedBtn');
+    const savedPreviewPosition = document.getElementById('savedPreviewPosition');
+    const loadSavedBtn = document.getElementById('loadSavedBtn');
+
+    const reviewedDisplay = document.getElementById('cardsReviewed');
+    const confidenceDisplay = document.getElementById('confidenceScore');
+    const streakDisplay = document.getElementById('reviewStreak');
+    const masteryDisplay = document.getElementById('masteryPercent');
+    const masteryFill = document.getElementById('masteryFill');
+
+    const saveBtn = document.getElementById('saveFlashcardBtn');
+    const limitDisplay = document.getElementById('flashcardLimit');
+    const savedCount = document.getElementById('savedCardsCount');
+    const savedList = document.getElementById('savedFlashcardsList');
+    const startQuizBtn = document.getElementById('startQuizBtn');
+
+    let previewMode = 'draft';
+    let savedIndex = 0;
+    let revealed = false;
+    let reviewed = 0;
+    let confidenceTotal = 0;
+    let streak = 0;
+    let timerSeconds = 20;
+    let timerId = null;
+
+    function markChanged() {
+        if (typeof window.ORION_MARK_CHANGED === 'function') {
+            window.ORION_MARK_CHANGED();
+        }
+    }
+
+    function getDraftCard() {
+        return {
+            front: front?.value.trim() || '',
+            back: back?.value.trim() || '',
+            hint: hint?.value.trim() || '',
+            topic: topic?.value.trim() || '',
+            tags: tags?.value.trim() || '',
+            memory_hook: memory?.value.trim() || '',
+            difficulty: difficulty?.value || 'Medium',
+            mastered: false
+        };
+    }
+
+    function getCurrentCard() {
+        return previewMode === 'saved'
+            ? state.flashcards[savedIndex] || null
+            : getDraftCard();
+    }
+
+    function setToolActive(button) {
+        [draftPreviewBtn, savedPreviewBtn].forEach(btn => btn?.classList.remove('active'));
+        button?.classList.add('active');
+    }
+
+    function stopTimer() {
+        if (timerId) clearInterval(timerId);
+        timerId = null;
+        recallTimer?.classList.remove('running', 'urgent');
+    }
+
+    function setTimer(seconds) {
+        timerSeconds = seconds;
+        if (recallTimer) recallTimer.textContent = `${seconds}s`;
+        recallTimer?.classList.toggle('urgent', seconds <= 5);
+    }
+
+    function startTimer() {
+        stopTimer();
+        timerSeconds = 20;
+        recallTimer?.classList.add('running');
+        setTimer(20);
+
+        timerId = setInterval(() => {
+            timerSeconds--;
+            setTimer(timerSeconds);
+
+            if (timerSeconds <= 0) {
+                stopTimer();
+                revealAnswer(true);
+            }
+        }, 1000);
+    }
+
+    function updateMastery() {
+        const total = state.flashcards.length;
+
+        if (!total) {
+            masteryDisplay.textContent = '0%';
+            masteryFill.style.width = '0%';
+            return;
+        }
+
+        const masteredCount = state.flashcards.filter(card => card.mastered).length;
+        const percentage = Math.round((masteredCount / total) * 100);
+
+        masteryDisplay.textContent = percentage + '%';
+        masteryFill.style.width = percentage + '%';
+    }
+
+    function updateSessionStats() {
+        reviewedDisplay.textContent = reviewed;
+
+        if (!reviewed) {
+            confidenceDisplay.textContent = '—';
+            streakDisplay.textContent = '0';
+            return;
+        }
+
+        confidenceDisplay.textContent = (confidenceTotal / reviewed).toFixed(1) + ' / 4';
+        streakDisplay.textContent = streak;
+    }
+
+    function updateMasteredButton() {
+        const card = getCurrentCard();
+        const isMastered = !!card?.mastered;
+
+        masteredBtn?.classList.toggle('mastered', isMastered);
+        if (masteredBtn) {
+            masteredBtn.textContent = isMastered ? '✓ Mastered' : '✓ Mark as Mastered';
+        }
+    }
+
+    function resetPreviewState() {
+        stopTimer();
+        revealed = false;
+        preview?.classList.remove('revealed');
+
+        if (hintBox) hintBox.hidden = true;
+        if (recallResult) recallResult.hidden = true;
+
+        if (revealBtn) revealBtn.textContent = '👁 Reveal Answer';
+        if (hintBtn) hintBtn.textContent = '💡 Show Hint';
+        if (startRecallBtn) startRecallBtn.textContent = '▶ Start Recall';
+        if (previewStatus) previewStatus.textContent = 'READY';
+
+        if (previewInstruction) {
+            previewInstruction.textContent = 'Start recall and try to answer from memory.';
+        }
+
+        if (previewAnswerNote) {
+            previewAnswerNote.textContent = 'Compare this with what you remembered.';
+        }
+
+        document.querySelectorAll('.confidence-btn')
+            .forEach(btn => btn.classList.remove('active'));
+
+        setTimer(20);
+        updateMasteredButton();
+    }
+
+    function updatePreview() {
+        const card = getCurrentCard();
+
+        if (!card) {
+            previewQuestion.textContent = 'Save a question to preview it here.';
+            previewAnswer.textContent = 'Your saved answer will appear here.';
+            previewHint.textContent = 'No saved hint.';
+            previewTopic.textContent = 'No saved topic';
+            previewMemory.textContent = '';
+            previewDifficulty.textContent = '—';
+            previewCardCounter.textContent = 'No saved cards';
+            previewStatus.textContent = 'EMPTY';
+            return;
+        }
+
+        previewQuestion.textContent = card.front || 'Your question will appear here.';
+        previewAnswer.textContent = card.back || 'Your answer will appear here.';
+        previewHint.textContent = card.hint || 'No hint has been added to this card.';
+        previewTopic.textContent = card.topic || 'General revision';
+        previewMemory.textContent = card.memory_hook ? '🧠 Memory Hook: ' + card.memory_hook : '';
+        previewDifficulty.textContent = card.difficulty || 'Medium';
+
+        previewCardCounter.textContent = previewMode === 'saved'
+            ? `Saved card ${savedIndex + 1} of ${state.flashcards.length}`
+            : 'Current draft • not saved yet';
+
+        loadSavedBtn.hidden = previewMode !== 'saved';
+        resetPreviewState();
+    }
+
+    function revealAnswer(autoReveal = false) {
+        const card = getCurrentCard();
+        if (!card?.front) return;
+
+        stopTimer();
+        revealed = !revealed;
+        preview?.classList.toggle('revealed', revealed);
+
+        if (revealed) {
+            revealBtn.textContent = '🙈 Hide Answer';
+            previewStatus.textContent = autoReveal ? 'TIME UP' : 'ANSWER';
+            previewInstruction.textContent = 'Compare your answer with the explanation.';
+            recallResult.hidden = false;
+        } else {
+            revealBtn.textContent = '👁 Reveal Answer';
+            previewStatus.textContent = 'QUESTION';
+            recallResult.hidden = true;
+        }
+    }
+
+    function showDraftMode() {
+        previewMode = 'draft';
+        savedPreviewNav.hidden = true;
+        setToolActive(draftPreviewBtn);
+        updatePreview();
+    }
+
+    function updateSavedNavigation() {
+        const total = state.flashcards.length;
+
+        savedPreviewPosition.textContent = total ? `${savedIndex + 1} / ${total}` : '0 / 0';
+        previousSavedBtn.disabled = savedIndex <= 0 || !total;
+        nextSavedBtn.disabled = savedIndex >= total - 1 || !total;
+    }
+
+    function showSavedMode(index = savedIndex) {
+        if (!state.flashcards.length) {
+            alert('Save at least one question on this page first.');
+            return;
+        }
+
+        previewMode = 'saved';
+        savedIndex = Math.max(0, Math.min(index, state.flashcards.length - 1));
+        savedPreviewNav.hidden = false;
+        setToolActive(savedPreviewBtn);
+        updateSavedNavigation();
+        updatePreview();
+    }
+
+    /* =====================================================
+       BUILDER INPUT
+       ===================================================== */
+
+    [front, back, hint, topic, memory, difficulty, tags].forEach(field => {
+        field?.addEventListener('input', () => {
+            if (previewMode === 'draft') updatePreview();
+            markChanged();
+        });
+
+        field?.addEventListener('change', () => {
+            if (previewMode === 'draft') updatePreview();
+            markChanged();
+        });
+    });
+
+    /* =====================================================
+       SAVED QUESTIONS
+       ===================================================== */
+
+    function updateSavedUI() {
+        const count = state.flashcards.length;
+
+        limitDisplay.textContent = `${count} / 10 questions saved`;
+        savedCount.textContent = `${count} / 10 saved`;
+        saveBtn.disabled = count >= 10;
+        startQuizBtn.disabled = count === 0;
+
+        updateMastery();
+
+        if (!savedList) return;
+        savedList.innerHTML = '';
+
+        if (!count) {
+            const empty = document.createElement('div');
+            empty.className = 'empty-flashcards';
+            empty.innerHTML = '<span>📝</span><strong>No questions saved yet</strong><small>Add your first question above.</small>';
+            savedList.appendChild(empty);
+            return;
+        }
+
+        state.flashcards.forEach((card, index) => {
+            const item = document.createElement('div');
+            item.className = 'saved-flashcard-item';
+
+            const num = document.createElement('div');
+            num.className = 'saved-flashcard-number';
+            num.textContent = index + 1;
+
+            const info = document.createElement('div');
+            const question = document.createElement('div');
+            question.className = 'saved-flashcard-question';
+            question.textContent = card.front;
+
+            const meta = document.createElement('div');
+            meta.className = 'saved-flashcard-topic';
+            meta.textContent = [card.topic, card.difficulty, card.mastered ? '✓ Mastered' : '']
+                .filter(Boolean).join(' • ') || 'Revision question';
+
+            info.append(question, meta);
+
+            const actions = document.createElement('div');
+            actions.className = 'saved-flashcard-actions';
+
+            const previewBtn = document.createElement('button');
+            previewBtn.type = 'button';
+            previewBtn.className = 'saved-card-preview-btn';
+            previewBtn.textContent = 'Preview';
+            previewBtn.addEventListener('click', () => {
+                showSavedMode(index);
+                preview?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            const remove = document.createElement('button');
+            remove.type = 'button';
+            remove.className = 'remove-saved-card';
+            remove.textContent = '×';
+            remove.title = 'Remove question';
+
+            remove.addEventListener('click', () => {
+                state.flashcards.splice(index, 1);
+
+                if (savedIndex >= state.flashcards.length) {
+                    savedIndex = Math.max(0, state.flashcards.length - 1);
+                }
+
+                if (!state.flashcards.length) {
+                    showDraftMode();
+                } else if (previewMode === 'saved') {
+                    updateSavedNavigation();
+                    updatePreview();
+                }
+
+                updateSavedUI();
+                markChanged();
+            });
+
+            actions.append(previewBtn, remove);
+            item.append(num, info, actions);
+            savedList.appendChild(item);
+        });
+    }
+
+    saveBtn?.addEventListener('click', function () {
+        const card = getDraftCard();
+
+        if (!card.front || !card.back) {
+            alert('Please add both a question and an answer before saving.');
+            return;
+        }
+
+        if (state.flashcards.length >= 10) {
+            alert('You can save a maximum of 10 questions on each page.');
+            return;
+        }
+
+        state.flashcards.push({
+            id: Date.now(),
+            ...card,
+            reviews: 0,
+            correct: 0,
+            incorrect: 0
+        });
+
+        updateSavedUI();
+        markChanged();
+
+        front.value = '';
+        back.value = '';
+        hint.value = '';
+        topic.value = '';
+        memory.value = '';
+        tags.value = '';
+        difficulty.value = 'Medium';
+
+        showDraftMode();
+        front.focus();
+    });
+
+    /* =====================================================
+       RECALL STUDIO
+       ===================================================== */
+
+    revealBtn?.addEventListener('click', () => revealAnswer(false));
+
+    startRecallBtn?.addEventListener('click', function () {
+        const card = getCurrentCard();
+
+        if (!card?.front || !card?.back) {
+            alert('Add a question and answer first, or choose a saved card.');
+            return;
+        }
+
+        resetPreviewState();
+        startRecallBtn.textContent = '⏱ Recall Running…';
+        previewStatus.textContent = 'RECALL';
+        previewInstruction.textContent =
+            'You have 20 seconds. Say or write the answer before revealing it.';
+        startTimer();
+    });
+
+    hintBtn?.addEventListener('click', function () {
+        hintBox.hidden = !hintBox.hidden;
+        hintBtn.textContent = hintBox.hidden ? '💡 Show Hint' : '💡 Hide Hint';
+    });
+
+    function rateRecall(rating) {
+        const card = getCurrentCard();
+
+        reviewed++;
+        confidenceTotal += rating === 'Again' ? 1 : 3;
+        streak = rating === 'Again' ? 0 : streak + 1;
+        updateSessionStats();
+
+        if (previewMode === 'saved' && card) {
+            card.reviews = (Number(card.reviews) || 0) + 1;
+
+            if (rating === 'Again') {
+                card.incorrect = (Number(card.incorrect) || 0) + 1;
+            } else {
+                card.correct = (Number(card.correct) || 0) + 1;
+            }
+
+            if (rating !== 'Again' && card.correct >= 2) {
+                card.mastered = true;
+            }
+
+            updateMasteredButton();
+            updateSavedUI();
+            markChanged();
+        }
+
+        recallResult.hidden = true;
+        previewStatus.textContent = rating === 'Good' ? 'REMEMBERED' : 'REVIEW AGAIN';
+        previewAnswerNote.textContent = rating === 'Good'
+            ? 'Nice! This card is getting stronger.'
+            : 'Keep this card in your next revision round.';
+    }
+
+    needPracticeBtn?.addEventListener('click', () => rateRecall('Again'));
+    knewItBtn?.addEventListener('click', () => rateRecall('Good'));
+
+    /* =====================================================
+       SAVED CARD NAVIGATION
+       ===================================================== */
+
+    previousSavedBtn?.addEventListener('click', () => {
+        if (savedIndex > 0) showSavedMode(savedIndex - 1);
+    });
+
+    nextSavedBtn?.addEventListener('click', () => {
+        if (savedIndex < state.flashcards.length - 1) showSavedMode(savedIndex + 1);
+    });
+
+    randomPreviewBtn?.addEventListener('click', () => {
+        if (!state.flashcards.length) {
+            alert('Save at least one question first.');
+            return;
+        }
+
+        showSavedMode(Math.floor(Math.random() * state.flashcards.length));
+    });
+
+    draftPreviewBtn?.addEventListener('click', showDraftMode);
+    savedPreviewBtn?.addEventListener('click', () => showSavedMode(savedIndex));
+
+    /* =====================================================
+       LOAD SAVED CARD
+       ===================================================== */
+
+    loadSavedBtn?.addEventListener('click', function () {
+        const card = state.flashcards[savedIndex];
+        if (!card) return;
+
+        front.value = card.front || '';
+        back.value = card.back || '';
+        hint.value = card.hint || '';
+        topic.value = card.topic || '';
+        memory.value = card.memory_hook || '';
+        tags.value = card.tags || '';
+        difficulty.value = card.difficulty || 'Medium';
+
+        showDraftMode();
+        markChanged();
+        front.focus();
+    });
+
+    /* =====================================================
+       MASTERED / RESET / FOCUS
+       ===================================================== */
+
+    masteredBtn?.addEventListener('click', function () {
+        if (previewMode !== 'saved' || !state.flashcards[savedIndex]) {
+            alert('Save this question first to track mastery.');
+            return;
+        }
+
+        state.flashcards[savedIndex].mastered =
+            !state.flashcards[savedIndex].mastered;
+
+        updateMasteredButton();
+        updateMastery();
+        updateSavedUI();
+        markChanged();
+    });
+
+    resetBtn?.addEventListener('click', resetPreviewState);
+
+    /* =====================================================
+       OPTIONAL CONFIDENCE BUTTONS
+       ===================================================== */
+
+    document.querySelectorAll('.confidence-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const rating = button.dataset.confidence;
+
+            document.querySelectorAll('.confidence-btn')
+                .forEach(btn => btn.classList.remove('active'));
+
+            button.classList.add('active');
+
+            const scores = { Again: 1, Hard: 2, Good: 3, Easy: 4 };
+
+            reviewed++;
+            confidenceTotal += scores[rating] || 0;
+            streak = rating === 'Again' ? 0 : streak + 1;
+            updateSessionStats();
+
+            if (previewMode === 'saved') {
+                const card = state.flashcards[savedIndex];
+
+                if (card) {
+                    card.reviews = (Number(card.reviews) || 0) + 1;
+
+                    if (rating === 'Again') {
+                        card.incorrect = (Number(card.incorrect) || 0) + 1;
+                    } else {
+                        card.correct = (Number(card.correct) || 0) + 1;
+                    }
+
+                    if (rating === 'Easy') card.mastered = true;
+
+                    updateMastery();
+                    updateMasteredButton();
+                    updateSavedUI();
+                    markChanged();
+                }
+            }
+        });
+    });
+
+    /* =====================================================
+       QUIZ
+       ===================================================== */
+
+    const overlay = document.getElementById('flashcardQuizOverlay');
+    const closeQuizBtn = document.getElementById('closeQuizBtn');
+    const quizQuestion = document.getElementById('quizQuestion');
+    const quizAnswer = document.getElementById('quizAnswer');
+    const quizHint = document.getElementById('quizHint');
+    const quizTopic = document.getElementById('quizTopic');
+    const quizProgress = document.getElementById('quizProgress');
+    const quizProgressFill = document.getElementById('quizProgressFill');
+    const quizRevealBtn = document.getElementById('quizRevealBtn');
+    const quizHintBtn = document.getElementById('quizHintBtn');
+    const quizRating = document.getElementById('quizRating');
+    const quizNextBtn = document.getElementById('quizNextBtn');
+    const quizScore = document.getElementById('quizScore');
+
+    let quizCards = [];
+    let quizIndex = 0;
+    let quizCorrect = 0;
+    let quizRated = false;
+
+    function shuffle(cards) {
+        const copy = cards.slice();
+
+        for (let i = copy.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+
+        return copy;
+    }
+
+    function renderQuizCard() {
+        const card = quizCards[quizIndex];
+        if (!card) return;
+
+        quizRated = false;
+
+        quizQuestion.textContent = card.front;
+        quizTopic.textContent =
+            [card.topic, card.difficulty].filter(Boolean).join(' • ') || 'Revision question';
+
+        quizAnswer.textContent = card.back;
+        quizHint.textContent =
+            card.hint ? '💡 ' + card.hint : 'No hint was saved for this question.';
+
+        quizAnswer.hidden = true;
+        quizHint.hidden = true;
+        quizRating.hidden = true;
+        quizNextBtn.hidden = true;
+        quizRevealBtn.hidden = false;
+        quizHintBtn.hidden = false;
+
+        quizRevealBtn.textContent = '👁 Reveal Answer';
+        quizHintBtn.textContent = '💡 Hint';
+        quizProgress.textContent = `Question ${quizIndex + 1} of ${quizCards.length}`;
+        quizProgressFill.style.width =
+            `${((quizIndex + 1) / quizCards.length) * 100}%`;
+        quizScore.textContent = `${quizCorrect} correct`;
+
+        quizRating.querySelectorAll('button')
+            .forEach(btn => btn.classList.remove('selected'));
+    }
+
+    function openQuiz() {
+        if (!state.flashcards.length) {
+            alert('Save at least one question on this page before starting a quiz.');
+            return;
+        }
+
+        quizCards = shuffle(state.flashcards);
+        quizIndex = 0;
+        quizCorrect = 0;
+
+        overlay.hidden = false;
+        document.body.classList.add('flashcard-quiz-open');
+        renderQuizCard();
+    }
+
+    function closeQuiz() {
+        overlay.hidden = true;
+        document.body.classList.remove('flashcard-quiz-open');
+    }
+
+    startQuizBtn?.addEventListener('click', openQuiz);
+    closeQuizBtn?.addEventListener('click', closeQuiz);
+
+    overlay?.addEventListener('click', event => {
+        if (event.target === overlay) closeQuiz();
+    });
+
+    quizRevealBtn?.addEventListener('click', function () {
+        const showing = quizAnswer.hidden;
+
+        quizAnswer.hidden = !showing;
+        quizRating.hidden = !showing;
+        quizRevealBtn.textContent = showing
+            ? '🙈 Hide Answer'
+            : '👁 Reveal Answer';
+    });
+
+    quizHintBtn?.addEventListener('click', function () {
+        quizHint.hidden = !quizHint.hidden;
+        quizHintBtn.textContent =
+            quizHint.hidden ? '💡 Hint' : '💡 Hide Hint';
+    });
+
+    quizRating?.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', function () {
+            if (quizRated) return;
+
+            quizRated = true;
+
+            quizRating.querySelectorAll('button')
+                .forEach(btn => btn.classList.remove('selected'));
+
+            button.classList.add('selected');
+
+            const card = quizCards[quizIndex];
+            const rating = button.dataset.quizRating;
+
+            if (card) {
+                card.reviews = (Number(card.reviews) || 0) + 1;
+
+                if (rating === 'Good' || rating === 'Easy') {
+                    card.correct = (Number(card.correct) || 0) + 1;
+                    quizCorrect++;
+                } else {
+                    card.incorrect = (Number(card.incorrect) || 0) + 1;
+                }
+
+                if (rating === 'Easy' || (rating === 'Good' && card.correct >= 2)) {
+                    card.mastered = true;
+                }
+
+                updateMastery();
+                updateSavedUI();
+                markChanged();
+            }
+
+            quizScore.textContent = `${quizCorrect} correct`;
+            quizNextBtn.hidden = false;
+        });
+    });
+
+    quizNextBtn?.addEventListener('click', function () {
+        if (quizIndex < quizCards.length - 1) {
+            quizIndex++;
+            renderQuizCard();
+            return;
+        }
+
+        quizQuestion.textContent = '🎉 Quiz complete!';
+        quizTopic.textContent = `${quizCorrect} / ${quizCards.length} remembered well`;
+        quizAnswer.textContent = 'Your ratings have been recorded for this page.';
+        quizAnswer.hidden = false;
+        quizHint.hidden = true;
+        quizRating.hidden = true;
+        quizRevealBtn.hidden = true;
+        quizHintBtn.hidden = true;
+        quizNextBtn.textContent = 'Done';
+        quizNextBtn.onclick = closeQuiz;
+
+        updateSavedUI();
+        markChanged();
+    });
+
+    /* =====================================================
+       KEYBOARD SHORTCUTS
+       ===================================================== */
+
+    document.addEventListener('keydown', function (event) {
+        const tag = document.activeElement?.tagName;
+        const typing = tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT';
+
+        if (typing) return;
+        if (event.key === 'Escape') {
+            if (!overlay?.hidden) {
+                closeQuiz();
+                return;
+            }
+        }
+
+        if (!overlay?.hidden) return;
+
+        if (event.code === 'Space') {
+            event.preventDefault();
+            revealBtn?.click();
+        }
+
+        if (event.key.toLowerCase() === 'h') hintBtn?.click();
+        if (event.key.toLowerCase() === 'r') resetBtn?.click();
+
+        if (previewMode === 'saved') {
+            if (event.key === 'ArrowLeft') previousSavedBtn?.click();
+            if (event.key === 'ArrowRight') nextSavedBtn?.click();
+        }
+    });
+
+    updateSavedUI();
+    updateSessionStats();
+    showDraftMode();
+
+});
+</script>

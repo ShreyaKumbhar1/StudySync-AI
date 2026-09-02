@@ -40,6 +40,41 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
+    /*
+       =========================================================
+       FLASHCARD STATE
+       =========================================================
+
+       Flashcards are stored INSIDE the page's JSON state.
+
+       Every notebook page therefore gets its own independent
+       collection of flashcards.
+
+       Maximum:
+       10 cards per page.
+       =========================================================
+    */
+
+    if (!Array.isArray(state.flashcards)) {
+        state.flashcards = [];
+    }
+
+    // Never allow more than 10 saved cards.
+    state.flashcards = state.flashcards
+        .slice(0, 10);
+
+
+    if (!state.flashcardStats ||
+        typeof state.flashcardStats !== 'object') {
+
+        state.flashcardStats = {
+            reviewed: 0,
+            correct: 0,
+            incorrect: 0
+        };
+    }
+
+
     window.ORION_NOTE_STATE = state;
 
 
@@ -58,15 +93,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (el.matches('[contenteditable="true"]')) {
 
-                    state.fields[key] = el.innerHTML;
+                    state.fields[key] =
+                        el.innerHTML;
 
                 } else if (el.type === 'checkbox') {
 
-                    state.fields[key] = el.checked;
+                    state.fields[key] =
+                        el.checked;
 
                 } else if (el.type !== 'file') {
 
-                    state[key] = el.value;
+                    state[key] =
+                        el.value;
                 }
             });
 
@@ -75,18 +113,85 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         // -----------------------------------------------------
+        // Flashcards
+        // -----------------------------------------------------
+
+        if (Array.isArray(state.flashcards)) {
+
+            state.flashcards =
+                state.flashcards
+                    .slice(0, 10)
+                    .map(card => ({
+                        id:
+                            card.id ||
+                            createFlashcardId(),
+
+                        front:
+                            String(card.front || '').trim(),
+
+                        back:
+                            String(card.back || '').trim(),
+
+                        hint:
+                            String(card.hint || '').trim(),
+
+                        difficulty:
+                            card.difficulty ||
+                            'Medium',
+
+                        tags:
+                            String(card.tags || '').trim(),
+
+                        mastered:
+                            Boolean(card.mastered),
+
+                        reviews:
+                            Number(card.reviews) || 0,
+
+                        correct:
+                            Number(card.correct) || 0,
+
+                        incorrect:
+                            Number(card.incorrect) || 0,
+
+                        lastReviewedAt:
+                            card.lastReviewedAt ||
+                            null
+                    }))
+                    .filter(card =>
+                        card.front ||
+                        card.back
+                    );
+        }
+
+
+        if (!state.flashcardStats ||
+            typeof state.flashcardStats !== 'object') {
+
+            state.flashcardStats = {
+                reviewed: 0,
+                correct: 0,
+                incorrect: 0
+            };
+        }
+
+
+        // -----------------------------------------------------
         // Collect Table Data
         // -----------------------------------------------------
 
         const collectTable = (id) => {
 
-            const t = document.getElementById(id);
+            const t =
+                document.getElementById(id);
 
             return t
                 ? [...t.querySelectorAll('tbody tr')]
                     .map(row =>
                         [...row.cells]
-                            .map(cell => cell.innerText)
+                            .map(cell =>
+                                cell.innerText
+                            )
                     )
                 : [];
         };
@@ -163,11 +268,11 @@ document.addEventListener('DOMContentLoaded', () => {
             state.fields.milestones =
                 [...milestones.querySelectorAll('.milestone-row')]
                     .map(row => ({
-
                         done:
                             row.querySelector(
                                 'input[type=checkbox]'
-                            )?.checked || false,
+                            )?.checked ||
+                            false,
 
                         title:
                             row.querySelectorAll('input')[1]?.value ||
@@ -176,12 +281,37 @@ document.addEventListener('DOMContentLoaded', () => {
                         date:
                             row.querySelector(
                                 'input[type=date]'
-                            )?.value || ''
+                            )?.value ||
+                            ''
                     }));
         }
 
 
         return state;
+    }
+
+
+    // =========================================================
+    // FLASHCARD ID GENERATOR
+    // =========================================================
+
+    function createFlashcardId() {
+
+        if (
+            window.crypto &&
+            typeof window.crypto.randomUUID === 'function'
+        ) {
+            return window.crypto.randomUUID();
+        }
+
+        return (
+            'card-' +
+            Date.now() +
+            '-' +
+            Math.random()
+                .toString(36)
+                .slice(2)
+        );
     }
 
 
@@ -225,29 +355,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
 
-    // ---------------------------------------------------------
-    // Form Submit
-    // ---------------------------------------------------------
+    // =========================================================
+    // FORM SUBMIT
+    // =========================================================
 
-    form.addEventListener('submit', () => {
+    /*
+       IMPORTANT:
 
-        collect();
+       This listener uses CAPTURE mode.
 
-        dataInput.value =
-            JSON.stringify(state);
+       Flashcard-specific JavaScript can therefore update
+       window.ORION_NOTE_STATE.flashcards before this notebook
+       engine serializes the state into pageDataInput.
+    */
 
-        changed = false;
+    form.addEventListener(
+        'submit',
+        () => {
 
-        if (status) {
-            status.textContent =
-                '● Saving...';
-        }
-    });
+            collect();
+
+            dataInput.value =
+                JSON.stringify(state);
+
+            changed = false;
+
+            if (status) {
+
+                status.textContent =
+                    '● Saving...';
+            }
+        },
+        true
+    );
 
 
-    // ---------------------------------------------------------
-    // Unsaved Changes Warning
-    // ---------------------------------------------------------
+    // =========================================================
+    // UNSAVED CHANGES WARNING
+    // =========================================================
 
     window.addEventListener(
         'beforeunload',
@@ -256,6 +401,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (changed) {
 
                 e.preventDefault();
+
                 e.returnValue = '';
             }
         }
@@ -267,13 +413,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
 
     const imageInput =
-        document.getElementById('noteImageInput');
+        document.getElementById(
+            'noteImageInput'
+        );
 
     const imageBtn =
-        document.getElementById('insertImageBtn');
+        document.getElementById(
+            'insertImageBtn'
+        );
 
     const gallery =
-        document.getElementById('imageGallery');
+        document.getElementById(
+            'imageGallery'
+        );
 
 
     // ---------------------------------------------------------
@@ -287,57 +439,80 @@ document.addEventListener('DOMContentLoaded', () => {
         gallery.innerHTML = '';
 
 
-        state.images.forEach((img, i) => {
+        state.images.forEach(
+            (img, i) => {
 
-            const wrap =
-                document.createElement('figure');
+                const wrap =
+                    document.createElement(
+                        'figure'
+                    );
 
-            wrap.className =
-                'note-image-item';
-
-
-            const im =
-                document.createElement('img');
-
-            im.src = img.data;
-
-            im.alt =
-                img.name || 'Notebook image';
+                wrap.className =
+                    'note-image-item';
 
 
-            const cap =
-                document.createElement('figcaption');
+                const im =
+                    document.createElement(
+                        'img'
+                    );
 
-            cap.textContent =
-                img.name || 'Image';
+                im.src =
+                    img.data;
 
-
-            const del =
-                document.createElement('button');
-
-            del.type = 'button';
-            del.textContent = '×';
-            del.title = 'Remove';
+                im.alt =
+                    img.name ||
+                    'Notebook image';
 
 
-            del.onclick = () => {
+                const cap =
+                    document.createElement(
+                        'figcaption'
+                    );
 
-                state.images.splice(i, 1);
-
-                renderImages();
-
-                markChanged();
-            };
+                cap.textContent =
+                    img.name ||
+                    'Image';
 
 
-            wrap.append(
-                im,
-                cap,
-                del
-            );
+                const del =
+                    document.createElement(
+                        'button'
+                    );
 
-            gallery.appendChild(wrap);
-        });
+                del.type =
+                    'button';
+
+                del.textContent =
+                    '×';
+
+                del.title =
+                    'Remove';
+
+
+                del.onclick = () => {
+
+                    state.images.splice(
+                        i,
+                        1
+                    );
+
+                    renderImages();
+
+                    markChanged();
+                };
+
+
+                wrap.append(
+                    im,
+                    cap,
+                    del
+                );
+
+                gallery.appendChild(
+                    wrap
+                );
+            }
+        );
     }
 
 
@@ -345,16 +520,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Image Upload
     // ---------------------------------------------------------
 
-    if (imageBtn && imageInput) {
+    if (
+        imageBtn &&
+        imageInput
+    ) {
 
         imageBtn.onclick = () => {
+
             imageInput.click();
         };
 
 
         imageInput.onchange = () => {
 
-            [...imageInput.files].forEach(file => {
+            [
+                ...imageInput.files
+            ].forEach(file => {
 
                 const reader =
                     new FileReader();
@@ -363,8 +544,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 reader.onload = e => {
 
                     state.images.push({
-                        name: file.name,
-                        data: e.target.result
+
+                        name:
+                            file.name,
+
+                        data:
+                            e.target.result
                     });
 
 
@@ -374,7 +559,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
 
 
-                reader.readAsDataURL(file);
+                reader.readAsDataURL(
+                    file
+                );
             });
 
 
@@ -397,7 +584,9 @@ document.addEventListener('DOMContentLoaded', () => {
             b.onclick = () => {
 
                 b
-                    .closest('.notebook-settings-panel')
+                    .closest(
+                        '.notebook-settings-panel'
+                    )
                     .hidden = true;
             };
         });
@@ -408,6 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'notebookSettingsPanel'
         );
 
+
     const share =
         document.getElementById(
             'shareSettingsPanel'
@@ -415,39 +605,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document
-        .getElementById('openNotebookSettings')
+        .getElementById(
+            'openNotebookSettings'
+        )
         ?.addEventListener(
             'click',
             () => {
-                settings.hidden = false;
+
+                if (settings) {
+                    settings.hidden = false;
+                }
             }
         );
 
 
     document
-        .getElementById('openShareSettings')
+        .getElementById(
+            'openShareSettings'
+        )
         ?.addEventListener(
             'click',
             () => {
-                share.hidden = false;
+
+                if (share) {
+                    share.hidden = false;
+                }
             }
         );
 
 
-    // ---------------------------------------------------------
-    // Delete Page
-    // ---------------------------------------------------------
+    // =========================================================
+    // DELETE PAGE
+    // =========================================================
 
     document
-        .getElementById('deletePageButton')
+        .getElementById(
+            'deletePageButton'
+        )
         ?.addEventListener(
             'click',
             () => {
 
-                if (confirm('Delete this page?')) {
+                if (
+                    confirm(
+                        'Delete this page?'
+                    )
+                ) {
 
                     document
-                        .getElementById('deletePageForm')
+                        .getElementById(
+                            'deletePageForm'
+                        )
                         .submit();
                 }
             }
@@ -459,7 +667,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
 
     document
-        .querySelectorAll('.rich-toolbar')
+        .querySelectorAll(
+            '.rich-toolbar'
+        )
         .forEach(toolbar => {
 
             const editor =
@@ -481,14 +691,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             editor.focus();
 
+
                             const cmd =
                                 btn.dataset.cmd;
 
 
-                            if (cmd === 'createLink') {
+                            if (
+                                cmd ===
+                                'createLink'
+                            ) {
 
                                 const u =
-                                    prompt('Link URL');
+                                    prompt(
+                                        'Link URL'
+                                    );
 
 
                                 if (u) {
@@ -501,7 +717,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
 
                             } else if (
-                                cmd === 'formatBlock'
+                                cmd ===
+                                'formatBlock'
                             ) {
 
                                 document.execCommand(
@@ -531,27 +748,47 @@ document.addEventListener('DOMContentLoaded', () => {
     // GENERIC TABLE HELPERS
     // =========================================================
 
-    function addRow(table, cells = 3) {
+    function addRow(
+        table,
+        cells = 3
+    ) {
+
+        if (!table) return;
+
 
         const tr =
-            document.createElement('tr');
+            document.createElement(
+                'tr'
+            );
 
 
-        for (let i = 0; i < cells; i++) {
+        for (
+            let i = 0;
+            i < cells;
+            i++
+        ) {
 
             const td =
-                document.createElement('td');
+                document.createElement(
+                    'td'
+                );
 
-            td.contentEditable = 'true';
+            td.contentEditable =
+                'true';
 
 
             if (
                 i === 0 &&
-                table.id === 'dsaTable'
+                table.id ===
+                    'dsaTable'
             ) {
 
                 td.textContent =
-                    table.tBodies[0].rows.length + 1;
+                    table
+                        .tBodies[0]
+                        .rows
+                        .length +
+                    1;
             }
 
 
@@ -569,7 +806,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document
-        .getElementById('addTheoryRow')
+        .getElementById(
+            'addTheoryRow'
+        )
         ?.addEventListener(
             'click',
             () => {
@@ -585,7 +824,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document
-        .getElementById('addDsaRow')
+        .getElementById(
+            'addDsaRow'
+        )
         ?.addEventListener(
             'click',
             () => {
@@ -601,7 +842,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     document
-        .getElementById('addGeneralRow')
+        .getElementById(
+            'addGeneralRow'
+        )
         ?.addEventListener(
             'click',
             () => {
@@ -621,7 +864,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
 
     document
-        .getElementById('addChecklist')
+        .getElementById(
+            'addChecklist'
+        )
         ?.addEventListener(
             'click',
             () => {
@@ -632,8 +877,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     );
 
 
+                if (!c) return;
+
+
                 const row =
-                    document.createElement('label');
+                    document.createElement(
+                        'label'
+                    );
 
                 row.className =
                     'check-row';
@@ -646,7 +896,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     '</span>';
 
 
-                c.appendChild(row);
+                c.appendChild(
+                    row
+                );
+
 
                 markChanged();
             }
@@ -658,7 +911,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================
 
     document
-        .getElementById('addMilestone')
+        .getElementById(
+            'addMilestone'
+        )
         ?.addEventListener(
             'click',
             () => {
@@ -669,8 +924,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     );
 
 
+                if (!c) return;
+
+
                 const row =
-                    document.createElement('div');
+                    document.createElement(
+                        'div'
+                    );
 
                 row.className =
                     'milestone-row';
@@ -682,7 +942,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     '<input type="date">';
 
 
-                c.appendChild(row);
+                c.appendChild(
+                    row
+                );
+
 
                 markChanged();
             }
@@ -698,11 +961,15 @@ document.addEventListener('DOMContentLoaded', () => {
             'theoryChart'
         );
 
-    let theoryChart = null;
+
+    let theoryChart =
+        null;
 
 
     document
-        .getElementById('renderTheoryChart')
+        .getElementById(
+            'renderTheoryChart'
+        )
         ?.addEventListener(
             'click',
             () => {
@@ -717,29 +984,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const labels =
                     (
-                        document.getElementById(
-                            'chartLabels'
-                        )?.value || ''
+                        document
+                            .getElementById(
+                                'chartLabels'
+                            )
+                            ?.value ||
+                        ''
                     )
                         .split(',')
-                        .map(x => x.trim())
+                        .map(
+                            x =>
+                                x.trim()
+                        )
                         .filter(Boolean);
 
 
                 const values =
                     (
-                        document.getElementById(
-                            'chartValues'
-                        )?.value || ''
+                        document
+                            .getElementById(
+                                'chartValues'
+                            )
+                            ?.value ||
+                        ''
                     )
                         .split(',')
                         .map(Number)
                         .filter(
-                            x => !Number.isNaN(x)
+                            x =>
+                                !Number.isNaN(
+                                    x
+                                )
                         );
 
 
                 if (theoryChart) {
+
                     theoryChart.destroy();
                 }
 
@@ -748,37 +1028,56 @@ document.addEventListener('DOMContentLoaded', () => {
                     new Chart(
                         chartCanvas,
                         {
+
                             type:
-                                document.getElementById(
-                                    'theoryChartType'
-                                )?.value || 'bar',
+                                document
+                                    .getElementById(
+                                        'theoryChartType'
+                                    )
+                                    ?.value ||
+                                'bar',
+
 
                             data: {
+
                                 labels,
 
                                 datasets: [
                                     {
-                                        label: 'Data',
-                                        data: values
+                                        label:
+                                            'Data',
+
+                                        data:
+                                            values
                                     }
                                 ]
                             },
 
+
                             options: {
-                                responsive: true,
-                                maintainAspectRatio: false
+
+                                responsive:
+                                    true,
+
+                                maintainAspectRatio:
+                                    false
                             }
                         }
                     );
 
 
                 window.ORION_NOTE_STATE.chart = {
+
                     type:
-                        document.getElementById(
-                            'theoryChartType'
-                        )?.value || 'bar',
+                        document
+                            .getElementById(
+                                'theoryChartType'
+                            )
+                            ?.value ||
+                        'bar',
 
                     labels,
+
                     values
                 };
 
@@ -808,10 +1107,14 @@ document.addEventListener('DOMContentLoaded', () => {
             )
         ) {
 
-            document.getElementById(
-                'chartLabels'
-            ).value =
-                c.labels.join(', ');
+            document
+                .getElementById(
+                    'chartLabels'
+                )
+                .value =
+                c.labels.join(
+                    ', '
+                );
         }
 
 
@@ -821,10 +1124,14 @@ document.addEventListener('DOMContentLoaded', () => {
             )
         ) {
 
-            document.getElementById(
-                'chartValues'
-            ).value =
-                c.values.join(', ');
+            document
+                .getElementById(
+                    'chartValues'
+                )
+                .value =
+                c.values.join(
+                    ', '
+                );
         }
     }
 
@@ -833,24 +1140,267 @@ document.addEventListener('DOMContentLoaded', () => {
     // GLOBAL ORION HELPERS
     // =========================================================
 
-    window.ORION_COLLECT_TABLE = (id) => {
+    window.ORION_COLLECT_TABLE =
+        (id) => {
 
-        const t =
-            document.getElementById(id);
+            const t =
+                document.getElementById(
+                    id
+                );
 
 
-        return t
-            ? [...t.tBodies[0].rows]
-                .map(row =>
-                    [...row.cells]
-                        .map(cell => cell.innerText)
-                )
-            : [];
-    };
+            return t
+                ? [
+                    ...t
+                        .tBodies[0]
+                        .rows
+                ]
+                    .map(row =>
+                        [
+                            ...row.cells
+                        ]
+                            .map(
+                                cell =>
+                                    cell.innerText
+                            )
+                    )
+                : [];
+        };
 
 
     window.ORION_MARK_CHANGED =
         markChanged;
+
+
+    // =========================================================
+    // FLASHCARD HELPERS
+    // =========================================================
+
+    /*
+       These helpers are exposed globally so the dedicated
+       flashcards JavaScript can use the same notebook state.
+    */
+
+
+    window.ORION_FLASHCARD_LIMIT =
+        10;
+
+
+    window.ORION_GET_FLASHCARDS =
+        () => {
+
+            if (
+                !Array.isArray(
+                    state.flashcards
+                )
+            ) {
+
+                state.flashcards = [];
+            }
+
+
+            return state.flashcards;
+        };
+
+
+    window.ORION_SET_FLASHCARDS =
+        cards => {
+
+            if (!Array.isArray(cards)) {
+
+                state.flashcards = [];
+
+                markChanged();
+
+                return;
+            }
+
+
+            state.flashcards =
+                cards
+                    .slice(0, 10)
+                    .map(card => ({
+
+                        id:
+                            card.id ||
+                            createFlashcardId(),
+
+                        front:
+                            String(
+                                card.front ||
+                                ''
+                            ).trim(),
+
+                        back:
+                            String(
+                                card.back ||
+                                ''
+                            ).trim(),
+
+                        hint:
+                            String(
+                                card.hint ||
+                                ''
+                            ).trim(),
+
+                        difficulty:
+                            card.difficulty ||
+                            'Medium',
+
+                        tags:
+                            String(
+                                card.tags ||
+                                ''
+                            ).trim(),
+
+                        mastered:
+                            Boolean(
+                                card.mastered
+                            ),
+
+                        reviews:
+                            Number(
+                                card.reviews
+                            ) || 0,
+
+                        correct:
+                            Number(
+                                card.correct
+                            ) || 0,
+
+                        incorrect:
+                            Number(
+                                card.incorrect
+                            ) || 0,
+
+                        lastReviewedAt:
+                            card.lastReviewedAt ||
+                            null
+                    }))
+                    .filter(
+                        card =>
+                            card.front ||
+                            card.back
+                    );
+
+
+            markChanged();
+        };
+
+
+    window.ORION_UPDATE_FLASHCARD =
+        (id, updates) => {
+
+            if (
+                !Array.isArray(
+                    state.flashcards
+                )
+            ) {
+                state.flashcards = [];
+            }
+
+
+            const index =
+                state.flashcards.findIndex(
+                    card =>
+                        card.id === id
+                );
+
+
+            if (index === -1) {
+                return;
+            }
+
+
+            state.flashcards[index] = {
+
+                ...state.flashcards[index],
+
+                ...updates
+            };
+
+
+            markChanged();
+        };
+
+
+    window.ORION_DELETE_FLASHCARD =
+        id => {
+
+            if (
+                !Array.isArray(
+                    state.flashcards
+                )
+            ) {
+                return;
+            }
+
+
+            state.flashcards =
+                state.flashcards.filter(
+                    card =>
+                        card.id !== id
+                );
+
+
+            markChanged();
+        };
+
+
+    window.ORION_FLASHCARD_STATS =
+        () => {
+
+            if (
+                !state.flashcardStats ||
+                typeof state.flashcardStats !==
+                    'object'
+            ) {
+
+                state.flashcardStats = {
+
+                    reviewed: 0,
+
+                    correct: 0,
+
+                    incorrect: 0
+                };
+            }
+
+
+            return state.flashcardStats;
+        };
+
+
+    window.ORION_UPDATE_FLASHCARD_STATS =
+        updates => {
+
+            if (
+                !state.flashcardStats ||
+                typeof state.flashcardStats !==
+                    'object'
+            ) {
+
+                state.flashcardStats = {
+
+                    reviewed: 0,
+
+                    correct: 0,
+
+                    incorrect: 0
+                };
+            }
+
+
+            state.flashcardStats = {
+
+                ...state.flashcardStats,
+
+                ...updates
+            };
+
+
+            markChanged();
+        };
 
 
     // =========================================================
