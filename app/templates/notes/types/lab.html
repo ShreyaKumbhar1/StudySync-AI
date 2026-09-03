@@ -1,149 +1,1644 @@
-<div class="special-notebook">
+{# ============================================================
+   ORION • LAB & EXPERIMENTS NOTEBOOK
+   Professional digital laboratory record
+   ============================================================ #}
+
+<style>
+/* =========================================================
+   LAB NOTEBOOK — SCOPED THEME
+   Distinctive laboratory / research aesthetic
+   Light glassy purple-blue, not shared generic cards
+   ========================================================= */
+
+.special-notebook.lab-notebook {
+    --lab-bg: rgba(255,255,255,.55);
+    --lab-panel: rgba(255,255,255,.76);
+    --lab-panel-soft: rgba(247,244,251,.66);
+    --lab-border: rgba(105,91,133,.16);
+    --lab-border-strong: rgba(105,91,133,.28);
+    --lab-text: #302d38;
+    --lab-muted: #777184;
+    --lab-accent: #756397;
+    --lab-accent-2: #647da8;
+    --lab-green: #668879;
+    --lab-amber: #a78b61;
+    --lab-shadow: 0 16px 42px rgba(69,57,91,.08);
+
+    width: min(1220px, calc(100% - 42px));
+    margin: 0 auto;
+    padding: 24px 0 50px;
+    color: var(--lab-text);
+}
+
+/* ---------- EXPERIMENT IDENTITY ---------- */
+
+.special-notebook.lab-notebook .lab-hero {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0,1fr) auto;
+    gap: 22px;
+    align-items: center;
+    padding: 25px 27px;
+    margin-bottom: 18px;
+    border: 1px solid var(--lab-border);
+    border-radius: 24px;
+    background:
+        radial-gradient(circle at 92% 10%, rgba(117,99,151,.13), transparent 28%),
+        radial-gradient(circle at 75% 100%, rgba(100,125,168,.10), transparent 30%),
+        linear-gradient(135deg, rgba(255,255,255,.87), rgba(241,237,248,.67));
+    box-shadow: var(--lab-shadow);
+    backdrop-filter: blur(17px);
+    -webkit-backdrop-filter: blur(17px);
+}
+
+.special-notebook.lab-notebook .lab-hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--lab-accent), var(--lab-accent-2));
+}
+
+.special-notebook.lab-notebook .lab-title-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.special-notebook.lab-notebook .lab-flask {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+    display: grid;
+    place-items: center;
+    border-radius: 17px;
+    background: rgba(117,99,151,.10);
+    border: 1px solid rgba(117,99,151,.14);
+    font-size: 27px;
+}
+
+.special-notebook.lab-notebook .lab-eyebrow {
+    margin: 0 0 4px;
+    font-size: .69rem;
+    font-weight: 800;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--lab-accent);
+}
+
+.special-notebook.lab-notebook .lab-hero h2 {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+    line-height: 1.15;
+    letter-spacing: -.035em;
+}
+
+.special-notebook.lab-notebook .lab-hero-subtitle {
+    margin: 6px 0 0;
+    color: var(--lab-muted);
+    font-size: .9rem;
+}
+
+.special-notebook.lab-notebook .lab-status-wrap {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.special-notebook.lab-notebook .lab-status {
+    appearance: none;
+    border: 1px solid rgba(102,136,121,.22);
+    border-radius: 999px;
+    padding: 9px 13px;
+    background: rgba(102,136,121,.09);
+    color: #557262;
+    font: inherit;
+    font-size: .76rem;
+    font-weight: 750;
+    outline: none;
+    cursor: pointer;
+}
+
+.special-notebook.lab-notebook .lab-status:focus {
+    box-shadow: 0 0 0 3px rgba(117,99,151,.10);
+}
+
+/* ---------- METADATA STRIP ---------- */
+
+.special-notebook.lab-notebook .lab-meta {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.special-notebook.lab-notebook .lab-meta-item {
+    min-width: 0;
+    padding: 13px 15px;
+    border: 1px solid var(--lab-border);
+    border-radius: 15px;
+    background: rgba(255,255,255,.59);
+    box-shadow: 0 7px 22px rgba(69,57,91,.045);
+}
+
+.special-notebook.lab-notebook .lab-meta-item span {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--lab-muted);
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+.special-notebook.lab-notebook .lab-meta-item input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--lab-text);
+    font: inherit;
+    font-size: .88rem;
+    font-weight: 650;
+}
+
+/* ---------- SECTION SHELL ---------- */
+
+.special-notebook.lab-notebook .lab-section {
+    margin-bottom: 18px;
+    border: 1px solid var(--lab-border);
+    border-radius: 20px;
+    background: var(--lab-panel);
+    box-shadow: var(--lab-shadow);
+    overflow: hidden;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.special-notebook.lab-notebook .lab-section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 57px;
+    padding: 0 18px;
+    border-bottom: 1px solid rgba(105,91,133,.10);
+    background: linear-gradient(180deg, rgba(255,255,255,.68), rgba(247,244,251,.40));
+}
+
+.special-notebook.lab-notebook .lab-section-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: .94rem;
+    font-weight: 760;
+}
+
+.special-notebook.lab-notebook .lab-section-title small {
+    color: var(--lab-muted);
+    font-size: .72rem;
+    font-weight: 500;
+}
+
+.special-notebook.lab-notebook .lab-section-body {
+    padding: 18px;
+}
+
+/* ---------- AIM + SETUP ---------- */
+
+.special-notebook.lab-notebook .lab-two-col {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.special-notebook.lab-notebook .lab-mini-card {
+    min-width: 0;
+    border: 1px solid var(--lab-border);
+    border-radius: 19px;
+    background: var(--lab-panel);
+    box-shadow: 0 10px 28px rgba(69,57,91,.055);
+    overflow: hidden;
+}
+
+.special-notebook.lab-notebook .lab-mini-head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 15px 17px;
+    border-bottom: 1px solid rgba(105,91,133,.10);
+    font-size: .88rem;
+    font-weight: 750;
+}
+
+.special-notebook.lab-notebook .lab-field {
+    width: 100%;
+    min-height: 142px;
+    box-sizing: border-box;
+    border: 0;
+    outline: none;
+    resize: vertical;
+    padding: 16px 17px 18px;
+    background: rgba(255,255,255,.35);
+    color: var(--lab-text);
+    font: inherit;
+    font-size: .9rem;
+    line-height: 1.65;
+}
+
+.special-notebook.lab-notebook .lab-field::placeholder {
+    color: rgba(119,113,132,.56);
+}
+
+.special-notebook.lab-notebook .lab-field:focus {
+    background: rgba(255,255,255,.55);
+}
+
+/* ---------- PROCEDURE TIMELINE ---------- */
+
+.special-notebook.lab-notebook .lab-step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.special-notebook.lab-notebook .lab-step {
+    display: grid;
+    grid-template-columns: 34px minmax(0,1fr) 36px;
+    align-items: start;
+    gap: 10px;
+}
+
+.special-notebook.lab-notebook .lab-step-number {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: rgba(117,99,151,.09);
+    color: var(--lab-accent);
+    border: 1px solid rgba(117,99,151,.13);
+    font-size: .76rem;
+    font-weight: 800;
+}
+
+.special-notebook.lab-notebook .lab-step textarea {
+    width: 100%;
+    min-height: 64px;
+    resize: vertical;
+    box-sizing: border-box;
+    border: 1px solid var(--lab-border);
+    border-radius: 12px;
+    outline: none;
+    padding: 11px 13px;
+    background: rgba(255,255,255,.47);
+    color: var(--lab-text);
+    font: inherit;
+    font-size: .86rem;
+    line-height: 1.5;
+}
+
+.special-notebook.lab-notebook .lab-step textarea:focus {
+    border-color: rgba(117,99,151,.34);
+    background: rgba(255,255,255,.66);
+}
+
+.special-notebook.lab-notebook .lab-icon-btn,
+.special-notebook.lab-notebook .lab-add-btn {
+    appearance: none;
+    border: 1px solid var(--lab-border);
+    cursor: pointer;
+    font: inherit;
+}
+
+.special-notebook.lab-notebook .lab-icon-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.48);
+    color: var(--lab-muted);
+    font-size: .9rem;
+}
+
+.special-notebook.lab-notebook .lab-icon-btn:hover {
+    background: rgba(117,99,151,.08);
+    color: var(--lab-accent);
+}
+
+.special-notebook.lab-notebook .lab-add-btn {
+    margin-top: 13px;
+    padding: 9px 13px;
+    border-radius: 11px;
+    background: rgba(117,99,151,.08);
+    color: var(--lab-accent);
+    font-size: .78rem;
+    font-weight: 750;
+}
+
+/* ---------- OBSERVATION TABLE ---------- */
+
+.special-notebook.lab-notebook .lab-table-wrap {
+    overflow-x: auto;
+}
+
+.special-notebook.lab-notebook .lab-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 620px;
+}
+
+.special-notebook.lab-notebook .lab-table th,
+.special-notebook.lab-notebook .lab-table td {
+    border-right: 1px solid var(--lab-border);
+    border-bottom: 1px solid var(--lab-border);
+    padding: 10px;
+    text-align: left;
+}
+
+.special-notebook.lab-notebook .lab-table th {
+    background: rgba(117,99,151,.065);
+    color: var(--lab-muted);
+    font-size: .69rem;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+}
+
+.special-notebook.lab-notebook .lab-table th:first-child,
+.special-notebook.lab-notebook .lab-table td:first-child {
+    border-left: 1px solid var(--lab-border);
+}
+
+.special-notebook.lab-notebook .lab-table tr:first-child th {
+    border-top: 1px solid var(--lab-border);
+}
+
+.special-notebook.lab-notebook .lab-table th:first-child {
+    border-top-left-radius: 11px;
+}
+
+.special-notebook.lab-notebook .lab-table th:last-child {
+    border-top-right-radius: 11px;
+}
+
+.special-notebook.lab-notebook .lab-table input {
+    width: 100%;
+    min-width: 80px;
+    box-sizing: border-box;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--lab-text);
+    font: inherit;
+    font-size: .83rem;
+}
+
+.special-notebook.lab-notebook .lab-table td {
+    background: rgba(255,255,255,.32);
+}
+
+.special-notebook.lab-notebook .lab-table td:last-child,
+.special-notebook.lab-notebook .lab-table th:last-child {
+    border-right: 1px solid var(--lab-border);
+}
+
+/* ---------- RESULT + SIDE NOTES ---------- */
+
+.special-notebook.lab-notebook .lab-result-grid {
+    display: grid;
+    grid-template-columns: minmax(0,1.45fr) minmax(240px,.55fr);
+    gap: 18px;
+}
+
+.special-notebook.lab-notebook .lab-result-box {
+    min-height: 145px;
+}
+
+.special-notebook.lab-notebook .lab-side-stack {
+    display: grid;
+    gap: 12px;
+}
+
+.special-notebook.lab-notebook .lab-side-field {
+    min-height: 104px;
+}
+
+/* ---------- CHECKLISTS ---------- */
+
+.special-notebook.lab-notebook .lab-checks {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 18px;
+}
+
+.special-notebook.lab-notebook .lab-check-panel {
+    border: 1px solid var(--lab-border);
+    border-radius: 17px;
+    overflow: hidden;
+    background: rgba(255,255,255,.43);
+}
+
+.special-notebook.lab-notebook .lab-check-panel h4 {
+    margin: 0;
+    padding: 13px 15px;
+    border-bottom: 1px solid var(--lab-border);
+    font-size: .82rem;
+}
+
+.special-notebook.lab-notebook .lab-check-list {
+    padding: 10px 13px;
+}
+
+.special-notebook.lab-notebook .lab-check-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 2px;
+    font-size: .82rem;
+}
+
+.special-notebook.lab-notebook .lab-check-row input[type="checkbox"] {
+    accent-color: var(--lab-accent);
+}
+
+.special-notebook.lab-notebook .lab-check-row input[type="text"] {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    border-bottom: 1px dashed rgba(105,91,133,.20);
+    outline: 0;
+    background: transparent;
+    color: var(--lab-text);
+    padding: 4px 2px;
+    font: inherit;
+}
+
+/* ---------- CONCLUSION ---------- */
+
+.special-notebook.lab-notebook .lab-conclusion {
+    border-left: 3px solid var(--lab-green);
+}
+
+.special-notebook.lab-notebook .lab-conclusion .lab-section-head {
+    background: linear-gradient(180deg, rgba(102,136,121,.07), rgba(255,255,255,.30));
+}
+
+.special-notebook.lab-notebook .lab-conclusion textarea {
+    min-height: 135px;
+}
+
+
+/* ---------- NOTEBOOK WRITING TYPOGRAPHY ---------- */
+/* Keep headings clean, but give every editable area the same
+   comfortable notebook-writing treatment used across ORION notes. */
+.special-notebook.lab-notebook input,
+.special-notebook.lab-notebook textarea,
+.special-notebook.lab-notebook select,
+.special-notebook.lab-notebook button {
+    font-family: inherit;
+}
+
+.special-notebook.lab-notebook textarea,
+.special-notebook.lab-notebook input[type="text"],
+.special-notebook.lab-notebook input[type="date"] {
+    letter-spacing: .005em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+.special-notebook.lab-notebook .lab-writing-field {
+    font-size: .93rem;
+    line-height: 1.72;
+    letter-spacing: .008em;
+}
+
+.special-notebook.lab-notebook .lab-writing-field::placeholder {
+    letter-spacing: 0;
+}
+
+/* ---------- LAB TOOLS / PROGRESS ---------- */
+.special-notebook.lab-notebook .lab-tools-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.special-notebook.lab-notebook .lab-progress-wrap {
+    flex: 1 1 300px;
+    min-width: 220px;
+}
+
+.special-notebook.lab-notebook .lab-progress-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 7px;
+    color: var(--lab-muted);
+    font-size: .72rem;
+    font-weight: 750;
+}
+
+.special-notebook.lab-notebook .lab-progress-track {
+    height: 8px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(117,99,151,.09);
+    border: 1px solid rgba(117,99,151,.08);
+}
+
+.special-notebook.lab-notebook .lab-progress-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--lab-accent), var(--lab-accent-2));
+    transition: width .25s ease;
+}
+
+.special-notebook.lab-notebook .lab-tool-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.special-notebook.lab-notebook .lab-tool-btn {
+    appearance: none;
+    border: 1px solid var(--lab-border);
+    border-radius: 11px;
+    padding: 9px 12px;
+    background: rgba(255,255,255,.55);
+    color: var(--lab-text);
+    cursor: pointer;
+    font: inherit;
+    font-size: .76rem;
+    font-weight: 750;
+    transition: transform .16s ease, background .16s ease, border-color .16s ease;
+}
+
+.special-notebook.lab-notebook .lab-tool-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(117,99,151,.08);
+    border-color: rgba(117,99,151,.22);
+}
+
+.special-notebook.lab-notebook .lab-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 82px;
+    justify-content: center;
+    padding: 8px 11px;
+    border-radius: 11px;
+    background: rgba(102,136,121,.08);
+    color: #557262;
+    font-size: .78rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+.special-notebook.lab-notebook .lab-timer.running {
+    box-shadow: 0 0 0 3px rgba(102,136,121,.08);
+}
+
+.special-notebook.lab-notebook .lab-planning-grid {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: 18px;
+}
+
+.special-notebook.lab-notebook .lab-planning-card {
+    border: 1px solid var(--lab-border);
+    border-radius: 17px;
+    overflow: hidden;
+    background: rgba(255,255,255,.43);
+}
+
+.special-notebook.lab-notebook .lab-planning-card h4 {
+    margin: 0;
+    padding: 13px 15px;
+    border-bottom: 1px solid var(--lab-border);
+    font-size: .82rem;
+}
+
+.special-notebook.lab-notebook .lab-planning-card textarea {
+    min-height: 112px;
+    border: 0;
+    border-radius: 0;
+}
+
+.special-notebook.lab-notebook .lab-quick-note {
+    margin-top: 18px;
+}
+
+.special-notebook.lab-notebook .lab-quick-note textarea {
+    min-height: 105px;
+}
+
+@media (max-width: 720px) {
+    .special-notebook.lab-notebook .lab-planning-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ---------- PRINT / PDF ---------- */
+@media print {
+    .special-notebook.lab-notebook {
+        width: 100%;
+        padding: 0;
+    }
+
+    .special-notebook.lab-notebook .lab-tools-bar {
+        display: none;
+    }
+
+    .special-notebook.lab-notebook .lab-section,
+    .special-notebook.lab-notebook .lab-mini-card,
+    .special-notebook.lab-notebook .lab-meta-item,
+    .special-notebook.lab-notebook .lab-hero {
+        box-shadow: none;
+        break-inside: avoid;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .special-notebook.lab-notebook textarea,
+    .special-notebook.lab-notebook input,
+    .special-notebook.lab-notebook select {
+        color: #111 !important;
+        background: transparent !important;
+    }
+
+    .special-notebook.lab-notebook .lab-icon-btn,
+    .special-notebook.lab-notebook .lab-add-btn {
+        display: none;
+    }
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 900px) {
+    .special-notebook.lab-notebook .lab-meta {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+
+    .special-notebook.lab-notebook .lab-result-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 720px) {
+    .special-notebook.lab-notebook {
+        width: min(100%, calc(100% - 24px));
+        padding-top: 16px;
+    }
+
+    .special-notebook.lab-notebook .lab-hero {
+        grid-template-columns: 1fr;
+        padding: 21px;
+    }
+
+    .special-notebook.lab-notebook .lab-two-col,
+    .special-notebook.lab-notebook .lab-checks {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 520px) {
+    .special-notebook.lab-notebook .lab-meta {
+        grid-template-columns: 1fr;
+    }
+
+    .special-notebook.lab-notebook .lab-section-body {
+        padding: 13px;
+    }
+
+    .special-notebook.lab-notebook .lab-section-head {
+        padding: 0 14px;
+    }
+
+    .special-notebook.lab-notebook .lab-step {
+        grid-template-columns: 30px minmax(0,1fr) 32px;
+        gap: 7px;
+    }
+
+    .special-notebook.lab-notebook .lab-step-number {
+        width: 30px;
+        height: 30px;
+    }
+
+    .special-notebook.lab-notebook .lab-icon-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* =========================================================
+   ORION NOTEBOOK — UNIFIED WRITING TYPOGRAPHY
+   ========================================================= */
+.special-notebook.lab-notebook textarea,
+.special-notebook.lab-notebook input,
+.special-notebook.lab-notebook select,
+.special-notebook.lab-notebook button {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+}
+.special-notebook.lab-notebook .lab-field,
+.special-notebook.lab-notebook .lab-step textarea,
+.special-notebook.lab-notebook .lab-result-box,
+.special-notebook.lab-notebook .lab-side-field,
+.special-notebook.lab-notebook .lab-conclusion textarea {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif !important;
+    font-size: .91rem;
+    font-weight: 400;
+    line-height: 1.72;
+    letter-spacing: .005em;
+    font-style: normal;
+}
+.special-notebook.lab-notebook .lab-table input,
+.special-notebook.lab-notebook .lab-meta-item input,
+.special-notebook.lab-notebook .lab-check-row input[type="text"] {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif !important;
+    font-weight: 400;
+    letter-spacing: .005em;
+    font-style: normal;
+}
+.special-notebook.lab-notebook textarea::placeholder,
+.special-notebook.lab-notebook input::placeholder {
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif !important;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* =========================================================
+   ORION LAB — REFINED EDITION
+   Cleaner opening composition + subtle utility controls
+   ========================================================= */
+.special-notebook.lab-notebook { padding-top: 18px; }
+.special-notebook.lab-notebook .lab-hero {
+    grid-template-columns: minmax(0,1fr) auto;
+    padding: 21px 24px;
+    margin-bottom: 10px;
+    border-radius: 21px;
+}
+.special-notebook.lab-notebook .lab-title-row { gap: 13px; }
+.special-notebook.lab-notebook .lab-flask {
+    width: 48px; height: 48px; flex-basis: 48px;
+    border-radius: 15px; font-size: 23px;
+}
+.special-notebook.lab-notebook .lab-hero h2 { font-size: clamp(1.3rem,2vw,1.68rem); }
+.special-notebook.lab-notebook .lab-hero-subtitle { font-size: .84rem; margin-top: 5px; }
+.special-notebook.lab-notebook .lab-status { padding: 8px 11px; }
+
+/* Metadata becomes a quiet information rail instead of four bulky cards. */
+.special-notebook.lab-notebook .lab-meta {
+    grid-template-columns: 1fr 1.45fr 1fr 1.2fr;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+.special-notebook.lab-notebook .lab-meta-item {
+    padding: 10px 13px;
+    border-radius: 13px;
+    background: rgba(255,255,255,.48);
+    box-shadow: none;
+}
+.special-notebook.lab-notebook .lab-meta-item span { margin-bottom: 3px; font-size: .62rem; }
+.special-notebook.lab-notebook .lab-meta-item input { font-size: .84rem; }
+
+/* Utility bar: no longer looks like another full notebook section. */
+.special-notebook.lab-notebook .lab-tools-section {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    margin-bottom: 13px;
+}
+.special-notebook.lab-notebook .lab-tools-section .lab-section-body {
+    padding: 0;
+}
+.special-notebook.lab-notebook .lab-tools-bar {
+    display: grid;
+    grid-template-columns: minmax(170px,1fr) auto;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--lab-border);
+    border-radius: 15px;
+    background: rgba(255,255,255,.42);
+    box-shadow: 0 7px 22px rgba(69,57,91,.035);
+}
+.special-notebook.lab-notebook .lab-progress-wrap { min-width: 0; }
+.special-notebook.lab-notebook .lab-progress-top { margin-bottom: 5px; font-size: .66rem; }
+.special-notebook.lab-notebook .lab-progress-track { height: 6px; }
+.special-notebook.lab-notebook .lab-tool-actions { gap: 6px; }
+.special-notebook.lab-notebook .lab-tool-btn {
+    padding: 7px 9px;
+    border-radius: 9px;
+    background: rgba(255,255,255,.55);
+    font-size: .69rem;
+}
+.special-notebook.lab-notebook .lab-timer { padding: 7px 9px; min-width: 79px; font-size: .7rem; }
+
+/* Give every writing section a little more breathing room and hierarchy. */
+.special-notebook.lab-notebook .lab-two-col { gap: 12px; margin-bottom: 13px; }
+.special-notebook.lab-notebook .lab-mini-card { border-radius: 17px; }
+.special-notebook.lab-notebook .lab-mini-head { padding: 12px 15px; font-size: .83rem; }
+.special-notebook.lab-notebook .lab-field { min-height: 126px; }
+.special-notebook.lab-notebook .lab-section { margin-bottom: 13px; border-radius: 18px; }
+.special-notebook.lab-notebook .lab-section-head { min-height: 51px; }
+.special-notebook.lab-notebook .lab-section-body { padding: 15px; }
+
+/* Tiny writing counters keep long lab entries tidy. */
+.special-notebook.lab-notebook .lab-writing-wrap { position: relative; }
+.special-notebook.lab-notebook .lab-writing-wrap .lab-field { padding-bottom: 31px; }
+.special-notebook.lab-notebook .lab-word-count {
+    position: absolute;
+    right: 12px;
+    bottom: 8px;
+    color: var(--lab-muted);
+    font-size: .62rem;
+    font-weight: 650;
+    pointer-events: none;
+}
+
+/* Focus mode keeps the page calm while writing. */
+
+@media (max-width: 900px) {
+    .special-notebook.lab-notebook .lab-meta { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .special-notebook.lab-notebook .lab-tools-bar { grid-template-columns: 1fr; }
+    .special-notebook.lab-notebook .lab-tool-actions { justify-content: flex-start; }
+}
+@media (max-width: 520px) {
+    .special-notebook.lab-notebook .lab-meta { grid-template-columns: 1fr; }
+    .special-notebook.lab-notebook .lab-tools-bar { padding: 9px; }
+}
+
+</style>
+
+<div class="special-notebook lab-notebook">
 
     <!-- =====================================================
-         LAB & EXPERIMENTS INTRO
+         EXPERIMENT IDENTITY
          ===================================================== -->
 
-    <div class="workspace-intro">
-
-        <span class="workspace-icon">
-            🧪
-        </span>
-
-        <div>
-
-            <h2>
-                Lab & Experiments
-            </h2>
-
-            <p>
-                Record variables, observations, measurements,
-                results and conclusions.
-            </p>
-
+    <header class="lab-hero">
+        <div class="lab-title-row">
+            <div class="lab-flask" aria-hidden="true">🧪</div>
+            <div>
+                <p class="lab-eyebrow">Digital Laboratory Record</p>
+                <h2>Lab &amp; Experiments</h2>
+                <p class="lab-hero-subtitle">
+                    Plan the experiment, document the procedure, capture observations
+                    and finish with a clear conclusion.
+                </p>
+            </div>
         </div>
 
+        <div class="lab-status-wrap">
+            <select class="lab-status" data-note-field="lab_status" aria-label="Experiment status">
+                <option value="Draft">● Draft</option>
+                <option value="In Progress">● In Progress</option>
+                <option value="Completed">● Completed</option>
+            </select>
+        </div>
+    </header>
+
+
+    <!-- =====================================================
+         EXPERIMENT METADATA
+         ===================================================== -->
+
+    <div class="lab-meta">
+
+        <label class="lab-meta-item">
+            <span>Experiment No.</span>
+            <input type="text" data-note-field="experiment_no" placeholder="e.g. 04">
+        </label>
+
+        <label class="lab-meta-item">
+            <span>Subject / Course</span>
+            <input type="text" data-note-field="subject" placeholder="e.g. Data Structures">
+        </label>
+
+        <label class="lab-meta-item">
+            <span>Date</span>
+            <input type="date" data-note-field="experiment_date">
+        </label>
+
+        <label class="lab-meta-item">
+            <span>Instructor</span>
+            <input type="text" data-note-field="instructor" placeholder="Instructor name">
+        </label>
+
     </div>
 
 
     <!-- =====================================================
-         EXPERIMENT DETAILS
+         LAB TOOLS + COMPLETION
          ===================================================== -->
 
-    <div class="theory-grid">
+    <section class="lab-section lab-tools-section">
+        <div class="lab-section-body">
+            <div class="lab-tools-bar">
+                <div class="lab-progress-wrap">
+                    <div class="lab-progress-top">
+                        <span>Experiment completion</span>
+                        <strong id="labProgressText">0%</strong>
+                    </div>
+                    <div class="lab-progress-track" aria-label="Experiment completion progress">
+                        <div class="lab-progress-fill" id="labProgressFill"></div>
+                    </div>
+                </div>
+
+                <div class="lab-tool-actions">
+                    <div class="lab-timer" id="labTimer" aria-live="polite">⏱ 00:00:00</div>
+                    <button type="button" class="lab-tool-btn" id="labTimerToggle">Start Timer</button>
+                    <button type="button" class="lab-tool-btn" id="labTimerReset">Reset</button>
+                    <button type="button" class="lab-tool-btn" id="labSummary">Copy Summary</button>
+                    <button type="button" class="lab-tool-btn" id="labPrint">Print / PDF</button>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
-        <!-- Aim -->
+    <!-- =====================================================
+         AIM + SETUP
+         ===================================================== -->
 
-        <section class="special-card">
+    <div class="lab-two-col">
 
-            <div class="special-card-header">
-
-                🎯
-
-                <strong>
-                    Aim
-                </strong>
-
+        <section class="lab-mini-card">
+            <div class="lab-mini-head">
+                <span aria-hidden="true">🎯</span>
+                Aim
             </div>
 
-            <textarea
-                data-note-field="aim"
-                class="special-textarea"
-            ></textarea>
-
+            <div class="lab-writing-wrap">
+                <textarea
+                    class="lab-field lab-writing-field"
+                    data-note-field="aim"
+                    placeholder="State exactly what this experiment is intended to investigate or achieve..."
+                ></textarea>
+                <span class="lab-word-count" data-count-for="aim">0 words</span>
+            </div>
         </section>
 
 
-        <!-- Variables / Setup -->
-
-        <section class="special-card">
-
-            <div class="special-card-header">
-
-                ⚙️
-
-                <strong>
-                    Variables / Setup
-                </strong>
-
+        <section class="lab-mini-card">
+            <div class="lab-mini-head">
+                <span aria-hidden="true">🧰</span>
+                Materials / Setup
             </div>
 
             <textarea
+                class="lab-field lab-writing-field"
                 data-note-field="setup"
-                class="special-textarea"
+                placeholder="List apparatus, software, materials, variables and important setup details..."
             ></textarea>
-
-        </section>
-
-
-        <!-- Procedure -->
-
-        <section class="special-card">
-
-            <div class="special-card-header">
-
-                🔬
-
-                <strong>
-                    Procedure
-                </strong>
-
-            </div>
-
-            <textarea
-                data-note-field="procedure"
-                class="special-textarea"
-            ></textarea>
-
-        </section>
-
-
-        <!-- Observations / Results -->
-
-        <section class="special-card">
-
-            <div class="special-card-header">
-
-                📈
-
-                <strong>
-                    Observations / Results
-                </strong>
-
-            </div>
-
-            <textarea
-                data-note-field="results"
-                class="special-textarea"
-            ></textarea>
-
         </section>
 
     </div>
+
+
+    <!-- =====================================================
+         EXPERIMENT PLANNING
+         ===================================================== -->
+
+    <section class="lab-section">
+        <div class="lab-section-head">
+            <div class="lab-section-title">
+                <span aria-hidden="true">💡</span>
+                Experiment Planning
+                <small>think before you test</small>
+            </div>
+        </div>
+
+        <div class="lab-section-body">
+            <div class="lab-planning-grid">
+                <div class="lab-planning-card">
+                    <h4>Hypothesis / Expected Outcome</h4>
+                    <textarea
+                        class="lab-field lab-writing-field"
+                        data-note-field="hypothesis"
+                        placeholder="What do you expect to happen, and why?"
+                    ></textarea>
+                </div>
+
+                <div class="lab-planning-card">
+                    <h4>Variables / Conditions</h4>
+                    <textarea
+                        class="lab-field lab-writing-field"
+                        data-note-field="variables"
+                        placeholder="Independent variable, dependent variable, controls, conditions..."
+                    ></textarea>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =====================================================
+         PROCEDURE
+         ===================================================== -->
+
+    <section class="lab-section">
+
+        <div class="lab-section-head">
+            <div class="lab-section-title">
+                <span aria-hidden="true">🔬</span>
+                Procedure
+                <small>step-by-step record</small>
+            </div>
+        </div>
+
+        <div class="lab-section-body">
+
+            <div class="lab-step-list" id="labStepList">
+
+                <div class="lab-step">
+                    <div class="lab-step-number">01</div>
+                    <textarea data-lab-step placeholder="Describe the first step..."></textarea>
+                    <button type="button" class="lab-icon-btn" data-remove-step title="Remove step">×</button>
+                </div>
+
+                <div class="lab-step">
+                    <div class="lab-step-number">02</div>
+                    <textarea data-lab-step placeholder="Describe the second step..."></textarea>
+                    <button type="button" class="lab-icon-btn" data-remove-step title="Remove step">×</button>
+                </div>
+
+                <div class="lab-step">
+                    <div class="lab-step-number">03</div>
+                    <textarea data-lab-step placeholder="Describe the third step..."></textarea>
+                    <button type="button" class="lab-icon-btn" data-remove-step title="Remove step">×</button>
+                </div>
+
+            </div>
+
+            <button type="button" class="lab-add-btn" id="labAddStep">
+                + Add Procedure Step
+            </button>
+
+            <!-- Hidden compatibility field: the shared notebook saver stores this value. -->
+            <textarea
+                data-note-field="procedure"
+                id="labProcedureStore"
+                hidden
+            ></textarea>
+
+        </div>
+    </section>
+
+
+    <!-- =====================================================
+         OBSERVATIONS
+         ===================================================== -->
+
+    <section class="lab-section">
+
+        <div class="lab-section-head">
+            <div class="lab-section-title">
+                <span aria-hidden="true">📊</span>
+                Observations
+                <small>measurements &amp; recorded values</small>
+            </div>
+
+            <button type="button" class="lab-add-btn" id="labAddRow">
+                + Add Row
+            </button>
+        </div>
+
+        <div class="lab-section-body lab-table-wrap">
+
+            <table class="lab-table">
+                <thead>
+                    <tr>
+                        <th>Observation</th>
+                        <th>Value</th>
+                        <th>Unit</th>
+                        <th>Notes</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody id="labObservationBody">
+
+                    <tr>
+                        <td><input data-lab-cell placeholder="e.g. Trial 1"></td>
+                        <td><input data-lab-cell placeholder="Value"></td>
+                        <td><input data-lab-cell placeholder="Unit"></td>
+                        <td><input data-lab-cell placeholder="Observation / note"></td>
+                        <td>
+                            <button type="button" class="lab-icon-btn" data-remove-row title="Remove row">×</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input data-lab-cell placeholder="e.g. Trial 2"></td>
+                        <td><input data-lab-cell placeholder="Value"></td>
+                        <td><input data-lab-cell placeholder="Unit"></td>
+                        <td><input data-lab-cell placeholder="Observation / note"></td>
+                        <td>
+                            <button type="button" class="lab-icon-btn" data-remove-row title="Remove row">×</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input data-lab-cell placeholder="e.g. Trial 3"></td>
+                        <td><input data-lab-cell placeholder="Value"></td>
+                        <td><input data-lab-cell placeholder="Unit"></td>
+                        <td><input data-lab-cell placeholder="Observation / note"></td>
+                        <td>
+                            <button type="button" class="lab-icon-btn" data-remove-row title="Remove row">×</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <textarea
+                data-note-field="observations"
+                id="labObservationStore"
+                hidden
+            ></textarea>
+
+        </div>
+    </section>
+
+
+    <!-- =====================================================
+         RESULTS
+         ===================================================== -->
+
+    <section class="lab-section">
+
+        <div class="lab-section-head">
+            <div class="lab-section-title">
+                <span aria-hidden="true">📈</span>
+                Results &amp; Analysis
+            </div>
+        </div>
+
+        <div class="lab-section-body">
+
+            <div class="lab-result-grid">
+
+                <div class="lab-writing-wrap">
+                    <textarea
+                        class="lab-field lab-result-box"
+                        data-note-field="results"
+                        placeholder="Record the final result, calculations, interpretation and what the observations indicate..."
+                    ></textarea>
+                    <span class="lab-word-count" data-count-for="results">0 words</span>
+                </div>
+
+                <div class="lab-side-stack">
+
+                    <textarea
+                        class="lab-field lab-side-field lab-writing-field"
+                        data-note-field="errors"
+                        placeholder="⚠️ Sources of error..."
+                    ></textarea>
+
+                    <textarea
+                        class="lab-field lab-side-field lab-writing-field"
+                        data-note-field="precautions"
+                        placeholder="🛡️ Precautions..."
+                    ></textarea>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- =====================================================
+         CHECKLISTS
+         ===================================================== -->
+
+    <section class="lab-section lab-checklist-section">
+
+        <div class="lab-section-head">
+            <div class="lab-section-title">
+                <span aria-hidden="true">📝</span>
+                Lab Checklist
+                <small>quick completion check</small>
+            </div>
+        </div>
+
+        <div class="lab-section-body">
+
+            <div class="lab-checks">
+
+                <div class="lab-check-panel">
+                    <h4>Before the Experiment</h4>
+
+                    <div class="lab-check-list">
+                        <label class="lab-check-row">
+                            <input type="checkbox" data-note-field="materials_checked">
+                            Materials / apparatus ready
+                        </label>
+
+                        <label class="lab-check-row">
+                            <input type="checkbox" data-note-field="setup_checked">
+                            Setup verified
+                        </label>
+
+                        <label class="lab-check-row">
+                            <input type="checkbox" data-note-field="method_checked">
+                            Procedure reviewed
+                        </label>
+                    </div>
+                </div>
+
+
+                <div class="lab-check-panel">
+                    <h4>Before Submission</h4>
+
+                    <div class="lab-check-list">
+                        <label class="lab-check-row">
+                            <input type="checkbox" data-note-field="observations_checked">
+                            Observations recorded
+                        </label>
+
+                        <label class="lab-check-row">
+                            <input type="checkbox" data-note-field="result_checked">
+                            Result verified
+                        </label>
+
+                        <label class="lab-check-row">
+                            <input type="checkbox" data-note-field="conclusion_checked">
+                            Conclusion completed
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- =====================================================
+         REFLECTION + FOLLOW-UP
+         ===================================================== -->
+
+    <section class="lab-section">
+        <div class="lab-section-head">
+            <div class="lab-section-title">
+                <span aria-hidden="true">🧠</span>
+                Reflection &amp; Follow-up
+                <small>what comes next</small>
+            </div>
+        </div>
+
+        <div class="lab-section-body">
+            <div class="lab-writing-wrap">
+                <textarea
+                    class="lab-field lab-writing-field lab-quick-note"
+                    data-note-field="reflection"
+                    placeholder="Record what you learned, what you would change next time, or what experiment should be performed next..."
+                ></textarea>
+                <span class="lab-word-count" data-count-for="reflection">0 words</span>
+            </div>
+        </div>
+    </section>
 
 
     <!-- =====================================================
          CONCLUSION
          ===================================================== -->
 
-    <section class="special-card answer-card">
+    <section class="lab-section lab-conclusion">
 
-        <div class="special-card-header">
-
-            ✅
-
-            <strong>
+        <div class="lab-section-head">
+            <div class="lab-section-title">
+                <span aria-hidden="true">✅</span>
                 Conclusion
-            </strong>
-
+                <small>final takeaway</small>
+            </div>
         </div>
 
-        <textarea
-            data-note-field="content"
-            class="special-textarea"
-        >{{ page_data.content }}</textarea>
+        <div class="lab-section-body">
 
+            <div class="lab-writing-wrap">
+                <textarea
+                    class="lab-field"
+                    data-note-field="content"
+                    placeholder="Summarize the outcome of the experiment, whether the aim was achieved and the key learning..."
+                >{{ page_data.content }}</textarea>
+                <span class="lab-word-count" data-count-for="content">0 words</span>
+            </div>
+
+        </div>
     </section>
+
+
+    <!-- =====================================================
+         LAB NOTEBOOK INTERACTION
+         ===================================================== -->
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const root = document.querySelector(".lab-notebook");
+        if (!root) return;
+
+        const markChanged = () => {
+            if (typeof window.ORION_MARK_CHANGED === "function") {
+                window.ORION_MARK_CHANGED();
+            }
+        };
+
+        const procedureStore = root.querySelector("#labProcedureStore");
+        const observationStore = root.querySelector("#labObservationStore");
+        const stepList = root.querySelector("#labStepList");
+        const observationBody = root.querySelector("#labObservationBody");
+
+        function renumberSteps() {
+            stepList.querySelectorAll(".lab-step").forEach((step, index) => {
+                const number = step.querySelector(".lab-step-number");
+                if (number) number.textContent = String(index + 1).padStart(2, "0");
+            });
+        }
+
+        function syncProcedure() {
+            const values = [...stepList.querySelectorAll("[data-lab-step]")]
+                .map(el => el.value.trim())
+                .filter(Boolean);
+
+            if (procedureStore) procedureStore.value = values.join("\\n");
+            markChanged();
+        }
+
+        function syncObservations() {
+            const rows = [...observationBody.querySelectorAll("tr")];
+
+            const data = rows.map(row =>
+                [...row.querySelectorAll("[data-lab-cell]")]
+                    .map(input => input.value.trim())
+            );
+
+            if (observationStore) {
+                observationStore.value = JSON.stringify(data);
+            }
+
+            markChanged();
+        }
+
+        function addStep(value = "") {
+            const step = document.createElement("div");
+            step.className = "lab-step";
+
+            step.innerHTML = `
+                <div class="lab-step-number">00</div>
+                <textarea data-lab-step placeholder="Describe the next step..."></textarea>
+                <button type="button" class="lab-icon-btn" data-remove-step title="Remove step">×</button>
+            `;
+
+            step.querySelector("[data-lab-step]").value = value;
+            stepList.appendChild(step);
+            renumberSteps();
+            syncProcedure();
+        }
+
+        function addRow(values = ["", "", "", ""]) {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td><input data-lab-cell placeholder="Observation"></td>
+                <td><input data-lab-cell placeholder="Value"></td>
+                <td><input data-lab-cell placeholder="Unit"></td>
+                <td><input data-lab-cell placeholder="Observation / note"></td>
+                <td><button type="button" class="lab-icon-btn" data-remove-row title="Remove row">×</button></td>
+            `;
+
+            row.querySelectorAll("[data-lab-cell]").forEach((input, index) => {
+                input.value = values[index] || "";
+            });
+
+            observationBody.appendChild(row);
+            syncObservations();
+        }
+
+        root.querySelector("#labAddStep")?.addEventListener("click", () => addStep());
+
+        root.querySelector("#labAddRow")?.addEventListener("click", () => addRow());
+
+        root.addEventListener("click", function (event) {
+            const removeStep = event.target.closest("[data-remove-step]");
+            if (removeStep) {
+                const steps = stepList.querySelectorAll(".lab-step");
+
+                if (steps.length > 1) {
+                    removeStep.closest(".lab-step").remove();
+                    renumberSteps();
+                    syncProcedure();
+                }
+                return;
+            }
+
+            const removeRow = event.target.closest("[data-remove-row]");
+            if (removeRow) {
+                const rows = observationBody.querySelectorAll("tr");
+
+                if (rows.length > 1) {
+                    removeRow.closest("tr").remove();
+                    syncObservations();
+                }
+            }
+        });
+
+        root.addEventListener("input", function (event) {
+            if (event.target.matches("[data-lab-step]")) {
+                syncProcedure();
+            }
+
+            if (event.target.matches("[data-lab-cell]")) {
+                syncObservations();
+            }
+
+            markChanged();
+            updateWritingCounts();
+        });
+
+        /* Load saved procedure text into the step editor when available. */
+        if (procedureStore && procedureStore.value.trim()) {
+            const savedSteps = procedureStore.value
+                .split(/\r?\n/)
+                .map(v => v.trim())
+                .filter(Boolean);
+
+            if (savedSteps.length) {
+                stepList.innerHTML = "";
+                savedSteps.forEach(step => addStep(step));
+            }
+        }
+
+        /* Restore saved observation table when available. */
+        if (observationStore && observationStore.value.trim()) {
+            try {
+                const savedRows = JSON.parse(observationStore.value);
+
+                if (Array.isArray(savedRows) && savedRows.length) {
+                    observationBody.innerHTML = "";
+
+                    savedRows.forEach(row => {
+                        addRow(Array.isArray(row) ? row : ["","","",""]);
+                    });
+                }
+            } catch (error) {
+                console.warn("ORION Lab: unable to restore observations.", error);
+            }
+        }
+
+        /* ---------------------------------------------------------
+           LIVE COMPLETION METER
+           Counts the major editable sections and metadata.
+           It is visual only and does not replace the shared saver.
+           --------------------------------------------------------- */
+        const progressFill = root.querySelector("#labProgressFill");
+        const progressText = root.querySelector("#labProgressText");
+
+        function updateProgress() {
+            const fields = [
+                ...root.querySelectorAll("[data-note-field]"),
+                ...root.querySelectorAll("[data-lab-step]"),
+                ...root.querySelectorAll("[data-lab-cell]")
+            ].filter(el => !el.hidden && el.type !== "button");
+
+            const unique = [...new Set(fields)];
+            const completed = unique.filter(el => {
+                if (el.type === "checkbox") return el.checked;
+                return String(el.value || "").trim().length > 0;
+            }).length;
+
+            const percent = unique.length
+                ? Math.round((completed / unique.length) * 100)
+                : 0;
+
+            if (progressFill) progressFill.style.width = percent + "%";
+            if (progressText) progressText.textContent = percent + "%";
+        }
+
+        /* ---------------------------------------------------------
+           EXPERIMENT TIMER
+           Useful when the experiment has a measured run duration.
+           --------------------------------------------------------- */
+        const timer = root.querySelector("#labTimer");
+        const timerToggle = root.querySelector("#labTimerToggle");
+        const timerReset = root.querySelector("#labTimerReset");
+        let timerSeconds = 0;
+        let timerInterval = null;
+
+        function renderTimer() {
+            if (!timer) return;
+            const h = String(Math.floor(timerSeconds / 3600)).padStart(2, "0");
+            const m = String(Math.floor((timerSeconds % 3600) / 60)).padStart(2, "0");
+            const s = String(timerSeconds % 60).padStart(2, "0");
+            timer.textContent = `⏱ ${h}:${m}:${s}`;
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            timer?.classList.remove("running");
+            if (timerToggle) timerToggle.textContent = "Start Timer";
+        }
+
+        timerToggle?.addEventListener("click", () => {
+            if (timerInterval) {
+                stopTimer();
+                return;
+            }
+
+            timer?.classList.add("running");
+            timerToggle.textContent = "Pause Timer";
+            timerInterval = setInterval(() => {
+                timerSeconds += 1;
+                renderTimer();
+            }, 1000);
+        });
+
+        timerReset?.addEventListener("click", () => {
+            stopTimer();
+            timerSeconds = 0;
+            renderTimer();
+        });
+
+        /* ---------------------------------------------------------
+           WRITING COUNTERS
+           --------------------------------------------------------- */
+        function updateWritingCounts() {
+            root.querySelectorAll("[data-count-for]").forEach(counter => {
+                const field = root.querySelector(`[data-note-field="${counter.dataset.countFor}"]`);
+                if (!field) return;
+                const words = String(field.value || "").trim()
+                    ? String(field.value).trim().split(/\s+/).length : 0;
+                counter.textContent = `${words} word${words === 1 ? "" : "s"}`;
+            });
+        }
+/* ---------------------------------------------------------
+           COPY EXPERIMENT SUMMARY
+           --------------------------------------------------------- */
+        root.querySelector("#labSummary")?.addEventListener("click", async () => {
+            const value = key => root.querySelector(`[data-note-field="${key}"]`)?.value?.trim() || "—";
+            const steps = [...root.querySelectorAll("[data-lab-step]")]
+                .map((el, i) => el.value.trim() ? `${i + 1}. ${el.value.trim()}` : "")
+                .filter(Boolean).join("\n") || "—";
+            const summary = [
+                "ORION • LAB & EXPERIMENTS",
+                `Experiment: ${value("experiment_no")}`,
+                `Subject: ${value("subject")}`,
+                `Date: ${value("experiment_date")}`,
+                `Instructor: ${value("instructor")}`,
+                `\nAim:\n${value("aim")}`,
+                `\nProcedure:\n${steps}`,
+                `\nResults & Analysis:\n${value("results")}`,
+                `\nConclusion:\n${value("content")}`
+            ].join("\n");
+
+            try {
+                await navigator.clipboard.writeText(summary);
+                const btn = root.querySelector("#labSummary");
+                const old = btn.textContent;
+                btn.textContent = "Copied ✓";
+                setTimeout(() => { btn.textContent = old; }, 1400);
+            } catch (error) {
+                console.warn("ORION Lab: unable to copy summary.", error);
+            }
+        });
+
+        /* ---------------------------------------------------------
+           PRINT / SAVE AS PDF
+           --------------------------------------------------------- */
+        root.querySelector("#labPrint")?.addEventListener("click", () => {
+            stopTimer();
+            window.print();
+        });
+
+        root.addEventListener("change", updateProgress);
+
+        /* Initial state */
+        renderTimer();
+        updateProgress();
+        updateWritingCounts();
+        renumberSteps();
+    });
+    </script>
 
 </div>
