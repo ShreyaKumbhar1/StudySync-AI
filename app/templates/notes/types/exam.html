@@ -1,148 +1,1281 @@
-<div class="special-notebook">
+<link rel="stylesheet"
+      href="{{ url_for('static', filename='css/exam-notebook.css') }}">
 
-    <!-- =====================================================
-         EXAM PREP INTRO
-         ===================================================== -->
+<div class="exam-notebook special-notebook"
+     id="examNotebook">
 
-    <div class="workspace-intro">
+    <!-- =========================================================
+         EXAM HERO
+         ========================================================= -->
 
-        <span class="workspace-icon">
+    <section class="exam-hero">
+
+        <div class="exam-hero-icon">
             🎯
-        </span>
+        </div>
 
-        <div>
+        <div class="exam-hero-content">
+
+            <span class="exam-eyebrow">
+                EXAM PREPARATION
+            </span>
 
             <h2>
-                Exam Prep
+                Build your revision system
             </h2>
 
             <p>
-                Turn the syllabus into an actionable revision system.
+                Organise your syllabus, track your progress,
+                practise important questions and turn mistakes
+                into better preparation.
             </p>
 
-        </div>
+            <div class="exam-hero-badges">
 
-    </div>
+                <span class="exam-badge">
+                    <span>✦</span>
+                    Revision Mode
+                </span>
 
-
-    <!-- =====================================================
-         EXAM PREPARATION GRID
-         ===================================================== -->
-
-    <div class="theory-grid">
-
-
-        <!-- Syllabus -->
-
-        <section class="special-card">
-
-            <div class="special-card-header">
-
-                📋
-
-                <strong>
-                    Syllabus / Topics
-                </strong>
+                <span class="exam-badge exam-badge-soft">
+                    <span>◈</span>
+                    Smart Tracker
+                </span>
 
             </div>
-
-            <textarea
-                data-note-field="syllabus"
-                class="special-textarea"
-            ></textarea>
-
-        </section>
-
-
-        <!-- High Priority -->
-
-        <section class="special-card">
-
-            <div class="special-card-header">
-
-                🔥
-
-                <strong>
-                    High Priority
-                </strong>
-
-            </div>
-
-            <textarea
-                data-note-field="priority"
-                class="special-textarea"
-            ></textarea>
-
-        </section>
-
-
-        <!-- Important Questions -->
-
-        <section class="special-card">
-
-            <div class="special-card-header">
-
-                ❓
-
-                <strong>
-                    Important Questions
-                </strong>
-
-            </div>
-
-            <textarea
-                data-note-field="questions"
-                class="special-textarea"
-            ></textarea>
-
-        </section>
-
-
-        <!-- Mistakes Log -->
-
-        <section class="special-card">
-
-            <div class="special-card-header">
-
-                ❌
-
-                <strong>
-                    Mistakes Log
-                </strong>
-
-            </div>
-
-            <textarea
-                data-note-field="mistakes"
-                class="special-textarea"
-            ></textarea>
-
-        </section>
-
-    </div>
-
-
-    <!-- =====================================================
-         RAPID REVISION SHEET
-         ===================================================== -->
-
-    <section class="special-card">
-
-        <div class="special-card-header">
-
-            📝
-
-            <strong>
-                Rapid Revision Sheet
-            </strong>
 
         </div>
-
-        <textarea
-            data-note-field="content"
-            class="special-textarea project-main-editor"
-        >{{ page_data.content }}</textarea>
 
     </section>
 
+
+    <!-- =========================================================
+         QUICK ACTIONS
+         ========================================================= -->
+
+    <section class="exam-actions">
+
+        <button type="button"
+                class="exam-action-button"
+                data-scroll-target="syllabusTracker">
+
+            <span class="exam-action-icon">＋</span>
+
+            <span>
+                <strong>Add Topic</strong>
+                <small>Build your syllabus</small>
+            </span>
+
+        </button>
+
+
+        <button type="button"
+                class="exam-action-button"
+                data-scroll-target="questionBank">
+
+            <span class="exam-action-icon">?</span>
+
+            <span>
+                <strong>Add Question</strong>
+                <small>Build your question bank</small>
+            </span>
+
+        </button>
+
+
+        <button type="button"
+                class="exam-action-button"
+                data-scroll-target="formulaVault">
+
+            <span class="exam-action-icon">Σ</span>
+
+            <span>
+                <strong>Add Formula</strong>
+                <small>Save key concepts</small>
+            </span>
+
+        </button>
+
+
+        <button type="button"
+                class="exam-action-button exam-action-primary"
+                id="openRapidRevision">
+
+            <span class="exam-action-icon">⚡</span>
+
+            <span>
+                <strong>Rapid Revision</strong>
+                <small>Open focused review</small>
+            </span>
+
+        </button>
+
+    </section>
+
+
+    <!-- =========================================================
+         EXAM OVERVIEW
+         ========================================================= -->
+
+    <section class="exam-section exam-overview-section">
+
+        <div class="exam-section-heading">
+
+            <div>
+                <span class="exam-section-kicker">
+                    EXAM OVERVIEW
+                </span>
+
+                <h3>
+                    Know where you stand
+                </h3>
+
+                <p>
+                    Set your exam date and keep your preparation
+                    progress visible at a glance.
+                </p>
+            </div>
+
+            <div class="exam-countdown"
+                 id="examCountdown">
+
+                <span class="countdown-label">
+                    DAYS LEFT
+                </span>
+
+                <strong id="daysRemaining">
+                    —
+                </strong>
+
+                <span id="countdownText">
+                    Set an exam date
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="exam-overview-grid">
+
+            <div class="exam-overview-card exam-date-card">
+
+                <div class="overview-card-icon">
+                    📅
+                </div>
+
+                <div class="overview-card-body">
+
+                    <span>
+                        EXAM DATE
+                    </span>
+
+                    <input type="date"
+                           id="examDate"
+                           class="exam-date-input">
+
+                    <small>
+                        Your countdown updates automatically.
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="exam-stat-card">
+
+                <span class="exam-stat-icon">
+                    📚
+                </span>
+
+                <div>
+                    <small>
+                        TOTAL TOPICS
+                    </small>
+
+                    <strong id="totalTopics">
+                        0
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="exam-stat-card">
+
+                <span class="exam-stat-icon">
+                    ✓
+                </span>
+
+                <div>
+                    <small>
+                        MASTERED
+                    </small>
+
+                    <strong id="masteredTopics">
+                        0
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="exam-stat-card">
+
+                <span class="exam-stat-icon">
+                    %
+                </span>
+
+                <div>
+                    <small>
+                        PREPARATION
+                    </small>
+
+                    <strong id="overallProgress">
+                        0%
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="exam-progress-panel">
+
+            <div class="exam-progress-heading">
+
+                <div>
+                    <strong>
+                        Overall preparation
+                    </strong>
+
+                    <span id="overallProgressText">
+                        0% complete
+                    </span>
+                </div>
+
+                <strong id="overallProgressNumber">
+                    0%
+                </strong>
+
+            </div>
+
+            <div class="exam-progress-track">
+                <div class="exam-progress-fill"
+                     id="overallProgressBar"
+                     style="width:0%">
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         PREPARATION BREAKDOWN
+         ========================================================= -->
+
+    <section class="exam-section">
+
+        <div class="exam-section-heading compact">
+
+            <div>
+                <span class="exam-section-kicker">
+                    PREPARATION ANALYTICS
+                </span>
+
+                <h3>
+                    Your preparation breakdown
+                </h3>
+
+                <p>
+                    A quick view of the areas that matter most.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="exam-breakdown-grid">
+
+            <div class="breakdown-card">
+
+                <div class="breakdown-top">
+
+                    <div class="breakdown-icon">
+                        📖
+                    </div>
+
+                    <div>
+                        <strong>Syllabus mastery</strong>
+                        <span id="syllabusProgressLabel">0%</span>
+                    </div>
+
+                </div>
+
+                <div class="breakdown-track">
+                    <div id="syllabusProgressBar"
+                         class="breakdown-fill"
+                         style="width:0%">
+                    </div>
+                </div>
+
+                <small>
+                    Topics marked as Revised or Mastered
+                </small>
+
+            </div>
+
+
+            <div class="breakdown-card">
+
+                <div class="breakdown-top">
+
+                    <div class="breakdown-icon">
+                        ❓
+                    </div>
+
+                    <div>
+                        <strong>Question practice</strong>
+                        <span id="questionProgressLabel">0%</span>
+                    </div>
+
+                </div>
+
+                <div class="breakdown-track">
+                    <div id="questionProgressBar"
+                         class="breakdown-fill"
+                         style="width:0%">
+                    </div>
+                </div>
+
+                <small>
+                    Questions marked as practiced
+                </small>
+
+            </div>
+
+
+            <div class="breakdown-card">
+
+                <div class="breakdown-top">
+
+                    <div class="breakdown-icon">
+                        🔄
+                    </div>
+
+                    <div>
+                        <strong>Revision readiness</strong>
+                        <span id="revisionProgressLabel">0%</span>
+                    </div>
+
+                </div>
+
+                <div class="breakdown-track">
+                    <div id="revisionProgressBar"
+                         class="breakdown-fill"
+                         style="width:0%">
+                    </div>
+                </div>
+
+                <small>
+                    Topics that have reached revision stage
+                </small>
+
+            </div>
+
+
+            <div class="breakdown-card">
+
+                <div class="breakdown-top">
+
+                    <div class="breakdown-icon">
+                        ⚠
+                    </div>
+
+                    <div>
+                        <strong>Mistake review</strong>
+                        <span id="mistakeProgressLabel">0%</span>
+                    </div>
+
+                </div>
+
+                <div class="breakdown-track">
+                    <div id="mistakeProgressBar"
+                         class="breakdown-fill"
+                         style="width:0%">
+                    </div>
+                </div>
+
+                <small>
+                    Mistakes you have reviewed
+                </small>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         SYLLABUS TRACKER
+         ========================================================= -->
+
+    <section class="exam-section tracker-section"
+             id="syllabusTracker">
+
+        <div class="exam-section-heading">
+
+            <div>
+
+                <span class="exam-section-kicker">
+                    01 · SYLLABUS
+                </span>
+
+                <h3>
+                    Syllabus Tracker
+                </h3>
+
+                <p>
+                    Turn every chapter into a trackable preparation
+                    milestone.
+                </p>
+
+            </div>
+
+            <div class="tracker-counter">
+                <strong id="syllabusCounter">
+                    0 / 0
+                </strong>
+                <span>mastered</span>
+            </div>
+
+        </div>
+
+
+        <div class="exam-input-panel">
+
+            <div class="exam-input-main">
+
+                <input type="text"
+                       id="topicInput"
+                       class="exam-input"
+                       placeholder="Add a chapter or topic..."
+                       autocomplete="off">
+
+            </div>
+
+
+            <select id="topicPriority"
+                    class="exam-select">
+
+                <option value="critical">
+                    Critical
+                </option>
+
+                <option value="important"
+                        selected>
+                    Important
+                </option>
+
+                <option value="low">
+                    Low Priority
+                </option>
+
+            </select>
+
+
+            <button type="button"
+                    class="exam-add-button"
+                    id="addTopic">
+
+                <span>＋</span>
+                Add Topic
+
+            </button>
+
+        </div>
+
+
+        <div class="priority-legend">
+
+            <span>
+                <i class="priority-dot critical"></i>
+                Critical
+            </span>
+
+            <span>
+                <i class="priority-dot important"></i>
+                Important
+            </span>
+
+            <span>
+                <i class="priority-dot low"></i>
+                Low
+            </span>
+
+        </div>
+
+
+        <div class="topic-list"
+             id="topicList">
+
+            <div class="empty-state"
+                 id="topicEmpty">
+
+                <div class="empty-icon">
+                    📚
+                </div>
+
+                <strong>
+                    Your syllabus starts here
+                </strong>
+
+                <span>
+                    Add your first chapter or topic above.
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         QUESTION BANK
+         ========================================================= -->
+
+    <section class="exam-section tracker-section"
+             id="questionBank">
+
+        <div class="exam-section-heading">
+
+            <div>
+
+                <span class="exam-section-kicker">
+                    02 · PRACTICE
+                </span>
+
+                <h3>
+                    Important Questions
+                </h3>
+
+                <p>
+                    Keep the questions you absolutely want to practise
+                    before the exam in one place.
+                </p>
+
+            </div>
+
+            <div class="tracker-counter">
+                <strong id="questionCounter">
+                    0
+                </strong>
+                <span>practiced</span>
+            </div>
+
+        </div>
+
+
+        <div class="exam-input-panel question-input-panel">
+
+            <div class="exam-input-main">
+
+                <input type="text"
+                       id="questionInput"
+                       class="exam-input"
+                       placeholder="Type an important question..."
+                       autocomplete="off">
+
+            </div>
+
+
+            <select id="questionImportance"
+                    class="exam-select">
+
+                <option value="must">
+                    Must Know
+                </option>
+
+                <option value="important"
+                        selected>
+                    Important
+                </option>
+
+                <option value="practice">
+                    Practice
+                </option>
+
+            </select>
+
+
+            <button type="button"
+                    class="exam-add-button"
+                    id="addQuestion">
+
+                <span>＋</span>
+                Add Question
+
+            </button>
+
+        </div>
+
+
+        <div class="filter-row">
+
+            <button type="button"
+                    class="filter-button active"
+                    data-question-filter="all">
+
+                All
+
+            </button>
+
+            <button type="button"
+                    class="filter-button"
+                    data-question-filter="unpracticed">
+
+                Unpracticed
+
+            </button>
+
+            <button type="button"
+                    class="filter-button"
+                    data-question-filter="must">
+
+                Must Know
+
+            </button>
+
+        </div>
+
+
+        <div class="question-list"
+             id="questionList">
+
+            <div class="empty-state"
+                 id="questionEmpty">
+
+                <div class="empty-icon">
+                    ❓
+                </div>
+
+                <strong>
+                    No questions added yet
+                </strong>
+
+                <span>
+                    Add questions that deserve extra attention.
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         MISTAKE JOURNAL
+         ========================================================= -->
+
+    <section class="exam-section tracker-section"
+             id="mistakeJournal">
+
+        <div class="exam-section-heading">
+
+            <div>
+
+                <span class="exam-section-kicker">
+                    03 · LEARNING FROM MISTAKES
+                </span>
+
+                <h3>
+                    Mistake Journal
+                </h3>
+
+                <p>
+                    Record what went wrong and capture the correct
+                    approach so the same mistake becomes less likely.
+                </p>
+
+            </div>
+
+            <div class="tracker-counter">
+                <strong id="mistakeCounter">
+                    0
+                </strong>
+                <span>reviewed</span>
+            </div>
+
+        </div>
+
+
+        <div class="mistake-form">
+
+            <div class="exam-form-field full">
+
+                <label for="mistakeQuestion">
+                    Problem / Question
+                </label>
+
+                <input type="text"
+                       id="mistakeQuestion"
+                       class="exam-input"
+                       placeholder="What problem did you get wrong?">
+
+            </div>
+
+
+            <div class="exam-form-field">
+
+                <label for="mistakeWhat">
+                    What went wrong?
+                </label>
+
+                <textarea id="mistakeWhat"
+                          class="exam-textarea"
+                          placeholder="Describe the mistake..."></textarea>
+
+            </div>
+
+
+            <div class="exam-form-field">
+
+                <label for="mistakeCorrect">
+                    Correct approach
+                </label>
+
+                <textarea id="mistakeCorrect"
+                          class="exam-textarea"
+                          placeholder="Write the correct method..."></textarea>
+
+            </div>
+
+
+            <div class="exam-form-field full">
+
+                <label for="mistakeLesson">
+                    Lesson learned
+                </label>
+
+                <input type="text"
+                       id="mistakeLesson"
+                       class="exam-input"
+                       placeholder="What should you remember next time?">
+
+            </div>
+
+
+            <div class="mistake-form-footer">
+
+                <button type="button"
+                        class="exam-add-button"
+                        id="addMistake">
+
+                    <span>＋</span>
+                    Add to Journal
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="mistake-list"
+             id="mistakeList">
+
+            <div class="empty-state"
+                 id="mistakeEmpty">
+
+                <div class="empty-icon">
+                    ⚠
+                </div>
+
+                <strong>
+                    No mistakes logged
+                </strong>
+
+                <span>
+                    Your mistake journal will appear here.
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         FORMULA / DEFINITION VAULT
+         ========================================================= -->
+
+    <section class="exam-section tracker-section"
+             id="formulaVault">
+
+        <div class="exam-section-heading">
+
+            <div>
+
+                <span class="exam-section-kicker">
+                    04 · KNOWLEDGE VAULT
+                </span>
+
+                <h3>
+                    Formula & Definition Vault
+                </h3>
+
+                <p>
+                    Store formulas, definitions, concepts and shortcuts
+                    that you want available during revision.
+                </p>
+
+            </div>
+
+            <div class="vault-counter">
+                <strong id="vaultCounter">
+                    0
+                </strong>
+                <span>saved</span>
+            </div>
+
+        </div>
+
+
+        <div class="vault-form">
+
+            <div class="exam-form-field">
+
+                <label for="vaultTitle">
+                    Title
+                </label>
+
+                <input type="text"
+                       id="vaultTitle"
+                       class="exam-input"
+                       placeholder="e.g. Quadratic Formula">
+
+            </div>
+
+
+            <div class="exam-form-field">
+
+                <label for="vaultType">
+                    Type
+                </label>
+
+                <select id="vaultType"
+                        class="exam-select vault-type-select">
+
+                    <option value="formula">
+                        Formula
+                    </option>
+
+                    <option value="definition">
+                        Definition
+                    </option>
+
+                    <option value="concept">
+                        Concept
+                    </option>
+
+                    <option value="shortcut">
+                        Shortcut
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="exam-form-field full">
+
+                <label for="vaultBody">
+                    Explanation / Content
+                </label>
+
+                <textarea id="vaultBody"
+                          class="exam-textarea vault-body-input"
+                          placeholder="Write the formula, definition, explanation or shortcut..."></textarea>
+
+            </div>
+
+
+            <div class="vault-form-footer">
+
+                <button type="button"
+                        class="exam-add-button"
+                        id="addVaultItem">
+
+                    <span>＋</span>
+                    Save to Vault
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="vault-toolbar">
+
+            <div class="vault-search-wrap">
+
+                <span>⌕</span>
+
+                <input type="search"
+                       id="vaultSearch"
+                       placeholder="Search your vault...">
+
+            </div>
+
+        </div>
+
+
+        <div class="vault-list"
+             id="vaultList">
+
+            <div class="empty-state"
+                 id="vaultEmpty">
+
+                <div class="empty-icon">
+                    Σ
+                </div>
+
+                <strong>
+                    Your knowledge vault is empty
+                </strong>
+
+                <span>
+                    Save formulas, definitions and shortcuts here.
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         LEGACY FREEFORM NOTES
+         ========================================================= -->
+
+    <section class="exam-section freeform-section">
+
+        <div class="exam-section-heading compact">
+
+            <div>
+
+                <span class="exam-section-kicker">
+                    FREEFORM NOTES
+                </span>
+
+                <h3>
+                    Extra Exam Notes
+                </h3>
+
+                <p>
+                    Keep your original freeform notes alongside the
+                    structured preparation tools.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="legacy-notes-grid">
+
+            <section class="legacy-note-card">
+
+                <div class="legacy-note-header">
+                    <span>📋</span>
+
+                    <div>
+                        <strong>Syllabus Notes</strong>
+                        <small>Additional chapter notes</small>
+                    </div>
+                </div>
+
+                <textarea
+                    data-note-field="syllabus"
+                    class="special-textarea legacy-textarea"
+                    placeholder="Write additional syllabus notes here..."
+                ></textarea>
+
+            </section>
+
+
+            <section class="legacy-note-card">
+
+                <div class="legacy-note-header">
+                    <span>🔥</span>
+
+                    <div>
+                        <strong>Priority Notes</strong>
+                        <small>Topics that need attention</small>
+                    </div>
+                </div>
+
+                <textarea
+                    data-note-field="priority"
+                    class="special-textarea legacy-textarea"
+                    placeholder="Write your priority notes here..."
+                ></textarea>
+
+            </section>
+
+
+            <section class="legacy-note-card">
+
+                <div class="legacy-note-header">
+                    <span>❓</span>
+
+                    <div>
+                        <strong>Question Notes</strong>
+                        <small>Additional question ideas</small>
+                    </div>
+                </div>
+
+                <textarea
+                    data-note-field="questions"
+                    class="special-textarea legacy-textarea"
+                    placeholder="Write additional question notes here..."
+                ></textarea>
+
+            </section>
+
+
+            <section class="legacy-note-card">
+
+                <div class="legacy-note-header">
+                    <span>⚠</span>
+
+                    <div>
+                        <strong>Mistake Notes</strong>
+                        <small>General observations</small>
+                    </div>
+                </div>
+
+                <textarea
+                    data-note-field="mistakes"
+                    class="special-textarea legacy-textarea"
+                    placeholder="Write additional mistake notes here..."
+                ></textarea>
+
+            </section>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         RAPID REVISION SHEET
+         ========================================================= -->
+
+    <section class="exam-section rapid-sheet-section">
+
+        <div class="rapid-sheet-header">
+
+            <div>
+
+                <span class="exam-section-kicker">
+                    FINAL REVIEW
+                </span>
+
+                <h3>
+                    Rapid Revision Sheet
+                </h3>
+
+                <p>
+                    Keep the most important information in one
+                    distraction-free space.
+                </p>
+
+            </div>
+
+            <span class="rapid-tip">
+                ✦ Keep it concise
+            </span>
+
+        </div>
+
+
+        <div class="revision-paper">
+
+            <div class="revision-paper-top">
+
+                <div>
+                    <span>REVISION NOTES</span>
+                </div>
+
+                <div>
+                    KEY POINTS · FORMULAS · DEFINITIONS · SHORTCUTS
+                </div>
+
+            </div>
+
+
+            <textarea
+                data-note-field="content"
+                class="special-textarea project-main-editor revision-editor"
+                placeholder="Write your final rapid revision notes here..."
+            >{{ page_data.content }}</textarea>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================================
+         RAPID REVISION MODAL
+         ========================================================= -->
+
+    <div class="rapid-modal"
+         id="rapidRevisionModal"
+         aria-hidden="true">
+
+        <div class="rapid-modal-backdrop"
+             id="closeRapidRevisionBackdrop">
+        </div>
+
+
+        <div class="rapid-modal-window">
+
+            <header class="rapid-modal-header">
+
+                <div>
+
+                    <span class="exam-section-kicker">
+                        ORION · RAPID REVISION
+                    </span>
+
+                    <h2>
+                        Final Review Mode
+                    </h2>
+
+                    <p>
+                        Your most important preparation material,
+                        condensed into one focused view.
+                    </p>
+
+                </div>
+
+
+                <button type="button"
+                        class="rapid-close-button"
+                        id="closeRapidRevision"
+                        aria-label="Close rapid revision">
+
+                    ×
+
+                </button>
+
+            </header>
+
+
+            <div class="rapid-modal-search">
+
+                <span>⌕</span>
+
+                <input type="search"
+                       id="rapidSearch"
+                       placeholder="Search topics, questions, formulas or mistakes...">
+
+            </div>
+
+
+            <div class="rapid-modal-content"
+                 id="rapidRevisionContent">
+
+                <div class="rapid-column">
+
+                    <div class="rapid-column-heading">
+                        <span>📚</span>
+                        <strong>Topics</strong>
+                    </div>
+
+                    <div id="rapidTopics"
+                         class="rapid-items">
+                    </div>
+
+                </div>
+
+
+                <div class="rapid-column">
+
+                    <div class="rapid-column-heading">
+                        <span>❓</span>
+                        <strong>Must Know Questions</strong>
+                    </div>
+
+                    <div id="rapidQuestions"
+                         class="rapid-items">
+                    </div>
+
+                </div>
+
+
+                <div class="rapid-column">
+
+                    <div class="rapid-column-heading">
+                        <span>Σ</span>
+                        <strong>Formula Vault</strong>
+                    </div>
+
+                    <div id="rapidVault"
+                         class="rapid-items">
+                    </div>
+
+                </div>
+
+
+                <div class="rapid-column">
+
+                    <div class="rapid-column-heading">
+                        <span>⚠</span>
+                        <strong>Mistakes</strong>
+                    </div>
+
+                    <div id="rapidMistakes"
+                         class="rapid-items">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================================
+         FOOTER
+         ========================================================= -->
+
+    <div class="exam-footer-note">
+
+        <span>✦</span>
+
+        <p>
+            A good revision system turns preparation into progress.
+        </p>
+
+        <span>✦</span>
+
+    </div>
+
 </div>
+
+
+<script src="{{ url_for('static', filename='js/exam-notebook.js') }}"></script>
