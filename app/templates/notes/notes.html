@@ -10,18 +10,30 @@
     ) }}"
 >
 
+<link
+    rel="stylesheet"
+    href="{{ url_for(
+        'static',
+        filename='css/notes-dashboard.css'
+    ) }}"
+>
+
 {% endblock %}
 
 
 {% block content %}
 
-<section class="notes-page">
+<section class="notes-page notes-dashboard-page">
 
-    <header class="notes-header">
+    <!-- =====================================================
+         NOTES HERO
+         ===================================================== -->
+
+    <header class="notes-header notes-dashboard-header">
 
         <div class="notes-header-copy">
 
-            <h1>
+            <h1 id="notesGreeting">
                 Notes
             </h1>
 
@@ -34,7 +46,7 @@
 
         <a
             href="{{ url_for('notes.create_notebook') }}"
-            class="notes-create-btn"
+            class="notes-create-btn notes-dashboard-create"
         >
             <span>＋</span>
             New Notebook
@@ -43,49 +55,260 @@
     </header>
 
 
-    <section class="notes-toolbar">
+    <!-- =====================================================
+         LIBRARY PULSE
+         ===================================================== -->
 
-        <div class="notes-search">
+    {% set total_pages = notebooks|map(attribute='pages')|map('length')|sum %}
+    {% set subject_list = notebooks
+        |map(attribute='subject')
+        |select
+        |list
+        |unique
+        |list
+    %}
 
-            <span>⌕</span>
+    <section class="notes-library-pulse">
 
-            <input
-                type="text"
-                id="notebookSearch"
-                placeholder="Search your notebooks..."
-                autocomplete="off"
-            >
+        <div class="pulse-intro">
+
+            <span class="pulse-icon">
+                ✦
+            </span>
+
+            <div>
+                <strong>
+                    Your Library
+                </strong>
+
+                <span>
+                    Everything you are learning, in one place.
+                </span>
+            </div>
 
         </div>
 
 
-        <div class="notes-filter">
+        <div class="pulse-stat">
+
+            <strong id="notebookCount">
+                {{ notebooks|length }}
+            </strong>
+
+            <span>
+                Notebooks
+            </span>
+
+        </div>
+
+
+        <div class="pulse-stat">
+
+            <strong>
+                {{ total_pages }}
+            </strong>
+
+            <span>
+                Pages
+            </span>
+
+        </div>
+
+
+        <div class="pulse-stat">
+
+            <strong>
+                {{ subject_list|length }}
+            </strong>
+
+            <span>
+                Subjects
+            </span>
+
+        </div>
+
+
+        <div class="pulse-spark">
+
+            <span>
+                ✨
+            </span>
+
+            <div>
+
+                <small>
+                    STUDY SPARK
+                </small>
+
+                <strong id="studySpark">
+                    Small progress is still progress.
+                </strong>
+
+            </div>
 
             <button
                 type="button"
-                class="filter-btn active"
-                data-filter="all"
+                id="sparkButton"
+                aria-label="Show another study tip"
             >
-                All
+                ↻
             </button>
-
-            {% for key, info in notebook_types.items() %}
-
-                <button
-                    type="button"
-                    class="filter-btn"
-                    data-filter="{{ key }}"
-                >
-                    {{ info.icon }}
-                    {{ info.name }}
-                </button>
-
-            {% endfor %}
 
         </div>
 
     </section>
 
+
+    <!-- =====================================================
+         TOOLBAR
+         ===================================================== -->
+
+    <section class="notes-toolbar notes-dashboard-toolbar">
+
+        <div class="notes-toolbar-main">
+
+            <div class="notes-search">
+
+                <span>
+                    ⌕
+                </span>
+
+                <input
+                    type="text"
+                    id="notebookSearch"
+                    placeholder="Search your notebooks..."
+                    autocomplete="off"
+                    aria-label="Search notebooks"
+                >
+
+                <button
+                    type="button"
+                    class="notes-search-clear"
+                    id="clearNotebookSearch"
+                    aria-label="Clear search"
+                    hidden
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="notes-sort-wrap">
+
+                <label for="notebookSort">
+                    Sort by
+                </label>
+
+                <select
+                    id="notebookSort"
+                    class="notes-sort-select"
+                    aria-label="Sort notebooks"
+                >
+
+                    <option value="recent">
+                        Recently Updated
+                    </option>
+
+                    <option value="name-asc">
+                        Name A → Z
+                    </option>
+
+                    <option value="name-desc">
+                        Name Z → A
+                    </option>
+
+                    <option value="pages-desc">
+                        Most Pages
+                    </option>
+
+                    <option value="type">
+                        Notebook Type
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="notes-view-toggle">
+
+                <button
+                    type="button"
+                    class="view-toggle-btn active"
+                    data-view="grid"
+                    aria-label="Grid view"
+                    title="Grid view"
+                >
+                    ▦
+                </button>
+
+                <button
+                    type="button"
+                    class="view-toggle-btn"
+                    data-view="compact"
+                    aria-label="Compact view"
+                    title="Compact view"
+                >
+                    ☷
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="notes-toolbar-bottom">
+
+            <div class="notes-filter">
+
+                <button
+                    type="button"
+                    class="filter-btn active"
+                    data-filter="all"
+                >
+                    All
+                </button>
+
+
+                {% for key, info in notebook_types.items() %}
+
+                    <button
+                        type="button"
+                        class="filter-btn"
+                        data-filter="{{ key }}"
+                    >
+                        {{ info.icon }}
+                        {{ info.name }}
+                    </button>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div
+                class="notes-result-count"
+                id="notesResultCount"
+            >
+                Showing {{ notebooks|length }}
+
+                {% if notebooks|length == 1 %}
+                    notebook
+                {% else %}
+                    notebooks
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         NOTEBOOKS
+         ===================================================== -->
 
     {% if notebooks %}
 
@@ -100,7 +323,14 @@
                     class="notebook-card"
                     style="--notebook-accent: {{ notebook.color or '#9b8ddd' }}"
                     data-type="{{ notebook.notebook_type }}"
+                    data-type-name="{{ notebook_types.get(
+                        notebook.notebook_type,
+                        notebook_types['general']
+                    ).name|lower }}"
+                    data-title="{{ notebook.title|lower }}"
+                    data-pages="{{ notebook.pages|length }}"
                     data-search="{{ notebook.title|lower }} {{ notebook.subject|default('', true)|lower }}"
+                    data-original-index="{{ loop.index0 }}"
                 >
 
                     <div class="notebook-card-top">
@@ -139,9 +369,11 @@
                                     ) }}"
                                     onsubmit="return confirm('Delete this notebook and all its pages?');"
                                 >
+
                                     <button type="submit">
                                         Delete
                                     </button>
+
                                 </form>
 
                             </div>
@@ -206,13 +438,17 @@
                     <div class="notebook-card-footer">
 
                         <span>
+
                             {{ notebook.pages|length }}
+
                             {% if notebook.pages|length == 1 %}
                                 page
                             {% else %}
                                 pages
                             {% endif %}
+
                         </span>
+
 
                         <span>
                             Open →
@@ -226,6 +462,10 @@
 
         </section>
 
+
+        <!-- =================================================
+             EMPTY SEARCH
+             ================================================= -->
 
         <div
             class="notes-empty-search"
@@ -242,18 +482,36 @@
             </h3>
 
             <p>
-                Try a different search or filter.
+                Try a different search, filter or sorting option.
             </p>
+
+            <button
+                type="button"
+                id="resetNotebookView"
+                class="notes-reset-btn"
+            >
+                Reset View
+            </button>
 
         </div>
 
+
     {% else %}
 
-        <section class="notes-empty-state">
+
+        <!-- =================================================
+             EMPTY LIBRARY
+             ================================================= -->
+
+        <section class="notes-empty-state notes-dashboard-empty">
 
             <div class="empty-notes-icon">
                 📚
             </div>
+
+            <span class="empty-state-label">
+                YOUR LIBRARY IS READY
+            </span>
 
             <h2>
                 Your knowledge space is empty.
@@ -274,10 +532,41 @@
 
     {% endif %}
 
+
+    <!-- =====================================================
+         FOOTER HINT
+         ===================================================== -->
+
+    {% if notebooks %}
+
+        <div class="notes-keyboard-hint">
+
+            <span class="keyboard-key">
+                /
+            </span>
+
+            <span>
+                Press <strong>/</strong> anytime to search your notebooks
+            </span>
+
+        </div>
+
+    {% endif %}
+
+
 </section>
 
 {% endblock %}
 
 
 {% block head_extra %}
+
+<script
+    src="{{ url_for(
+        'static',
+        filename='js/notes.js'
+    ) }}"
+    defer
+></script>
+
 {% endblock %}
